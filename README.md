@@ -1,6 +1,14 @@
 # statsbomb-loader
 statsbomb loader
 
+- Cargar datos desde https://github.com/statsbomb/open-data into postgres.
+
+- WIP para challenge RAG de Microsoft:
+https://github.com/microsoft/RAG_Hack?tab=readme-ov-file#raghack-lets-build-rag-applications-together
+
+- Evento oficial: https://reactor.microsoft.com/es-es/reactor/events/23332/
+
+
 ## Instala las dependencias:
 
 Copiar código
