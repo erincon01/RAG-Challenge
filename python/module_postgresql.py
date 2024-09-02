@@ -313,7 +313,7 @@ def load_matches_data(server, database, username, password, dir_source, num_file
     print(f"Proceso completado. Se procesaron {i} archivos.")
 
 
-def update_embeddings(server, database, username, password, tablename, num_rows=-1):
+def update_embeddings(server, database, username, password, tablename, batch_size, num_rows=-1):
 
     try:        
         # Connect to the database
@@ -326,6 +326,17 @@ def update_embeddings(server, database, username, password, tablename, num_rows=
         
         cursor = conn.cursor()
 
+        # pintar servidor y base de datos
+        
+        # contar las filas que no tienen embeddings y pintarlo en pantalla
+        count_query = sql.SQL(f"""
+            SELECT COUNT(*) FROM {tablename}
+            WHERE embeddings IS NULL AND json_ IS NOT NULL
+        """)
+        cursor.execute(count_query)
+        count = cursor.fetchone()[0]
+        print(f"Total de filas en tabla [{tablename}] sin procesar: {count}. Tamaño del lote {batch_size}.", end="")
+
         # Consulta para actualizar las filas
         update_query = sql.SQL(f"""
             UPDATE {tablename}
@@ -334,7 +345,7 @@ def update_embeddings(server, database, username, password, tablename, num_rows=
                 SELECT id FROM {tablename} 
                 WHERE embeddings IS NULL AND 
                 json_ IS NOT NULL
-                LIMIT 1
+                LIMIT {batch_size}
             )
         """)
 
@@ -350,9 +361,13 @@ def update_embeddings(server, database, username, password, tablename, num_rows=
             if rows_affected == 0:
                 break
 
+            # pintar punto sin saltar de linea
+            print(".", end="")
+
             # Imprimir cada 10 iteraciones si num_rows es diferente de -1
-            if num_rows != -1 and (processed_rows % 10 == 0):
-                print(f"Procesado {processed_rows} filas.")
+            if (processed_rows % 100 == 0):
+                print()
+                print(f"Procesado {processed_rows} filas.", end="")
             
             # Romper el bucle si alcanzamos el número de filas a actualizar especificado
             if num_rows != -1 and processed_rows >= num_rows:
@@ -375,7 +390,7 @@ def put_data_into_postgres(server, database, username, password, dir_source):
 
     load_lineups_data(server, database, username, password, dir_source, -1, interactive=False)
     load_events_data(server, database, username, password, dir_source, -1, interactive=False)
-    load_matches_data(server, database, username, password, dir_source, -1)
+    load_matches_data(server, database, username, password, dir_source, -1, interactive=False)
 
 
 
