@@ -5,7 +5,7 @@ import psycopg2
 from psycopg2 import sql
 import pandas as pd
 from module_github import get_github_data
-from module_postgresql import put_data_into_postgres
+from module_postgresql import put_data_into_postgres, update_embeddings
 
 if __name__ == "__main__":
 
@@ -13,11 +13,12 @@ if __name__ == "__main__":
 
     repo_owner = os.getenv('REPO_OWNER')
     repo_name = os.getenv('REPO_NAME')
-    datasets = os.getenv('DATASETS').split(',')
+    datasets = os.getenv('DATASETS')
     dir_destino = os.getenv('DIR_DESTINO')
     dir_source = os.getenv('DIR_FUENTE')
     
     # remove wait spaces
+    datasets = datasets.split(',')
     datasets = [dataset.strip() for dataset in datasets]
 
     server = os.getenv('DB_SERVER')
@@ -31,6 +32,9 @@ if __name__ == "__main__":
     dir_source = dir_destino
 
     # cargar datos en postgres desde directorio fuente (dir_source)
-    put_data_into_postgres(server, database, username, password, dir_destino)
+    #put_data_into_postgres(server, database, username, password, dir_destino)
 
-
+    update_embeddings(server, database, username, password, "lineups", -1)
+    update_embeddings(server, database, username, password, "events_details", -1)
+    # update_embeddings(server, database, username, password, "events", -1)
+    update_embeddings(server, database, username, password, "matches", -1)

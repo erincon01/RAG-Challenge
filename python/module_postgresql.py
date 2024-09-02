@@ -312,11 +312,71 @@ def load_matches_data(server, database, username, password, dir_source, num_file
     conn.close()
     print(f"Proceso completado. Se procesaron {i} archivos.")
 
+
+def update_embeddings(server, database, username, password, tablename, num_rows=-1):
+
+    try:        
+        # Connect to the database
+        conn = psycopg2.connect(
+            host=server,
+            database=database,
+            user=username,
+            password=password
+        )
+        
+        cursor = conn.cursor()
+
+        # Consulta para actualizar las filas
+        update_query = sql.SQL(f"""
+            UPDATE {tablename}
+            SET embeddings = azure_openai.create_embeddings('text-embedding-ada-002', json_)
+            WHERE id IN (
+                SELECT id FROM {tablename} 
+                WHERE embeddings IS NULL AND 
+                json_ IS NOT NULL
+                LIMIT 1
+            )
+        """)
+
+        processed_rows = 0
+
+        while True:
+            cursor.execute(update_query)
+            conn.commit()
+            rows_affected = cursor.rowcount
+            processed_rows += rows_affected
+
+            # Romper el bucle si no se afectaron filas (cuando no hay más filas que coincidan con la condición)
+            if rows_affected == 0:
+                break
+
+            # Imprimir cada 10 iteraciones si num_rows es diferente de -1
+            if num_rows != -1 and (processed_rows % 10 == 0):
+                print(f"Procesado {processed_rows} filas.")
+            
+            # Romper el bucle si alcanzamos el número de filas a actualizar especificado
+            if num_rows != -1 and processed_rows >= num_rows:
+                break
+
+        print(f"Total de filas procesadas: {processed_rows}.")
+
+    except Exception as e:
+        print(f"Error al conectar o ejecutar la consulta en la base de datos: {e}")
+
+    finally:
+        # Cerrar el cursor y la conexión
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
 def put_data_into_postgres(server, database, username, password, dir_source):
 
     load_lineups_data(server, database, username, password, dir_source, -1, interactive=False)
     load_events_data(server, database, username, password, dir_source, -1, interactive=False)
-    load_matches_data(server, database, username, password, dir_source, -1, interactive=False)
+    load_matches_data(server, database, username, password, dir_source, -1)
+
 
 
 
