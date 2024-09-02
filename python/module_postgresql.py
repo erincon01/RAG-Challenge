@@ -313,7 +313,24 @@ def load_matches_data(server, database, username, password, dir_source, num_file
     print(f"Proceso completado. Se procesaron {i} archivos.")
 
 
-def update_embeddings(server, database, username, password, tablename, batch_size, num_rows=-1):
+def update_embeddings(server, database, username, password, model, tablename, batch_size, num_rows=-1):
+
+    # si model es azure_open_ai, usar la función create_embeddings de azure_openai
+    # si model es azure_local_ai, usar la función create_embeddings de azure_local_ai
+
+    function_name = ""
+    model_name = ""
+    if model == "azure_open_ai":
+        function_name = "azure_openai.create_embeddings"
+        model_name = "text-embedding-ada-002"
+        
+    elif model == "azure_local_ai":
+        function_name = "azure_local_ai.create_embeddings"  # Cambiar por el nombre correcto de la función
+        model_name = "multilingual-e5-small:v1"  # Cambiar por el nombre correcto del modelo
+
+    else:
+        print(f"Modelo no soportado: {model}")
+        return
 
     try:        
         # Connect to the database
@@ -340,7 +357,7 @@ def update_embeddings(server, database, username, password, tablename, batch_siz
         # Consulta para actualizar las filas
         update_query = sql.SQL(f"""
             UPDATE {tablename}
-            SET embeddings = azure_openai.create_embeddings('text-embedding-ada-002', json_)
+            SET embeddings = {function_name}('{model_name}', json_)
             WHERE id IN (
                 SELECT id FROM {tablename} 
                 WHERE embeddings IS NULL AND 
@@ -388,11 +405,6 @@ def update_embeddings(server, database, username, password, tablename, batch_siz
 
 def put_data_into_postgres(server, database, username, password, dir_source):
 
-    load_lineups_data(server, database, username, password, dir_source, -1, interactive=False)
-    load_events_data(server, database, username, password, dir_source, -1, interactive=False)
+    # load_lineups_data(server, database, username, password, dir_source, -1, interactive=False)
+    # load_events_data(server, database, username, password, dir_source, -1, interactive=False)
     load_matches_data(server, database, username, password, dir_source, -1, interactive=False)
-
-
-
-
-

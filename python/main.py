@@ -32,9 +32,14 @@ if __name__ == "__main__":
     dir_source = dir_destino
 
     # cargar datos en postgres desde directorio fuente (dir_source)
-    #put_data_into_postgres(server, database, username, password, dir_destino)
+    # put_data_into_postgres(server, database, username, password, dir_destino)
 
-    # update_embeddings(server, database, username, password, "events", -1) # tabla events tiene json_ enorme, dificil de procesar en azure_open_ai
-    update_embeddings(server, database, username, password, "lineups", 10,  -1)
-    update_embeddings(server, database, username, password, "events_details", 10, -1)
-    update_embeddings(server, database, username, password, "matches", 10, -1)
+    # for azure_open_ai, o azure_local_ai
+    model = "azure_local_ai" # azure_open_ai, 
+    # azure_local_ai (ver documentación azure_open_ai solo soportado en regiones concretas y Memory Optimized, E4ds_v5, 4 vCores, 32 GiB RAM, 128 GiB storage)
+
+    update_embeddings(server, database, username, password, model, "events", 10, -1) # tabla events tiene json_ enorme, dificil de procesar en azure_open_ai
+    update_embeddings(server, database, username, password, model, "lineups", 10,  -1)
+    update_embeddings(server, database, username, password, model, "events_details", 10, -1)
+    update_embeddings(server, database, username, password, model, "matches", 10, -1)
+
