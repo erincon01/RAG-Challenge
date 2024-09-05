@@ -1,11 +1,28 @@
+"""
+Main script for loading data from GitHub and storing it in a PostgreSQL database.
+This script retrieves data from a GitHub repository and saves it locally. Then, it loads the data into a PostgreSQL database.
+Environment variables:
+- REPO_OWNER: The owner of the GitHub repository.
+- REPO_NAME: The name of the GitHub repository.
+- DATASETS: Comma-separated list of datasets to download from the repository.
+- DIR_DESTINO: The destination directory to save the downloaded datasets.
+- DIR_FUENTE: The source directory containing the downloaded datasets.
+- DB_SERVER: The server address of the PostgreSQL database.
+- DB_NAME: The name of the PostgreSQL database.
+- DB_USER: The username for accessing the PostgreSQL database.
+- DB_PASSWORD: The password for accessing the PostgreSQL database.
+Functions:
+- put_data_into_postgres: Loads data from the source directory into the PostgreSQL database.
+- update_embeddings: Updates embeddings in the specified table using the specified model.
+Usage:
+1. Set the required environment variables.
+2. Run the script.
+Note: The script assumes that the necessary modules 'module_github' and 'module_postgresql' are available.
+"""
+
 import os
-import json
-import requests
-import psycopg2
-from psycopg2 import sql
-import pandas as pd
-from module_github import get_github_data
 from module_postgresql import put_data_into_postgres, update_embeddings
+from module_github import get_github_data, get_github_data_from_matches
 
 if __name__ == "__main__":
 
@@ -17,7 +34,7 @@ if __name__ == "__main__":
     dir_destino = os.getenv('DIR_DESTINO')
     dir_source = os.getenv('DIR_FUENTE')
     
-    # remove wait spaces
+    # Remove white spaces from datasets
     datasets = datasets.split(',')
     datasets = [dataset.strip() for dataset in datasets]
 
@@ -26,20 +43,24 @@ if __name__ == "__main__":
     username = os.getenv('DB_USER')
     password = os.getenv('DB_PASSWORD')
 
-    # bajar datos desde repositorio de github a directorio destino (dir_destino)
-    # get_github_data (repo_owner, repo_name, datasets, dir_destino)
+    # Download data from GitHub repository to destination directory (dir_destino)
+    # get_github_data(repo_owner, repo_name, datasets, dir_destino)
+
+    # get_github_data_from_matches(repo_owner, repo_name, "lineups", dir_destino, server, database, username, password)
+    # get_github_data_from_matches(repo_owner, repo_name, "events", dir_destino, server, database, username, password)
 
     dir_source = dir_destino
 
-    # cargar datos en postgres desde directorio fuente (dir_source)
-    # put_data_into_postgres(server, database, username, password, dir_destino)
+    # Load data into PostgreSQL from source directory (dir_source)
+    put_data_into_postgres(server, database, username, password, dir_source)
 
-    # for azure_open_ai, o azure_local_ai
-    model = "azure_local_ai" # azure_open_ai, 
-    # azure_local_ai (ver documentación azure_open_ai solo soportado en regiones concretas y Memory Optimized, E4ds_v5, 4 vCores, 32 GiB RAM, 128 GiB storage)
+    # For azure_open_ai or azure_local_ai
+    model = "azure_local_ai"  # azure_open_ai,
+    # azure_local_ai (see azure_open_ai documentation, only supported in specific regions and Memory Optimized, E4ds_v5, 4 vCores, 32 GiB RAM, 128 GiB storage)
 
-    update_embeddings(server, database, username, password, model, "events", 10, -1) # tabla events tiene json_ enorme, dificil de procesar en azure_open_ai
-    update_embeddings(server, database, username, password, model, "lineups", 10,  -1)
-    update_embeddings(server, database, username, password, model, "events_details", 10, -1)
-    update_embeddings(server, database, username, password, model, "matches", 10, -1)
+    # Update embeddings for different tables
+    # update_embeddings(server, database, username, password, model, "events", 10, -1)  # The "events" table has a large JSON field, difficult to process in azure_open_ai
+    # update_embeddings(server, database, username, password, model, "lineups", 10, -1)
+    # update_embeddings(server, database, username, password, model, "events_details", 10, -1)
+    # update_embeddings(server, database, username, password, model, "matches", 10, -1)
 

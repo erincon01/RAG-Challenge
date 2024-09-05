@@ -1,109 +1,161 @@
 # statsbomb-loader
 statsbomb loader
 
-- Cargar datos desde https://github.com/statsbomb/open-data into postgres.
+- Load data from https://github.com/statsbomb/open-data into postgres.
 
-- WIP para challenge RAG de Microsoft:
+- WIP for Microsoft RAG challenge:
 https://github.com/microsoft/RAG_Hack?tab=readme-ov-file#raghack-lets-build-rag-applications-together
 
-- Evento oficial: https://reactor.microsoft.com/es-es/reactor/events/23332/
+- Official event: https://reactor.microsoft.com/es-es/reactor/events/23332/
 
 
-## Instala las dependencias:
+## Install dependencies:
 
-Copiar código
+Copy code
 ```bash
 pip install -r requirements.txt
 ```
 
-## Configura las variables de entorno:
+## Configure environment variables:
 
-Rellena el archivo .env con tus datos.
+Fill in the .env file with your data.
 
 ```bash
-    # URL base para acceder a los datos en GitHub
+    # Base URL to access data on GitHub
     BASE_URL=https://github.com/statsbomb/open-data/raw/master/data
 
     REPO_OWNER=statsbomb
     REPO_NAME=open-data
     DATASETS=events, lineups, matches, three-sixty
-    DIR_DESTINO=./data
-    DIR_FUENTE=./data
+    DIR_DESTINATION=./data
+    DIR_SOURCE=./data
 
-    # Configuración de la base de datos
+    # Database configuration
     DB_SERVER=your_server_name.database.windows.net
     DB_NAME=your_database_name
     DB_USER=your_username
     DB_PASSWORD=your_password
 ```
 
-Ejecuta el script:
+Run the script:
 
 ```bash
 python main.py
 ```
 
 
-## utilización de vector databases en SQL PaaS:
+## Usage of vector databases in SQL PaaS:
 
 - feature: https://github.com/Azure-Samples/azure-sql-db-vector-search
-- requerimientos: https://github.com/Azure-Samples/azure-sql-db-vector-search?tab=readme-ov-file#prerequisites
-- darse de alta: https://aka.ms/azuresql-vector-eap
+- requirements: https://github.com/Azure-Samples/azure-sql-db-vector-search?tab=readme-ov-file#prerequisites
+- sign up: https://aka.ms/azuresql-vector-eap
 
 
-## caso de uso
+## Use case
 
 ```bash
     +-----------------------------------------+
-    |               Usuario                   |
+    |               User                      |
     |-----------------------------------------|
-    | Hace una pregunta al chatbot de OpenAI  |
+    | Asks a question to the OpenAI chatbot   |
     +-------------------+---------------------+
                         |
                         v
     +-------------------+---------------------+
-    |           Chatbot de OpenAI             |
+    |           OpenAI Chatbot                |
     |-----------------------------------------|
-    | 1. Recibe la pregunta del usuario       |
-    | 2. Envía la consulta al Plugin          |
+    | 1. Receives the user's question         |
+    | 2. Sends the query to the Plugin        |
     +-------------------+---------------------+
                         |
                         v
     +-------------------+---------------------+
-    |           Plugin de Búsqueda            |
+    |           Search Plugin                 |
     |-----------------------------------------|
-    | 1. Genera el embedding de la consulta   |
-    |    utilizando OpenAI                    |
-    | 2. Realiza una consulta semántica       |
-    |    en la base de datos PostgreSQL       |
+    | 1. Generates the query embedding using   |
+    |    OpenAI                                |
+    | 2. Performs a semantic search in the     |
+    |    PostgreSQL database                  |
     +-------------------+---------------------+
                         |
                         v
     +-------------------+---------------------+
-    |       PostgreSQL con pgvector           |
+    |       PostgreSQL with pgvector          |
     |-----------------------------------------|
-    | 1. Almacena datos de jugadores con      |
-    |    embeddings                           |
-    | 2. Realiza búsqueda basada en la        |
-    |    similitud de embeddings              |
-    | 3. Devuelve resultados relevantes       |
+    | 1. Stores player data with embeddings    |
+    | 2. Performs search based on embedding    |
+    |    similarity                            |
+    | 3. Returns relevant results              |
     +-------------------+---------------------+
                         |
                         v
     +-------------------+---------------------+
-    |           Plugin de Búsqueda            |
+    |           Search Plugin                 |
     |-----------------------------------------|
-    | 1. Recibe los resultados de PostgreSQL  |
-    | 2. Genera un resumen o respuesta usando |
-    |    OpenAI (si es necesario)             |
+    | 1. Receives results from PostgreSQL     |
+    | 2. Generates a summary or response using |
+    |    OpenAI (if necessary)                 |
     +-------------------+---------------------+
                         |
                         v
     +-------------------+---------------------+
-    |           Chatbot de OpenAI             |
+    |           OpenAI Chatbot                |
     |-----------------------------------------|
-    | 1. Recibe la respuesta del Plugin       |
-    | 2. Presenta la respuesta al usuario     |
+    | 1. Receives the response from the Plugin |
+    | 2. Presents the response to the user     |
     +-----------------------------------------+
 
 ```
+
+
+## Data distribution
+
+this script is located in [tables_data_distribution](.\postgres\tables_data_distribution.sql)
+
+
+### competitions by country/region
+```bash
+select competition_country, count(distinct season_name) seasons
+from matches m
+group by competition_country
+order by seasons DESC limit 10;
+```
+
+![alt text](.\images\image.png)
+
+### competitions by country/region
+```bash
+select competition_country, count(distinct competition_name) competitions
+from matches m
+group by competition_country
+order by competitions DESC limit 10;
+```
+![alt text](.\images\image-1.png)
+
+### seasons by country/region
+```bash
+select distinct competition_country, season_name
+from matches m
+order by competition_country limit 10;
+```
+
+![alt text](.\images\image-2.png)
+
+### seasons by country/region
+```bash
+select distinct competition_country, season_name
+from matches m
+order by season_name limit 10;
+```
+
+![alt text](.\images\image-3.png)
+
+### recent season by country/region
+```bash
+select competition_country, competition_name, season_name, count(*) matches
+group by competition_country, competition_name, season_name
+order by season_name DESC limit 15;
+```
+
+![alt text](.\images\image-4.png)
+
