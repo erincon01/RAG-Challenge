@@ -77,7 +77,7 @@ if __name__ == "__main__":
     openai_temperature = float(os.getenv('OPENAI_TEMPERATURE', 0.1))
 
     match_id = 3943043
-    rows_per_batch = 50
+    rows_per_batch = 20
     start_time = datetime.now()
 
     file_batch_size = 10
@@ -95,7 +95,7 @@ if __name__ == "__main__":
         total_num_files += 1
 
     # Loop from_time to to_time with batch_size increment
-    i=2950
+    i=0
     while i < count:
         batch_start_time = datetime.now()
         num_files_in_batch += 1
