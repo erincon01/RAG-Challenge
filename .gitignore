@@ -1,3 +1,8 @@
 .env
-/data/
+/data/events/
+/data/lineups/
+/data/matches/
+/data/three-sixty/
+
+
 *.pyc
