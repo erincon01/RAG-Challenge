@@ -121,7 +121,7 @@ group by competition_country
 order by seasons DESC limit 10;
 ```
 
-![alt text](images\image.png)
+![alt text](images/image.png)
 
 ### competitions by country/region
 ```bash
@@ -130,7 +130,7 @@ from matches m
 group by competition_country
 order by competitions DESC limit 10;
 ```
-![alt text](images\image-1.png)
+![alt text](images/image-1.png)
 
 ### seasons by country/region
 ```bash
@@ -139,7 +139,7 @@ from matches m
 order by competition_country limit 10;
 ```
 
-![alt text](images\image-2.png)
+![alt text](images/image-2.png)
 
 ### seasons by country/region
 ```bash
@@ -148,7 +148,7 @@ from matches m
 order by season_name limit 10;
 ```
 
-![alt text](images\image-3.png)
+![alt text](images/image-3.png)
 
 ### recent season by country/region
 ```bash
