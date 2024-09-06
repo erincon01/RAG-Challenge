@@ -157,5 +157,5 @@ group by competition_country, competition_name, season_name
 order by season_name DESC limit 15;
 ```
 
-![alt text]\images\image-4.png)
+![alt text](images/image-4.png)
 
