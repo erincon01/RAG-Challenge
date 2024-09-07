@@ -1,11 +1,9 @@
 import os
 import json
-import pandas as pd
-
 import psycopg2
 from psycopg2 import sql
 
-def load_lineups_data(server, database, username, password, dir_source, num_files = -1, interactive = False):
+def load_lineups_data(server, database, username, password, local_folder):
     """
     Connects to a PostgreSQL database and imports lineup data from JSON files into specified database tables.
     Processes each JSON file, extracting relevant team and player information, and performs SQL insert operations
@@ -17,9 +15,7 @@ def load_lineups_data(server, database, username, password, dir_source, num_file
     - database (str): The name of the PostgreSQL database to connect to.
     - username (str): The username used to authenticate with the database.
     - password (str): The password used to authenticate with the database.
-    - dir_source (str): The directory path where the lineup JSON files are stored.
-    - num_files (int, optional): The maximum number of files to process; defaults to -1, which indicates all files should be processed.
-    - interactive (bool, optional): If True, prompts the user to confirm before proceeding with file processing.
+    - local_folder (str): The directory path where the lineup JSON files are stored.
 
     Functionality:
     - Database Connection: Establishes a connection to the PostgreSQL database using provided credentials.
@@ -47,7 +43,7 @@ def load_lineups_data(server, database, username, password, dir_source, num_file
     cursor = conn.cursor()
     # events files
 
-    eventsPath = os.path.join(dir_source, 'lineups')
+    eventsPath = os.path.join(local_folder, 'lineups')
 
     for root, dirs, files in os.walk(eventsPath):
 
@@ -56,25 +52,14 @@ def load_lineups_data(server, database, username, password, dir_source, num_file
         print(f"Processing {len(files)} [lineups] files...")
         print("---------------------------------------------")
 
-        # if interactive is True, ask the user if they want to proceed
-        if interactive:
-            # if the user responds with Y or y, proceed, otherwise exit
-            if input("Are you sure you want to continue? (Y/N): ").upper() != "Y":
-                print("Process canceled by the user.")
-                return
-
         i=0
 
         for file in files:
             i+=1
 
-            # if i+1>num_files, exit
-            if num_files > 0 and i+1 > num_files:
-                break
-
             if file.endswith(".json"):
 
-                # The file name is the match_id, like 134141.json (according to the documentation)
+                # The file name is the match_id, example: 134141.json (according to the docs)
                 match_id = file.replace('.json', '')
 
                 # Check if the match_id already exists in the matches table
@@ -177,14 +162,14 @@ def load_lineups_data(server, database, username, password, dir_source, num_file
 
                 conn.commit()
 
-                print(f"Lineups ({i}/{len(files)}). Inserted data for match_id [{match_id}]: {data[0]['team_name']}, {data[1]['team_name']}")
+                print(f"Lineups ({i}/{len(files)}). Inserted data for match_id {match_id} into [lineups] table: home:{data[0]['team_name']}, away:{data[1]['team_name']}.")
 
     # Close the connection
     cursor.close()
     conn.close()
 
 
-def load_events_data(server, database, username, password, dir_source, num_files = -1, interactive = False):
+def load_events_data(server, database, username, password, local_folder):
     """
     Connects to a PostgreSQL database and imports event data from JSON files into specified database tables.
     This function processes event files, extracting detailed event information, and performs SQL insert operations
@@ -196,9 +181,7 @@ def load_events_data(server, database, username, password, dir_source, num_files
     - database (str): The name of the PostgreSQL database to connect to.
     - username (str): The username used to authenticate with the database.
     - password (str): The password used to authenticate with the database.
-    - dir_source (str): The directory path where the event JSON files are stored.
-    - num_files (int, optional): The maximum number of files to process; defaults to -1, indicating all files should be processed.
-    - interactive (bool, optional): If True, prompts the user to confirm before processing each batch of files.
+    - local_folder (str): The directory path where the event JSON files are stored.
 
     Functionality:
     - Database Connection: Establishes a connection to the PostgreSQL database using provided credentials.
@@ -224,7 +207,7 @@ def load_events_data(server, database, username, password, dir_source, num_files
     cursor = conn.cursor()
 
     # Path to the events files
-    eventsPath = os.path.join(dir_source, 'events')
+    eventsPath = os.path.join(local_folder, 'events')
 
     for root, dirs, files in os.walk(eventsPath):
 
@@ -233,22 +216,11 @@ def load_events_data(server, database, username, password, dir_source, num_files
         print(f"Processing {len(files)} [Events] files...")
         print("---------------------------------------------")
 
-        # if interactive is True, ask the user if they want to proceed
-        if interactive:
-            # if the user responds with Y or y, proceed, otherwise exit
-            if input("Are you sure you want to continue? (Y/N): ").upper() != "Y":
-                print("Process canceled by the user.")
-                return
-
         i = 0
 
         for file in files:
 
             i += 1
-
-            # if i+1>num_files, exit
-            if num_files > 0 and i+1 > num_files:
-                break
 
             if file.endswith(".json"):
 
@@ -334,7 +306,7 @@ def load_events_data(server, database, username, password, dir_source, num_files
                 # Commit the changes
                 conn.commit()
 
-                print(f"Events ({i}/{len(files)}). Inserted data for match_id [{file}]: Event: {match_id}")
+                print(f"Events ({i}/{len(files)}). Inserted data for match_id {match_id} into [events] and [events_details] tables.")
 
     # Close the connection
     cursor.close()
@@ -342,7 +314,7 @@ def load_events_data(server, database, username, password, dir_source, num_files
 
 
 
-def load_matches_data(server, database, username, password, dir_source, num_files=-1, interactive=False):
+def load_matches_data_into_db(local_folder, server, database, username, password):
     """
     Connects to a PostgreSQL database and imports match data from JSON files into specified database tables.
     This function processes match files, extracting detailed match information, including team, player, and game event details,
@@ -350,13 +322,11 @@ def load_matches_data(server, database, username, password, dir_source, num_file
     and includes an interactive mode for user control over the execution process.
 
     Parameters:
+    - local_folder (str): The directory path where the match JSON files are stored.
     - server (str): The hostname or IP address of the PostgreSQL server.
     - database (str): The name of the PostgreSQL database to connect to.
     - username (str): The username used to authenticate with the database.
     - password (str): The password used to authenticate with the database.
-    - dir_source (str): The directory path where the match JSON files are stored.
-    - num_files (int, optional): The maximum number of files to process; defaults to -1, indicating all files should be processed.
-    - interactive (bool, optional): If True, prompts the user to confirm before processing each batch of files.
 
     Functionality:
     - Database Connection: Establishes a connection to the PostgreSQL database using provided credentials.
@@ -384,7 +354,7 @@ def load_matches_data(server, database, username, password, dir_source, num_file
     cursor = conn.cursor()
 
     # Path to the match files
-    matchesPath = os.path.join(dir_source, 'matches')
+    matchesPath = os.path.join(local_folder, 'matches')
     total_files = 0
 
     # Count the total number of JSON files
@@ -400,11 +370,6 @@ def load_matches_data(server, database, username, password, dir_source, num_file
 
     print(f"Processing {total_files} [Matches] files...")
     print("---------------------------------------------")
-
-    if interactive:
-        if input("Are you sure you want to continue? (Y/N): ").upper() != "Y":
-            print("Process canceled by the user.")
-            return
 
     i=0
     j=0
@@ -424,8 +389,6 @@ def load_matches_data(server, database, username, password, dir_source, num_file
                 if file.endswith(".json"):
 
                     i+=1
-                    if num_files > 0 and i > num_files:
-                        break
 
                     file_path = os.path.join(dir_path, file)
                     season_id = file.replace('.json', '')
@@ -529,9 +492,6 @@ def load_matches_data(server, database, username, password, dir_source, num_file
                         away = data['away_team']['away_team_name'].replace("'", "''")
 
                         print(f"Matches ({i}-{j}/{total_files}: {file}): Inserted data - match_id:{data['match_id']}, {data['match_date']}, {home}-{away}")
-
-                        if num_files > 0 and j >= num_files:
-                            break
 
     cursor.close()
     conn.close()
@@ -654,10 +614,3 @@ def update_embeddings(server, database, username, password, model, tablename, ba
             cursor.close()
         if conn:
             conn.close()
-
-
-def put_data_into_postgres(server, database, username, password, dir_source):
-
-    # load_lineups_data(server, database, username, password, dir_source, -1, interactive=False)
-    # load_events_data(server, database, username, password, dir_source, -1, interactive=False)
-    load_matches_data(server, database, username, password, dir_source, -1, interactive=False)

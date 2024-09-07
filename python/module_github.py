@@ -4,30 +4,11 @@ import pandas as pd
 import psycopg2
 from psycopg2 import sql
 
-def fetch_json_data(url):
-    """
-    Fetches JSON data from a given URL.
-    Args:
-        url (str): The URL to fetch JSON data from.
-    Returns:
-        dict: The JSON data retrieved from the URL.
-    Raises:
-        HTTPError: If the HTTP request returns a 4xx or 5xx status code.
-    """
-    response.raise_for_status()
-
-    # Fetch JSON data from a URL
-    response = requests.get(url)
-    response.raise_for_status()  # Raise exception for 4xx/5xx HTTP status codes
-    return response.json()
-
-
-import requests
-import pandas as pd
-
 def get_json_list(repo_owner, repo_name, dataset):
     """
     Retrieves a list of JSON files from a GitHub repository.
+    It traverses the first level subdirs in the repository to find JSON files and their URLs.
+    It does not handle nested subdirectories. It does not handle pagination.
     Args:
         repo_owner (str): The owner of the GitHub repository.
         repo_name (str): The name of the GitHub repository.
@@ -46,50 +27,24 @@ def get_json_list(repo_owner, repo_name, dataset):
     # Base GitHub API URL
     api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/data/{dataset}"
     json_files = []
-    page = 1
-    per_page = 1000  # GitHub API max per page
 
     try:
-        while True:
-            # Make the request to the API with pagination
-            response = requests.get(api_url, params={'page': page, 'per_page': per_page})
-            
-            if response.status_code == 200:
-                files = response.json()
-                
-                if not files:
-                    break  # Exit loop if no more files
-                
-                # Extract JSON files from the current page
-                json_files += [[dataset, "", file['download_url']] for file in files if file['name'].endswith('.json')]
-                
-                # Process subdirectories
-                subdirs = [file['name'] for file in files if file['type'] == 'dir']
-                
-                for subdir in subdirs:
-                    subdir_url = f"{api_url}/{subdir}"
-                    subdir_page = 1
-                    
-                    while True:
-                        subdir_response = requests.get(subdir_url, params={'page': subdir_page, 'per_page': per_page})
-                        
-                        if subdir_response.status_code == 200:
-                            subdir_files = subdir_response.json()
-                            
-                            if not subdir_files:
-                                break  # Exit loop if no more files in subdir
-                            
-                            # Add JSON files from subdirectories
-                            json_files += [[dataset, subdir, file['download_url']] for file in subdir_files if file['name'].endswith('.json')]
-                            subdir_page += 1
-                        else:
-                            print(f"Error retrieving files in subdirectory: {subdir_response.status_code, subdir_response.text}")
-                            break
-                
-                page += 1
-            else:
-                print(f"Error retrieving files: {response.status_code, response.text}")
-                break
+
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            files = response.json()
+            subdirs = [file['name'] for file in files if file['type'] == 'dir']
+
+            # for each subdir, get the list of files
+            for subdir in subdirs:
+
+                subdir_url = f"{api_url}/{subdir}"
+                subdir_response = requests.get(subdir_url)
+                if subdir_response.status_code == 200:
+                    subdir_files = subdir_response.json()
+                    json_files += [[dataset, subdir, file['download_url']] for file in subdir_files if file['name'].endswith('.json')]
+                else:
+                    print(f"Error retrieving files in subdirectory: {subdir_response.status_code, subdir_response.text}")
 
     except (requests.exceptions.HTTPError, 
             requests.exceptions.ConnectionError, 
@@ -168,46 +123,49 @@ def download_file(url, path, dir, subdir):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-def get_github_data(repo_owner, repo_name, datasets, dir_destino):
+def get_github_data(repo_owner, repo_name, dataset, local_folder):
     """
-    Retrieves data from a GitHub repository for the specified datasets and saves them to the specified directory.
+    Retrieves data from a GitHub repository for the specified dataset and saves them to the specified directory.
+    It respect the structure of the repository, and download the files in the subdirectories.
+    For example, data in the repository is stored in the following structure:
+    - data
+        - matches
+            - 1
+                - 1.json
+                - 2.json
+            - 2
+                - 221.json
+                - 112.json
+    
     Parameters:
     - repo_owner (str): The owner of the GitHub repository.
     - repo_name (str): The name of the GitHub repository.
-    - datasets (list): A list of datasets to retrieve from the repository.
-    - dir_destino (str): The destination directory to save the downloaded files.
+    - dataset (str): The dataset to get the data.
+    - local_folder (str): The local directory to save the downloaded files.
     Returns:
     None
     """
 
+    # Get the list of JSON files for the dataset
+    json_urls = get_json_list(repo_owner, repo_name, dataset)
 
-    # OLD PROCESS. NOT NECESARY FOR LINEUPS AND EVENTS.
-    # STILL VALID FOR MATCHES
+    # Save the list of the Json_urls to a CSV file, and print the path where the Csv file is stored
+    json_urls.to_csv(f"{local_folder}/{dataset}_urls.csv", index=False)
+    print(f"File {dataset}_urls.csv saved in {local_folder}")
 
-    # For each dataset
-    for dataset in datasets:
-        json_urls = get_json_list(repo_owner, repo_name, dataset)
+    # Assign the result of group by dataset, counting the number of records per dataset, to variable c
+    c = json_urls.groupby(['dataset']).size().reset_index(name='counts')
+    print(c)
 
-        # guardar json_urls en un archivo csv
-        json_urls.to_csv(f"{dir_destino}/{dataset}_urls.csv", index=False)
+    for _, row in json_urls.iterrows():
+        dataset = row['dataset']
+        subdir = row['subdir']
+        file_url = row['url']
+        print(f"dataset: {dataset}, subdir: {subdir}, url: {file_url}", end=" ")
 
-        # pintar la ruta del archivo csv
-        print(f"File {dataset}_urls.csv saved in {dir_destino}")
+        download_file(file_url, local_folder, dataset, subdir)
 
-
-        # Assign the result of group by dataset, counting the number of records per dataset, to variable c
-        c = json_urls.groupby(['dataset']).size().reset_index(name='counts')
-        print(c)
-
-        for _, row in json_urls.iterrows():
-            dataset = row['dataset']
-            subdir = row['subdir']
-            file_url = row['url']
-            print(f"dataset: {dataset}, subdir: {subdir}, url: {file_url}")
-
-            download_file(file_url, dir_destino, dataset, subdir)
-
-def  get_github_data_from_matches(repo_owner, repo_name, dataset, dir_destino, server, database, username, password):
+def  get_github_data_from_matches(repo_owner, repo_name, dataset, local_folder, server, database, username, password):
 
     try:        
         # Connect to the database
@@ -220,26 +178,26 @@ def  get_github_data_from_matches(repo_owner, repo_name, dataset, dir_destino, s
         
         cursor = conn.cursor()
 
-        count_query = sql.SQL(f"""select distinct match_id from matches where 
-                              not exists (select * from {dataset} where {dataset}.match_id = matches.match_id)""")
+        count_query = sql.SQL(f"""select distinct match_id from matches order by match_id""")
 
         cursor.execute(count_query)
 
-        # poner en variable c el número de registros
+        # Store the number of records in variable c
         number_of_rows = cursor.rowcount
         i=1
 
-        # para cada match_id, descargar los datos de lineups y events
+        # For each match_id, download the data for the specified dataset
         for match_id in cursor.fetchall():
             match_id = match_id[0]
 
-            # https://raw.githubusercontent.com/statsbomb/open-data/master/data/lineups/3888713.json
+            # examples:
+            # https://raw.githubusercontent.com/statsbomb/open-data/master/data/lineups/3943043.json
+            # https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/3943043.json
 
             file_url = f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/master/data/{dataset}/{match_id}.json"
-            download_file(file_url, dir_destino, dataset, "")
+            print(f"[{i}/{number_of_rows}] Source:{file_url}.", end=" ")
 
-            # pintar la ruta del archivo csv
-            print(f"[{i}/{number_of_rows}] File {match_id}.json saved in {dir_destino}/{dataset}")
+            download_file(file_url, local_folder, dataset, "")
             i+=1
 
     except Exception as e:

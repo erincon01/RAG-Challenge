@@ -40,15 +40,16 @@ CREATE TABLE matches (
     referee_id INT,
     referee_name VARCHAR(255),
     referee_country VARCHAR(255),
-    
+
     json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    embeddings VECTOR(1536) NULL  -- Embedding vector for semantic searches
 );
 
--- Select all rows from the matches table
+-- Select all rows from the 'matches' table
 SELECT * FROM matches;
 
 
+-- Drop the 'lineups' table if it already exists
 DROP TABLE IF EXISTS lineups;
 
 -- Create the 'lineups' table
@@ -62,10 +63,10 @@ CREATE TABLE lineups (
 
     -- data
     json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    embeddings VECTOR(1536) NULL  -- Embedding vector for semantic searches
 );
 
--- Select all rows from the lineups table
+-- Select all rows from the 'lineups' table
 SELECT * FROM lineups;
 
 
@@ -102,15 +103,16 @@ CREATE TABLE events (
     id SERIAL PRIMARY KEY,         
     match_id INTEGER,              
     json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    embeddings VECTOR(1536) NULL  -- Embedding vector for semantic searches
 );
 
--- Select all rows from the events table
+-- Select all rows from the 'events' table
 SELECT * FROM events;
 
+-- Drop the 'events_details' table if it already exists
 DROP TABLE IF EXISTS events_details;
 
--- Table for storing event details
+-- Create the 'events_details' table
 CREATE TABLE events_details (
     id SERIAL PRIMARY KEY,         
     match_id INTEGER,              
@@ -130,11 +132,12 @@ CREATE TABLE events_details (
 
     -- data          
     json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    embeddings VECTOR(1536) NULL  -- Embedding vector for semantic searches
 );
 
--- Select all rows from the events_details table
+-- Select all rows from the 'events_details' table
 SELECT * FROM events_details;
+
 
 -- indexes creation
 

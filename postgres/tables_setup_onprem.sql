@@ -1,4 +1,5 @@
 
+
 -- Drop the 'matches' table if it already exists
 DROP TABLE IF EXISTS matches;
 
@@ -40,18 +41,16 @@ CREATE TABLE matches (
     referee_id INT,
     referee_name VARCHAR(255),
     referee_country VARCHAR(255),
-    
-    json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+
+    json_ TEXT NULL
 );
 
--- Select all rows from the matches table
-SELECT * FROM matches;
+select * from matches;
 
 
 DROP TABLE IF EXISTS lineups;
 
--- Create the 'lineups' table
+
 CREATE TABLE lineups (
     id SERIAL PRIMARY KEY,
     match_id INTEGER,
@@ -61,13 +60,10 @@ CREATE TABLE lineups (
     away_team_name VARCHAR(255) NOT NULL,
 
     -- data
-    json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    json_ TEXT NULL
 );
 
--- Select all rows from the lineups table
-SELECT * FROM lineups;
-
+select * from lineups;
 
 DROP TABLE IF EXISTS players;
 
@@ -94,23 +90,23 @@ CREATE TABLE players (
 select * from lineups;
 select * from players;
 
+
 -- Drop the 'events' table if it already exists
 DROP TABLE IF EXISTS events;
 
 -- Create the 'events' table
 CREATE TABLE events (
     id SERIAL PRIMARY KEY,         
-    match_id INTEGER,              
-    json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    match_id INTEGER,    
+    
+    -- data          
+    json_ TEXT NULL
 );
 
--- Select all rows from the events table
-SELECT * FROM events;
+select * from events;
 
 DROP TABLE IF EXISTS events_details;
 
--- Table for storing event details
 CREATE TABLE events_details (
     id SERIAL PRIMARY KEY,         
     match_id INTEGER,              
@@ -126,15 +122,13 @@ CREATE TABLE events_details (
     possession_team_id INT NULL,               
     possession_team VARCHAR(255) NOT NULL, 
     play_pattern_id INT NULL,               
-    play_pattern VARCHAR(255) NOT NULL, 
+    play_pattern VARCHAR(255) NOT NULL,    
 
     -- data          
-    json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    json_ TEXT NULL
 );
 
--- Select all rows from the events_details table
-SELECT * FROM events_details;
+select * from events_details;
 
 -- indexes creation
 

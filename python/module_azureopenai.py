@@ -68,8 +68,8 @@ if __name__ == "__main__":
     database = os.getenv('DB_NAME')
     username = os.getenv('DB_USER')
     password = os.getenv('DB_PASSWORD')
-    dir_destino = os.getenv('DIR_DESTINO')
-    dir_destino = os.path.join(dir_destino, "scripts")
+    local_folder = os.getenv('local_folder')
+    local_folder = os.path.join(local_folder, "scripts")
 
     openai_model = os.getenv('OPENAI_MODEL')
     openai_key = os.getenv('OPENAI_KEY')
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
             # Save script to file with this format: <match_id>-i.txt where i is a numeric value starting from 0 and occupying 6 positions
             filename = f"{match_id}-{str(num_file).zfill(6)}-{str(total_num_files).zfill(6)}.txt"
-            with open(os.path.join(dir_destino, filename), "w", encoding="utf-8") as f:
+            with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
                 f.write(script)
 
             # Print the generated file path, the number of processed rows, and the number of pending rows
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     if in_batch:
         num_file += 1
         filename = f"{match_id}-{str(num_file).zfill(6)}-{str(total_num_files).zfill(6)}.txt"
-        with open(os.path.join(dir_destino, filename), "w", encoding="utf-8") as f:
+        with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
             f.write(script)
 
         # Print the generated file path, the number of processed rows, and the number of pending rows
