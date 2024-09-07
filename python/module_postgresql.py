@@ -3,6 +3,97 @@ import json
 import psycopg2
 from psycopg2 import sql
 
+def copy_data_from_local_to_azure(server, database, username, password, server_azure, database_azure, username_azure, password_azure, table_name, columns_list):
+    """
+    Connects to a local PostgreSQL database and copies data from specified tables to an Azure PostgreSQL database.
+    This function facilitates the migration of data between two PostgreSQL databases, allowing for seamless transfer
+    of information from a local environment to a cloud-based service such as Azure.
+
+    Parameters:
+    - server (str): The hostname or IP address of the local PostgreSQL server.
+    - database (str): The name of the local PostgreSQL database to connect to.
+    - username (str): The username used to authenticate with the local database.
+    - password (str): The password used to authenticate with the local database.
+    - server_azure (str): The hostname or IP address of the Azure PostgreSQL server.
+    - database_azure (str): The name of the Azure PostgreSQL database to connect to.
+    - username_azure (str): The username used to authenticate with the Azure database.
+    - password_azure (str): The password used to authenticate with the Azure database.
+    - table_name (str): The name of the table to copy data from the local database to the Azure database.
+    - column_list (str): A list of column names to copy from the local table to the Azure table.
+
+    Functionality:
+    - Database Connection: Establishes connections to the local and Azure PostgreSQL databases using provided credentials.
+    - Data Transfer: Copies data from specified tables in the local database to corresponding tables in the Azure database.
+    - Transaction Management: Ensures data integrity by committing changes to the Azure database after successful data transfer.
+    - Error Handling: Provides detailed error messages in case of connection issues or data transfer failures.
+
+    Output:
+    - Console Output: Provides feedback on the data transfer process, including the number of rows copied and any errors encountered.
+    - Database Update: Updates the specified tables in the Azure PostgreSQL database with data from the local database.
+    """
+
+    try:
+        # Connect to the local database
+        conn = psycopg2.connect(
+            host=server,
+            database=database,
+            user=username,
+            password=password
+        )
+        cursor = conn.cursor()
+
+        # Connect to the Azure database
+        conn_azure = psycopg2.connect(
+            host=server_azure,
+            database=database_azure,
+            user=username_azure,
+            password=password_azure
+        )
+        cursor_azure = conn_azure.cursor()
+
+        # Query to select all data from the table
+        select_query = sql.SQL(f"""SELECT {columns_list} FROM {table_name};""")
+        cursor.execute(select_query)
+
+        # Fetch all rows from the local database
+        rows = cursor.fetchall()
+        num_rows = len(rows)
+
+        # Insert each row into the Azure database
+        i = 0
+        for row in rows:
+
+            insert_query = sql.SQL(f"""
+                INSERT INTO {table_name} ({columns_list})
+                VALUES ({', '.join(['%s' for _ in range(len(row))])})
+            """)
+
+            # Execute the INSERT query
+            cursor_azure.execute(insert_query, row)
+            conn_azure.commit()
+
+            i += 1
+            # pitnar cadad 10 filas procesadas
+            if i % 10 == 0:
+                print(f"{i} of {num_rows} rows copied from [{table_name}] table to Azure database.")
+
+    except Exception as e:
+        print(f"Error copying data to Azure database: {e}")
+
+    finally:
+    
+        # Close the cursor and the connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+        if cursor_azure:
+            cursor_azure.close()
+        if conn_azure:
+            conn_azure.close()
+
+        
 def load_lineups_data(server, database, username, password, local_folder):
     """
     Connects to a PostgreSQL database and imports lineup data from JSON files into specified database tables.

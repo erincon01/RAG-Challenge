@@ -1,3 +1,8 @@
+/*
+This SQL script performs various data checks and retrieves information about competitions, seasons, and events in football matches. It includes queries to count the number of distinct match IDs in different tables, retrieve the top 10 countries/regions with the most seasons and competitions, list the distinct countries/regions and season names, and retrieve information about recent seasons in specific competitions. Additionally, it provides insights into the number of events and events per match in different competitions.
+
+Note: The file path for this script is /c:/Users/erincon/Sources/_personal/statsbomb-loader/postgres/sample_queries_2.sql.
+*/
 
 
 -- data check

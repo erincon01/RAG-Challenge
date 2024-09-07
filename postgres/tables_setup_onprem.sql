@@ -143,3 +143,9 @@ create index nci_players_match_id on players(match_id);
 create index nci_events_match_id on events(match_id);
 create index nci_events_details_match_id on events_details(match_id);
 
+
+select count(*) c_matches from matches;
+select count(*) c_lineups from lineups;
+select count(*) c_players from players;
+select count(*) c_events from events;
+select count(*) c_events_details from events_details;
