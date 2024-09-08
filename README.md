@@ -85,6 +85,64 @@ see coments in the .py files.
    
 ```
 
+## Example results
+
+Euro Final: Spain 2 - England 1.
+
+https://www.uefa.com/euro2024/match/2036211--spain-vs-england/
+
+https://www.youtube.com/watch?v=e1wdwgpEhdo
+
+
+```bash
+
+content = """
+        Make a summary of the match. 
+        Include the game result, and most relevant actions such as goals, penalties, and injuries, and cards only if players are sent off. 
+        Do not invent any information, relate stick to the data. 
+        Relate in prose format the goals.
+        Include two sections: data relevant for analysis, and a brief description of the match in prose format: 
+        """
+
+summary = match_summary(server_azure, database_azure, username_azure, password_azure, "final_match_Spain_England_events_details__minutewise", 3943043,
+                        openai_endpoint, openai_key, "gpt-4o-mini", 0.1, 15000, content)
+
+print(summary)
+
+
+```
+
+
+### Match Summary
+**Result:** Spain 2 - 1 England
+In a tightly contested match, Spain emerged victorious against England with a score of 2-1. The match featured a series of dynamic plays and tactical maneuvers from both teams.
+In a tightly contested match, Spain emerged victorious against England with a score of 2-1. The match featured a series of dynamic plays and tactical maneuvers from both teams.
+
+**Goals:**
+- **Spain:**
+  - **Nicholas Williams** scored the opening goal in the 46th minute, capitalizing on a swift passing sequence that culminated in a well-placed shot past England's goalkeeper, Jordan Pickford.
+  - **Mikel Oyarzabal** doubled Spain's lead in the 75th minute with a precise shot after receiving a pass from Daniel Olmo, showcasing Spain's fluid attacking play.
+
+- **England:**
+  - **Cole Palmer** pulled one back for England in the 72nd minute, scoring with a deflected shot that found its way into the net, highlighting England's resilience and ability to capitalize on opportunities.
+**Key Actions:**
+- **Injuries:** Both Fabián Ruiz (Spain) and Kobbie Mainoo (England) suffered injuries in the 25th minute, leading to brief stoppages in play.
+  - **Cole Palmer** pulled one back for England in the 72nd minute, scoring with a deflected shot that found its way into the net, highlighting England's resilience and ability to capitalize on opportunities.
+**Key Actions:**
+- **Cards:** John Stones received a yellow card in the 53rd minute for a foul on Martín Zubimendi.
+
+
+### Data Relevant for Analysis
+- **Possession:** Spain dominated possession throughout the match, particularly in the first half, where they held 79% possession at one point.
+- **Shots on Goal:** Spain had multiple attempts on goal, with notable shots from Olmo and Yamal, while England's Foden and Bellingham also tested Spain's goalkeeper, Unai Simón.
+- **Defensive Actions:** Both teams displayed strong defensive efforts, with Spain's Laporte and Carvajal making crucial clearances, while England's Guehi and Shaw effectively disrupted Spain's attacking flow.
+### Match Description
+The match began with both teams showcasing their tactical prowess, with Spain focusing on maintaining possession through short passes and quick transitions. England applied pressure, attempting to regain control and create scoring opportunities. The first half saw Spain's dominance in possession, but England's defensive resilience kept the scoreline level.
+As the second half commenced, Spain quickly took the lead with a well-executed goal from Nicholas Williams. England responded with determination, and Cole Palmer's goal reignited their hopes. However, Spain's attacking fluidity proved too much for England, culminating in Oyarzabal's decisive strike.
+Despite England's late attempts to equalize, Spain's defense held firm, securing a hard-fought victory. The match highlighted the tactical battle between the two teams, with Spain's possession-based approach ultimately prevailing over England's counter-attacking strategy.
+
+
+
 ## Usage of vector databases in SQL PaaS:
 
 - feature: https://github.com/Azure-Samples/azure-sql-db-vector-search

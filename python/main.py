@@ -25,7 +25,7 @@ Note: The script assumes that the necessary modules 'module_github' and 'module_
 
 import os
 from module_github import get_github_data, get_github_data_from_matches
-from module_postgresql import load_matches_data_into_db, load_lineups_data, load_events_data, update_embeddings, copy_data_from_local_to_azure
+from module_postgresql import load_matches_data_into_db, load_lineups_data, load_events_data, copy_data_from_local_to_azure, convert_json_to_summary, match_summary, export_match_summary_minutes
 
 if __name__ == "__main__":
 
@@ -45,6 +45,16 @@ if __name__ == "__main__":
     database_azure = os.getenv('DB_NAME_AZURE')
     username_azure = os.getenv('DB_USER_AZURE')
     password_azure = os.getenv('DB_PASSWORD_AZURE')
+
+    openai_model = os.getenv('OPENAI_MODEL')
+    openai_key = os.getenv('OPENAI_KEY')
+    openai_endpoint = os.getenv('OPENAI_ENDPOINT')
+    openai_temperature = float(os.getenv('OPENAI_TEMPERATURE', 0.1))    
+    content = os.getenv('MESSAGE_HEADER')
+
+
+
+
 
     # 1) download all matches data from GitHub repository (statsbomb) to local folder
     # get_github_data(repo_owner, repo_name, "matches", local_folder)
@@ -98,14 +108,35 @@ if __name__ == "__main__":
     # reason is because it is more efficient to build the data using json functions in postgres vs trasnferring the data row by row
 
 
-
     # For azure_open_ai or azure_local_ai
-    model = "azure_local_ai"  # azure_open_ai,
-    # azure_local_ai (see azure_open_ai documentation, only supported in specific regions and Memory Optimized, E4ds_v5, 4 vCores, 32 GiB RAM, 128 GiB storage)
+#     model = "azure_local_ai"  # azure_open_ai,
+#     ### azure_local_ai (see azure_open_ai documentation, only supported in specific regions and Memory Optimized, E4ds_v5, 4 vCores, 32 GiB RAM, 128 GiB storage)
 
-    # Update embeddings for different tables
-    # update_embeddings(server, database, username, password, model, "events", 10, -1)
-    # update_embeddings(server, database, username, password, model, "lineups", 10, -1)
-    # update_embeddings(server, database, username, password, model, "events_details", 10, -1)
-    # update_embeddings(server, database, username, password, model, "matches", 10, -1)
+#     convert_json_to_summary(server_azure, database_azure, username_azure, password_azure, "final_match_Spain_England_events_details__minutewise", 3943043,
+#                             openai_endpoint, openai_key, "gpt-4o-mini", 0.1, 8000, content)
+
+    
+    content = """
+            Make a summary of the match. 
+            Include the game result, and most relevant actions such as goals, penalties, and injuries, and cards only if players are sent off. 
+            Do not invent any information, relate stick to the data. 
+            Relate in prose format the goals.
+            Include two sections: data relevant for analysis, and a brief description of the match in prose format: 
+            """
+
+    match_id = 3943043
+    summary = match_summary(server_azure, database_azure, username_azure, password_azure, "final_match_Spain_England_events_details__minutewise", match_id,
+                          openai_endpoint, openai_key, "gpt-4o-mini", 0.1, 15000, content)
+    
+    folder = os.path.join(local_folder, "scripts_summary")
+    filename = f"summary_{match_id}.txt"
+
+    with open(os.path.join(local_folder, folder, filename), "w", encoding="utf-8") as f:
+        f.write(summary)
+
+    print(summary)
+     
+    export_match_summary_minutes(server_azure, database_azure, username_azure, password_azure, "final_match_Spain_England_events_details__minutewise", 3943043, folder, 10)
+
+
 

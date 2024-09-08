@@ -1,4 +1,8 @@
 
+
+-- USE THIS SCRIPT IF YOU SET UP THE DATABASE FROM THE SCRATCH
+-- IF THE TABLES ARE CREATED, YOU SHOULD USE THE SCRIPT tables_setup_azure_open_ai-ALTER.sql
+
 -- Drop the 'matches' table if it already exists
 DROP TABLE IF EXISTS matches;
 

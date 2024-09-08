@@ -126,14 +126,12 @@ join matches m
 on ed.match_id = m.match_id
 where m.season_name in ('2020/2021', '2021/2022', '2022/2023', '2023/2024', '2022', '2023', '2024')
 and m.competition_name in ('UEFA Euro', 'Copa America', 'FIFA World Cup')
-group by competition_country, competition_name, season_name
-
-
+group by competition_country, competition_name, season_name;
 
 
 select competition_country, competition_name, season_name, count(*)
 from matches m
 group by competition_country, competition_name, season_name
-order by 1
+order by 1;
 
 

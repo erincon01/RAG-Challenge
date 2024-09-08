@@ -1,0 +1,26 @@
+
+--------------------------------------------
+Match_id: 3943043, Period: 02, Minute: 091
+--------------------------------------------
+In the 91st minute of the match, Spain attempted to execute a play following a free kick. Goalkeeper Unai Simón Mendibil initiated the sequence with a high pass aimed at Mikel Merino Zazón, who was positioned as a center attacking midfielder. However, the pass was incomplete, failing to reach Merino effectively.
+As the play unfolded, Marc Guehi of England, positioned as a left center back, capitalized on the situation. He successfully recovered the ball after an aerial duel, which was contested by Merino. The duel resulted in Merino losing possession, indicating that he was under pressure during the exchange.
+The sequence highlights a moment of tension as Spain sought to regain control through a set piece, only to be thwarted by England's defensive efforts, showcasing the competitive nature of the match in its closing moments.
+--------------------------------------------
+Match_id: 3943043, Period: 02, Minute: 092
+--------------------------------------------
+In the 92nd minute of the match, England's Ivan Toney attempted to receive a pass but was unable to do so, resulting in an incomplete ball receipt. This play was initiated by Declan Rice, who had just carried the ball forward before making the pass. The ball was intended for Toney, positioned as a left center forward, but the pass did not connect.
+Spain's Aymeric Laporte then attempted a recovery pass, which also ended up incomplete. Following this, England's Cole Palmer successfully executed a ball recovery, regaining possession for his team. Palmer then carried the ball forward under pressure from Spain's Nicholas Williams, who applied pressure as Palmer advanced.
+Williams committed a foul on Palmer, leading to a free kick for England. Palmer took the free kick, passing to Marc Guehi, who received the ball cleanly. However, Spain's Daniel Olmo and Mikel Merino applied pressure on Guehi, trying to disrupt England's play.
+Despite the pressure, Guehi managed to pass the ball back to Toney, who attempted to receive it again but failed, leading to another incomplete ball receipt. Toney then engaged in an aerial duel but lost it, as Laporte cleared the ball away from danger.
+As the play continued, Bukayo Saka recovered the ball for England and carried it forward. Under pressure, Saka committed a foul, which resulted in a free kick for Spain. The sequence of events highlighted the intense back-and-forth nature of the match, with both teams vying for control in the dying moments of the game.
+--------------------------------------------
+Match_id: 3943043, Period: 02, Minute: 093
+--------------------------------------------
+In the 93rd minute of the match, Spain's goalkeeper, Unai Simón, executed a high free kick from his own half, aiming for Mikel Merino Zazón. The pass traveled approximately 77 meters, but its outcome was marked as unknown, indicating uncertainty about its effectiveness. The ball landed at coordinates [98.1, 23.4].
+Shortly after, Mikel Merino, positioned as a center attacking midfielder, committed a foul at [98.4, 26.0]. This foul was against England's Marc Guehi, a left center back, who was under pressure at the time. Guehi successfully won the foul, which was recorded at the same moment as Merino's foul, both occurring at 49 seconds into the 93rd minute.
+Additionally, Merino attempted to receive the ball from Simón's free kick but was unable to complete the reception, as indicated by the outcome being marked as incomplete. This sequence of events highlights a moment of transition where Spain sought to advance but was quickly countered by England's defensive play.
+--------------------------------------------
+Match_id: 3943043, Period: 02, Minute: 094
+--------------------------------------------
+In the closing moments of the match, specifically at the 94th minute, Spain executed a free kick, marking the end of the half. The possession was firmly with Spain, who had been controlling the ball leading up to this moment. The play pattern was initiated from a free kick, indicating a strategic setup to capitalize on the opportunity.
+Simultaneously, England's involvement in this sequence is noted, as they were also part of the same play pattern. This suggests that both teams were engaged in a tactical exchange during this critical juncture of the game. The timestamp indicates that both events occurred at precisely the same moment, highlighting the intensity and urgency of the match as it approached its conclusion.

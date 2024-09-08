@@ -61,7 +61,7 @@ az postgres flexible-server update `
 
 -- azure_ai
 
-SELECT * FROM pg_available_extensions where name like '%vector%' or  name like '%azure%'
+SELECT * FROM pg_available_extensions where name like '%vector%' or  name like '%azure%';
 
 SHOW azure.extensions;
 
@@ -80,7 +80,7 @@ ALTER EXTENSION vector UPDATE;
 
 -- azure_local_ai
 
-SELECT * FROM pg_available_extensions where name like '%vector%' or  name like '%azure%'
+SELECT * FROM pg_available_extensions where name like '%vector%' or  name like '%azure%';
 
 SHOW azure.extensions;
 

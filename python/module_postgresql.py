@@ -1,7 +1,9 @@
 import os
 import json
 import psycopg2
+from datetime import datetime
 from psycopg2 import sql
+from module_azureopenai import get_script
 
 def copy_data_from_local_to_azure(server, database, username, password, server_azure, database_azure, username_azure, password_azure, table_name, columns_list):
     """
@@ -588,55 +590,33 @@ def load_matches_data_into_db(local_folder, server, database, username, password
     conn.close()
     print(f"Process completed. {i} files processed.")
 
-
-def update_embeddings(server, database, username, password, model, tablename, batch_size, num_rows=-1):
-    """
-    Connects to a PostgreSQL database and updates embeddings in a specified table using external AI models.
-    This function interfaces with AI services such as Azure's OpenAI or local AI models to generate text embeddings
-    for data entries that lack embeddings. It is capable of batch processing entries and provides detailed logging
-    of the update process.
-
-    Parameters:
-    - server (str): The hostname or IP address of the PostgreSQL server.
-    - database (str): The name of the PostgreSQL database to connect to.
-    - username (str): The username used to authenticate with the database.
-    - password (str): The password used to authenticate with the database.
-    - model (str): The model identifier to specify which embedding service to use ('azure_open_ai' or 'azure_local_ai').
-    - tablename (str): The name of the database table where embeddings need to be updated.
-    - batch_size (int): Number of rows to process in each batch.
-    - num_rows (int, optional): Total number of rows to update; defaults to -1, indicating all eligible rows should be processed.
-
-    Functionality:
-    - Database Connection: Establishes a connection to the PostgreSQL database using provided credentials.
-    - Model Selection: Based on the 'model' parameter, selects the appropriate AI model for generating embeddings.
-    - Row Processing: Iteratively updates rows in the specified table that are missing embeddings, using the selected AI model to generate and store embeddings.
-    - Transaction Management: Commits changes to the database in batches, ensuring data integrity and allowing for recovery in case of errors.
-    - Logging: Provides continuous feedback on the number of rows processed and remaining, and detailed error messages in case of failures.
-
-    Output:
-    - Console Output: Provides ongoing feedback during the process, including progress indicators and summaries once the process is completed.
-    - Database Update: Directly updates the 'embeddings' field in the specified table for rows that were missing embeddings.
-    """
-
-
-    # if model is azure_open_ai, use the create_embeddings function from azure_openai
-    # if model is azure_local_ai, use the create_embeddings function from azure_local_ai
-
-    function_name = ""
-    model_name = ""
-    if model == "azure_open_ai":
-        function_name = "azure_openai.create_embeddings"
-        model_name = "text-embedding-ada-002"
+def convert_json_to_summary(server, database, username, password, 
+                          tablename, match_id, 
+                          openai_endpoint, openai_key, openai_model, openai_temperature, openai_tokens, content):
         
-    elif model == "azure_local_ai":
-        function_name = "azure_local_ai.create_embeddings"  # Change to the correct function name
-        model_name = "multilingual-e5-small:v1"  # Change to the correct model name
-
-    else:
-        print(f"Unsupported model: {model}")
-        return
+    """
+    Converts JSON data to summary and updates the database with the generated summary.
+    Args:
+        server (str): The server name or IP address.
+        database (str): The name of the database.
+        username (str): The username for the database connection.
+        password (str): The password for the database connection.
+        tablename (str): The name of the table in the database.
+        match_id (int): The ID of the match.
+        openai_endpoint (str): The endpoint URL for the OpenAI API.
+        openai_key (str): The API key for the OpenAI API.
+        openai_model (str): The model name or ID for the OpenAI API.
+        openai_temperature (float): The temperature parameter for the OpenAI API.
+        openai_tokens (int): The maximum number of tokens for the OpenAI API.
+        content (str): The content to be summarized.
+    Returns:
+        None: This function does not return any value.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
 
     try:        
+
         # Connect to the database
         conn = psycopg2.connect(
             host=server,
@@ -644,57 +624,58 @@ def update_embeddings(server, database, username, password, model, tablename, ba
             user=username,
             password=password
         )
-        
         cursor = conn.cursor()
 
-        # print server and database
-        
-        # count the rows that do not have embeddings and print it on the screen
-        count_query = sql.SQL(f"""
-            SELECT COUNT(*) FROM {tablename}
-            WHERE embeddings IS NULL AND json_ IS NOT NULL
+        query = sql.SQL(f"""
+            SELECT json_, period, minute FROM {tablename}
+            WHERE match_id = {match_id} 
+            and summary IS NULL 
+            ORDER BY period, minute
         """)
-        cursor.execute(count_query)
-        count = cursor.fetchone()[0]
-        print(f"Total rows in table [{tablename}] to process: {count}. Batch size {batch_size}.", end="")
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+        i=0
 
-        # Query to update the rows
-        update_query = sql.SQL(f"""
-            UPDATE {tablename}
-            SET embeddings = {function_name}('{model_name}', json_)
-            WHERE id IN (
-                SELECT id FROM {tablename} 
-                WHERE embeddings IS NULL AND 
-                json_ IS NOT NULL
-                LIMIT {batch_size}
-            )
-        """)
+        start_time = datetime.now()
 
-        processed_rows = 0
+        # recorre cada registro
+        for row in cursor.fetchall():
+            # convierte el json en prose
 
-        while True:
-            cursor.execute(update_query)
+            i+=1
+
+            row_start_time = datetime.now()
+
+            json_ = row[0]
+            period = row[1]
+            minute = row[2]
+            summary = get_script(openai_endpoint, openai_key, openai_model, openai_temperature, content, json_, openai_tokens)
+
+            # actualiza el registro
+            update_query = sql.SQL(f"""
+                UPDATE {tablename}
+                SET summary = %s
+                WHERE match_id = %s
+                and minute = %s and period = %s
+            """)
+
+            cursor.execute(update_query, (summary, match_id, minute, period))
             conn.commit()
-            rows_affected = cursor.rowcount
-            processed_rows += rows_affected
 
-            # Break the loop if no rows were affected (when there are no more rows matching the condition)
-            if rows_affected == 0:
-                break
+            time = datetime.now() - row_start_time
+            time_str = str(time).split(".")[0]
 
-            # print dot without line break
-            print(".", end="")
+            now = datetime.now() 
+            now_str = str(now).split(".")[0]
 
-            # Print every 10 iterations if num_rows is different from -1
-            if (processed_rows % 100 == 0):
-                print()
-                print(f"Processed {processed_rows} rows.", end="")
-            
-            # Break the loop if we reach the specified number of rows to update
-            if num_rows != -1 and processed_rows >= num_rows:
-                break
+            print(f"[{now_str}] Updated period {period}, minute {minute} from match_id {match_id}.", end=" ")
+            print(f"Row processing time {i} of {rowCount} row(s), {time_str}.", end=" ")
 
-        print(f"Total rows processed: {processed_rows}.")
+            time = ((datetime.now() - start_time) / (i+1)) * (rowCount - i)
+            time_str = str(time).split(".")[0]
+            # Print the elapsed time and the remaining time
+            print(f"Estimated remaining time: {time_str}.")
+
 
     except Exception as e:
         print(f"Error connecting or executing the query in the database: {e}")
@@ -705,3 +686,133 @@ def update_embeddings(server, database, username, password, model, tablename, ba
             cursor.close()
         if conn:
             conn.close()
+
+
+            
+def match_summary(server, database, username, password, 
+                          tablename, match_id, 
+                          openai_endpoint, openai_key, 
+                          openai_model, openai_temperature, openai_tokens,
+                          content):
+
+    """
+    Retrieves the match summary from the specified database table for a given match ID.
+    Args:
+        server (str): The server name or IP address.
+        database (str): The name of the database.
+        username (str): The username for the database connection.
+        password (str): The password for the database connection.
+        tablename (str): The name of the table containing the match summaries.
+        match_id (int): The ID of the match for which the summary is requested.
+        openai_endpoint (str): The endpoint URL for the OpenAI API.
+        openai_key (str): The API key for accessing the OpenAI API.
+        openai_model (str): The name or ID of the OpenAI model to use.
+        openai_temperature (float): The temperature parameter for generating the summary.
+        openai_tokens (int): The maximum number of tokens to use for generating the summary.
+        content (str): The content to be used for generating the summary.
+    Returns:
+        str: The generated match summary.
+    Raises:
+        Exception: If there is an error connecting to the database or executing the query.
+    """
+    try:     
+
+        # Connect to the database
+        conn = psycopg2.connect(
+            host=server,
+            database=database,
+            user=username,
+            password=password
+        )
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT summary FROM {tablename}
+            WHERE match_id = {match_id} 
+            ORDER BY period, minute
+        """)
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+        i=0
+
+        match_minutes = ""
+        for row in cursor.fetchall():
+            match_minutes += row[0]
+
+        summary = get_script(openai_endpoint, openai_key, openai_model, openai_temperature, content, match_minutes, openai_tokens)
+
+        return summary
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        # Close the cursor and the connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
+def export_match_summary_minutes(server, database, username, password, tablename, match_id, local_folder, minute_chunks):
+
+    try:
+
+      # Connect to the database
+        conn = psycopg2.connect(
+            host=server,
+            database=database,
+            user=username,
+            password=password
+        )
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT period, minute, summary FROM {tablename}
+            WHERE match_id = {match_id} 
+            ORDER BY period, minute
+        """)
+        cursor.execute(query)
+        summary_output = ""
+        summary_output_all = ""
+
+        for row in cursor.fetchall():
+
+            period = row[0]
+            minute = row[1]
+            summary = row[2]
+            # pintar en pantalla el periodo y el minuto
+            header = "\n" + f"--------------------------------------------" + "\n"
+            header += f"Match_id: {match_id}, Period: {str(period).zfill(2)}, Minute: {str(minute).zfill(3)}" + "\n"
+            header += f"--------------------------------------------" + "\n"
+            summary_output += header + summary
+            summary_output_all += header + summary
+
+            # si i > 0 y i > minute_chunks, entonces se crea un nuevo archivo, sino, se añade a summary
+            if minute > 0 and minute % minute_chunks == 0:
+                filename = f"summary_minutes_{match_id}-{str(period).zfill(2)}-{str(minute).zfill(3)}.txt"
+                with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
+                    f.write(summary_output)
+                summary_output = ""
+
+        # si summary_output no está vacío, se crea un archivo con el contenido restante
+        if summary_output:
+            filename = f"summary_minutes_{match_id}-{str(period).zfill(2)}-{str(minute).zfill(3)}.txt"
+            with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
+                f.write(summary_output)
+
+        if summary_output_all:
+            filename = f"summary_minutes_{match_id}___all.txt"
+            with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
+                f.write(summary_output_all)
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        # Close the cursor and the connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
