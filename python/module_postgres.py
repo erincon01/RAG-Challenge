@@ -5,17 +5,13 @@ from datetime import datetime
 from psycopg2 import sql
 from module_azureopenai import get_script
 
-def copy_data_from_local_to_azure(server, database, username, password, server_azure, database_azure, username_azure, password_azure, table_name, columns_list):
+def copy_data_from_postgres_to_azure(server_azure, database_azure, username_azure, password_azure, table_name, columns_list):
     """
     Connects to a local PostgreSQL database and copies data from specified tables to an Azure PostgreSQL database.
     This function facilitates the migration of data between two PostgreSQL databases, allowing for seamless transfer
     of information from a local environment to a cloud-based service such as Azure.
 
     Parameters:
-    - server (str): The hostname or IP address of the local PostgreSQL server.
-    - database (str): The name of the local PostgreSQL database to connect to.
-    - username (str): The username used to authenticate with the local database.
-    - password (str): The password used to authenticate with the local database.
     - server_azure (str): The hostname or IP address of the Azure PostgreSQL server.
     - database_azure (str): The name of the Azure PostgreSQL database to connect to.
     - username_azure (str): The username used to authenticate with the Azure database.
@@ -37,11 +33,12 @@ def copy_data_from_local_to_azure(server, database, username, password, server_a
     try:
         # Connect to the local database
         conn = psycopg2.connect(
-            host=server,
-            database=database,
-            user=username,
-            password=password
+            host=os.getenv('DB_SERVER'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
         )
+
         cursor = conn.cursor()
 
         # Connect to the Azure database
@@ -96,7 +93,7 @@ def copy_data_from_local_to_azure(server, database, username, password, server_a
             conn_azure.close()
 
         
-def load_lineups_data(server, database, username, password, local_folder):
+def load_lineups_data_into_postgres(local_folder):
     """
     Connects to a PostgreSQL database and imports lineup data from JSON files into specified database tables.
     Processes each JSON file, extracting relevant team and player information, and performs SQL insert operations
@@ -104,10 +101,6 @@ def load_lineups_data(server, database, username, password, local_folder):
     for interactive user control over the execution.
 
     Parameters:
-    - server (str): The hostname or IP address of the PostgreSQL server.
-    - database (str): The name of the PostgreSQL database to connect to.
-    - username (str): The username used to authenticate with the database.
-    - password (str): The password used to authenticate with the database.
     - local_folder (str): The directory path where the lineup JSON files are stored.
 
     Functionality:
@@ -127,10 +120,10 @@ def load_lineups_data(server, database, username, password, local_folder):
 
     # Connect to the database
     conn = psycopg2.connect(
-        host=server,
-        database=database,
-        user=username,
-        password=password
+        host=os.getenv('DB_SERVER'),
+        database=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD')
     )
     
     cursor = conn.cursor()
@@ -262,7 +255,7 @@ def load_lineups_data(server, database, username, password, local_folder):
     conn.close()
 
 
-def load_events_data(server, database, username, password, local_folder):
+def load_events_data_into_postgres(local_folder):
     """
     Connects to a PostgreSQL database and imports event data from JSON files into specified database tables.
     This function processes event files, extracting detailed event information, and performs SQL insert operations
@@ -270,10 +263,6 @@ def load_events_data(server, database, username, password, local_folder):
     an interactive mode for user control over the execution process.
 
     Parameters:
-    - server (str): The hostname or IP address of the PostgreSQL server.
-    - database (str): The name of the PostgreSQL database to connect to.
-    - username (str): The username used to authenticate with the database.
-    - password (str): The password used to authenticate with the database.
     - local_folder (str): The directory path where the event JSON files are stored.
 
     Functionality:
@@ -291,10 +280,10 @@ def load_events_data(server, database, username, password, local_folder):
     """
         # Connect to the database
     conn = psycopg2.connect(
-        host=server,
-        database=database,
-        user=username,
-        password=password
+        host=os.getenv('DB_SERVER'),
+        database=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD')
     )
     
     cursor = conn.cursor()
@@ -407,7 +396,7 @@ def load_events_data(server, database, username, password, local_folder):
 
 
 
-def load_matches_data_into_db(local_folder, server, database, username, password):
+def load_matches_data_into_postgres(local_folder):
     """
     Connects to a PostgreSQL database and imports match data from JSON files into specified database tables.
     This function processes match files, extracting detailed match information, including team, player, and game event details,
@@ -416,10 +405,6 @@ def load_matches_data_into_db(local_folder, server, database, username, password
 
     Parameters:
     - local_folder (str): The directory path where the match JSON files are stored.
-    - server (str): The hostname or IP address of the PostgreSQL server.
-    - database (str): The name of the PostgreSQL database to connect to.
-    - username (str): The username used to authenticate with the database.
-    - password (str): The password used to authenticate with the database.
 
     Functionality:
     - Database Connection: Establishes a connection to the PostgreSQL database using provided credentials.
@@ -438,10 +423,10 @@ def load_matches_data_into_db(local_folder, server, database, username, password
 
     # Connect to the database
     conn = psycopg2.connect(
-        host=server,
-        database=database,
-        user=username,
-        password=password
+        host=os.getenv('DB_SERVER'),
+        database=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD')
     )
     
     cursor = conn.cursor()
@@ -590,17 +575,12 @@ def load_matches_data_into_db(local_folder, server, database, username, password
     conn.close()
     print(f"Process completed. {i} files processed.")
 
-def convert_json_to_summary(server, database, username, password, 
-                          tablename, match_id, 
+def convert_json_to_summary(tablename, match_id, 
                           openai_endpoint, openai_key, openai_model, openai_temperature, openai_tokens, content):
         
     """
     Converts JSON data to summary and updates the database with the generated summary.
     Args:
-        server (str): The server name or IP address.
-        database (str): The name of the database.
-        username (str): The username for the database connection.
-        password (str): The password for the database connection.
         tablename (str): The name of the table in the database.
         match_id (int): The ID of the match.
         openai_endpoint (str): The endpoint URL for the OpenAI API.
@@ -619,11 +599,12 @@ def convert_json_to_summary(server, database, username, password,
 
         # Connect to the database
         conn = psycopg2.connect(
-            host=server,
-            database=database,
-            user=username,
-            password=password
+            host=os.getenv('DB_SERVER'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
         )
+
         cursor = conn.cursor()
 
         query = sql.SQL(f"""
@@ -689,19 +670,15 @@ def convert_json_to_summary(server, database, username, password,
 
 
             
-def match_summary(server, database, username, password, 
-                          tablename, match_id, 
+def get_match_summary_from_azure_openai(tablename, match_id, 
                           openai_endpoint, openai_key, 
                           openai_model, openai_temperature, openai_tokens,
                           content):
 
     """
-    Retrieves the match summary from the specified database table for a given match ID.
+    Retrieves the match summary from the specified database table for a given match ID by calling Azure Open AI for summarization.
     Args:
-        server (str): The server name or IP address.
-        database (str): The name of the database.
-        username (str): The username for the database connection.
-        password (str): The password for the database connection.
+
         tablename (str): The name of the table containing the match summaries.
         match_id (int): The ID of the match for which the summary is requested.
         openai_endpoint (str): The endpoint URL for the OpenAI API.
@@ -719,11 +696,12 @@ def match_summary(server, database, username, password,
 
         # Connect to the database
         conn = psycopg2.connect(
-            host=server,
-            database=database,
-            user=username,
-            password=password
+            host=os.getenv('DB_SERVER'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
         )
+
         cursor = conn.cursor()
 
         query = sql.SQL(f"""
@@ -754,17 +732,18 @@ def match_summary(server, database, username, password,
             conn.close()
 
 
-def export_match_summary_minutes(server, database, username, password, tablename, match_id, local_folder, minute_chunks):
+def export_match_summary_minutes(tablename, match_id, local_folder, minute_chunks):
 
     try:
 
       # Connect to the database
         conn = psycopg2.connect(
-            host=server,
-            database=database,
-            user=username,
-            password=password
+            host=os.getenv('DB_SERVER'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
         )
+
         cursor = conn.cursor()
 
         query = sql.SQL(f"""

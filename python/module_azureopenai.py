@@ -1,7 +1,6 @@
-import re
 import os
-import subprocess
-from datetime import datetime, timedelta
+import tiktoken
+import statistics
 import psycopg2
 from psycopg2 import sql
 import pandas as pd
@@ -33,16 +32,21 @@ def get_script(endpoint, api_key, deployment_name, temperature, content, prompt,
     return output
 
 
-def get_events_fromDB (server, database, username, password, match_id):
+def get_events_from_database ( match_id):
+    """Retrieves events data from a database based on the given parameters.
+    Parameters:
+    - match_id (str): The ID of the match to retrieve events for.
+    Returns:
+    - df (pandas.DataFrame): A DataFrame containing the events data.
+    """
 
-      # Connect to the database
     conn = psycopg2.connect(
-        host=server,
-        database=database,
-        user=username,
-        password=password
+        host=os.getenv('DB_SERVER'),
+        database=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD')
     )
-    
+
     cursor = conn.cursor()
 
     sql = f"""
@@ -58,93 +62,159 @@ def get_events_fromDB (server, database, username, password, match_id):
 
     return df
 
-if __name__ == "__main__":
-
-    # Example usage
-    ollama = os.getenv('PATH_OLLAMA')
-    cabecera = os.getenv('MESSAGE_HEADER')
-
-    server = os.getenv('DB_SERVER')
-    database = os.getenv('DB_NAME')
-    username = os.getenv('DB_USER')
-    password = os.getenv('DB_PASSWORD')
-    local_folder = os.getenv('local_folder')
-    local_folder = os.path.join(local_folder, "scripts")
-
-    openai_model = os.getenv('OPENAI_MODEL')
-    openai_key = os.getenv('OPENAI_KEY')
-    openai_endpoint = os.getenv('OPENAI_ENDPOINT')
-    openai_temperature = float(os.getenv('OPENAI_TEMPERATURE', 0.1))
-
-    match_id = 3943043
-    rows_per_batch = 20
-    start_time = datetime.now()
-
-    file_batch_size = 10
-    num_files_in_batch = 0
-    num_file = 0
-    in_batch=True
-    script=""
-
-    df = get_events_fromDB(server, database, username, password, match_id)
-    count = df.shape[0]
-
-    # calculate the number of files to generate
-    total_num_files = count // (rows_per_batch * file_batch_size)
-    if count % (rows_per_batch * file_batch_size) > 0:
-        total_num_files += 1
-
-    # Loop from_time to to_time with batch_size increment
-    i=0
-    while i < count:
-        batch_start_time = datetime.now()
-        num_files_in_batch += 1
-
-        # Put the subset of df from i to i+rows_count in df_batch
-        df_batch = df.iloc[i:i+rows_per_batch]
-        df_text = df_batch.to_string(index=False)
-
-        # Get transcript with openAI
-        prompt = f"{cabecera}: {df_text}"
-
-        script += get_script(openai_endpoint, openai_key, openai_model, openai_temperature, cabecera, df_text)
-
-        # print batch processing time withouth miliseconds
-        duration = datetime.now() - batch_start_time
-        time_str = str(duration).split(".")[0]
+def get_tokens_statistics (server, database, username, password, table_name, num_rows):
+    """Retrieves statistics about the tokens in a specified table from a database.
+    Args:
+        table_name (str): The name of the table to retrieve data from.
+        num_rows (int): The maximum number of rows to retrieve. Set to 0 to retrieve all rows.
+    Returns:
+        dict: A dictionary containing the statistics of the tokens.
+            - table_name (str): The name of the table.
+            - total_rows (int): The total number of rows retrieved.
+            - mean_tokens (float): The mean number of tokens per row.
+            - median_tokens (float): The median number of tokens per row.
+            - stddev_tokens (float): The standard deviation of the number of tokens per row.
+    """
         
-        now = datetime.now() 
-        now_str = str(now).split(".")[0]
+    encoder = tiktoken.get_encoding("cl100k_base")
 
-        print(f"[{now_str}] Batch processing time {num_files_in_batch}/{file_batch_size}: {time_str} ", end="")
+      # Connect to the database
+    conn = psycopg2.connect(
+        host=os.getenv('DB_SERVER'),
+        database=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD')
+    )
+    
+    sql =""
+    cursor = conn.cursor()
 
-        time = ((datetime.now() - start_time) / (i+1)) * (count - i)
-        time_str = str(time).split(".")[0]
-        # Print the elapsed time and the remaining time
-        print(f"Estimated remaining time: {time_str}")
+    if num_rows <= 0:
+        sql = f"""
+            select json_
+            from {table_name}
+            """
+    else:
+        sql = f"""
+                select json_
+                from {table_name}
+                limit {num_rows};
+                """    
 
-        if num_files_in_batch == file_batch_size:
-            num_files_in_batch = 0
-            in_batch = False
-            num_file += 1
+    tokens_per_row = []
+    cursor.execute(sql)
 
-            # Save script to file with this format: <match_id>-i.txt where i is a numeric value starting from 0 and occupying 6 positions
-            filename = f"{match_id}-{str(num_file).zfill(6)}-{str(total_num_files).zfill(6)}.txt"
-            with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
-                f.write(script)
+    # Recorrer el cursor y contar los tokens
+    for row in cursor:
+        tokens = encoder.encode(row[0])
+        tokens_per_row.append(len(tokens))
+        if num_rows > 0 and len(tokens_per_row) >= num_rows:
+            break
+        if len(tokens_per_row) % 1000 == 0:
+            print(".", end="")
 
-            # Print the generated file path, the number of processed rows, and the number of pending rows
-            print(f"  Processed {i+1}/{count} rows. Generated file: {filename}. ")
-            script=""
+    # Cerrar el cursor y la conexión
+    cursor.close()
+    conn.close()
+    print("")
 
-        i+=rows_per_batch
+    # Calcular estadísticas
+    if tokens_per_row:
+        mean_tokens = statistics.mean(tokens_per_row)
+        median_tokens = statistics.median(tokens_per_row)
+        stddev_tokens = statistics.stdev(tokens_per_row) if len(tokens_per_row) > 1 else 0
+    else:
+        mean_tokens = median_tokens = stddev_tokens = 0
 
-    if in_batch:
-        num_file += 1
-        filename = f"{match_id}-{str(num_file).zfill(6)}-{str(total_num_files).zfill(6)}.txt"
-        with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
-            f.write(script)
+    return {
+        'table_name': table_name,
+        'total_rows': len(tokens_per_row),
+        'mean_tokens': round(mean_tokens,2),
+        'median_tokens': round(median_tokens,2),
+        'stddev_tokens': round(stddev_tokens,2)
+    }
 
-        # Print the generated file path, the number of processed rows, and the number of pending rows
-        print(f"  Processed {i+1}/{count} rows. Generated file: {filename}. ")
-        script=""
+# if __name__ == "__main__":
+
+#     # Example usage
+#     server = os.getenv('DB_SERVER')
+#     database = os.getenv('DB_NAME')
+#     username = os.getenv('DB_USER')
+#     password = os.getenv('DB_PASSWORD')
+#     local_folder = os.getenv('LOCAL_FOLDER')
+#     local_folder = os.path.join(local_folder, "scripts")
+
+#     openai_model = os.getenv('OPENAI_MODEL')
+#     openai_key = os.getenv('OPENAI_KEY')
+#     openai_endpoint = os.getenv('OPENAI_ENDPOINT')
+#     openai_temperature = float(os.getenv('OPENAI_TEMPERATURE', 0.1))
+
+#     match_id = 3943043
+#     rows_per_batch = 20
+#     start_time = datetime.now()
+
+#     file_batch_size = 10
+#     num_files_in_batch = 0
+#     num_file = 0
+#     in_batch=True
+#     script=""
+
+#     df = get_events_fromDB(match_id)
+#     count = df.shape[0]
+
+#     # calculate the number of files to generate
+#     total_num_files = count // (rows_per_batch * file_batch_size)
+#     if count % (rows_per_batch * file_batch_size) > 0:
+#         total_num_files += 1
+
+#     # Loop from_time to to_time with batch_size increment
+#     i=0
+#     while i < count:
+#         batch_start_time = datetime.now()
+#         num_files_in_batch += 1
+
+#         # Put the subset of df from i to i+rows_count in df_batch
+#         df_batch = df.iloc[i:i+rows_per_batch]
+#         df_text = df_batch.to_string(index=False)
+
+#         script += get_script(openai_endpoint, openai_key, openai_model, openai_temperature, cabecera, df_text)
+
+#         # print batch processing time withouth miliseconds
+#         duration = datetime.now() - batch_start_time
+#         time_str = str(duration).split(".")[0]
+        
+#         now = datetime.now() 
+#         now_str = str(now).split(".")[0]
+
+#         print(f"[{now_str}] Batch processing time {num_files_in_batch}/{file_batch_size}: {time_str} ", end="")
+
+#         time = ((datetime.now() - start_time) / (i+1)) * (count - i)
+#         time_str = str(time).split(".")[0]
+#         # Print the elapsed time and the remaining time
+#         print(f"Estimated remaining time: {time_str}")
+
+#         if num_files_in_batch == file_batch_size:
+#             num_files_in_batch = 0
+#             in_batch = False
+#             num_file += 1
+
+#             # Save script to file with this format: <match_id>-i.txt where i is a numeric value starting from 0 and occupying 6 positions
+#             filename = f"{match_id}-{str(num_file).zfill(6)}-{str(total_num_files).zfill(6)}.txt"
+#             with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
+#                 f.write(script)
+
+#             # Print the generated file path, the number of processed rows, and the number of pending rows
+#             print(f"  Processed {i+1}/{count} rows. Generated file: {filename}. ")
+#             script=""
+
+#         i+=rows_per_batch
+
+#     if in_batch:
+#         num_file += 1
+#         filename = f"{match_id}-{str(num_file).zfill(6)}-{str(total_num_files).zfill(6)}.txt"
+#         with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
+#             f.write(script)
+
+#         # Print the generated file path, the number of processed rows, and the number of pending rows
+#         print(f"  Processed {i+1}/{count} rows. Generated file: {filename}. ")
+#         script=""

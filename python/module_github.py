@@ -4,7 +4,7 @@ import pandas as pd
 import psycopg2
 from psycopg2 import sql
 
-def get_json_list(repo_owner, repo_name, dataset):
+def get_json_list_from_repo(repo_owner, repo_name, dataset):
     """
     Retrieves a list of JSON files from a GitHub repository.
     It traverses the first level subdirs in the repository to find JSON files and their URLs.
@@ -60,7 +60,7 @@ def get_json_list(repo_owner, repo_name, dataset):
     df = pd.DataFrame(json_files, columns=["dataset", "subdir", "url"])
     return df
 
-def download_file(url, path, dir, subdir):
+def download_file_from_repo_url(url, path, dir, subdir):
     """
     Downloads a file from a URL and saves it in the destination directory.
     Args:
@@ -123,7 +123,7 @@ def download_file(url, path, dir, subdir):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-def get_github_data(repo_owner, repo_name, dataset, local_folder):
+def download_data_from_github_repo(repo_owner, repo_name, dataset, local_folder):
     """
     Retrieves data from a GitHub repository for the specified dataset and saves them to the specified directory.
     It respect the structure of the repository, and download the files in the subdirectories.
@@ -147,7 +147,7 @@ def get_github_data(repo_owner, repo_name, dataset, local_folder):
     """
 
     # Get the list of JSON files for the dataset
-    json_urls = get_json_list(repo_owner, repo_name, dataset)
+    json_urls = get_json_list_from_repo(repo_owner, repo_name, dataset)
 
     # Save the list of the Json_urls to a CSV file, and print the path where the Csv file is stored
     json_urls.to_csv(f"{local_folder}/{dataset}_urls.csv", index=False)
@@ -163,17 +163,17 @@ def get_github_data(repo_owner, repo_name, dataset, local_folder):
         file_url = row['url']
         print(f"dataset: {dataset}, subdir: {subdir}, url: {file_url}", end=" ")
 
-        download_file(file_url, local_folder, dataset, subdir)
+        download_file_from_repo_url(file_url, local_folder, dataset, subdir)
 
-def  get_github_data_from_matches(repo_owner, repo_name, dataset, local_folder, server, database, username, password):
+def  get_github_data_from_matches(repo_owner, repo_name, dataset, local_folder):
 
     try:        
         # Connect to the database
         conn = psycopg2.connect(
-            host=server,
-            database=database,
-            user=username,
-            password=password
+            host=os.getenv('DB_SERVER'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
         )
         
         cursor = conn.cursor()
@@ -197,7 +197,7 @@ def  get_github_data_from_matches(repo_owner, repo_name, dataset, local_folder, 
             file_url = f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/master/data/{dataset}/{match_id}.json"
             print(f"[{i}/{number_of_rows}] Source:{file_url}.", end=" ")
 
-            download_file(file_url, local_folder, dataset, "")
+            download_file_from_repo_url(file_url, local_folder, dataset, "")
             i+=1
 
     except Exception as e:

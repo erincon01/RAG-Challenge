@@ -85,9 +85,9 @@ LIMIT 5;
 SELECT 
     period, 
     minute, 
-    embedding <#> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Oyarzabal scored goal')::vector AS distance1,
-    embedding <-> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Oyarzabal scored goal')::vector AS distance2,
-    embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Oyarzabal scored goal')::vector AS distance3,
+    embedding <#> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'after a quick carry, shot towards the goal, successfully scoring for Spain')::vector AS distance1,
+    embedding <-> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'after a quick carry, shot towards the goal, successfully scoring for Spain')::vector AS distance2,
+    embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'after a quick carry, shot towards the goal, successfully scoring for Spain')::vector AS distance3,
     summary
 FROM final_match_Spain_England_events_details__minutewise
 ORDER BY distance1
