@@ -123,7 +123,7 @@ def download_file_from_repo_url(url, path, dir, subdir):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-def download_data_from_github_repo(repo_owner, repo_name, dataset, local_folder):
+def download_data_from_github_repo(repo_owner, repo_name, dataset_name, local_folder):
     """
     Retrieves data from a GitHub repository for the specified dataset and saves them to the specified directory.
     It respect the structure of the repository, and download the files in the subdirectories.
@@ -140,14 +140,14 @@ def download_data_from_github_repo(repo_owner, repo_name, dataset, local_folder)
     Parameters:
     - repo_owner (str): The owner of the GitHub repository.
     - repo_name (str): The name of the GitHub repository.
-    - dataset (str): The dataset to get the data.
+    - dataset_name (str): The dataset to get the data.
     - local_folder (str): The local directory to save the downloaded files.
     Returns:
     None
     """
 
     # Get the list of JSON files for the dataset
-    json_urls = get_json_list_from_repo(repo_owner, repo_name, dataset)
+    json_urls = get_json_list_from_repo(repo_owner, repo_name, dataset_name)
 
     # Save the list of the Json_urls to a CSV file, and print the path where the Csv file is stored
     json_urls.to_csv(f"{local_folder}/{dataset}_urls.csv", index=False)
@@ -165,7 +165,7 @@ def download_data_from_github_repo(repo_owner, repo_name, dataset, local_folder)
 
         download_file_from_repo_url(file_url, local_folder, dataset, subdir)
 
-def  get_github_data_from_matches(repo_owner, repo_name, dataset, local_folder):
+def  get_github_data_from_matches(repo_owner, repo_name, dataset_name, local_folder):
 
     try:        
         # Connect to the database
@@ -194,10 +194,10 @@ def  get_github_data_from_matches(repo_owner, repo_name, dataset, local_folder):
             # https://raw.githubusercontent.com/statsbomb/open-data/master/data/lineups/3943043.json
             # https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/3943043.json
 
-            file_url = f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/master/data/{dataset}/{match_id}.json"
+            file_url = f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/master/data/{dataset_name}/{match_id}.json"
             print(f"[{i}/{number_of_rows}] Source:{file_url}.", end=" ")
 
-            download_file_from_repo_url(file_url, local_folder, dataset, "")
+            download_file_from_repo_url(file_url, local_folder, dataset_name, "")
             i+=1
 
     except Exception as e:

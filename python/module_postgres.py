@@ -3,19 +3,16 @@ import json
 import psycopg2
 from datetime import datetime
 from psycopg2 import sql
-from module_azureopenai import get_script
+import pandas as pd
+from module_azureopenai import get_chat_completion_from_azure_open_ai
 
-def copy_data_from_postgres_to_azure(server_azure, database_azure, username_azure, password_azure, table_name, columns_list):
+def copy_data_from_postgres_to_azure(table_name, columns_list):
     """
     Connects to a local PostgreSQL database and copies data from specified tables to an Azure PostgreSQL database.
     This function facilitates the migration of data between two PostgreSQL databases, allowing for seamless transfer
     of information from a local environment to a cloud-based service such as Azure.
 
     Parameters:
-    - server_azure (str): The hostname or IP address of the Azure PostgreSQL server.
-    - database_azure (str): The name of the Azure PostgreSQL database to connect to.
-    - username_azure (str): The username used to authenticate with the Azure database.
-    - password_azure (str): The password used to authenticate with the Azure database.
     - table_name (str): The name of the table to copy data from the local database to the Azure database.
     - column_list (str): A list of column names to copy from the local table to the Azure table.
 
@@ -43,11 +40,12 @@ def copy_data_from_postgres_to_azure(server_azure, database_azure, username_azur
 
         # Connect to the Azure database
         conn_azure = psycopg2.connect(
-            host=server_azure,
-            database=database_azure,
-            user=username_azure,
-            password=password_azure
+            host=os.getenv('DB_SERVER_AZURE'),
+            database=os.getenv('DB_NAME_AZURE'),
+            user=os.getenv('DB_USER_AZURE'),
+            password=os.getenv('DB_PASSWORD_AZURE')
         )
+        
         cursor_azure = conn_azure.cursor()
 
         # Query to select all data from the table
@@ -396,7 +394,7 @@ def load_events_data_into_postgres(local_folder):
 
 
 
-def load_matches_data_into_postgres(local_folder):
+def load_matches_data_into_postgres_from_folder (folder_name):
     """
     Connects to a PostgreSQL database and imports match data from JSON files into specified database tables.
     This function processes match files, extracting detailed match information, including team, player, and game event details,
@@ -404,7 +402,7 @@ def load_matches_data_into_postgres(local_folder):
     and includes an interactive mode for user control over the execution process.
 
     Parameters:
-    - local_folder (str): The directory path where the match JSON files are stored.
+    - folder_name (str): The directory path where the match JSON files are stored.
 
     Functionality:
     - Database Connection: Establishes a connection to the PostgreSQL database using provided credentials.
@@ -432,7 +430,7 @@ def load_matches_data_into_postgres(local_folder):
     cursor = conn.cursor()
 
     # Path to the match files
-    matchesPath = os.path.join(local_folder, 'matches')
+    matchesPath = os.path.join(folder_name, 'matches')
     total_files = 0
 
     # Count the total number of JSON files
@@ -575,164 +573,40 @@ def load_matches_data_into_postgres(local_folder):
     conn.close()
     print(f"Process completed. {i} files processed.")
 
-def convert_json_to_summary(tablename, match_id, 
-                          openai_endpoint, openai_key, openai_model, openai_temperature, openai_tokens, content):
-        
-    """
-    Converts JSON data to summary and updates the database with the generated summary.
-    Args:
-        tablename (str): The name of the table in the database.
-        match_id (int): The ID of the match.
-        openai_endpoint (str): The endpoint URL for the OpenAI API.
-        openai_key (str): The API key for the OpenAI API.
-        openai_model (str): The model name or ID for the OpenAI API.
-        openai_temperature (float): The temperature parameter for the OpenAI API.
-        openai_tokens (int): The maximum number of tokens for the OpenAI API.
-        content (str): The content to be summarized.
-    Returns:
-        None: This function does not return any value.
-    Raises:
-        Exception: If there is an error connecting to or executing the query in the database.
-    """
-
-    try:        
-
-        # Connect to the database
-        conn = psycopg2.connect(
-            host=os.getenv('DB_SERVER'),
-            database=os.getenv('DB_NAME'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD')
-        )
-
-        cursor = conn.cursor()
-
-        query = sql.SQL(f"""
-            SELECT json_, period, minute FROM {tablename}
-            WHERE match_id = {match_id} 
-            and summary IS NULL 
-            ORDER BY period, minute
-        """)
-        cursor.execute(query)
-        rowCount = cursor.rowcount
-        i=0
-
-        start_time = datetime.now()
-
-        # recorre cada registro
-        for row in cursor.fetchall():
-            # convierte el json en prose
-
-            i+=1
-
-            row_start_time = datetime.now()
-
-            json_ = row[0]
-            period = row[1]
-            minute = row[2]
-            summary = get_script(openai_endpoint, openai_key, openai_model, openai_temperature, content, json_, openai_tokens)
-
-            # actualiza el registro
-            update_query = sql.SQL(f"""
-                UPDATE {tablename}
-                SET summary = %s
-                WHERE match_id = %s
-                and minute = %s and period = %s
-            """)
-
-            cursor.execute(update_query, (summary, match_id, minute, period))
-            conn.commit()
-
-            time = datetime.now() - row_start_time
-            time_str = str(time).split(".")[0]
-
-            now = datetime.now() 
-            now_str = str(now).split(".")[0]
-
-            print(f"[{now_str}] Updated period {period}, minute {minute} from match_id {match_id}.", end=" ")
-            print(f"Row processing time {i} of {rowCount} row(s), {time_str}.", end=" ")
-
-            time = ((datetime.now() - start_time) / (i+1)) * (rowCount - i)
-            time_str = str(time).split(".")[0]
-            # Print the elapsed time and the remaining time
-            print(f"Estimated remaining time: {time_str}.")
-
-
-    except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        # Close the cursor and the connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
 
             
-def get_match_summary_from_azure_openai(tablename, match_id, 
-                          openai_endpoint, openai_key, 
-                          openai_model, openai_temperature, openai_tokens,
-                          content):
 
-    """
-    Retrieves the match summary from the specified database table for a given match ID by calling Azure Open AI for summarization.
-    Args:
-
-        tablename (str): The name of the table containing the match summaries.
-        match_id (int): The ID of the match for which the summary is requested.
-        openai_endpoint (str): The endpoint URL for the OpenAI API.
-        openai_key (str): The API key for accessing the OpenAI API.
-        openai_model (str): The name or ID of the OpenAI model to use.
-        openai_temperature (float): The temperature parameter for generating the summary.
-        openai_tokens (int): The maximum number of tokens to use for generating the summary.
-        content (str): The content to be used for generating the summary.
+def get_json_events_details_from_match_id (match_id):
+    """Retrieves events data from a database based on the given parameters.
+    Parameters:
+    - match_id (str): The ID of the match to retrieve events for.
     Returns:
-        str: The generated match summary.
-    Raises:
-        Exception: If there is an error connecting to the database or executing the query.
+    - df (pandas.DataFrame): A DataFrame containing the events data.
     """
-    try:     
 
-        # Connect to the database
-        conn = psycopg2.connect(
-            host=os.getenv('DB_SERVER'),
-            database=os.getenv('DB_NAME'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD')
-        )
+    conn = psycopg2.connect(
+        host=os.getenv('DB_SERVER'),
+        database=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD')
+    )
 
-        cursor = conn.cursor()
+    cursor = conn.cursor()
 
-        query = sql.SQL(f"""
-            SELECT summary FROM {tablename}
-            WHERE match_id = {match_id} 
-            ORDER BY period, minute
-        """)
-        cursor.execute(query)
-        rowCount = cursor.rowcount
-        i=0
+    sql = f"""
+            select json_
+            from events_details
+            where match_id = '{match_id}'
+            order by period, timestamp;
+            """    
+    cursor.execute(sql)
 
-        match_minutes = ""
-        for row in cursor.fetchall():
-            match_minutes += row[0]
+    # Convert the result to a dataframe
+    df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
 
-        summary = get_script(openai_endpoint, openai_key, openai_model, openai_temperature, content, match_minutes, openai_tokens)
+    return df
 
-        return summary
-
-    except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        # Close the cursor and the connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-
-def export_match_summary_minutes(tablename, match_id, local_folder, minute_chunks):
+def download_match_script(tablename, match_id, local_folder, minutes_chunks):
 
     try:
 
@@ -768,7 +642,7 @@ def export_match_summary_minutes(tablename, match_id, local_folder, minute_chunk
             summary_output_all += header + summary
 
             # si i > 0 y i > minute_chunks, entonces se crea un nuevo archivo, sino, se añade a summary
-            if minute > 0 and minute % minute_chunks == 0:
+            if minute > 0 and minute % minutes_chunks == 0:
                 filename = f"summary_minutes_{match_id}-{str(period).zfill(2)}-{str(minute).zfill(3)}.txt"
                 with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
                     f.write(summary_output)
