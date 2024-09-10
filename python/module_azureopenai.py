@@ -6,7 +6,7 @@ from psycopg2 import sql
 import pandas as pd
 from openai import AzureOpenAI
 import datetime
-from python.module_postgres import get_json_events_details_from_match_id
+from datetime import datetime
 
 
 def get_chat_completion_from_azure_open_ai(system_message, user_prompt, temperature, tokens):
@@ -189,10 +189,11 @@ def create_and_download_detailed_match_summary(match_id, rows_per_prompt, file_p
         script = ""
 
 
-def create_events_summary_from_json_rows_in_database(tablename, match_id, system_message, temperature, tokens):
+def create_events_summary_per_minute_from_json_rows_in_database(source, tablename, match_id, system_message, temperature, tokens):
     """
     Converts JSON data to summary and updates the database with the generated summary.
     Args:
+        source (str): The source of the database. Either "azure" or "others".
         tablename (str): The name of the table in the database.
         match_id (int): The ID of the match.
         system_message (str): The system message.
@@ -204,12 +205,25 @@ def create_events_summary_from_json_rows_in_database(tablename, match_id, system
         Exception: If there is an error connecting to or executing the query in the database.
     """
     try:
-        conn = psycopg2.connect(
-            host=os.getenv('DB_SERVER'),
-            database=os.getenv('DB_NAME'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD')
-        )
+
+        conn = None
+
+        if source.lower() == "azure":
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER_AZURE'),
+                database=os.getenv('DB_NAME_AZURE'),
+                user=os.getenv('DB_USER_AZURE'),
+                password=os.getenv('DB_PASSWORD_AZURE')
+            )
+        else:
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER'),
+                database=os.getenv('DB_NAME'),
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASSWORD')
+            )
 
         cursor = conn.cursor()
 
@@ -268,11 +282,105 @@ def create_events_summary_from_json_rows_in_database(tablename, match_id, system
         if conn:
             conn.close()
 
+def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, primary_key_column, message_column, match_id, system_message, temperature, tokens):
+    """
+    Converts JSON data to summary and updates the database with the generated summary.
+    Args:
+        source (str): The source of the database. Either "azure" or "others".
+        tablename (str): The name of the table in the database.
+        match_id (int): The ID of the match.
+        pk (str): The primary key of the table.
+        message_column (str): The name of the column to update.
+        system_message (str): The system message.
+        temperature (float): The temperature parameter for the OpenAI API.
+        tokens (int): The maximum number of tokens for the OpenAI API.
+    Returns:
+        None: This function does not return any value.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+    try:
 
-def create_match_summary(tablename, match_id, system_message, temperature, tokens):
+        conn = None
+
+        if source.lower() == "azure":
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER_AZURE'),
+                database=os.getenv('DB_NAME_AZURE'),
+                user=os.getenv('DB_USER_AZURE'),
+                password=os.getenv('DB_PASSWORD_AZURE')
+            )
+        else:
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER'),
+                database=os.getenv('DB_NAME'),
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASSWORD')
+            )
+
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT  {primary_key_column} as key, json_ FROM {tablename}
+            WHERE match_id = {match_id} 
+            and {message_column} IS NULL 
+            ORDER BY {primary_key_column};
+        """)
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+        i = 0
+
+        start_time = datetime.now()
+
+        for row in cursor.fetchall():
+            i += 1
+
+            row_start_time = datetime.now()
+
+            key = row[0]
+            json_ = row[1]
+            summary = get_chat_completion_from_azure_open_ai(system_message, json_, temperature, tokens)
+
+            update_query = sql.SQL(f"""
+                UPDATE {tablename}
+                SET {message_column} = %s
+                WHERE match_id = %s
+                and {primary_key_column} = %s 
+            """)
+
+            cursor.execute(update_query, (summary, match_id, key))
+            conn.commit()
+
+            time = datetime.now() - row_start_time
+            time_str = str(time).split(".")[0]
+
+            now = datetime.now()
+            now_str = str(now).split(".")[0]
+
+            print(f"[{now_str}] Updated primary key {key} from match_id {match_id}.", end=" ")
+            print(f"Row processing time {i} of {rowCount} row(s), {time_str}.", end=" ")
+
+            time = ((datetime.now() - start_time) / (i+1)) * (rowCount - i)
+            time_str = str(time).split(".")[0]
+            print(f"Estimated remaining time: {time_str}.")
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
+def create_match_summary(source, tablename, match_id, system_message, temperature, tokens):
     """
     Retrieves the match summary from the specified database table for a given match ID by calling Azure Open AI for summarization.
     Args:
+        source (str): The source of the database. Either "azure" or "others".
         tablename (str): The name of the table containing the match summaries.
         match_id (int): The ID of the match for which the summary is requested.
         system_message (str): The content to be used for generating the summary.
@@ -284,12 +392,25 @@ def create_match_summary(tablename, match_id, system_message, temperature, token
         Exception: If there is an error connecting to the database or executing the query.
     """
     try:
-        conn = psycopg2.connect(
-            host=os.getenv('DB_SERVER'),
-            database=os.getenv('DB_NAME'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD')
-        )
+
+        conn = None
+
+        if source.lower() == "azure":
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER_AZURE'),
+                database=os.getenv('DB_NAME_AZURE'),
+                user=os.getenv('DB_USER_AZURE'),
+                password=os.getenv('DB_PASSWORD_AZURE')
+            )
+        else:
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER'),
+                database=os.getenv('DB_NAME'),
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASSWORD')
+            )
 
         cursor = conn.cursor()
 
