@@ -6,7 +6,7 @@ from psycopg2 import sql
 import pandas as pd
 from module_azureopenai import get_chat_completion_from_azure_open_ai
 
-def copy_data_from_postgres_to_azure(table_name, columns_list):
+def copy_data_from_postgres_to_azure(table_name, columns_list, match_id):
     """
     Connects to a local PostgreSQL database and copies data from specified tables to an Azure PostgreSQL database.
     This function facilitates the migration of data between two PostgreSQL databases, allowing for seamless transfer
@@ -15,6 +15,7 @@ def copy_data_from_postgres_to_azure(table_name, columns_list):
     Parameters:
     - table_name (str): The name of the table to copy data from the local database to the Azure database.
     - column_list (str): A list of column names to copy from the local table to the Azure table.
+    - match_id (int): The ID of the match to copy data for. If <= 0, all data from the table will be copied.
 
     Functionality:
     - Database Connection: Establishes connections to the local and Azure PostgreSQL databases using provided credentials.
@@ -48,8 +49,15 @@ def copy_data_from_postgres_to_azure(table_name, columns_list):
         
         cursor_azure = conn_azure.cursor()
 
-        # Query to select all data from the table
-        select_query = sql.SQL(f"""SELECT {columns_list} FROM {table_name};""")
+        select_query=""
+        # if match_id <= 0, then copy all data from the table
+        if match_id <= 0:
+            # Query to select all data from the table
+            select_query = sql.SQL(f"""SELECT {columns_list} FROM {table_name};""")
+        else:
+            # Query to select all data from the table
+            select_query = sql.SQL(f"""SELECT {columns_list} FROM {table_name} WHERE match_id = {match_id};""")
+
         cursor.execute(select_query)
 
         # Fetch all rows from the local database

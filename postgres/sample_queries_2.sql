@@ -54,8 +54,6 @@ and m.competition_name in ('UEFA Euro', 'Copa America', 'FIFA World Cup')
 group by competition_country, competition_name, season_name
 
 
-
-
 select distinct competition_country, competition_name, season_name
 from matches m
 order by 1

@@ -62,25 +62,28 @@ if __name__ == "__main__":
 
 #     # 5) copy data from local to azure
 
-#     # matches table
-#     table_name = "matches"
-#     table_columns = "match_id, match_date, competition_id, competition_country, competition_name, season_id, season_name, home_team_id, home_team_name, home_team_gender, home_team_country, home_team_manager, home_team_manager_country, away_team_id, away_team_name, away_team_gender, away_team_country, away_team_manager, away_team_manager_country, home_score, away_score, result, match_week, stadium_id, stadium_name, stadium_country, referee_id, referee_name, referee_country, json_"
-#     copy_data_from_postgres_to_azure(table_name, table_columns)
+###### France - Argentina match_id: 3869685
+###### England - Spain match_id: 3943043
 
-#     # lineups table
-#     table_name = "lineups"
-#     table_columns = "match_id, home_team_id, home_team_name, away_team_id, away_team_name, json_"
-#     copy_data_from_postgres_to_azure(table_name, table_columns)
+    # matches table
+    table_name = "matches"
+    table_columns = "match_id, match_date, competition_id, competition_country, competition_name, season_id, season_name, home_team_id, home_team_name, home_team_gender, home_team_country, home_team_manager, home_team_manager_country, away_team_id, away_team_name, away_team_gender, away_team_country, away_team_manager, away_team_manager_country, home_score, away_score, result, match_week, stadium_id, stadium_name, stadium_country, referee_id, referee_name, referee_country, json_"
+    copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
 
-#     # players table
-#     table_name = "players"
-#     table_columns = "match_id, team_id, team_name, player_id, player_name, jersey_number, country_id, country_name, position_id, position_name, from_time, to_time, from_period, to_period, start_reason, end_reason"
-#     copy_data_from_postgres_to_azure(table_name, table_columns)
+    # lineups table
+    table_name = "lineups"
+    table_columns = "match_id, home_team_id, home_team_name, away_team_id, away_team_name, json_"
+    copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
 
-#     # events table
-#     table_name = "events"
-#     table_columns = "match_id, json_"
-#     copy_data_from_postgres_to_azure(table_name, table_columns)
+    # players table
+    table_name = "players"
+    table_columns = "match_id, team_id, team_name, player_id, player_name, jersey_number, country_id, country_name, position_id, position_name, from_time, to_time, from_period, to_period, start_reason, end_reason"
+    copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
+
+    # events table
+    table_name = "events"
+    table_columns = "match_id, json_"
+    copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
 
 #     # # events_details table
 #     # this table is loaded using the script /postgres/tables_setup_load_events_details_from_postgres.sql
@@ -97,7 +100,7 @@ if __name__ == "__main__":
 #             This is the Json data: 
 #             """
 
-#     create_events_summary_per_pk_from_json_rows_in_database ("azure", "final_match_Spain_England_events_details__minutewise", "id", "summary", 3943043, -1, system_message, 0.1, 7500)
+#     create_events_summary_per_pk_from_json_rows_in_database ("azure", "events_details__minutewise", "id", "summary", 3943043, -1, system_message, 0.1, 7500)
 
 #     # 6-b) convert each json_ row into a prose script (line by line). in this case it is agnostic of the timing, it is based on the primary key column
 
@@ -110,7 +113,7 @@ if __name__ == "__main__":
 #             This is the Json data: 
 #             """
     
-#     create_events_summary_per_pk_from_json_rows_in_database ("azure", "final_match_Spain_England_events_details__minutewise", "id", "summary_script", 3943043, -1, system_message, 0.1, 7500)
+#     create_events_summary_per_pk_from_json_rows_in_database ("azure", "events_details__minutewise", "id", "summary_script", 3943043, -1, system_message, 0.1, 7500)
 
 #     # 7) create a detailed match summary of the match based on the summaries of each event created in 5)
 #     # data is aggegated using the parameter rows_per_prompt
@@ -153,7 +156,7 @@ if __name__ == "__main__":
 
 #     match_id = 3943043
 
-#     summary = create_match_summary ("Azure", "final_match_Spain_England_events_details__minutewise", match_id, system_message, 0.1, 15000)
+#     summary = create_match_summary ("Azure", "events_details__minutewise", match_id, system_message, 0.1, 15000)
 #     print(summary)
     
 #     folder = os.path.join(local_folder, "scripts_summary")
@@ -163,19 +166,19 @@ if __name__ == "__main__":
 #         f.write(summary)
 #     print(summary)
 
-    # 9) download from database the scripts in minutes chunks
-    # The summary is stored in a file in the folder scripts_summary
+    # # 9) download from database the scripts in minutes chunks
+    # # The summary is stored in a file in the folder scripts_summary
 
-    local_folder = os.getenv('LOCAL_FOLDER')
-    local_folder = os.path.join(local_folder, "scripts_summary")
-    download_match_script("azure", "final_match_Spain_England_events_details__minutewise", 3943043, "summary", local_folder, 10)
-    download_match_script("azure", "final_match_Spain_England_events_details__minutewise", 3943043, "summary_script", local_folder, 10)
+    # local_folder = os.getenv('LOCAL_FOLDER')
+    # local_folder = os.path.join(local_folder, "scripts_summary")
+    # download_match_script("azure", "events_details__minutewise", 3943043, "summary", local_folder, 10)
+    # download_match_script("azure", "events_details__minutewise", 3943043, "summary_script", local_folder, 10)
 
 
 #     # 10) get tokens statistics from a table column
 #     # usefull to understand the distribution of tokens in a column for embedding purposes
     
-#     s = get_tokens_statistics_from_table_column("final_match_Spain_England_events_details__minutewise", "json_", -1)
+#     s = get_tokens_statistics_from_table_column("events_details__minutewise", "json_", -1)
 #     print (s)
 
 #     s = get_tokens_statistics_from_table_column("events_details", "json_", -1)
