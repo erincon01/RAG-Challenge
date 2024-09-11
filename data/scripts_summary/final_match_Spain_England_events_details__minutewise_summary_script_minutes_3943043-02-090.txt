@@ -1,0 +1,432 @@
+
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 081
+--------------------------------------------
+1 | carry | 36:44 | Martín Zubimendi Ibáñez | carries the ball | Right Defensive Midfield | Right Defensive Midfield | | 
+2 | ball receipt | 36:00 | Cole Palmer | receives the ball | Center Attacking Midfield | Center Attacking Midfield | | 
+3 | carry | 36:00 | Cole Palmer | carries the ball | Center Attacking Midfield | Center Attacking Midfield | | 
+4 | dispossessed | 36:01 | Cole Palmer | is dispossessed | Center Attacking Midfield | Center Attacking Midfield | Martín Zubimendi Ibáñez | 
+5 | duel | 36:01 | Martín Zubimendi Ibáñez | tackles | Right Defensive Midfield | Right Defensive Midfield | Cole Palmer | success |
+6 | ball recovery | 36:02 | Nicholas Williams Arthuer | recovers the ball | Left Wing | Left Wing | | 
+7 | carry | 36:02 | Nicholas Williams Arthuer | carries the ball | Left Wing | Left Wing | | 
+8 | pass | 36:08 | Nicholas Williams Arthuer | passes the ball | Left Wing | Left Wing | Daniel Olmo Carvajal | 
+9 | ball receipt | 36:09 | Daniel Olmo Carvajal | receives the ball | Center Attacking Midfield | Center Attacking Midfield | Nicholas Williams Arthuer | 
+10 | carry | 36:09 | Daniel Olmo Carvajal | carries the ball | Center Attacking Midfield | Center Attacking Midfield | | 
+11 | pass | 36:10 | Daniel Olmo Carvajal | passes the ball | Center Attacking Midfield | Center Attacking Midfield | Nicholas Williams Arthuer | 
+12 | pressure | 36:10 | Marc Guehi | applies pressure | Left Center Back | Left Center Back | | 
+13 | ball receipt | 36:11 | Nicholas Williams Arthuer | receives the ball | Left Wing | Left Wing | Daniel Olmo Carvajal | 
+14 | carry | 36:11 | Nicholas Williams Arthuer | carries the ball | Left Wing | Left Wing | | 
+15 | pass | 36:11 | Nicholas Williams Arthuer | passes the ball | Left Wing | Left Wing | Daniel Olmo Carvajal | 
+16 | pass | 36:12 | Daniel Olmo Carvajal | passes the ball | Center Attacking Midfield | Center Attacking Midfield | Nicholas Williams Arthuer | 
+17 | carry | 36:12 | Daniel Olmo Carvajal | carries the ball | Center Attacking Midfield | Center Attacking Midfield | | 
+18 | pass | 36:12 | Daniel Olmo Carvajal | passes the ball | Center Attacking Midfield | Center Attacking Midfield | Lamine Yamal Nasraoui Ebana | 
+19 | ball receipt | 36:13 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | Right Wing | Daniel Olmo Carvajal | 
+20 | **shot** | 36:13 | Lamine Yamal Nasraoui Ebana | shoots to goal | Right Wing | Right Wing | Jordan Pickford | **saved** |
+21 | goalkeeper | 36:13 | Jordan Pickford | saves the shot | Goalkeeper | Goalkeeper | Lamine Yamal Nasraoui Ebana | 
+22 | clearance | 36:15 | Marc Guehi | clears the ball | Left Center Back | Left Center Back | | 
+23 | pass | 36:22 | Daniel Carvajal Ramos | passes the ball | Right Back | Right Back | Martín Zubimendi Ibáñez | 
+24 | ball receipt | 36:24 | Martín Zubimendi Ibáñez | receives the ball | Right Defensive Midfield | Right Defensive Midfield | Daniel Carvajal Ramos | 
+25 | pass | 36:26 | Martín Zubimendi Ibáñez | passes the ball | Right Defensive Midfield | Right Defensive Midfield | Fabián Ruiz Peña | 
+26 | ball receipt | 36:27 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | Left Defensive Midfield | Martín Zubimendi Ibáñez | 
+27 | carry | 36:27 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | Left Defensive Midfield | | 
+28 | pass | 36:30 | Fabián Ruiz Peña | passes the ball | Left Defensive Midfield | Left Defensive Midfield | Daniel Carvajal Ramos | 
+29 | ball receipt | 36:32 | Daniel Carvajal Ramos | receives the ball | Right Back | Right Back | Fabián Ruiz Peña | 
+30 | carry | 36:32 | Daniel Carvajal Ramos | carries the ball | Right Back | Right Back | | 
+31 | pass | 36:33 | Daniel Carvajal Ramos | passes the ball | Right Back | Right Back | Lamine Yamal Nasraoui Ebana | 
+32 | ball receipt | 36:34 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | Right Wing | Daniel Carvajal Ramos | 
+33 | carry | 36:34 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | Right Wing | | 
+34 | pass | 36:37 | Lamine Yamal Nasraoui Ebana | passes the ball | Right Wing | Right Wing | Martín Zubimendi Ibáñez | 
+35 | ball receipt | 36:39 | Martín Zubimendi Ibáñez | receives the ball | Right Defensive Midfield | Right Defensive Midfield | Lamine Yamal Nasraoui Ebana | 
+36 | carry | 36:39 | Martín Zubimendi Ibáñez | carries the ball | Right Defensive Midfield | Right Defensive Midfield | | 
+37 | pass | 36:40 | Martín Zubimendi Ibáñez | passes the ball | Right Defensive Midfield | Right Defensive Midfield | Nicholas Williams Arthuer | 
+38 | ball receipt | 36:41 | Nicholas Williams Arthuer | receives the ball | Left Wing | Left Wing | Martín Zubimendi Ibáñez | 
+39 | carry | 36:41 | Nicholas Williams Arthuer | carries the ball | Left Wing | Left Wing | | 
+40 | pass | 36:43 | Nicholas Williams Arthuer | passes the ball | Left Wing | Left Wing | Martín Zubimendi Ibáñez | 
+41 | ball receipt | 36:44 | Martín Zubimendi Ibáñez | receives the ball | Right Defensive Midfield | Right Defensive Midfield | Nicholas Williams Arthuer | 
+42 | pressure | 36:44 | Cole Palmer | applies pressure | Center Attacking Midfield | Center Attacking Midfield | | 
+43 | pass | 36:45 | Martín Zubimendi Ibáñez | passes the ball | Right Defensive Midfield | Right Defensive Midfield | Aymeric Laporte | 
+44 | ball receipt | 36:46 | Aymeric Laporte | receives the ball | Left Center Back | Left Center Back | Martín Zubimendi Ibáñez | 
+45 | carry | 36:46 | Aymeric Laporte | carries the ball | Left Center Back | Left Center Back | | 
+46 | pass | 36:49 | Aymeric Laporte | passes the ball | Left Center Back | Left Center Back | Robin Aime Robert Le Normand | 
+47 | ball receipt | 36:50 | Robin Aime Robert Le Normand | receives the ball | Right Center Back | Right Center Back | Aymeric Laporte | 
+48 | carry | 36:50 | Robin Aime Robert Le Normand | carries the ball | Right Center Back | Right Center Back | | 
+49 | pass | 36:52 | Robin Aime Robert Le Normand | passes the ball | Right Center Back | Right Center Back | Daniel Carvajal Ramos | 
+50 | ball receipt | 36:53 | Daniel Carvajal Ramos | receives the ball | Right Back | Right Back | Robin Aime Robert Le Normand | 
+51 | carry | 36:53 | Daniel Carvajal Ramos | carries the ball | Right Back | Right Back | | 
+52 | pass | 36:54 | Daniel Carvajal Ramos | passes the ball | Right Back | Right Back | Fabián Ruiz Peña | 
+53 | ball receipt | 36:56 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | Left Defensive Midfield | Daniel Carvajal Ramos | 
+54 | carry | 36:56 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | Left Defensive Midfield | | 
+55 | pass | 36:57 | Fabián Ruiz Peña | passes the ball | Left Defensive Midfield | Left Defensive Midfield | Daniel Carvajal Ramos | 
+56 | ball receipt | 36:59 | Daniel Carvajal Ramos | receives the ball | Right Back | Right Back | Fabián Ruiz Peña | 
+57 | carry | 36:59 | Daniel Carvajal Ramos | carries the ball | Right Back | Right Back | | 
+58 | pass | 37:00 | Daniel Carvajal Ramos | passes the ball | Right Back | Right Back | | 
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 082
+--------------------------------------------
+82 | pass | 37:57 | John Stones | pass to Ollie Watkins | Right Center Back | Right Center Back | Ollie Watkins | Incomplete  
+82 | pass | 37:03 | Robin Aime Robert Le Normand | pass to Martín Zubimendi Ibáñez | Right Center Back | Right Center Back | Martín Zubimendi Ibáñez | Incomplete  
+82 | ball receipt | 37:04 | Martín Zubimendi Ibáñez | receives ball | Right Defensive Midfield | Right Defensive Midfield | Robin Aime Robert Le Normand | -  
+82 | carry | 37:04 | Martín Zubimendi Ibáñez | carries ball | Right Defensive Midfield | Right Defensive Midfield | - | -  
+82 | pass | 37:06 | Martín Zubimendi Ibáñez | pass to Nicholas Williams Arthuer | Right Defensive Midfield | Left Wing | Nicholas Williams Arthuer | Incomplete  
+82 | ball receipt | 37:07 | Nicholas Williams Arthuer | receives ball | Left Wing | Left Wing | Martín Zubimendi Ibáñez | -  
+82 | carry | 37:07 | Nicholas Williams Arthuer | carries ball | Left Wing | Left Wing | - | -  
+82 | dribble | 37:09 | Nicholas Williams Arthuer | dribbles | Left Wing | Left Wing | - | Incomplete  
+82 | duel | 37:09 | Kyle Walker | tackles Nicholas Williams Arthuer | Right Back | Left Wing | Nicholas Williams Arthuer | Won  
+82 | ball receipt | 37:02 | Robin Aime Robert Le Normand | receives ball | Right Center Back | Right Center Back | - | -  
+82 | carry | 37:09 | Kyle Walker | carries ball | Right Back | Right Back | - | -  
+82 | pressure | 37:10 | Martín Zubimendi Ibáñez | applies pressure | Right Defensive Midfield | Right Defensive Midfield | Kyle Walker | -  
+82 | dribble | 37:11 | Kyle Walker | dribbles | Right Back | Right Back | - | Incomplete  
+82 | duel | 37:11 | Martín Zubimendi Ibáñez | tackles Kyle Walker | Right Defensive Midfield | Right Back | Kyle Walker | Lost Out  
+82 | substitution | 37:38 | Robin Aime Robert Le Normand | substituted out | Right Center Back | Right Center Back | José Ignacio Fernández Iglesias | -  
+82 | pass | 37:51 | Kyle Walker | throw-in to Declan Rice | Right Back | Left Defensive Midfield | Declan Rice | -  
+82 | pressure | 37:52 | Nicholas Williams Arthuer | applies pressure | Left Wing | Left Wing | Declan Rice | -  
+82 | ball receipt | 37:52 | Declan Rice | receives ball | Left Defensive Midfield | Left Defensive Midfield | Kyle Walker | -  
+82 | carry | 37:52 | Declan Rice | carries ball | Left Defensive Midfield | Left Defensive Midfield | - | -  
+82 | pass | 37:52 | Declan Rice | pass to Kyle Walker | Left Defensive Midfield | Right Back | Kyle Walker | -  
+82 | ball receipt | 37:53 | Kyle Walker | receives ball | Right Back | Right Back | Declan Rice | -  
+82 | carry | 37:53 | Kyle Walker | carries ball | Right Back | Right Back | - | -  
+82 | pressure | 37:53 | Nicholas Williams Arthuer | applies pressure | Left Wing | Left Wing | Kyle Walker | -  
+82 | pass | 37:54 | Kyle Walker | pass to John Stones | Right Back | Right Center Back | John Stones | -  
+82 | ball receipt | 37:55 | John Stones | receives ball | Right Center Back | Right Center Back | Kyle Walker | -  
+82 | carry | 37:55 | John Stones | carries ball | Right Center Back | Right Center Back | - | -  
+82 | pressure | 37:57 | Nicholas Williams Arthuer | applies pressure | Left Wing | Left Wing | John Stones | -  
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 083
+--------------------------------------------
+1 | carry | 38:31 | José Ignacio Fernández Iglesias | carries the ball | Right Center Back | 64.8, 33.0 |  |  | 
+2 | pass | 38:34 | José Ignacio Fernández Iglesias | passes to Daniel Olmo Carvajal | Right Center Back | 72.5, 12.8 |  |  | 
+3 | ball receipt | 38:35 | Daniel Olmo Carvajal | receives the ball | Center Attacking Midfield | 72.5, 12.8 |  |  | 
+4 | carry | 38:35 | Daniel Olmo Carvajal | carries the ball | Center Attacking Midfield | 89.0, 11.6 |  |  | 
+5 | pass | 38:40 | Daniel Olmo Carvajal | passes to Nicholas Williams Arthuer | Center Attacking Midfield | 90.1, 22.5 |  |  | 
+6 | ball receipt | 38:41 | Nicholas Williams Arthuer | receives the ball | Left Wing | 90.1, 22.5 |  |  | 
+7 | carry | 38:41 | Nicholas Williams Arthuer | carries the ball | Left Wing | 88.4, 23.8 |  |  | 
+8 | pass | 38:42 | Nicholas Williams Arthuer | passes to Lamine Yamal Nasraoui Ebana | Left Wing | 89.5, 45.3 |  |  | 
+9 | ball receipt | 38:43 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 89.5, 45.3 |  |  | 
+10 | carry | 38:43 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 89.5, 45.3 |  |  | 
+11 | pass | 38:44 | Lamine Yamal Nasraoui Ebana | passes to Daniel Carvajal Ramos | Right Wing | 106.5, 63.1 |  |  | 
+12 | ball receipt | 38:46 | Daniel Carvajal Ramos | receives the ball | Right Back | 106.5, 63.1 |  |  | 
+13 | carry | 38:46 | Daniel Carvajal Ramos | carries the ball | Right Back | 109.0, 58.1 |  |  | 
+14 | pass | 38:47 | Daniel Carvajal Ramos | passes to Fabián Ruiz Peña | Right Back | 102.9, 51.3 |  |  | 
+15 | ball receipt | 38:48 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 102.9, 51.3 |  |  | 
+16 | carry | 38:48 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 106.1, 52.8 |  |  | 
+17 | pass | 38:49 | Fabián Ruiz Peña | passes to Daniel Carvajal Ramos | Left Defensive Midfield | 111.4, 61.0 |  |  | 
+18 | ball receipt | 38:50 | Daniel Carvajal Ramos | receives the ball | Right Back | 111.4, 61.0 |  |  | 
+19 | carry | 38:50 | Daniel Carvajal Ramos | carries the ball | Right Back | 114.3, 60.3 |  |  | 
+20 | pass | 38:51 | Daniel Carvajal Ramos | passes to Lamine Yamal Nasraoui Ebana | Right Back | 90.9, 64.4 |  |  | 
+21 | ball receipt | 38:56 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 90.9, 64.4 |  |  | 
+22 | carry | 38:56 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 90.3, 58.1 |  |  | 
+23 | pass | 38:58 | Lamine Yamal Nasraoui Ebana | passes to Nicholas Williams Arthuer | Right Wing | 96.2, 46.1 |  |  | 
+24 | ball receipt | 38:59 | Nicholas Williams Arthuer | receives the ball | Left Wing | 96.2, 46.1 |  |  | 
+25 | carry | 38:59 | Nicholas Williams Arthuer | carries the ball | Left Wing | 95.0, 51.6 |  |  | 
+26 | ball recovery | 38:03 | Unai Simón Mendibil | recovers the ball | Goalkeeper | 26.8, 31.3 |  |  | 
+27 | carry | 38:03 | Unai Simón Mendibil | carries the ball | Goalkeeper | 21.2, 31.3 |  |  | 
+28 | pass | 38:05 | Unai Simón Mendibil | passes to José Ignacio Fernández Iglesias | Goalkeeper | 28.7, 40.3 |  |  | 
+29 | ball receipt | 38:06 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 28.7, 40.3 |  |  | 
+30 | carry | 38:06 | José Ignacio Fernández Iglesias | carries the ball | Right Center Back | 34.7, 45.6 |  |  | 
+31 | pass | 38:08 | José Ignacio Fernández Iglesias | passes to Fabián Ruiz Peña | Right Center Back | 49.2, 45.6 |  |  | 
+32 | ball receipt | 38:09 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 49.2, 45.6 |  |  | 
+33 | carry | 38:09 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 43.7, 51.9 |  |  | 
+34 | pass | 38:10 | Fabián Ruiz Peña | passes to José Ignacio Fernández Iglesias | Left Defensive Midfield | 36.5, 50.6 |  |  | 
+35 | ball receipt | 38:11 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 36.5, 50.6 |  |  | 
+36 | carry | 38:11 | José Ignacio Fernández Iglesias | carries the ball | Right Center Back | 34.8, 52.2 |  |  | 
+37 | pass | 38:14 | José Ignacio Fernández Iglesias | passes to Fabián Ruiz Peña | Right Center Back | 42.6, 68.6 |  |  | 
+38 | ball receipt | 38:16 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 42.6, 68.6 |  |  | 
+39 | carry | 38:16 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 40.1, 63.6 |  |  | 
+40 | pass | 38:17 | Fabián Ruiz Peña | passes to Aymeric Laporte | Left Defensive Midfield | 34.2, 21.4 |  |  | 
+41 | ball receipt | 38:20 | Aymeric Laporte | receives the ball | Left Center Back | 34.2, 21.4 |  |  | 
+42 | carry | 38:20 | Aymeric Laporte | carries the ball | Left Center Back | 21.2, 31.3 |  |  | 
+43 | pass | 38:24 | Aymeric Laporte | passes to Daniel Olmo Carvajal | Left Center Back | 61.1, 11.7 |  |  | 
+44 | ball receipt | 38:25 | Daniel Olmo Carvajal | receives the ball | Center Attacking Midfield | 61.1, 11.7 |  |  | 
+45 | pass | 38:25 | Daniel Olmo Carvajal | passes to Martín Zubimendi Ibáñez | Center Attacking Midfield | 50.4, 17.2 |  |  | 
+46 | ball receipt | 38:26 | Martín Zubimendi Ibáñez | receives the ball | Right Defensive Midfield | 50.4, 17.2 |  |  | 
+47 | carry | 38:26 | Martín Zubimendi Ibáñez | carries the ball | Right Defensive Midfield | 46.1, 16.9 |  |  | 
+48 | pass | 38:29 | Martín Zubimendi Ibáñez | passes to José Ignacio Fernández Iglesias | Right Defensive Midfield | 49.7, 37.5 |  |  | 
+49 | ball receipt | 38:30 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 49.7, 37.5 |  |  | 
+50 | pass | 38:31 | José Ignacio Fernández Iglesias | passes to Daniel Olmo Carvajal | Right Center Back | 72.5, 12.8 |  |  | 
+51 | ball receipt | 38:34 | Daniel Olmo Carvajal | receives the ball | Center Attacking Midfield | 72.5, 12.8 |  |  | 
+52 | carry | 38:35 | Daniel Olmo Carvajal | carries the ball | Center Attacking Midfield | 89.0, 11.6 |  |  | 
+53 | pass | 38:40 | Daniel Olmo Carvajal | passes to Nicholas Williams Arthuer | Center Attacking Midfield | 90.1, 22.5 |  |  | 
+54 | ball receipt | 38:41 | Nicholas Williams Arthuer | receives the ball | Left Wing | 90.1, 22.5 |  |  | 
+55 | carry | 38:41 | Nicholas Williams Arthuer | carries the ball | Left Wing | 88.4, 23.8 |  |  | 
+56 | pass | 38:42 | Nicholas Williams Arthuer | passes to Lamine Yamal Nasraoui Ebana | Left Wing | 89.5, 45.3 |  |  | 
+57 | ball receipt | 38:43 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 89.5, 45.3 |  |  | 
+58 | carry | 38:43 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 89.5, 45.3 |  |  | 
+59 | pass | 38:44 | Lamine Yamal Nasraoui Ebana | passes to Daniel Carvajal Ramos | Right Wing | 106.5, 63.1 |  |  | 
+60 | ball receipt | 38:46 | Daniel Carvajal Ramos | receives the ball | Right Back | 106.5, 63.1 |  |  | 
+61 | carry | 38:46 | Daniel Carvajal Ramos | carries the ball | Right Back | 109.0, 58.1 |  |  | 
+62 | pass | 38:47 | Daniel Carvajal Ramos | passes to Fabián Ruiz Peña | Right Back | 102.9, 51.3 |  |  | 
+63 | ball receipt | 38:48 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 102.9, 51.3 |  |  | 
+64 | carry | 38:48 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 106.1, 52.8 |  |  | 
+65 | pass | 38:49 | Fabián Ruiz Peña | passes to Daniel Carvajal Ramos | Left Defensive Midfield | 111.4, 61.0 |  |  | 
+66 | ball receipt | 38:50 | Daniel Carvajal Ramos | receives the ball | Right Back | 111.4, 61.0 |  |  | 
+67 | carry | 38:50 | Daniel Carvajal Ramos | carries the ball | Right Back | 114.3, 60.3 |  |  | 
+68 | pass | 38:51 | Daniel Carvajal Ramos | passes to Lamine Yamal Nasraoui Ebana | Right Back | 90.9, 64.4 |  |  | 
+69 | ball receipt | 38:56 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 90.9, 64.4 |  |  | 
+70 | carry | 38:56 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 90.3, 58.1 |  |  | 
+71 | pass | 38:58 | Lamine Yamal Nasraoui Ebana | passes to Nicholas Williams Arthuer | Right Wing | 96.2, 46.1 |  |  | 
+72 | ball receipt | 38:59 | Nicholas Williams Arthuer | receives the ball | Left Wing | 96.2, 46.1 |  |  | 
+73 | carry | 38:59 | Nicholas Williams Arthuer | carries the ball | Left Wing | 95.0, 51.6 |  |  | 
+74 | ball recovery | 38:03 | Unai Simón Mendibil | recovers the ball | Goalkeeper | 26.8, 31.3 |  |  | 
+75 | carry | 38:03 | Unai Simón Mendibil | carries the ball | Goalkeeper | 21.2, 31.3 |  |  | 
+76 | pass | 38:05 | Unai Simón Mendibil | passes to José Ignacio Fernández Iglesias | Goalkeeper | 28.7, 40.3 |  |  | 
+77 | ball receipt | 38:06 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 28.7, 40.3 |  |  | 
+78 | carry | 38:06 | José Ignacio Fernández Iglesias | carries the ball | Right Center Back | 34.7, 45.6 |  |  | 
+79 | pass | 38:08 | José Ignacio Fernández Iglesias | passes to Fabián Ruiz Peña | Right Center Back | 49.2, 45.6 |  |  | 
+80 | ball receipt | 38:09 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 49.2, 45.6 |  |  | 
+81 | carry | 38:09 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 43.7, 51.9 |  |  | 
+82 | pass | 38:10 | Fabián Ruiz Peña | passes to José Ignacio Fernández Iglesias | Left Defensive Midfield | 36.5, 50.6 |  |  | 
+83 | ball receipt | 38:11 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 36.5, 50.6 |  |  | 
+84 | carry | 38:11 | José Ignacio Fernández Iglesias | carries the ball | Right Center Back | 34.8, 52.2 |  |  | 
+85 | pass | 38:14 | José Ignacio Fernández Iglesias | passes to Fabián Ruiz Peña | Right Center Back | 42.6, 68.6 |  |  | 
+86 | ball receipt | 38:16 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 42.6, 68.6 |  |  | 
+87 | carry | 38:16 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 40.1, 63.6 |  |  | 
+88 | pass | 38:17 | Fabián Ruiz Peña | passes to Aymeric Laporte | Left Defensive Midfield | 34.2, 21.4 |  |  | 
+89 | ball receipt | 38:20 | Aymeric Laporte | receives the ball | Left Center Back | 34.2, 21.4 |  |  | 
+90 | carry | 38:20 | Aymeric Laporte | carries the ball | Left Center Back | 21.2, 31.3 |  |  | 
+91 | pass | 38:24 | Aymeric Laporte | passes to Daniel Olmo Carvajal | Left Center Back | 61.1, 11.7 |  |  | 
+92 | ball receipt | 38:25 | Daniel Olmo Carvajal | receives the ball | Center Attacking Midfield | 61.1, 11.7 |  |  | 
+93 | pass | 38:25 | Daniel Olmo Carvajal | passes to Martín Zubimendi Ibáñez | Center Attacking Midfield | 50.4, 17.2 |  |  | 
+94 | ball receipt | 38:26 | Martín Zubimendi Ibáñez | receives the ball | Right Defensive Midfield | 50.4, 17.2 |  |  | 
+95 | carry | 38:26 | Martín Zubimendi Ibáñez | carries the ball | Right Defensive Midfield | 46.1, 16.9 |  |  | 
+96 | pass | 38:29 | Martín Zubimendi Ibáñez | passes to José Ignacio Fernández Iglesias | Right Defensive Midfield | 49.7, 37.5 |  |  | 
+97 | ball receipt | 38:30 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 49.7, 37.5 |  |  | 
+98 | pass | 38:31 | José Ignacio Fernández Iglesias | passes to Daniel Olmo Carvajal | Right Center Back | 72.5, 12.8 |  |  | 
+99 | ball receipt | 38:34 | Daniel Olmo Carvajal | receives the ball | Center Attacking Midfield | 72.5, 12.8 |  |  | 
+100 | carry | 38:35 | Daniel Olmo Carvajal | carries the ball | Center Attacking Midfield | 89.0, 11.6 |  |  | 
+101 | pass | 38:40 | Daniel Olmo Carvajal | passes to Nicholas Williams Arthuer | Center Attacking Midfield | 90.1, 22.5 |  |  | 
+102 | ball receipt | 38:41 | Nicholas Williams Arthuer | receives the ball | Left Wing | 90.1, 22.5 |  |  | 
+103 | carry | 38:41 | Nicholas Williams Arthuer | carries the ball | Left Wing | 88.4, 23.8 |  |  | 
+104 | pass | 38:42 | Nicholas Williams Arthuer | passes to Lamine Yamal Nasraoui Ebana | Left Wing | 89.5, 45.3 |  |  | 
+105 | ball receipt | 38:43 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 89.5, 45.3 |  |  | 
+106 | carry | 38:43 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 89.5, 45.3 |  |  | 
+107 | pass | 38:44 | Lamine Yamal Nasraoui Ebana | passes to Daniel Carvajal Ramos | Right Wing | 106.5, 63.1 |  |  | 
+108 | ball receipt | 38:46 | Daniel Carvajal Ramos | receives the ball | Right Back | 106.5, 63.1 |  |  | 
+109 | carry | 38:46 | Daniel Carvajal Ramos | carries the ball | Right Back | 109.0, 58.1 |  |  | 
+110 | pass | 38:47 | Daniel Carvajal Ramos | passes to Fabián Ruiz Peña | Right Back | 102.9, 51.3 |  |  | 
+111 | ball receipt | 38:48 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 102.9, 51.3 |  |  | 
+112 | carry | 38:48 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 106.1, 52.8 |  |  | 
+113 | pass | 38:49 | Fabián Ruiz Peña | passes to Daniel Carvajal Ramos | Left Defensive Midfield | 111.4, 61.0 |  |  | 
+114 | ball receipt | 38:50 | Daniel Carvajal Ramos | receives the ball | Right Back | 111.4, 61.0 |  |  | 
+115 | carry | 38:50 | Daniel Carvajal Ramos | carries the ball | Right Back | 114.3, 60.3 |  |  | 
+116 | pass | 38:51 | Daniel Carvajal Ramos | passes to Lamine Yamal Nasraoui Ebana | Right Back | 90.9, 64.4 |  |  | 
+117 | ball receipt | 38:56 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 90.9, 64.4 |  |  | 
+118 | carry | 38:56 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 90.3, 58.1 |  |  | 
+119 | pass | 38:58 | Lamine Yamal Nasraoui Ebana | passes to Nicholas Williams Arthuer | Right Wing | 96.2, 46.1 |  |  | 
+120 | ball receipt | 38:59 | Nicholas Williams Arthuer | receives the ball | Left Wing | 96.2, 46.1 |  |  | 
+121 | carry | 38:59 | Nicholas Williams Arthuer | carries the ball | Left Wing | 95.0, 51.6 |  |  | 
+122 | ball recovery | 38:03 | Unai Simón Mendibil | recovers the ball | Goalkeeper | 26.8, 31.3 |  |  | 
+123 | carry | 38:03 | Unai Simón Mendibil | carries the ball | Goalkeeper | 21.2, 31.3 |  |  | 
+124 | pass | 38:05 | Unai Simón Mendibil | passes to José Ignacio Fernández Iglesias | Goalkeeper | 28.7, 40.3 |  |  | 
+125 | ball receipt | 38:06 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 28.7, 40.3 |  |  | 
+126 | carry | 38:06 | José Ignacio Fernández Iglesias | carries the ball | Right Center Back | 34.7, 45.6 |  |  | 
+127 | pass | 38:08 | José Ignacio Fernández Iglesias | passes to Fabián Ruiz Peña | Right Center Back | 49.2, 45.6 |  |  | 
+128 | ball receipt | 38:09 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 49.2, 45.6 |  |  | 
+129 | carry | 38:09 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 43.7, 51.9 |  |  | 
+130 | pass | 38:10 | Fabián Ruiz Peña | passes to José Ignacio Fernández Iglesias | Left Defensive Midfield | 36.5, 50.6 |  |  | 
+131 | ball receipt | 38:11 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 36.5, 50.6 |  |  | 
+132 | carry | 38:11 | José Ignacio Fernández Iglesias | carries the ball | Right Center Back | 34.8, 52.2 |  |  | 
+133 | pass | 38:14 | José Ignacio Fernández Iglesias | passes to Fabián Ruiz Peña | Right Center Back | 42.6, 68.6 |  |  | 
+134 | ball receipt | 38:16 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 42.6, 68.6 |  |  | 
+135 | carry | 38:16 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 40.1, 63.6 |  |  | 
+136 | pass | 38:17 | Fabián Ruiz Peña | passes to Aymeric Laporte | Left Defensive Midfield | 34.2, 21.4 |  |  | 
+137 | ball receipt | 38:20 | Aymeric Laporte | receives the ball | Left Center Back | 34.2, 21.4 |  |  | 
+138 | carry | 38:20 | Aymeric Laporte | carries the ball | Left Center Back | 21.2, 31.3 |  |  | 
+139 | pass | 38:24 | Aymeric Laporte | passes to Daniel Olmo Carvajal | Left Center Back | 61.1, 11.7 |  |  | 
+140 | ball receipt | 38:25 | Daniel Olmo Carvajal | receives the ball | Center Attacking Midfield | 61.1, 11.7 |  |  | 
+141 | pass | 38:25 | Daniel Olmo Carvajal | passes to Martín Zubimendi Ibáñez | Center Attacking Midfield | 50.4, 17.2 |  |  | 
+142 | ball receipt | 38:26 | Martín Zubimendi Ibáñez | receives the ball | Right Defensive Midfield | 50.4, 17.2 |  |  | 
+143 | carry | 38:26 | Martín Zubimendi Ibáñez | carries the ball | Right Defensive Midfield | 46.1, 16.9 |  |  | 
+144 | pass | 38:29 | Martín Zubimendi Ibáñez | passes to José Ignacio Fernández Iglesias | Right Defensive Midfield | 49.7, 37.5 |  |  | 
+145 | ball receipt | 38:30 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 49.7, 37.5 |  |  | 
+146 | pass | 38:31 | José Ignacio Fernández Iglesias | passes to Daniel Olmo Carvajal | Right Center Back | 72.5, 12.8 |  |  | 
+147 | ball receipt | 38:34 | Daniel Olmo Carvajal | receives the ball | Center Attacking Midfield | 72.5, 12.8 |  |  | 
+148 | carry | 38:35 | Daniel Olmo Carvajal | carries the ball | Center Attacking Midfield | 89.0, 11.6 |  |  | 
+149 | pass | 38:40 | Daniel Olmo Carvajal | passes to Nicholas Williams Arthuer | Center Attacking Midfield | 90.1, 22.5 |  |  | 
+150 | ball receipt | 38:41 | Nicholas Williams Arthuer | receives the ball | Left Wing | 90.1, 22.5 |  |  | 
+151 | carry | 38:41 | Nicholas Williams Arthuer | carries the ball | Left Wing | 88.4, 23.8 |  |  | 
+152 | pass | 38:42 | Nicholas Williams Arthuer | passes to Lamine Yamal Nasraoui Ebana | Left Wing | 89.5, 45.3 |  |  | 
+153 | ball receipt | 38:43 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 89.5, 45.3 |  |  | 
+154 | carry | 38:43 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 89.5, 45.3 |  |  | 
+155 | pass | 38:44 | Lamine Yamal Nasraoui Ebana | passes to Daniel Carvajal Ramos | Right Wing | 106.5, 63.1 |  |  | 
+156 | ball receipt | 38:46 | Daniel Carvajal Ramos | receives the ball | Right Back | 106.5, 63.1 |  |  | 
+157 | carry | 38:46 | Daniel Carvajal Ramos | carries the ball | Right Back | 109.0, 58.1 |  |  | 
+158 | pass | 38:47 | Daniel Carvajal Ramos | passes to Fabián Ruiz Peña | Right Back | 102.9, 51.3 |  |  | 
+159 | ball receipt | 38:48 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 102.9, 51.3 |  |  | 
+160 | carry | 38:48 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 106.1, 52.8 |  |  | 
+161 | pass | 38:49 | Fabián Ruiz Peña | passes to Daniel Carvajal Ramos | Left Defensive Midfield | 111.4, 61.0 |  |  | 
+162 | ball receipt | 38:50 | Daniel Carvajal Ramos | receives the ball | Right Back | 111.4, 61.0 |  |  | 
+163 | carry | 38:50 | Daniel Carvajal Ramos | carries the ball | Right Back | 114.3, 60.3 |  |  | 
+164 | pass | 38:51 | Daniel Carvajal Ramos | passes to Lamine Yamal Nasraoui Ebana | Right Back | 90.9, 64.4 |  |  | 
+165 | ball receipt | 38:56 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 90.9, 64.4 |  |  | 
+166 | carry | 38:56 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 90.3, 58.1 |  |  | 
+167 | pass | 38:58 | Lamine Yamal Nasraoui Ebana | passes to Nicholas Williams Arthuer | Right Wing | 96.2, 46.1 |  |  | 
+168 | ball receipt | 38:59 | Nicholas Williams Arthuer | receives the ball | Left Wing | 96.2, 46.1 |  |  | 
+169 | carry | 38:59 | Nicholas Williams Arthuer | carries the ball | Left Wing | 95.0, 51.6 |  |  | 
+170 | ball recovery | 38:03 | Unai Simón Mendibil | recovers the ball | Goalkeeper | 26.8, 31.3 |  |  | 
+171 | carry | 38:03 | Unai Simón Mendibil | carries the ball | Goalkeeper | 21.2, 31.3 |  |  | 
+172 | pass | 38:05 | Unai Simón Mendibil | passes to José Ignacio Fernández Iglesias | Goalkeeper | 28.7, 40.3 |  |  | 
+173 | ball receipt | 38:06 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 28.7, 40.3 |  |  | 
+174 | carry | 38:06 | José Ignacio Fernández Iglesias | carries the ball | Right Center Back | 34.7, 45.6 |  |  | 
+175 | pass | 38:08 | José Ignacio Fernández Iglesias | passes to Fabián Ruiz Peña | Right Center Back | 49.2, 45.6 |  |  | 
+176 | ball receipt | 38:09 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 49.2, 45.6 |  |  | 
+177 | carry | 38:09 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 43.7, 51.9 |  |  | 
+178 | pass | 38:10 | Fabián Ruiz Peña | passes to José Ignacio Fernández Iglesias | Left Defensive Midfield | 36.5, 50.6 |  |  | 
+179 | ball receipt | 38:11 | José Ignacio Fernández Iglesias | receives the ball | Right Center Back | 36.5, 50.6 |  |  | 
+180 | carry | 38:11 | José Ignacio Fernández Iglesias | carries the ball | Right Center Back | 34.8, 52.2 |  |  | 
+181 | pass | 38:14 | José Ignacio Fernández Iglesias | passes to Fabián Ruiz Peña | Right Center Back | 42.6, 68.6 |  |  | 
+182 | ball receipt | 38:16 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 42.6, 68.6 |  |  | 
+183 | carry | 38:16 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 40.1, 63.6 |  |  | 
+184 | pass | 38:17 | Fabián Ruiz Peña | passes to Aymeric Laporte | Left Defensive Midfield | 34.2, 21.4 |  |  | 
+185 | ball receipt | 38:20 | Aymeric Laporte | receives the ball | Left Center Back | 34.2, 21.4 |  |  | 
+186 | carry | 38:20 | Aymeric Laporte | carries the ball | Left Center Back | 21.2, 31.3 |  |  | 
+187 | pass
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 084
+--------------------------------------------
+1 | pass | 39:52 | Daniel Olmo Carvajal | Pass to Lamine Yamal Nasraoui Ebana | Center Attacking Midfield | Center Attacking Midfield | Lamine Yamal Nasraoui Ebana | 
+2 | pressure | 39:01 | Jude Bellingham | Pressure on Daniel Olmo Carvajal | Right Defensive Midfield | Center Attacking Midfield | Daniel Olmo Carvajal | 
+3 | pass | 39:02 | Nicholas Williams Arthuer | Pass to Daniel Olmo Carvajal | Left Wing | Center Attacking Midfield | Daniel Olmo Carvajal | 
+4 | pressure | 39:02 | Marc Guehi | Pressure on Daniel Olmo Carvajal | Left Center Back | Center Attacking Midfield | Daniel Olmo Carvajal | 
+5 | ball receipt | 39:02 | Daniel Olmo Carvajal | Receives ball from Nicholas Williams Arthuer | Center Attacking Midfield | Center Attacking Midfield | Nicholas Williams Arthuer | 
+6 | carry | 39:02 | Daniel Olmo Carvajal | Carries ball | Center Attacking Midfield | Center Attacking Midfield | | 
+7 | pressure | 39:02 | Luke Shaw | Pressure on Daniel Olmo Carvajal | Left Back | Center Attacking Midfield | Daniel Olmo Carvajal | 
+8 | dribble | 39:03 | Daniel Olmo Carvajal | Dribble attempt | Center Attacking Midfield | Center Attacking Midfield | | 
+9 | duel | 39:03 | Luke Shaw | Tackle on Daniel Olmo Carvajal | Left Back | Center Attacking Midfield | Daniel Olmo Carvajal | 
+10 | ball recovery | 39:03 | Nicholas Williams Arthuer | Ball recovery | Left Wing | Left Wing | | 
+11 | carry | 39:03 | Nicholas Williams Arthuer | Carries ball | Left Wing | Left Wing | | 
+12 | dispossessed | 39:04 | Nicholas Williams Arthuer | Dispossessed | Left Wing | Left Wing | | 
+13 | duel | 39:04 | Declan Rice | Tackle on Nicholas Williams Arthuer | Left Defensive Midfield | Left Wing | Nicholas Williams Arthuer | 
+14 | pass | 39:33 | Lamine Yamal Nasraoui Ebana | Corner kick | Right Wing | Right Wing | | 
+15 | clearance | 39:35 | John Stones | Clearance | Right Center Back | Right Wing | Lamine Yamal Nasraoui Ebana | 
+16 | clearance | 39:36 | Bukayo Saka | Clearance | Right Wing | Right Wing | Lamine Yamal Nasraoui Ebana | 
+17 | ball recovery | 39:39 | Fabián Ruiz Peña | Ball recovery | Left Defensive Midfield | Left Defensive Midfield | | 
+18 | carry | 39:39 | Fabián Ruiz Peña | Carries ball | Left Defensive Midfield | Left Defensive Midfield | | 
+19 | pressure | 39:39 | Phil Foden | Pressure on Fabián Ruiz Peña | Left Wing | Left Defensive Midfield | Fabián Ruiz Peña | 
+20 | pass | 39:40 | Fabián Ruiz Peña | Pass to Unai Simón Mendibil | Left Defensive Midfield | Goalkeeper | Unai Simón Mendibil | 
+21 | ball receipt | 39:43 | Unai Simón Mendibil | Receives ball from Fabián Ruiz Peña | Goalkeeper | Goalkeeper | Fabián Ruiz Peña | 
+22 | carry | 39:43 | Unai Simón Mendibil | Carries ball | Goalkeeper | Goalkeeper | | 
+23 | pass | 39:45 | Unai Simón Mendibil | Pass to Marc Cucurella Saseta | Goalkeeper | Left Back | Marc Cucurella Saseta | 
+24 | ball receipt | 39:47 | Marc Cucurella Saseta | Receives ball from Unai Simón Mendibil | Left Back | Left Back | Unai Simón Mendibil | 
+25 | carry | 39:47 | Marc Cucurella Saseta | Carries ball | Left Back | Left Back | | 
+26 | pass | 39:49 | Marc Cucurella Saseta | Pass to Daniel Olmo Carvajal | Left Back | Center Attacking Midfield | Daniel Olmo Carvajal | 
+27 | ball receipt | 39:50 | Daniel Olmo Carvajal | Receives ball from Marc Cucurella Saseta | Center Attacking Midfield | Center Attacking Midfield | Marc Cucurella Saseta | 
+28 | carry | 39:50 | Daniel Olmo Carvajal | Carries ball | Center Attacking Midfield | Center Attacking Midfield | | 
+29 | pass | 39:55 | Lamine Yamal Nasraoui Ebana | Receives ball from Daniel Olmo Carvajal | Right Wing | Right Wing | Daniel Olmo Carvajal | 
+30 | carry | 39:55 | Lamine Yamal Nasraoui Ebana | Carries ball | Right Wing | Right Wing | | 
+31 | pass | 39:57 | Lamine Yamal Nasraoui Ebana | Cross attempt to Mikel Oyarzabal Ugarte | Right Wing | Center Forward | Mikel Oyarzabal Ugarte | 
+32 | ball receipt | 39:58 | Mikel Oyarzabal Ugarte | Receives ball from Lamine Yamal Nasraoui Ebana | Center Forward | Center Forward | Lamine Yamal Nasraoui Ebana | 
+33 | goal keeper | 39:58 | Jordan Pickford | Collected ball | Goalkeeper | Goalkeeper | | 
+34 | carry | 39:58 | Jordan Pickford | Carries ball | Goalkeeper | Goalkeeper | |
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 085
+--------------------------------------------
+1 | pass | 40:02 | Jordan Pickford | Pass to Kyle Walker | Goalkeeper | Ground Pass | None | None
+2 | ball receipt | 40:03 | Kyle Walker | Receives ball | Right Back | None | Jordan Pickford | None
+3 | carry | 40:03 | Kyle Walker | Carries ball | Right Back | None | None | None
+4 | pressure | 40:06 | Daniel Olmo Carvajal | Applies pressure | Center Attacking Midfield | None | None | None
+5 | dribbled past | 40:07 | Daniel Olmo Carvajal | Dribbled past | Center Attacking Midfield | None | Kyle Walker | None
+6 | dribble | 40:07 | Kyle Walker | Dribbles | Right Back | None | None | None
+7 | pass | 40:10 | Kyle Walker | Pass to Bukayo Saka | Right Back | Ground Pass | None | None
+8 | ball receipt | 40:11 | Bukayo Saka | Receives ball | Right Wing | None | Kyle Walker | None
+9 | carry | 40:11 | Bukayo Saka | Carries ball | Right Wing | None | None | None
+10 | pass | 40:11 | Bukayo Saka | Pass to John Stones | Right Wing | Ground Pass | None | None
+11 | ball receipt | 40:13 | John Stones | Receives ball | Right Center Back | None | Bukayo Saka | None
+12 | carry | 40:13 | John Stones | Carries ball | Right Center Back | None | None | None
+13 | pass | 40:14 | John Stones | Pass to Marc Guehi | Right Center Back | Ground Pass | None | None
+14 | ball receipt | 40:16 | Marc Guehi | Receives ball | Left Center Back | None | John Stones | None
+15 | carry | 40:16 | Marc Guehi | Carries ball | Left Center Back | None | None | None
+16 | pass | 40:24 | Marc Guehi | Pass to Declan Rice | Left Center Back | Ground Pass | None | None
+17 | ball receipt | 40:26 | Declan Rice | Receives ball | Left Defensive Midfield | None | Marc Guehi | None
+18 | carry | 40:26 | Declan Rice | Carries ball | Left Defensive Midfield | None | None | None
+19 | pass | 40:26 | Declan Rice | Pass to Marc Guehi | Left Defensive Midfield | Ground Pass | None | None
+20 | ball receipt | 40:27 | Marc Guehi | Receives ball | Left Center Back | None | Declan Rice | None
+21 | carry | 40:27 | Marc Guehi | Carries ball | Left Center Back | None | None | None
+22 | pass | 40:28 | Marc Guehi | Pass to Jordan Pickford | Left Center Back | Ground Pass | None | None
+23 | ball receipt | 40:30 | Jordan Pickford | Receives ball | Goalkeeper | None | Marc Guehi | None
+24 | carry | 40:30 | Jordan Pickford | Carries ball | Goalkeeper | None | None | None
+25 | pass | 40:32 | Jordan Pickford | Pass to Marc Guehi | Goalkeeper | Ground Pass | None | None
+26 | ball receipt | 40:34 | Marc Guehi | Receives ball | Left Center Back | None | Jordan Pickford | None
+27 | carry | 40:34 | Marc Guehi | Carries ball | Left Center Back | None | None | None
+28 | pass | 40:36 | Marc Guehi | Pass to Ollie Watkins | Left Center Back | Ground Pass | None | None
+29 | ball receipt | 40:40 | Ollie Watkins | Receives ball | Center Forward | None | Marc Guehi | None
+30 | pass | 40:43 | Daniel Carvajal | Throw-in to Aymeric Laporte | Right Back | Low Pass | None | None
+31 | ball receipt | 40:46 | Aymeric Laporte | Receives ball | Left Center Back | None | Daniel Carvajal | None
+32 | carry | 40:46 | Aymeric Laporte | Carries ball | Left Center Back | None | None | None
+33 | pass | 40:47 | Aymeric Laporte | Pass to Fabián Ruiz Peña | Left Center Back | Ground Pass | None | None
+34 | ball receipt | 40:48 | Fabián Ruiz Peña | Receives ball | Left Defensive Midfield | None | Aymeric Laporte | None
+35 | carry | 40:48 | Fabián Ruiz Peña | Carries ball | Left Defensive Midfield | None | None | None
+36 | pass | 40:49 | Fabián Ruiz Peña | Pass to Daniel Olmo Carvajal | Left Defensive Midfield | Ground Pass | None | None
+37 | ball receipt | 40:50 | Daniel Olmo Carvajal | Receives ball | Center Attacking Midfield | None | Fabián Ruiz Peña | None
+38 | carry | 40:50 | Daniel Olmo Carvajal | Carries ball | Center Attacking Midfield | None | None | None
+39 | pass | 40:52 | Daniel Olmo Carvajal | Pass to Mikel Oyarzabal Ugarte | Center Attacking Midfield | Ground Pass | None | None
+40 | ball receipt | 40:53 | Mikel Oyarzabal Ugarte | Receives ball | Center Forward | None | Daniel Olmo Carvajal | None
+41 | shot | 40:56 | Mikel Oyarzabal Ugarte | **Goal** | Center Forward | Open Play | None | None
+42 | goal keeper | 40:57 | Jordan Pickford | Goal conceded | Goalkeeper | None | Mikel Oyarzabal Ugarte | No Touch
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 087
+--------------------------------------------
+1 | carry | 42:53 | Jude Bellingham | carries the ball | Right Defensive Midfield | 86.4, 40.4 | England | none | 
+2 | pass | 42:40 | Ollie Watkins | passes to Jordan Pickford | Center Forward | 61.0, 40.1 | England | none | 
+3 | ball receipt | 42:42 | Jordan Pickford | receives the ball | Goalkeeper | 34.5, 39.9 | England | none | 
+4 | pass | 42:42 | Jordan Pickford | passes to Jude Bellingham | Goalkeeper | 35.1, 39.8 | England | none | 
+5 | ball receipt | 42:44 | Jude Bellingham | receives the ball | Right Defensive Midfield | 72.9, 59.9 | England | none | 
+6 | duel | 42:44 | Nicholas Williams Arthuer | loses aerial duel | Left Wing | 47.0, 20.0 | Spain | none | 
+7 | pass | 42:44 | Jude Bellingham | passes to Ollie Watkins | Right Defensive Midfield | 73.1, 60.1 | England | incomplete | 
+8 | ball receipt | 42:44 | Ollie Watkins | attempts to receive the ball | Center Forward | 74.0, 53.5 | England | incomplete | 
+9 | block | 42:44 | Nicholas Williams Arthuer | blocks the pass | Left Wing | 44.8, 20.5 | Spain | none | 
+10 | pressure | 42:45 | Ollie Watkins | applies pressure | Center Forward | 83.6, 53.4 | England | none | 
+11 | pass | 42:45 | Martín Zubimendi Ibáñez | passes to Fabián Ruiz Peña | Right Defensive Midfield | 34.3, 24.5 | Spain | incomplete | 
+12 | ball receipt | 42:47 | Fabián Ruiz Peña | attempts to receive the ball | Left Defensive Midfield | 39.2, 23.1 | Spain | incomplete | 
+13 | ball recovery | 42:47 | Cole Palmer | recovers the ball | Center Attacking Midfield | 81.4, 53.4 | England | none | 
+14 | carry | 42:47 | Cole Palmer | carries the ball | Center Attacking Midfield | 81.4, 53.4 | England | none | 
+15 | pressure | 42:47 | Fabián Ruiz Peña | applies pressure | Left Defensive Midfield | 35.9, 31.3 | Spain | none | 
+16 | pass | 42:52 | Cole Palmer | passes to Jude Bellingham | Center Attacking Midfield | 85.3, 27.3 | England | none | 
+17 | ball receipt | 42:53 | Jude Bellingham | receives the ball | Right Defensive Midfield | 79.7, 40.4 | England | none | 
+18 | pass | 42:57 | Jude Bellingham | passes to Ollie Watkins | Right Defensive Midfield | 86.4, 40.4 | England | none | 
+19 | ball receipt | 42:58 | Ollie Watkins | receives the ball | Center Forward | 103.6, 41.6 | England | none | 
+20 | carry | 42:58 | Ollie Watkins | carries the ball | Center Forward | 103.6, 41.6 | England | none | 
+21 | miscontrol | 42:58 | Ollie Watkins | miscontrols the ball | Center Forward | 103.6, 41.6 | England | none | 
+22 | pressure | 42:58 | Ollie Watkins | applies pressure | Center Forward | 107.5, 40.9 | England | none | 
+23 | clearance | 42:59 | José Ignacio Fernández Iglesias | clears the ball | Right Center Back | 10.0, 40.8 | Spain | none | 
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 088
+--------------------------------------------
+88 | substitution | 00:43:40 | Lamine Yamal Nasraoui Ebana | substituted out | Right Wing | Right Wing | Mikel Merino Zazón | tactical substitution.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 089
+--------------------------------------------
+1 | Ball Receipt | 44:14 | Declan Rice | Receives ball | Left Defensive Midfield | Left Defensive Midfield | Cole Palmer | 
+2 | Goal Kick | 44:57 | Unai Simón Mendibil | Kicks ball | Goalkeeper | Goalkeeper | | 
+3 | Tactical Shift | 44:54 | Spain | Changes formation | | | | 
+4 | Shot | 44:14 | Declan Rice | **Shoots to goal** | Left Defensive Midfield | Left Defensive Midfield | Unai Simón Mendibil | **Goalkeeper saves** 
+5 | Goal Keeper | 44:15 | Unai Simón Mendibil | Saves shot | Goalkeeper | Goalkeeper | Declan Rice | **Goalkeeper saves** 
+6 | Ball Recovery | 44:15 | Marc Guehi | Recovers ball | Left Center Back | Left Center Back | | 
+7 | Duel | 44:15 | Daniel Carvajal Ramos | Aerial lost | Right Back | Right Back | | 
+8 | Shot | 44:15 | Marc Guehi | **Shoots to goal** | Left Center Back | Left Center Back | Unai Simón Mendibil | **Goal blocked** 
+9 | Block | 44:16 | Daniel Olmo Carvajal | Blocks shot | Center Attacking Midfield | Center Attacking Midfield | Marc Guehi | **Goal blocked** 
+10 | Goal Keeper | 44:16 | Unai Simón Mendibil | Faces shot | Goalkeeper | Goalkeeper | Marc Guehi | **Goalkeeper saves** 
+11 | Ball Recovery | 44:16 | Declan Rice | Recovers ball | Left Defensive Midfield | Left Defensive Midfield | | 
+12 | Pass | 44:12 | Cole Palmer | Passes ball | Center Attacking Midfield | Center Attacking Midfield | Declan Rice | 
+13 | Shot | 44:17 | Declan Rice | **Shoots to goal** | Left Defensive Midfield | Left Defensive Midfield | Unai Simón Mendibil | **Goalkeeper saves** 
+14 | Goal Keeper | 44:17 | Unai Simón Mendibil | Faces shot | Goalkeeper | Goalkeeper | Declan Rice | **Goalkeeper saves** 
+15 | Tactical Shift | 44:20 | England | Changes formation | | | | 
+16 | Substitution | 44:12 | Phil Foden | Substituted | Left Wing | Left Wing | Ivan Toney | 
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 090
+--------------------------------------------
+1 | pass | 90:53 | Bukayo Saka | Recovery | Right Center Midfield | Right Center Midfield | Ollie Watkins | **Incomplete**
+2 | pressure | 90:27 | John Stones | Pressure | Right Center Back | Right Center Back | Spain | 
+3 | foul won | 90:54 | José Ignacio Fernández Iglesias | Foul Won | Right Center Back | Right Center Back | England | 
+4 | ball receipt | 90:28 | Mikel Oyarzabal Ugarte | Ball Receipt | Center Forward | Center Forward | Spain | 
+5 | clearance | 90:50 | Aymeric Laporte | Clearance | Left Center Back | Left Center Back | England | 
+6 | ball receipt | 90:54 | Ollie Watkins | Ball Receipt | Right Center Forward | Right Center Forward | England | **Incomplete**
+7 | pass | 90:05 | Marc Guehi | Throw-in | Left Center Back | Left Center Back | Jordan Pickford | 
+8 | pressure | 90:08 | Mikel Oyarzabal Ugarte | Pressure | Center Forward | Center Forward | England | 
+9 | ball receipt | 90:09 | Jordan Pickford | Ball Receipt | Goalkeeper | Goalkeeper | England | 
+10 | pass | 90:09 | Jordan Pickford | Pass | Goalkeeper | Goalkeeper | Ivan Toney | **Out**
+11 | ball receipt | 90:13 | Ivan Toney | Ball Receipt | Left Center Forward | Left Center Forward | England | **Incomplete**
+12 | pass | 90:25 | Daniel Carvajal Ramos | Throw-in | Right Back | Right Back | Mikel Oyarzabal Ugarte | 
+13 | pass | 90:28 | Mikel Oyarzabal Ugarte | Pass | Center Forward | Center Forward | Mikel Merino Zazón | **Out**
+14 | foul committed | 90:54 | Ollie Watkins | Foul Committed | Right Center Forward | Right Center Forward | Spain | Yellow Card
+15 | ball receipt | 90:31 | Mikel Merino Zazón | Ball Receipt | Center Attacking Midfield | Center Attacking Midfield | Spain | **Incomplete**
+16 | pass | 90:47 | Jordan Pickford | Goal Kick | Goalkeeper | Goalkeeper | Spain | **Incomplete**

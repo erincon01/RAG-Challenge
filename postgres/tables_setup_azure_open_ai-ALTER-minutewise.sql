@@ -82,17 +82,24 @@ ALTER TABLE final_match_Spain_England_events_details__minutewise
 ADD COLUMN summary_script_embedding vector(384) -- multilingual-e5 embeddings are 384 dimensions
 GENERATED ALWAYS AS (azure_local_ai.create_embeddings('multilingual-e5-small:v1', summary_script)::vector) STORED; 
 
-CREATE INDEX final_match_Spain_England_events_details__minutewise_summary_embedding
+DROP INDEX IF EXISTS final_match_Spain_England_events_details__min__se_vIP;
+
+CREATE INDEX final_match_Spain_England_events_details__min__se_vIP
 ON final_match_Spain_England_events_details__minutewise USING hnsw (summary_embedding vector_ip_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
 
-CREATE INDEX final_match_Spain_England_events_details__minutewise_summary_script_embedding 
+DROP INDEX IF EXISTS final_match_Spain_England_events_details__min__sse_vIP;
+
+CREATE INDEX final_match_Spain_England_events_details__min__sse_vIP 
 ON final_match_Spain_England_events_details__minutewise USING hnsw (summary_script_embedding vector_ip_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
 
+DROP INDEX IF EXISTS final_match_Spain_England_events_details__min__mse_cos;
 
-CREATE INDEX final_match_Spain_England_events_details__mse_cos
+CREATE INDEX final_match_Spain_England_events_details__min__mse_cos
 ON final_match_Spain_England_events_details__minutewise USING hnsw (summary_embedding vector_cosine_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
 
-CREATE INDEX final_match_Spain_England_events_details__msse_cos 
+DROP INDEX IF EXISTS final_match_Spain_England_events_details__min__msse_cos;
+
+CREATE INDEX final_match_Spain_England_events_details__min__msse_cos 
 ON final_match_Spain_England_events_details__minutewise USING hnsw (summary_script_embedding vector_cosine_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
 
 
@@ -113,19 +120,13 @@ FROM final_match_Spain_England_events_details__minutewise
 ORDER BY cos_script
 LIMIT 5;
 
-
--- Retrieve top similarity match
-SELECT 
-    period, 
-    minute, 
-    summary_embedding <-> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'after a quick carry, shot towards the goal, successfully scoring for Spain')::vector AS L2,
-    summary_embedding <#> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'after a quick carry, shot towards the goal, successfully scoring for Spain')::vector AS IP,
-    1 - (summary_embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'after a quick carry, shot towards the goal, successfully scoring for Spain')::vector) AS COS,
-    summary_embedding <+> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'after a quick carry, shot towards the goal, successfully scoring for Spain')::vector AS L1,
-    summary_embedding
+SELECT period, minute, summary, summary_script, json_
+    , (summary_script_embedding <#> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal Conceded')::vector) AS cos_script
+    , (summary_embedding <#> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal Conceded')::vector) AS cos_summary
 FROM final_match_Spain_England_events_details__minutewise
-ORDER BY COS
-LIMIT 5;
+where -- minute between 76 and 89 and 
+json_ like '%Goal Conceded%'
+
 
 -- <-> - L2 distance                -- vector_l2_ops
 -- <#> - (negative) inner product   -- vector_ip_ops
@@ -141,29 +142,11 @@ Supported types are:
 
 */
 
-WITH v AS (
-  SELECT 
-    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Oyarzabal scores Goal at 75. Marquez scores Goal al 94')::vector vm,
-    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'goalkeaper')::vector v1,
-    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'goal')::vector v2,
-    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal')::vector v3
-)
-SELECT 
-1 -(v.vm <=> v.v1) cv1, 1-(v.vm <=> v.v2) cv2, 1-(v.vm <=> v.v3) cv3, 
-v.vm <#> v.v1 iv1, v.vm <#> v.v2 iv2, v.vm <#> v.v3 iv3
-FROM v;
 
+select *
+from final_match_Spain_England_events_details__minutewise
+where minute = 85;
 
-WITH v AS (
-  SELECT 
-    azure_openai.create_embeddings('text-embedding-ada-002', 'Oyarzabal scores Goal at 75. Marquez scores Goal al 94')::vector vm,
-    azure_openai.create_embeddings('text-embedding-ada-002', 'goalkeaper')::vector v1,
-    azure_openai.create_embeddings('text-embedding-ada-002', 'goal')::vector v2,
-    azure_openai.create_embeddings('text-embedding-ada-002', 'Goal')::vector v3
-)
-SELECT 
-1 -(v.vm <=> v.v1) cv1, 1-(v.vm <=> v.v2) cv2, 1-(v.vm <=> v.v3) cv3, 
-v.vm <#> v.v1 iv1, v.vm <#> v.v2 iv2, v.vm <#> v.v3 iv3
-FROM v;
-
-
+update final_match_Spain_England_events_details__minutewise
+set summary = null
+where minute = 85;

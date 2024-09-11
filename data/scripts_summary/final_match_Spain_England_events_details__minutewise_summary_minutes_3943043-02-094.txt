@@ -1,0 +1,28 @@
+
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 091
+--------------------------------------------
+In the closing moments of the match, specifically at the 91st minute, Spain's Mikel Merino Zazón received the ball following a free kick taken by goalkeeper Unai Simón Mendibil. However, the ball receipt was incomplete, indicating that the intended play did not materialize as planned.
+As the action unfolded, Unai Simón executed a high pass towards Mikel Merino, but the pass was not successful. The ball was intercepted, leading to a recovery pass by England's Marc Guehi, who directed the ball towards Declan Rice. This recovery was marked by Guehi winning an aerial duel, showcasing his defensive prowess under pressure.
+Simultaneously, Mikel Merino attempted to engage in an aerial duel but unfortunately lost this contest, further emphasizing the intensity of the match as both teams fought for possession in the dying minutes. The sequence of events highlighted the competitive nature of the game, with both Spain and England striving to maintain control as the clock wound down.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 092
+--------------------------------------------
+In the closing moments of the match, the action intensified as England and Spain battled for control. 
+At the 92nd minute, England's Ivan Toney received the ball but was unable to complete the play, resulting in an incomplete ball receipt (00:47:02). Shortly after, Spain's Aymeric Laporte attempted a recovery pass, but it too was incomplete (00:47:02). England's Cole Palmer then executed a successful ball recovery (00:47:04), showcasing his agility in midfield.
+Palmer continued to drive the play forward, carrying the ball under pressure (00:47:04) before Spain's Nicholas Williams applied pressure on him (00:47:07). Williams committed a foul shortly after (00:47:08), leading to a free kick for England, which Palmer took (00:47:12). He passed to Marc Guehi, who successfully received the ball (00:47:14).
+As the play progressed, England's Jordan Pickford took a free kick, aiming for Ivan Toney (00:47:40). However, Toney's receipt of the ball was again incomplete (00:47:43). In a bid to regain possession, Toney lost an aerial duel (00:47:43).
+Aymeric Laporte then made a clearance for Spain, successfully heading the ball away under pressure (00:47:43). England's Bukayo Saka recovered the ball (00:47:45) and carried it forward, but he committed a foul shortly after (00:47:47).
+The match concluded with both teams showcasing their skills and determination, but neither side managed to change the score in these final moments.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 093
+--------------------------------------------
+In the closing moments of the match, specifically at the 93rd minute, Spain's goalkeeper Unai Simón Mendibil executed a high free kick pass towards Mikel Merino Zazón. The pass, which traveled a distance of approximately 77.3 meters, was aimed to initiate an attacking play for Spain. However, the outcome of the pass was marked as "unknown," indicating that it did not lead to a clear opportunity.
+Shortly after this action, Mikel Merino Zazón committed a foul against England's Marc Guehi, resulting in a foul won for the English side. This incident occurred at 49 seconds into the 93rd minute, reflecting the intensity of the match as players fought for possession.
+The sequence of events highlights the competitive nature of the game, with Spain attempting to push forward while England capitalized on the foul to regain control. Despite the efforts from both teams, the match continued without a significant change in score, maintaining the tension as the final whistle approached.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 094
+--------------------------------------------
+In the closing moments of the match, at the 94th minute, Spain and England were engaged in a tense battle. The game was nearing its end, and both teams were looking to capitalize on any opportunity. 
+Spain had possession of the ball, initiating a play from a free kick. The atmosphere was electric as the players positioned themselves strategically. The referee's whistle signaled the end of the second half, marking a significant moment in the match. 
+As the clock ticked down to 00:49:01, the tension was palpable. Both teams had fought hard, but the match concluded with Spain holding onto their possession. The final score remained to be determined as the game ended in a stalemate, with both teams unable to find the back of the net in this intense encounter.

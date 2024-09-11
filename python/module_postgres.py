@@ -606,22 +606,34 @@ def get_json_events_details_from_match_id (match_id):
 
     return df
 
-def download_match_script(tablename, match_id, local_folder, minutes_chunks):
+def download_match_script(source, table_name, match_id, column_name, local_folder, minutes_chunks):
 
     try:
 
-      # Connect to the database
-        conn = psycopg2.connect(
-            host=os.getenv('DB_SERVER'),
-            database=os.getenv('DB_NAME'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD')
-        )
+        conn = None
+
+        if source.lower() == "azure":
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER_AZURE'),
+                database=os.getenv('DB_NAME_AZURE'),
+                user=os.getenv('DB_USER_AZURE'),
+                password=os.getenv('DB_PASSWORD_AZURE')
+            )
+        else:
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER'),
+                database=os.getenv('DB_NAME'),
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASSWORD')
+            )
 
         cursor = conn.cursor()
 
         query = sql.SQL(f"""
-            SELECT period, minute, summary FROM {tablename}
+            SELECT period, minute, {column_name} 
+            FROM {table_name}
             WHERE match_id = {match_id} 
             ORDER BY period, minute
         """)
@@ -636,26 +648,26 @@ def download_match_script(tablename, match_id, local_folder, minutes_chunks):
             summary = row[2]
             # pintar en pantalla el periodo y el minuto
             header = "\n" + f"--------------------------------------------" + "\n"
-            header += f"Match_id: {match_id}, Period: {str(period).zfill(2)}, Minute: {str(minute).zfill(3)}" + "\n"
+            header += f"Table_name: {table_name}, match_id: {match_id}, period: {str(period).zfill(2)}, minute: {str(minute).zfill(3)}" + "\n"
             header += f"--------------------------------------------" + "\n"
             summary_output += header + summary
             summary_output_all += header + summary
 
             # si i > 0 y i > minute_chunks, entonces se crea un nuevo archivo, sino, se añade a summary
             if minute > 0 and minute % minutes_chunks == 0:
-                filename = f"summary_minutes_{match_id}-{str(period).zfill(2)}-{str(minute).zfill(3)}.txt"
+                filename = f"{table_name}_{column_name}_minutes_{match_id}-{str(period).zfill(2)}-{str(minute).zfill(3)}.txt"
                 with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
                     f.write(summary_output)
                 summary_output = ""
 
         # si summary_output no está vacío, se crea un archivo con el contenido restante
         if summary_output:
-            filename = f"summary_minutes_{match_id}-{str(period).zfill(2)}-{str(minute).zfill(3)}.txt"
+            filename = f"{table_name}_{column_name}_minutes_{match_id}-{str(period).zfill(2)}-{str(minute).zfill(3)}.txt"
             with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
                 f.write(summary_output)
 
         if summary_output_all:
-            filename = f"summary_minutes_{match_id}___all.txt"
+            filename = f"{table_name}_{column_name}_{match_id}___all.txt"
             with open(os.path.join(local_folder, filename), "w", encoding="utf-8") as f:
                 f.write(summary_output_all)
 

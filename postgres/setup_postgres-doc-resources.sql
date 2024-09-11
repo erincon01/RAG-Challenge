@@ -248,3 +248,51 @@ DROP TABLE IF EXISTS conference_sessions;
 
 
 
+
+
+
+
+WITH v AS (
+  SELECT 
+    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Oyarzabal scores Goal at 75. Marquez scores Goal al 94')::vector vm,
+    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'goalkeaper')::vector v1,
+    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'goal')::vector v2,
+    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal')::vector v3
+)
+SELECT 
+1 -(v.vm <=> v.v1) cv1, 1-(v.vm <=> v.v2) cv2, 1-(v.vm <=> v.v3) cv3, 
+v.vm <#> v.v1 iv1, v.vm <#> v.v2 iv2, v.vm <#> v.v3 iv3
+FROM v;
+
+
+WITH v AS (
+  SELECT 
+    azure_openai.create_embeddings('text-embedding-ada-002', 'Oyarzabal scores Goal at 75. Marquez scores Goal al 94')::vector vm,
+    azure_openai.create_embeddings('text-embedding-ada-002', 'goalkeaper')::vector v1,
+    azure_openai.create_embeddings('text-embedding-ada-002', 'goal')::vector v2,
+    azure_openai.create_embeddings('text-embedding-ada-002', 'Goal')::vector v3
+)
+SELECT 
+1 -(v.vm <=> v.v1) cv1, 1-(v.vm <=> v.v2) cv2, 1-(v.vm <=> v.v3) cv3, 
+v.vm <#> v.v1 iv1, v.vm <#> v.v2 iv2, v.vm <#> v.v3 iv3
+FROM v;
+
+
+
+
+-- <-> - L2 distance                -- vector_l2_ops
+-- <#> - (negative) inner product   -- vector_ip_ops
+-- <=> - cosine distance            -- vector_cosine_ops
+-- <+> - L1 distance                -- vector_l1_ops
+
+/*
+Supported types are:
+    vector      - up to 2,000 dimensions
+    halfvec     - up to 4,000 dimensions (added in 0.7.0)
+    bit         - up to 64,000 dimensions (added in 0.7.0)
+    sparsevec   - up to 1,000 non-zero elements (added in 0.7.0)
+
+*/
+
+
+

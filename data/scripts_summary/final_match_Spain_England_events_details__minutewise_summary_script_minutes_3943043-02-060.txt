@@ -1,0 +1,818 @@
+
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 051
+--------------------------------------------
+1 | Ball Receipt | 06:52 | Martín Zubimendi Ibáñez | received the ball | Right Defensive Midfield | Right Defensive Midfield | Declan Rice | 
+2 | Ball Receipt | 06:00 | Declan Rice | received the ball | Left Defensive Midfield | Left Defensive Midfield | Jude Bellingham | 
+3 | Pass | 06:00 | Jude Bellingham | passed the ball | Left Wing | Left Wing | Declan Rice | 
+4 | Carry | 06:00 | Declan Rice | carried the ball | Left Defensive Midfield | Left Defensive Midfield | John Stones | 
+5 | Pass | 06:02 | Declan Rice | passed the ball | Left Defensive Midfield | Left Defensive Midfield | John Stones | 
+6 | Ball Receipt | 06:03 | John Stones | received the ball | Right Center Back | Right Center Back | Declan Rice | 
+7 | Carry | 06:03 | John Stones | carried the ball | Right Center Back | Right Center Back | Bukayo Saka | 
+8 | Pass | 06:04 | John Stones | passed the ball | Right Center Back | Right Center Back | Bukayo Saka | 
+9 | Ball Receipt | 06:06 | Bukayo Saka | received the ball | Right Wing | Right Wing | John Stones | 
+10 | Carry | 06:06 | Bukayo Saka | carried the ball | Right Wing | Right Wing | Kobbie Mainoo | 
+11 | Pass | 06:08 | Bukayo Saka | passed the ball | Right Wing | Right Wing | Kobbie Mainoo | 
+12 | Ball Receipt | 06:09 | Kobbie Mainoo | received the ball | Right Defensive Midfield | Right Defensive Midfield | Bukayo Saka | 
+13 | Carry | 06:09 | Kobbie Mainoo | carried the ball | Right Defensive Midfield | Right Defensive Midfield | Declan Rice | 
+14 | Pass | 06:11 | Kobbie Mainoo | passed the ball | Right Defensive Midfield | Right Defensive Midfield | Declan Rice | 
+15 | Ball Receipt | 06:12 | Declan Rice | received the ball | Left Defensive Midfield | Left Defensive Midfield | Kobbie Mainoo | 
+16 | Carry | 06:12 | Declan Rice | carried the ball | Left Defensive Midfield | Left Defensive Midfield | Jude Bellingham | 
+17 | Pass | 06:14 | Declan Rice | passed the ball | Left Defensive Midfield | Left Defensive Midfield | Jude Bellingham | 
+18 | Ball Receipt | 06:15 | Jude Bellingham | received the ball | Left Wing | Left Wing | Declan Rice | 
+19 | Carry | 06:15 | Jude Bellingham | carried the ball | Left Wing | Left Wing | Kyle Walker | 
+20 | Pass | 06:16 | Jude Bellingham | passed the ball | Left Wing | Left Wing | Kyle Walker | 
+21 | Ball Receipt | 06:17 | Kyle Walker | received the ball | Right Back | Right Back | Jude Bellingham | 
+22 | Carry | 06:17 | Kyle Walker | carried the ball | Right Back | Right Back | Daniel Carvajal | 
+23 | Pass | 06:18 | Kyle Walker | passed the ball | Right Back | Right Back | Álvaro Borja Morata Martín | 
+24 | Pass | 06:48 | Daniel Carvajal Ramos | passed the ball | Right Back | Right Back | Álvaro Borja Morata Martín | 
+25 | Ball Receipt | 06:49 | Álvaro Borja Morata Martín | received the ball | Center Forward | Center Forward | Daniel Carvajal Ramos | 
+26 | Pass | 06:49 | Marc Guehi | passed the ball | Left Center Back | Left Center Back | Jude Bellingham | 
+27 | Ball Receipt | 06:51 | Jude Bellingham | received the ball | Left Wing | Left Wing | Marc Guehi | 
+28 | Pass | 06:51 | Daniel Olmo Carvajal | passed the ball | Center Attacking Midfield | Center Attacking Midfield | Martín Zubimendi Ibáñez | 
+29 | Pass | 06:52 | Martín Zubimendi Ibáñez | passed the ball | Right Defensive Midfield | Right Defensive Midfield | Robin Aime Robert Le Normand | 
+30 | Ball Receipt | 06:54 | Robin Aime Robert Le Normand | received the ball | Right Center Back | Right Center Back | Martín Zubimendi Ibáñez | 
+31 | Duel | 06:54 | Jude Bellingham | lost an aerial duel | Left Wing | Left Wing | Robin Aime Robert Le Normand | 
+32 | Pass | 06:54 | Robin Aime Robert Le Normand | passed the ball | Right Center Back | Right Center Back | Fabián Ruiz Peña | 
+33 | Ball Receipt | 06:55 | Fabián Ruiz Peña | received the ball | Left Defensive Midfield | Left Defensive Midfield | Robin Aime Robert Le Normand | 
+34 | Pass | 06:55 | Fabián Ruiz Peña | passed the ball | Left Defensive Midfield | Left Defensive Midfield | Nicholas Williams Arthuer | 
+35 | Ball Receipt | 06:58 | Nicholas Williams Arthuer | received the ball | Left Wing | Left Wing | Fabián Ruiz Peña | 
+36 | Carry | 06:58 | Nicholas Williams Arthuer | carried the ball | Left Wing | Left Wing |  | 
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 052
+--------------------------------------------
+1 | ball receipt | 07:59 | Aymeric Laporte | received the ball | Left Center Back | Left Center Back | Marc Cucurella Saseta | successful  
+2 | pass | 07:03 | Nicholas Williams Arthuer | passed the ball | Left Wing | Left Wing | Marc Cucurella Saseta | successful  
+3 | ball receipt | 07:05 | Marc Cucurella Saseta | received the ball | Left Back | Left Back | Nicholas Williams Arthuer | successful  
+4 | carry | 07:05 | Marc Cucurella Saseta | carried the ball | Left Back | Left Back | none | successful  
+5 | carry | 07:29 | Martín Zubimendi Ibáñez | carried the ball | Right Defensive Midfield | Right Defensive Midfield | none | successful  
+6 | pass | 07:06 | Marc Cucurella Saseta | passed the ball | Left Back | Left Back | Aymeric Laporte | successful  
+7 | ball receipt | 07:07 | Aymeric Laporte | received the ball | Left Center Back | Left Center Back | Marc Cucurella Saseta | successful  
+8 | carry | 07:07 | Aymeric Laporte | carried the ball | Left Center Back | Left Center Back | none | successful  
+9 | pass | 07:09 | Aymeric Laporte | passed the ball | Left Center Back | Left Center Back | Robin Aime Robert Le Normand | successful  
+10 | ball receipt | 07:11 | Robin Aime Robert Le Normand | received the ball | Right Center Back | Right Center Back | Aymeric Laporte | successful  
+11 | carry | 07:11 | Robin Aime Robert Le Normand | carried the ball | Right Center Back | Right Center Back | none | successful  
+12 | pass | 07:17 | Robin Aime Robert Le Normand | passed the ball | Right Center Back | Right Center Back | Daniel Carvajal Ramos | successful  
+13 | ball receipt | 07:18 | Daniel Carvajal Ramos | received the ball | Right Back | Right Back | Robin Aime Robert Le Normand | successful  
+14 | carry | 07:18 | Daniel Carvajal Ramos | carried the ball | Right Back | Right Back | none | successful  
+15 | pass | 07:20 | Daniel Carvajal Ramos | passed the ball | Right Back | Right Back | Unai Simón Mendibil | successful  
+16 | ball receipt | 07:23 | Unai Simón Mendibil | received the ball | Goalkeeper | Goalkeeper | Daniel Carvajal Ramos | successful  
+17 | carry | 07:23 | Unai Simón Mendibil | carried the ball | Goalkeeper | Goalkeeper | none | successful  
+18 | pass | 07:24 | Unai Simón Mendibil | passed the ball | Goalkeeper | Goalkeeper | Álvaro Borja Morata Martín | successful  
+19 | ball receipt | 07:27 | Álvaro Borja Morata Martín | received the ball | Center Forward | Center Forward | Unai Simón Mendibil | successful  
+20 | carry | 07:27 | Álvaro Borja Morata Martín | carried the ball | Center Forward | Center Forward | none | successful  
+21 | pass | 07:28 | Álvaro Borja Morata Martín | passed the ball | Center Forward | Center Forward | Martín Zubimendi Ibáñez | successful  
+22 | ball receipt | 07:29 | Martín Zubimendi Ibáñez | received the ball | Right Defensive Midfield | Right Defensive Midfield | Álvaro Borja Morata Martín | successful  
+23 | carry | 07:59 | Aymeric Laporte | carried the ball | Left Center Back | Left Center Back | none | successful  
+24 | foul committed | 07:31 | John Stones | committed a foul | Right Center Back | Right Center Back | Martín Zubimendi Ibáñez | successful  
+25 | foul won | 07:31 | Martín Zubimendi Ibáñez | won a foul | Right Defensive Midfield | Right Defensive Midfield | John Stones | successful  
+26 | pass | 07:54 | Fabián Ruiz Peña | passed the ball | Left Defensive Midfield | Left Defensive Midfield | Martín Zubimendi Ibáñez | successful  
+27 | ball receipt | 07:56 | Martín Zubimendi Ibáñez | received the ball | Right Defensive Midfield | Right Defensive Midfield | Fabián Ruiz Peña | successful  
+28 | pass | 07:57 | Martín Zubimendi Ibáñez | passed the ball | Right Defensive Midfield | Right Defensive Midfield | Robin Aime Robert Le Normand | successful  
+29 | ball receipt | 07:57 | Robin Aime Robert Le Normand | received the ball | Right Center Back | Right Center Back | Martín Zubimendi Ibáñez | successful  
+30 | pass | 07:57 | Robin Aime Robert Le Normand | passed the ball | Right Center Back | Right Center Back | Aymeric Laporte | successful  
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 053
+--------------------------------------------
+1 | pass | 08:00 | Aymeric Laporte | Pass to Marc Cucurella Saseta | Left Center Back | Ground Pass | None | None  
+2 | ball receipt | 08:01 | Marc Cucurella Saseta | Receives ball | Left Back | None | Aymeric Laporte | None  
+3 | carry | 08:01 | Marc Cucurella Saseta | Carries ball | Left Back | None | None | None  
+4 | pressure | 08:02 | Bukayo Saka | Applies pressure | Right Wing | None | None | None  
+5 | pass | 08:02 | Marc Cucurella Saseta | Pass to Nicholas Williams Arthuer | Left Back | Ground Pass | None | None  
+6 | ball receipt | 08:03 | Nicholas Williams Arthuer | Receives ball | Left Wing | None | Marc Cucurella Saseta | None  
+7 | carry | 08:03 | Nicholas Williams Arthuer | Carries ball | Left Wing | None | None | None  
+8 | pass | 08:06 | Nicholas Williams Arthuer | Pass to Aymeric Laporte | Left Wing | Ground Pass | None | None  
+9 | ball receipt | 08:08 | Aymeric Laporte | Receives ball | Left Center Back | None | Nicholas Williams Arthuer | None  
+10 | carry | 08:08 | Aymeric Laporte | Carries ball | Left Center Back | None | None | None  
+11 | pass | 08:10 | Aymeric Laporte | Pass to Fabián Ruiz Peña | Left Center Back | Ground Pass | None | None  
+12 | ball receipt | 08:11 | Fabián Ruiz Peña | Receives ball | Left Defensive Midfield | None | Aymeric Laporte | None  
+13 | carry | 08:11 | Fabián Ruiz Peña | Carries ball | Left Defensive Midfield | None | None | None  
+14 | pass | 08:17 | Fabián Ruiz Peña | Pass to Martín Zubimendi Ibáñez | Left Defensive Midfield | Ground Pass | None | None  
+15 | ball receipt | 08:18 | Martín Zubimendi Ibáñez | Receives ball | Right Defensive Midfield | None | Fabián Ruiz Peña | None  
+16 | pass | 08:18 | Martín Zubimendi Ibáñez | Pass to Fabián Ruiz Peña | Right Defensive Midfield | Ground Pass | None | None  
+17 | ball receipt | 08:18 | Fabián Ruiz Peña | Receives ball | Left Defensive Midfield | None | Martín Zubimendi Ibáñez | None  
+18 | carry | 08:18 | Fabián Ruiz Peña | Carries ball | Left Defensive Midfield | None | None | None  
+19 | pass | 08:22 | Fabián Ruiz Peña | Pass to Marc Cucurella Saseta | Left Defensive Midfield | Ground Pass | None | None  
+20 | ball receipt | 08:23 | Marc Cucurella Saseta | Receives ball | Left Back | None | Fabián Ruiz Peña | None  
+21 | carry | 08:23 | Marc Cucurella Saseta | Carries ball | Left Back | None | None | None  
+22 | pass | 08:24 | Marc Cucurella Saseta | Pass to Nicholas Williams Arthuer | Left Back | Ground Pass | None | None  
+23 | ball receipt | 08:25 | Nicholas Williams Arthuer | Receives ball | Left Wing | None | Marc Cucurella Saseta | None  
+24 | carry | 08:25 | Nicholas Williams Arthuer | Carries ball | Left Wing | None | None | None  
+25 | pass | 08:28 | Nicholas Williams Arthuer | Pass to Álvaro Borja Morata Martín | Left Wing | Ground Pass | None | None  
+26 | ball receipt | 08:29 | Álvaro Borja Morata Martín | Receives ball | Center Forward | None | Nicholas Williams Arthuer | None  
+27 | pass | 08:29 | Álvaro Borja Morata Martín | Pass to Martín Zubimendi Ibáñez | Center Forward | High Pass | None | None  
+28 | ball receipt | 08:31 | Martín Zubimendi Ibáñez | Receives ball | Right Defensive Midfield | None | Álvaro Borja Morata Martín | None  
+29 | carry | 08:31 | Martín Zubimendi Ibáñez | Carries ball | Right Defensive Midfield | None | None | None  
+30 | pass | 08:38 | Martín Zubimendi Ibáñez | Pass to Fabián Ruiz Peña | Right Defensive Midfield | Ground Pass | None | None  
+31 | ball receipt | 08:38 | Fabián Ruiz Peña | Receives ball | Left Defensive Midfield | None | Martín Zubimendi Ibáñez | None  
+32 | carry | 08:38 | Fabián Ruiz Peña | Carries ball | Left Defensive Midfield | None | None | None  
+33 | pass | 08:38 | Fabián Ruiz Peña | Pass to Martín Zubimendi Ibáñez | Left Defensive Midfield | Ground Pass | None | None  
+34 | ball receipt | 08:39 | Martín Zubimendi Ibáñez | Receives ball | Right Defensive Midfield | None | Fabián Ruiz Peña | None  
+35 | carry | 08:39 | Martín Zubimendi Ibáñez | Carries ball | Right Defensive Midfield | None | None | None  
+36 | pass | 08:41 | Martín Zubimendi Ibáñez | Pass to Fabián Ruiz Peña | Right Defensive Midfield | Ground Pass | None | None  
+37 | ball receipt | 08:42 | Fabián Ruiz Peña | Receives ball | Left Defensive Midfield | None | Martín Zubimendi Ibáñez | None  
+38 | carry | 08:42 | Fabián Ruiz Peña | Carries ball | Left Defensive Midfield | None | None | None  
+39 | pass | 08:42 | Fabián Ruiz Peña | Pass to Aymeric Laporte | Left Defensive Midfield | Ground Pass | None | None  
+40 | ball receipt | 08:43 | Aymeric Laporte | Receives ball | Left Center Back | None | Fabián Ruiz Peña | None  
+41 | carry | 08:43 | Aymeric Laporte | Carries ball | Left Center Back | None | None | None  
+42 | pass | 08:47 | Aymeric Laporte | Pass to Fabián Ruiz Peña | Left Center Back | Ground Pass | None | None  
+43 | ball receipt | 08:48 | Fabián Ruiz Peña | Receives ball | Left Defensive Midfield | None | Aymeric Laporte | None  
+44 | carry | 08:48 | Fabián Ruiz Peña | Carries ball | Left Defensive Midfield | None | None | None  
+45 | pass | 08:51 | Aymeric Laporte | Pass to Robin Aime Robert Le Normand | Left Center Back | Ground Pass | None | None  
+46 | ball receipt | 08:53 | Robin Aime Robert Le Normand | Receives ball | Right Center Back | None | Aymeric Laporte | None  
+47 | carry | 08:53 | Robin Aime Robert Le Normand | Carries ball | Right Center Back | None | None | None  
+48 | pass | 08:54 | Robin Aime Robert Le Normand | Pass to Daniel Carvajal Ramos | Right Center Back | Ground Pass | None | None  
+49 | ball receipt | 08:56 | Daniel Carvajal Ramos | Receives ball | Right Back | None | Robin Aime Robert Le Normand | None  
+50 | carry | 08:56 | Daniel Carvajal Ramos | Carries ball | Right Back | None | None | None  
+51 | pass | 08:58 | Daniel Carvajal Ramos | Pass to Lamine Yamal Nasraoui Ebana | Right Back | Ground Pass | None | None  
+52 | ball receipt | 08:59 | Lamine Yamal Nasraoui Ebana | Receives ball | Right Wing | None | Daniel Carvajal Ramos | None  
+53 | carry | 08:59 | Lamine Yamal Nasraoui Ebana | Carries ball | Right Wing | None | None | None  
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 054
+--------------------------------------------
+1 | shot | 54:58 | Álvaro Borja Morata Martín | shoots to goal | Center Forward | 110.9, 51.0 | Spain | Jordan Pickford | **goal missed**
+2 | goal keeper | 54:58 | Jordan Pickford | saves | Goalkeeper | 7.5, 30.4 | England | Álvaro Borja Morata Martín | 
+3 | clearance | 54:59 | John Stones | clears | Right Center Back | 4.2, 44.3 | England | Álvaro Borja Morata Martín | 
+4 | carry | 54:29 | Fabián Ruiz Peña | carries | Left Defensive Midfield | 78.1, 4.9 | Spain |  | 
+5 | ball receipt | 54:29 | Fabián Ruiz Peña | receives | Left Defensive Midfield | 78.1, 4.9 | Spain |  | 
+6 | pass | 54:01 | Lamine Yamal Nasraoui Ebana | passes | Right Wing | 54.3, 74.2 | Spain | Daniel Carvajal Ramos | 
+7 | ball receipt | 54:03 | Daniel Carvajal Ramos | receives | Right Back | 70.1, 74.9 | Spain |  | 
+8 | carry | 54:03 | Daniel Carvajal Ramos | carries | Right Back | 70.1, 74.9 | Spain |  | 
+9 | pressure | 54:04 | Jude Bellingham | pressures | Left Wing | 50.9, 6.3 | England | Daniel Carvajal Ramos | 
+10 | dribble | 54:04 | Daniel Carvajal Ramos | dribbles | Right Back | 72.0, 74.1 | Spain | Jude Bellingham | 
+11 | duel | 54:04 | Jude Bellingham | tackles | Left Wing | 48.1, 6.0 | England | Daniel Carvajal Ramos | 
+12 | carry | 54:51 | Robin Aime Robert Le Normand | carries | Right Center Back | 51.8, 49.4 | Spain |  | 
+13 | pass | 54:36 | Fabián Ruiz Peña | passes | Left Defensive Midfield | 64.3, 10.8 | Spain | Aymeric Laporte | 
+14 | ball receipt | 54:37 | Aymeric Laporte | receives | Left Center Back | 49.8, 25.8 | Spain |  | 
+15 | carry | 54:37 | Aymeric Laporte | carries | Left Center Back | 49.8, 25.8 | Spain |  | 
+16 | pressure | 54:38 | Harry Kane | pressures | Center Forward | 63.9, 58.1 | England | Aymeric Laporte | 
+17 | pass | 54:38 | Aymeric Laporte | passes | Left Center Back | 52.3, 25.2 | Spain | Martín Zubimendi Ibáñez | 
+18 | ball receipt | 54:39 | Martín Zubimendi Ibáñez | receives | Right Defensive Midfield | 62.6, 32.7 | Spain |  | 
+19 | carry | 54:39 | Martín Zubimendi Ibáñez | carries | Right Defensive Midfield | 62.6, 32.7 | Spain |  | 
+20 | pressure | 54:45 | Declan Rice | pressures | Left Defensive Midfield | 42.6, 57.0 | England | Daniel Olmo Carvajal | 
+21 | pass | 54:45 | Daniel Olmo Carvajal | passes | Center Attacking Midfield | 75.1, 21.6 | Spain | Fabián Ruiz Peña | 
+22 | ball receipt | 54:45 | Daniel Olmo Carvajal | receives | Center Attacking Midfield | 75.1, 21.6 | Spain |  | 
+23 | carry | 54:45 | Daniel Olmo Carvajal | carries | Center Attacking Midfield | 75.1, 21.6 | Spain |  | 
+24 | pass | 54:46 | Daniel Olmo Carvajal | passes | Center Attacking Midfield | 72.2, 21.3 | Spain | Fabián Ruiz Peña | 
+25 | ball receipt | 54:47 | Fabián Ruiz Peña | receives | Left Defensive Midfield | 66.1, 12.8 | Spain |  | 
+26 | carry | 54:47 | Fabián Ruiz Peña | carries | Left Defensive Midfield | 66.1, 12.8 | Spain |  | 
+27 | pass | 54:48 | Fabián Ruiz Peña | passes | Left Defensive Midfield | 64.0, 13.3 | Spain | Robin Aime Robert Le Normand | 
+28 | ball receipt | 54:51 | Robin Aime Robert Le Normand | receives | Right Center Back | 51.8, 49.4 | Spain |  | 
+29 | pass | 54:54 | Robin Aime Robert Le Normand | passes | Right Center Back | 68.6, 53.9 | Spain | Lamine Yamal Nasraoui Ebana | 
+30 | ball receipt | 54:55 | Lamine Yamal Nasraoui Ebana | receives | Right Wing | 79.0, 49.2 | Spain |  | 
+31 | carry | 54:55 | Lamine Yamal Nasraoui Ebana | carries | Right Wing | 79.0, 49.2 | Spain |  | 
+32 | pass | 54:55 | Lamine Yamal Nasraoui Ebana | passes | Right Wing | 83.9, 50.6 | Spain | Álvaro Borja Morata Martín | 
+33 | ball receipt | 54:57 | Álvaro Borja Morata Martín | receives | Center Forward | 110.9, 51.0 | Spain |  | 
+34 | shot | 54:15 | Álvaro Borja Morata Martín | shoots to goal | Center Forward | 95.8, 46.1 | Spain | Jordan Pickford | **goal blocked**
+35 | block | 54:15 | Marc Guehi | blocks | Left Center Back | 23.0, 34.3 | England | Álvaro Borja Morata Martín | 
+36 | goal keeper | 54:15 | Jordan Pickford | saves | Goalkeeper | 2.4, 40.0 | England | Álvaro Borja Morata Martín | 
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 055
+--------------------------------------------
+1 | carry | 10:45 | Bukayo Saka | carries the ball | Right Wing | 44.6, 69.7 | Spain | 
+2 | carry | 10:55 | Daniel Carvajal Ramos | carries the ball | Right Back | 109.3, 73.0 | Spain | 
+3 | ball recovery | 10:55 | Daniel Carvajal Ramos | recovers the ball | Right Back | 109.3, 73.0 | Spain | 
+4 | pass | 10:55 | Daniel Carvajal Ramos | passes the ball | Right Back | 113.9, 69.9 | Lamine Yamal Nasraoui Ebana | 
+5 | ball receipt | 10:55 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 105.3, 64.5 | Spain | 
+6 | carry | 10:55 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 105.3, 64.5 | Spain | 
+7 | pressure | 10:55 | Jude Bellingham | applies pressure | Left Wing | 15.0, 24.8 | Spain | 
+8 | dispossessed | 10:55 | Lamine Yamal Nasraoui Ebana | is dispossessed | Right Wing | 104.8, 54.7 | Jude Bellingham | 
+9 | duel | 10:55 | Jude Bellingham | wins the tackle | Left Wing | 15.3, 25.4 | Lamine Yamal Nasraoui Ebana | 
+10 | carry | 10:55 | Jude Bellingham | carries the ball | Left Wing | 15.3, 25.4 | Spain | 
+11 | pressure | 10:55 | Lamine Yamal Nasraoui Ebana | applies pressure | Right Wing | 104.5, 53.3 | Jude Bellingham | 
+12 | pressure | 10:55 | Daniel Carvajal Ramos | applies pressure | Right Back | 99.2, 68.6 | Jude Bellingham | 
+13 | pressure | 10:55 | Lamine Yamal Nasraoui Ebana | applies pressure | Right Wing | 96.2, 70.2 | Jude Bellingham | 
+14 | pass | 10:55 | Jude Bellingham | passes the ball | Left Wing | 21.5, 7.0 | Declan Rice | 
+15 | ball receipt | 10:55 | Declan Rice | receives the ball | Left Defensive Midfield | 4.8, 10.4 | Jude Bellingham | 
+16 | carry | 10:55 | Declan Rice | carries the ball | Left Defensive Midfield | 4.8, 10.4 | Spain | 
+17 | pass | 10:55 | Declan Rice | passes the ball | Left Defensive Midfield | 5.1, 14.8 | Phil Foden | 
+18 | ball receipt | 10:55 | Phil Foden | receives the ball | Center Attacking Midfield | 47.5, 34.5 | Declan Rice | 
+19 | ball recovery | 10:55 | Fabián Ruiz Peña | recovers the ball | Left Defensive Midfield | 82.0, 54.2 | Spain | 
+20 | carry | 10:55 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 82.0, 54.2 | Spain | 
+21 | pass | 10:55 | Fabián Ruiz Peña | passes the ball | Left Defensive Midfield | 83.1, 46.6 | Nicholas Williams Arthuer | 
+22 | ball receipt | 10:55 | Nicholas Williams Arthuer | receives the ball | Left Wing | 92.2, 39.9 | Fabián Ruiz Peña | 
+23 | carry | 10:55 | Nicholas Williams Arthuer | carries the ball | Left Wing | 92.2, 39.9 | Spain | 
+24 | shot | 10:55 | Nicholas Williams Arthuer | shoots to goal | Left Wing | 97.2, 43.4 | Jordan Pickford | 
+25 | goalkeeper saves | 10:55 | Jordan Pickford | saves the shot | Goalkeeper | 1.3, 40.4 | Nicholas Williams Arthuer | 
+26 | pass | 10:55 | Jordan Pickford | passes the ball | Goalkeeper | 6.7, 43.5 | Bukayo Saka | 
+27 | pressure | 10:55 | Marc Cucurella Saseta | applies pressure | Left Back | 66.4, 11.0 | Bukayo Saka | 
+28 | ball receipt | 10:55 | Bukayo Saka | receives the ball | Right Wing | 50.9, 68.4 | Jordan Pickford | 
+29 | foul committed | 10:55 | Marc Cucurella Saseta | commits a foul | Left Back | 75.5, 10.4 | Bukayo Saka | 
+30 | foul won | 10:55 | Bukayo Saka | wins a foul | Right Wing | 44.6, 69.7 | Marc Cucurella Saseta | 
+31 | pass | 10:55 | Kyle Walker | passes the ball | Right Back | 37.0, 77.6 | John Stones | 
+32 | ball receipt | 10:55 | John Stones | receives the ball | Right Center Back | 23.3, 61.3 | Kyle Walker | 
+33 | carry | 10:55 | John Stones | carries the ball | Right Center Back | 23.3, 61.3 | Spain |
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 056
+--------------------------------------------
+1 | carry | 11:43 | John Stones | carries the ball | Right Center Back | 64.4, 37.9 |  |  | 
+2 | pass | 11:47 | John Stones | passes the ball | Right Center Back | 64.4, 37.9 | Luke Shaw | Out 
+3 | pass | 11:01 | John Stones | passes the ball | Right Center Back | 24.0, 60.6 | Jordan Pickford | 
+4 | ball receipt | 11:03 | Jordan Pickford | receives the ball | Goalkeeper | 23.4, 32.4 |  | 
+5 | carry | 11:03 | Jordan Pickford | carries the ball | Goalkeeper | 23.4, 32.4 |  | 
+6 | pass | 11:04 | Jordan Pickford | passes the ball | Goalkeeper | 24.5, 29.8 | Marc Guehi | 
+7 | ball receipt | 11:05 | Marc Guehi | receives the ball | Left Center Back | 35.9, 12.6 |  | 
+8 | carry | 11:05 | Marc Guehi | carries the ball | Left Center Back | 35.0, 17.1 |  | 
+9 | pass | 11:06 | Marc Guehi | passes the ball | Left Center Back | 35.0, 17.1 | Jordan Pickford | 
+10 | ball receipt | 11:07 | Jordan Pickford | receives the ball | Goalkeeper | 16.5, 31.8 |  | 
+11 | carry | 11:07 | Jordan Pickford | carries the ball | Goalkeeper | 16.5, 31.8 |  | 
+12 | pressure | 11:08 | Álvaro Morata | applies pressure | Center Forward | 90.9, 46.1 |  | 
+13 | pass | 11:08 | Jordan Pickford | passes the ball | Goalkeeper | 17.2, 31.8 | John Stones | 
+14 | ball receipt | 11:10 | John Stones | receives the ball | Right Center Back | 25.3, 54.9 |  | 
+15 | carry | 11:10 | John Stones | carries the ball | Right Center Back | 25.3, 54.9 |  | 
+16 | carry | 11:14 | John Stones | carries the ball | Right Center Back | 42.9, 51.3 |  | 
+17 | pressure | 11:14 | Daniel Olmo | applies pressure | Center Attacking Midfield | 76.0, 30.5 |  | 
+18 | pass | 11:14 | John Stones | passes the ball | Right Center Back | 42.9, 51.3 | Phil Foden | 
+19 | ball receipt | 11:15 | Phil Foden | receives the ball | Center Attacking Midfield | 52.2, 49.1 |  | 
+20 | carry | 11:15 | Phil Foden | carries the ball | Center Attacking Midfield | 55.8, 58.2 |  | 
+21 | pass | 11:17 | Phil Foden | passes the ball | Center Attacking Midfield | 55.8, 58.2 | Kyle Walker | 
+22 | ball receipt | 11:19 | Kyle Walker | receives the ball | Right Back | 51.2, 74.9 |  | 
+23 | carry | 11:19 | Kyle Walker | carries the ball | Right Back | 55.9, 69.6 |  | 
+24 | pass | 11:20 | Kyle Walker | passes the ball | Right Back | 55.9, 69.6 | Luke Shaw | 
+25 | ball receipt | 11:24 | Luke Shaw | receives the ball | Left Back | 85.1, 2.6 |  | 
+26 | carry | 11:24 | Luke Shaw | carries the ball | Left Back | 82.2, 10.6 |  | 
+27 | pass | 11:29 | Luke Shaw | passes the ball | Left Back | 82.2, 10.6 | Jude Bellingham | 
+28 | ball receipt | 11:29 | Jude Bellingham | receives the ball | Left Wing | 91.7, 23.1 |  | 
+29 | pass | 11:29 | Jude Bellingham | passes the ball | Left Wing | 91.7, 23.1 | Harry Kane | 
+30 | ball receipt | 11:30 | Harry Kane | receives the ball | Center Forward | 97.9, 33.4 |  | 
+31 | pass | 11:30 | Harry Kane | passes the ball | Center Forward | 97.9, 33.4 | Jude Bellingham | 
+32 | ball receipt | 11:32 | Jude Bellingham | receives the ball | Left Wing | 98.3, 25.6 |  | 
+33 | pass | 11:32 | Jude Bellingham | passes the ball | Left Wing | 98.3, 25.6 |  | 
+34 | ball recovery | 11:32 | Robin Le Normand | recovers the ball | Right Center Back | 15.0, 53.8 |  | 
+35 | carry | 11:32 | Robin Le Normand | carries the ball | Right Center Back | 22.9, 71.7 |  | 
+36 | pass | 11:37 | Robin Le Normand | passes the ball | Right Center Back | 22.9, 71.7 | Álvaro Morata | 
+37 | pressure | 11:38 | John Stones | applies pressure | Right Center Back | 72.2, 34.6 |  | 
+38 | ball receipt | 11:38 | Álvaro Morata | receives the ball | Center Forward | 46.7, 46.9 |  | 
+39 | miscontrol | 11:38 | Álvaro Morata | miscontrols the ball | Center Forward | 46.1, 46.7 |  | 
+40 | pass | 11:40 | Declan Rice | passes the ball | Left Defensive Midfield | 72.5, 13.8 | Marc Guehi | 
+41 | pressure | 11:42 | Álvaro Morata | applies pressure | Center Forward | 58.9, 59.2 |  | 
+42 | ball receipt | 11:42 | Marc Guehi | receives the ball | Left Center Back | 56.5, 22.0 |  | 
+43 | ball receipt | 11:48 | Luke Shaw | receives the ball | Left Back | 79.2, 9.1 |  | 
+44 | carry | 11:42 | Marc Guehi | carries the ball | Left Center Back | 56.5, 22.0 |  | 
+45 | pass | 11:42 | Marc Guehi | passes the ball | Left Center Back | 56.1, 24.0 | John Stones | 
+46 | ball receipt | 11:43 | John Stones | receives the ball | Right Center Back | 57.9, 29.1 |  | 
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 057
+--------------------------------------------
+1 | Pressure | 57:20 | Daniel Olmo Carvajal | Pressure | Center Attacking Midfield | Center Attacking Midfield | England | 
+2 | Pass | 57:07 | Daniel Carvajal Ramos | Throw-in to Lamine Yamal Nasraoui Ebana | Right Back | Right Wing | Spain | 
+3 | Ball Receipt | 57:08 | Lamine Yamal Nasraoui Ebana | Receives ball | Right Wing | Right Wing | Spain | 
+4 | Pressure | 57:08 | Luke Shaw | Pressure | Left Back | Left Back | Spain | 
+5 | Dribble | 57:09 | Lamine Yamal Nasraoui Ebana | Dribbles | Right Wing | Right Wing | England | Incomplete 
+6 | Duel | 57:09 | Luke Shaw | Tackles | Left Back | Left Back | Spain | Won 
+7 | Carry | 57:09 | Luke Shaw | Carries ball | Left Back | Left Back | England | 
+8 | Pass | 57:11 | Luke Shaw | Pass to Jordan Pickford | Left Back | Goalkeeper | England | 
+9 | Ball Receipt | 57:13 | Jordan Pickford | Receives ball | Goalkeeper | Goalkeeper | England | 
+10 | Carry | 57:13 | Jordan Pickford | Carries ball | Goalkeeper | Goalkeeper | England | 
+11 | Pass | 57:15 | Jordan Pickford | Pass to Kyle Walker | Goalkeeper | Right Back | England | 
+12 | Ball Receipt | 57:16 | Kyle Walker | Receives ball | Right Back | Right Back | England | 
+13 | Carry | 57:16 | Kyle Walker | Carries ball | Right Back | Right Back | England | 
+14 | Pass | 57:18 | Kyle Walker | Pass to Jordan Pickford | Right Back | Goalkeeper | England | 
+15 | Ball Receipt | 57:19 | Jordan Pickford | Receives ball | Goalkeeper | Goalkeeper | England | 
+16 | Carry | 57:19 | Jordan Pickford | Carries ball | Goalkeeper | Goalkeeper | England | 
+17 | Pass | 57:21 | Jordan Pickford | Pass to John Stones | Goalkeeper | Right Center Back | England | 
+18 | Ball Receipt | 57:22 | John Stones | Receives ball | Right Center Back | Right Center Back | England | 
+19 | Carry | 57:22 | John Stones | Carries ball | Right Center Back | Right Center Back | England | 
+20 | Pass | 57:22 | John Stones | Pass to Declan Rice | Right Center Back | Left Defensive Midfield | England | 
+21 | Ball Receipt | 57:23 | Declan Rice | Receives ball | Left Defensive Midfield | Left Defensive Midfield | England | 
+22 | Carry | 57:23 | Declan Rice | Carries ball | Left Defensive Midfield | Left Defensive Midfield | England | 
+23 | Pressure | 57:23 | Fabián Ruiz Peña | Pressure | Left Defensive Midfield | Left Defensive Midfield | England | 
+24 | Pass | 57:24 | Declan Rice | Pass to Kyle Walker | Left Defensive Midfield | Right Back | England | 
+25 | Ball Receipt | 57:25 | Kyle Walker | Receives ball | Right Back | Right Back | England | 
+26 | Carry | 57:25 | Kyle Walker | Carries ball | Right Back | Right Back | England | 
+27 | Pass | 57:26 | Kyle Walker | Pass to Bukayo Saka | Right Back | Right Wing | England | 
+28 | Ball Receipt | 57:30 | Bukayo Saka | Receives ball | Right Wing | Right Wing | England | Incomplete 
+29 | Pass | 57:47 | Marc Cucurella Saseta | Throw-in to Aymeric Laporte | Left Back | Left Center Back | Spain | 
+30 | Ball Receipt | 57:48 | Aymeric Laporte | Receives ball | Left Center Back | Left Center Back | Spain | 
+31 | Pass | 57:48 | Aymeric Laporte | Pass to Unai Simón Mendibil | Left Center Back | Goalkeeper | Spain | 
+32 | Ball Receipt | 57:50 | Unai Simón Mendibil | Receives ball | Goalkeeper | Goalkeeper | Spain | 
+33 | Pass | 57:52 | Unai Simón Mendibil | Pass to Robin Aime Robert Le Normand | Goalkeeper | Right Center Back | Spain | 
+34 | Ball Receipt | 57:54 | Robin Aime Robert Le Normand | Receives ball | Right Center Back | Right Center Back | Spain | 
+35 | Carry | 57:54 | Robin Aime Robert Le Normand | Carries ball | Right Center Back | Right Center Back | Spain | 
+36 | Pass | 57:56 | Robin Aime Robert Le Normand | Pass to Unai Simón Mendibil | Right Center Back | Goalkeeper | Spain | 
+37 | Ball Receipt | 57:58 | Unai Simón Mendibil | Receives ball | Goalkeeper | Goalkeeper | Spain | 
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 058
+--------------------------------------------
+1 | Pressure | 58:16 | Declan Rice | applies pressure | Left Defensive Midfield | Left Defensive Midfield | Daniel Olmo Carvajal | result not specified  
+2 | Dispossessed | 58:17 | Daniel Olmo Carvajal | is dispossessed | Center Attacking Midfield | Center Attacking Midfield | Declan Rice | result not specified  
+3 | Duel | 58:17 | Declan Rice | loses tackle | Left Defensive Midfield | Left Defensive Midfield | Daniel Olmo Carvajal | result not specified  
+4 | Ball Recovery | 58:18 | Álvaro Borja Morata Martín | recovers ball | Center Forward | Center Forward | result not specified  
+5 | Carry | 58:18 | Álvaro Borja Morata Martín | carries ball | Center Forward | Center Forward | result not specified  
+6 | Pass | 58:20 | Álvaro Borja Morata Martín | passes | Center Forward | Center Forward | Lamine Yamal Nasraoui Ebana | result not specified  
+7 | Ball Receipt | 58:22 | Lamine Yamal Nasraoui Ebana | receives ball | Right Wing | Right Wing | Álvaro Borja Morata Martín | result not specified  
+8 | Carry | 58:22 | Lamine Yamal Nasraoui Ebana | carries ball | Right Wing | Right Wing | result not specified  
+9 | Pass | 58:23 | Lamine Yamal Nasraoui Ebana | passes | Right Wing | Right Wing | Daniel Carvajal Ramos | result not specified  
+10 | Ball Receipt | 58:24 | Daniel Carvajal Ramos | receives ball | Right Back | Right Back | Lamine Yamal Nasraoui Ebana | result not specified  
+11 | Carry | 58:24 | Daniel Carvajal Ramos | carries ball | Right Back | Right Back | result not specified  
+12 | Pressure | 58:26 | Jude Bellingham | applies pressure | Left Wing | Left Wing | result not specified  
+13 | Pass | 58:26 | Daniel Carvajal Ramos | passes | Right Back | Right Back | Fabián Ruiz Peña | result not specified  
+14 | Ball Receipt | 58:28 | Fabián Ruiz Peña | receives ball | Left Defensive Midfield | Left Defensive Midfield | Daniel Carvajal Ramos | result not specified  
+15 | Carry | 58:28 | Fabián Ruiz Peña | carries ball | Left Defensive Midfield | Left Defensive Midfield | result not specified  
+16 | Pass | 58:32 | Fabián Ruiz Peña | passes | Left Defensive Midfield | Left Defensive Midfield | Nicholas Williams Arthuer | result not specified  
+17 | Ball Receipt | 58:34 | Nicholas Williams Arthuer | receives ball | Left Wing | Left Wing | Fabián Ruiz Peña | result not specified  
+18 | Carry | 58:34 | Nicholas Williams Arthuer | carries ball | Left Wing | Left Wing | result not specified  
+19 | Pass | 58:36 | Nicholas Williams Arthuer | passes | Left Wing | Left Wing | Fabián Ruiz Peña | result not specified  
+20 | Ball Receipt | 58:37 | Fabián Ruiz Peña | receives ball | Left Defensive Midfield | Left Defensive Midfield | Nicholas Williams Arthuer | result not specified  
+21 | Carry | 58:37 | Fabián Ruiz Peña | carries ball | Left Defensive Midfield | Left Defensive Midfield | result not specified  
+22 | Pass | 58:39 | Fabián Ruiz Peña | passes | Left Defensive Midfield | Left Defensive Midfield | Daniel Olmo Carvajal | result not specified  
+23 | Ball Receipt | 58:49 | Daniel Olmo Carvajal | receives ball | Center Attacking Midfield | Center Attacking Midfield | Fabián Ruiz Peña | result not specified  
+24 | Carry | 58:49 | Daniel Olmo Carvajal | carries ball | Center Attacking Midfield | Center Attacking Midfield | result not specified  
+25 | Pass | 58:50 | Daniel Olmo Carvajal | passes | Center Attacking Midfield | Center Attacking Midfield | Álvaro Borja Morata Martín | result not specified  
+26 | Ball Receipt | 58:51 | Álvaro Borja Morata Martín | receives ball | Center Forward | Center Forward | Daniel Olmo Carvajal | result not specified  
+27 | Carry | 58:51 | Álvaro Borja Morata Martín | carries ball | Center Forward | Center Forward | result not specified  
+28 | Pass | 58:53 | Álvaro Borja Morata Martín | passes | Center Forward | Center Forward | Martín Zubimendi Ibáñez | result not specified  
+29 | Ball Receipt | 58:54 | Martín Zubimendi Ibáñez | receives ball | Right Defensive Midfield | Right Defensive Midfield | Álvaro Borja Morata Martín | result not specified  
+30 | Carry | 58:54 | Martín Zubimendi Ibáñez | carries ball | Right Defensive Midfield | Right Defensive Midfield | result not specified  
+31 | Pass | 58:56 | Martín Zubimendi Ibáñez | passes | Right Defensive Midfield | Right Defensive Midfield | Daniel Olmo Carvajal | result not specified  
+32 | Ball Receipt | 58:58 | Daniel Olmo Carvajal | receives ball | Center Attacking Midfield | Center Attacking Midfield | Martín Zubimendi Ibáñez | result not specified  
+33 | Carry | 58:58 | Daniel Olmo Carvajal | carries ball | Center Attacking Midfield | Center Attacking Midfield | result not specified  
+34 | Pass | 58:59 | Daniel Olmo Carvajal | passes | Center Attacking Midfield | Center Attacking Midfield | Álvaro Borja Morata Martín | result not specified  
+35 | Ball Receipt | 58:59 | Álvaro Borja Morata Martín | receives ball | Center Forward | Center Forward | Daniel Olmo Carvajal | result not specified  
+36 | Carry | 58:59 | Álvaro Borja Morata Martín | carries ball | Center Forward | Center Forward | result not specified  
+37 | Pass | 58:59 | Álvaro Borja Morata Martín | passes | Center Forward | Center Forward | result not specified  
+38 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+39 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+40 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+41 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+42 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+43 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+44 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+45 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+46 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+47 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+48 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+49 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+50 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+51 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+52 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+53 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+54 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+55 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+56 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+57 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+58 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+59 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+60 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+61 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+62 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+63 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+64 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+65 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+66 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+67 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+68 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+69 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+70 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+71 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+72 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+73 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+74 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+75 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+76 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+77 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+78 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+79 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+80 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+81 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+82 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+83 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+84 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+85 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+86 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+87 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+88 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+89 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+90 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+91 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+92 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+93 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+94 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+95 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+96 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+97 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+98 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+99 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+100 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+101 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+102 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+103 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+104 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+105 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+106 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+107 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+108 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+109 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+110 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+111 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+112 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+113 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+114 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+115 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+116 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+117 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+118 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+119 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+120 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+121 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+122 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+123 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+124 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+125 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+126 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+127 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+128 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+129 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+130 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+131 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+132 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+133 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+134 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+135 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+136 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+137 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+138 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+139 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+140 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+141 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+142 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+143 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+144 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+145 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+146 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+147 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+148 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+149 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+150 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+151 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+152 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+153 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+154 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+155 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+156 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+157 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+158 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+159 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+160 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+161 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+162 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+163 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+164 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+165 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+166 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+167 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+168 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+169 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+170 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+171 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+172 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+173 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+174 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+175 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+176 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+177 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+178 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+179 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+180 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+181 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+182 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+183 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+184 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+185 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+186 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+187 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+188 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+189 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+190 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+191 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+192 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+193 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+194 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+195 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+196 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+197 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+198 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+199 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+200 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+201 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+202 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+203 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+204 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+205 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+206 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+207 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+208 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+209 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+210 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+211 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+212 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+213 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+214 | Pass | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+215 | Ball Receipt | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+216 | Carry | 58:59 | result not specified | result not specified | result not specified | result not specified | result not specified  
+217 | Pass | 58:59 | result not specified | result not specified | result not specified | result
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 059
+--------------------------------------------
+1 | duel | 14:49 | Bukayo Saka | tackle | Right Wing | Right Wing | Nicholas Williams Arthuer | Won  
+2 | carry | 14:49 | Bukayo Saka | carry | Right Wing | Right Wing | John Stones | -  
+3 | pass | 14:51 | Bukayo Saka | pass | Right Wing | Right Wing | John Stones | -  
+4 | ball receipt | 14:53 | John Stones | ball receipt | Right Center Back | Right Center Back | Declan Rice | -  
+5 | carry | 14:53 | John Stones | carry | Right Center Back | Right Center Back | Declan Rice | -  
+6 | pass | 14:53 | John Stones | pass | Right Center Back | Right Center Back | Declan Rice | -  
+7 | ball receipt | 14:54 | Declan Rice | ball receipt | Left Defensive Midfield | Left Defensive Midfield | Marc Guehi | -  
+8 | carry | 14:54 | Declan Rice | carry | Left Defensive Midfield | Left Defensive Midfield | Marc Guehi | -  
+9 | pass | 14:56 | Declan Rice | pass | Left Defensive Midfield | Left Defensive Midfield | Marc Guehi | -  
+10 | ball receipt | 14:54 | Declan Rice | ball receipt | Left Defensive Midfield | Left Defensive Midfield | Declan Rice | -  
+11 | pass | 14:58 | Marc Guehi | pass | Left Center Back | Left Center Back | Luke Shaw | -  
+12 | ball receipt | 14:59 | Luke Shaw | ball receipt | Left Back | Left Back | - | -  
+13 | carry | 14:59 | Bukayo Saka | carry | Right Wing | Right Wing | - | -  
+14 | pass | 14:59 | Bukayo Saka | pass | Right Wing | Right Wing | Kyle Walker | -  
+15 | ball receipt | 14:59 | Kyle Walker | ball receipt | Right Back | Right Back | - | -  
+16 | carry | 14:59 | Kyle Walker | carry | Right Back | Right Back | Bukayo Saka | -  
+17 | pass | 14:59 | Kyle Walker | pass | Right Back | Right Back | Bukayo Saka | -  
+18 | ball receipt | 14:59 | Bukayo Saka | ball receipt | Right Wing | Right Wing | - | -  
+19 | carry | 14:59 | Bukayo Saka | carry | Right Wing | Right Wing | - | -  
+20 | pass | 14:59 | Bukayo Saka | pass | Right Wing | Right Wing | Phil Foden | -  
+21 | ball receipt | 14:59 | Phil Foden | ball receipt | Center Attacking Midfield | Center Attacking Midfield | - | -  
+22 | pressure | 14:59 | Lamine Yamal Nasraoui Ebana | pressure | Right Wing | Right Wing | - | -  
+23 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+24 | pass | 14:59 | Marc Guehi | pass | Left Center Back | Left Center Back | Luke Shaw | -  
+25 | ball receipt | 14:59 | Luke Shaw | ball receipt | Left Back | Left Back | - | -  
+26 | carry | 14:59 | Luke Shaw | carry | Left Back | Left Back | - | -  
+27 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+28 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+29 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+30 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+31 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+32 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+33 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+34 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+35 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+36 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+37 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+38 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+39 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+40 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+41 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+42 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+43 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+44 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+45 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+46 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+47 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+48 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+49 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+50 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+51 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+52 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+53 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+54 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+55 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+56 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+57 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+58 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+59 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+60 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+61 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+62 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+63 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+64 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+65 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+66 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+67 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+68 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+69 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+70 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+71 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+72 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+73 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+74 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+75 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+76 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+77 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+78 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+79 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+80 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+81 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+82 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+83 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+84 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+85 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+86 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+87 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+88 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+89 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+90 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+91 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+92 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+93 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+94 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+95 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+96 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+97 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+98 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+99 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+100 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+101 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+102 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+103 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+104 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+105 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+106 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+107 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+108 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+109 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+110 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+111 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+112 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+113 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+114 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+115 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+116 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+117 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+118 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+119 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+120 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+121 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+122 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+123 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+124 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+125 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+126 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+127 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+128 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+129 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+130 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+131 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+132 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+133 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+134 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+135 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+136 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+137 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+138 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+139 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+140 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+141 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+142 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+143 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+144 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+145 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+146 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+147 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+148 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+149 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+150 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+151 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+152 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+153 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+154 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+155 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+156 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+157 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+158 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+159 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+160 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+161 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+162 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+163 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+164 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+165 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+166 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+167 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+168 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+169 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+170 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+171 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+172 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+173 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+174 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+175 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+176 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+177 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+178 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+179 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+180 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+181 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+182 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+183 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+184 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+185 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+186 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+187 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+188 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+189 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+190 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+191 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+192 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+193 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+194 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+195 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+196 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+197 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+198 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+199 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+200 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+201 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+202 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+203 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+204 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+205 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+206 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+207 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+208 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+209 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+210 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+211 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+212 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+213 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+214 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+215 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+216 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+217 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+218 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+219 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+220 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+221 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+222 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+223 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+224 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+225 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+226 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+227 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+228 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+229 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+230 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+231 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+232 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+233 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+234 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+235 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+236 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+237 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+238 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+239 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+240 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+241 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+242 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+243 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+244 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+245 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+246 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+247 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+248 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+249 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+250 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+251 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+252 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+253 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+254 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+255 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+256 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+257 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+258 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+259 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+260 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+261 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+262 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+263 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+264 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+265 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+266 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+267 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+268 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+269 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+270 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+271 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+272 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+273 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+274 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+275 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+276 | pressure | 14:59 | Daniel Carvajal Ramos | pressure | Right Back | Right Back | - | -  
+277 | pressure | 14:59 | Daniel Carvajal Ramos |
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 060
+--------------------------------------------
+1 | Ball Receipt | 15:46 | Kyle Walker | Receives ball | Right Back | Right Back | Luke Shaw | 
+2 | Dispossessed | 15:00 | Luke Shaw | Loses possession | Left Back | Left Back | Daniel Carvajal Ramos | 
+3 | Duel | 15:00 | Daniel Carvajal Ramos | Tackles | Right Back | Right Back | Luke Shaw | Lost Out 
+4 | Substitution | 15:41 | Harry Kane | Substituted | Center Forward | Center Forward | Ollie Watkins | 
+5 | Pass | 15:42 | Luke Shaw | Passes | Left Back | Left Back | Marc Guehi | 
+6 | Ball Receipt | 15:43 | Marc Guehi | Receives ball | Left Center Back | Left Center Back | Luke Shaw | 
+7 | Carry | 15:43 | Marc Guehi | Carries ball | Left Center Back | Left Center Back | Kyle Walker | 
+8 | Pass | 15:44 | Marc Guehi | Passes | Left Center Back | Left Center Back | Kyle Walker | 
+9 | Carry | 15:46 | Kyle Walker | Carries ball | Right Back | Right Back | Marc Guehi | 
+10 | Pass | 15:49 | Kyle Walker | Passes | Right Back | Right Back | Kobbie Mainoo | 
+11 | Ball Receipt | 15:50 | Kobbie Mainoo | Receives ball | Right Defensive Midfield | Right Defensive Midfield | Kyle Walker | 
+12 | Carry | 15:50 | Kobbie Mainoo | Carries ball | Right Defensive Midfield | Right Defensive Midfield | Jude Bellingham | 
+13 | Pressure | 15:51 | Daniel Olmo Carvajal | Applies pressure | Center Attacking Midfield | Center Attacking Midfield | Kobbie Mainoo | 
+14 | Pressure | 15:51 | Fabián Ruiz Peña | Applies pressure | Left Defensive Midfield | Left Defensive Midfield | Kobbie Mainoo | 
+15 | Dispossessed | 15:52 | Kobbie Mainoo | Loses possession | Right Defensive Midfield | Right Defensive Midfield | Martín Zubimendi Ibáñez | 
+16 | Duel | 15:52 | Martín Zubimendi Ibáñez | Tackles | Right Defensive Midfield | Right Defensive Midfield | Kobbie Mainoo | Lost In Play 
+17 | Pressure | 15:53 | Daniel Olmo Carvajal | Applies pressure | Center Attacking Midfield | Center Attacking Midfield | Jude Bellingham | 
+18 | Ball Recovery | 15:53 | Jude Bellingham | Recovers ball | Left Wing | Left Wing | Daniel Olmo Carvajal | 
+19 | Carry | 15:53 | Jude Bellingham | Carries ball | Left Wing | Left Wing | Kobbie Mainoo | 
+20 | Pass | 15:55 | Jude Bellingham | Passes | Left Wing | Left Wing | Bukayo Saka | 
+21 | Ball Receipt | 15:57 | Bukayo Saka | Receives ball | Right Wing | Right Wing | Jude Bellingham | 
+22 | Carry | 15:57 | Bukayo Saka | Carries ball | Right Wing | Right Wing | Jude Bellingham | 

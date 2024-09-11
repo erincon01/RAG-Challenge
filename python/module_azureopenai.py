@@ -189,100 +189,7 @@ def create_and_download_detailed_match_summary(match_id, rows_per_prompt, file_p
         script = ""
 
 
-def create_events_summary_per_minute_from_json_rows_in_database(source, tablename, match_id, system_message, temperature, tokens):
-    """
-    Converts JSON data to summary and updates the database with the generated summary.
-    Args:
-        source (str): The source of the database. Either "azure" or "others".
-        tablename (str): The name of the table in the database.
-        match_id (int): The ID of the match.
-        system_message (str): The system message.
-        temperature (float): The temperature parameter for the OpenAI API.
-        tokens (int): The maximum number of tokens for the OpenAI API.
-    Returns:
-        None: This function does not return any value.
-    Raises:
-        Exception: If there is an error connecting to or executing the query in the database.
-    """
-    try:
-
-        conn = None
-
-        if source.lower() == "azure":
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER_AZURE'),
-                database=os.getenv('DB_NAME_AZURE'),
-                user=os.getenv('DB_USER_AZURE'),
-                password=os.getenv('DB_PASSWORD_AZURE')
-            )
-        else:
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER'),
-                database=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD')
-            )
-
-        cursor = conn.cursor()
-
-        query = sql.SQL(f"""
-            SELECT json_, period, minute FROM {tablename}
-            WHERE match_id = {match_id} 
-            and summary IS NULL 
-            ORDER BY period, minute
-        """)
-        cursor.execute(query)
-        rowCount = cursor.rowcount
-        i = 0
-
-        start_time = datetime.now()
-
-        for row in cursor.fetchall():
-            i += 1
-
-            row_start_time = datetime.now()
-
-            json_ = row[0]
-            period = row[1]
-            minute = row[2]
-            summary = get_chat_completion_from_azure_open_ai(system_message, json_, temperature, tokens)
-
-            update_query = sql.SQL(f"""
-                UPDATE {tablename}
-                SET summary = %s
-                WHERE match_id = %s
-                and minute = %s 
-                and period = %s
-            """)
-
-            cursor.execute(update_query, (summary, match_id, minute, period))
-            conn.commit()
-
-            time = datetime.now() - row_start_time
-            time_str = str(time).split(".")[0]
-
-            now = datetime.now()
-            now_str = str(now).split(".")[0]
-
-            print(f"[{now_str}] Updated period {period}, minute {minute} from match_id {match_id}.", end=" ")
-            print(f"Row processing time {i} of {rowCount} row(s), {time_str}.", end=" ")
-
-            time = ((datetime.now() - start_time) / (i+1)) * (rowCount - i)
-            time_str = str(time).split(".")[0]
-            print(f"Estimated remaining time: {time_str}.")
-
-    except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, primary_key_column, message_column, match_id, system_message, temperature, tokens):
+def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, primary_key_column, message_column, match_id, minute, system_message, temperature, tokens):
     """
     Converts JSON data to summary and updates the database with the generated summary.
     Args:
@@ -322,12 +229,24 @@ def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, p
 
         cursor = conn.cursor()
 
-        query = sql.SQL(f"""
-            SELECT  {primary_key_column} as key, json_ FROM {tablename}
-            WHERE match_id = {match_id} 
-            and {message_column} IS NULL 
-            ORDER BY {primary_key_column};
-        """)
+        query=""
+
+        if minute >=0:
+            query = sql.SQL(f"""
+                SELECT  {primary_key_column} as key, json_ FROM {tablename}
+                WHERE match_id = {match_id} 
+                /* and {message_column} IS NULL */ 
+                and minute = {minute}
+                ORDER BY {primary_key_column};
+            """)
+        else:
+            query = sql.SQL(f"""
+                SELECT  {primary_key_column} as key, json_ FROM {tablename}
+                WHERE match_id = {match_id} 
+                /* and {message_column} IS NULL */ 
+                ORDER BY {primary_key_column};
+            """)
+
         cursor.execute(query)
         rowCount = cursor.rowcount
         i = 0
@@ -359,13 +278,18 @@ def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, p
             now = datetime.now()
             now_str = str(now).split(".")[0]
 
-            print(f"[{now_str}] Updated primary key {key} from match_id {match_id}.", end=" ")
+            print(f"[{now_str}] Updated primary key {key}, {message_column} column, from match_id {match_id}.", end=" ")
             print(f"Row processing time {i} of {rowCount} row(s), {time_str}.", end=" ")
 
             time = ((datetime.now() - start_time) / (i+1)) * (rowCount - i)
             time_str = str(time).split(".")[0]
-            print(f"Estimated remaining time: {time_str}.")
 
+            # add time to now to get the estimated end time
+            estimated_end = now + time
+            estimated_end_str = str(estimated_end).split(".")[0]
+           
+            print(f"Estimated remaining time: {time_str} [{estimated_end_str}].")
+            
     except Exception as e:
         print(f"Error connecting or executing the query in the database: {e}")
 

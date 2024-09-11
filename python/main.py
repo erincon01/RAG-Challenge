@@ -21,7 +21,7 @@ import os
 from module_github import download_data_from_github_repo, get_github_data_from_matches
 from module_postgres import load_matches_data_into_postgres_from_folder, load_lineups_data_into_postgres, load_events_data_into_postgres
 from module_postgres import copy_data_from_postgres_to_azure, download_match_script
-from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_minute_from_json_rows_in_database, create_events_summary_per_pk_from_json_rows_in_database
+from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_pk_from_json_rows_in_database
 from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary
 
 if __name__ == "__main__":
@@ -86,31 +86,31 @@ if __name__ == "__main__":
 #     # this table is loaded using the script /postgres/tables_setup_load_events_details_from_postgres.sql
 #     # reason is because it is more efficient to build the data using json functions in postgres vs trasnferring the data row by row
 
-#     # 6-a) convert each json_ row into a prose script (line by line)
+
+# #     # 6-a) convert each json_ row into a prose script (line by line)
 
 #     system_message = """
-#             Describe the message in English. 
-#             It's a football match, and I am providing the detailed actions in Json data ordered minute by minute.
+#             Describe the message in English. It's a football match, and I am providing the detailed actions in Json format ordered minute by action how they happenned.
 #             By using the Id column you can cross-relate events. There may be some hierachies. Mention the players in the script.
-#             Do not invent any information. Do relate stick to the data, and do not include any personal opinion.
-#             Relate in prose format. This is the text: 
+#             Do not invent any information. Do relate stick to the data, and do not include any personal opinion. Relate in prose format. 
+#             In special events like: goal sucessful, goal missed, shoots to goal, and goalkeeper saves relate like a commentator highlighting the action mentioning time, and score changes if apply.
+#             This is the Json data: 
 #             """
 
-#     create_events_summary_per_minute_from_json_rows_in_database ("azure", "final_match_Spain_England_events_details__minutewise", 3943043, system_message, 0.1, 7500)
+#     create_events_summary_per_pk_from_json_rows_in_database ("azure", "final_match_Spain_England_events_details__minutewise", "id", "summary", 3943043, -1, system_message, 0.1, 7500)
 
+#     # 6-b) convert each json_ row into a prose script (line by line). in this case it is agnostic of the timing, it is based on the primary key column
 
-    # 6-b) convert each json_ row into a prose script (line by line). in this case it is agnostic of the timing, it is based on the primary key column
-
-    system_message = """
-            Describe the message in English using this pattern: action_order | mm:ss | player name | action | from_position | to_position. 
-            It's a football match, and I am providing the detailed actions in Json data ordered minute by minute.
-            By using the Id column you can cross-relate events. There may be some hierachies.
-            Do not invent any information. Do relate stick to the data, and do not include any personal opinion.
-            This is the text: 
-            """
+#     system_message = """
+#             Describe the message in English using this pattern: # | action type | mm:ss | player name | action | player location | location translation | related player | result. 
+#             be bold in goal sucessful, goal missed, goal blocked, shoots to goal, and goalkeeper saves. do not use special marks.
+#             It's a football match, and I am providing the detailed actions in Json format ordered minute by minute.
+#             By using the Id column you can cross-relate events. There may be some hierachies.
+#             Do not invent any information. Do relate stick to the data, and do not include any personal opinion.
+#             This is the Json data: 
+#             """
     
-    create_events_summary_per_pk_from_json_rows_in_database ("azure", "final_match_Spain_England_events_details__minutewise", "id", "summary_script", 3943043, system_message, 0.1, 7500)
-
+#     create_events_summary_per_pk_from_json_rows_in_database ("azure", "final_match_Spain_England_events_details__minutewise", "id", "summary_script", 3943043, -1, system_message, 0.1, 7500)
 
 #     # 7) create a detailed match summary of the match based on the summaries of each event created in 5)
 #     # data is aggegated using the parameter rows_per_prompt
@@ -163,13 +163,13 @@ if __name__ == "__main__":
 #         f.write(summary)
 #     print(summary)
 
-#     # 9) download from database the scripts in minutes chunks
-#     # The summary is stored in a file in the folder scripts_summary
+    # 9) download from database the scripts in minutes chunks
+    # The summary is stored in a file in the folder scripts_summary
 
-#     local_folder = os.getenv('LOCAL_FOLDER')
-#     local_folder = os.path.join(local_folder, "scripts")
-#     local_folder = os.path.join(local_folder, "scripts_summary")
-#     download_match_script("final_match_Spain_England_events_details__minutewise", 3943043, local_folder, 10)
+    local_folder = os.getenv('LOCAL_FOLDER')
+    local_folder = os.path.join(local_folder, "scripts_summary")
+    download_match_script("azure", "final_match_Spain_England_events_details__minutewise", 3943043, "summary", local_folder, 10)
+    download_match_script("azure", "final_match_Spain_England_events_details__minutewise", 3943043, "summary_script", local_folder, 10)
 
 
 #     # 10) get tokens statistics from a table column

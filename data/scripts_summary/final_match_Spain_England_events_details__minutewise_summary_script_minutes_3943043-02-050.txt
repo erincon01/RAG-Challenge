@@ -1,0 +1,582 @@
+
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 041
+--------------------------------------------
+1 | carry | 41:05 | Nicholas Williams Arthuer | carries the ball | Left Wing | 49.8, 16.1 | Marc Cucurella Saseta | 
+2 | pressure | 41:08 | Kyle Walker | applies pressure | Right Back | 56.0, 65.4 | Nicholas Williams Arthuer | 
+3 | pass | 41:12 | Nicholas Williams Arthuer | passes the ball | Left Wing | 58.4, 13.9 | Marc Cucurella Saseta | 
+4 | ball receipt | 41:13 | Marc Cucurella Saseta | receives the ball | Left Back | 51.3, 15.9 | Nicholas Williams Arthuer | 
+5 | carry | 41:13 | Marc Cucurella Saseta | carries the ball | Left Back | 51.3, 15.9 | Fabián Ruiz Peña | 
+6 | pass | 41:13 | Marc Cucurella Saseta | passes the ball | Left Back | 51.3, 15.9 | Fabián Ruiz Peña | 
+7 | ball receipt | 41:14 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 50.2, 25.5 | Marc Cucurella Saseta | 
+8 | carry | 41:14 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 50.2, 25.5 | Rodrigo Hernández Cascante | 
+9 | pass | 41:15 | Fabián Ruiz Peña | passes the ball | Left Defensive Midfield | 50.4, 25.3 | Rodrigo Hernández Cascante | 
+10 | ball receipt | 41:16 | Rodrigo Hernández Cascante | receives the ball | Right Defensive Midfield | 52.1, 32.9 | Fabián Ruiz Peña | 
+11 | carry | 41:16 | Rodrigo Hernández Cascante | carries the ball | Right Defensive Midfield | 52.1, 32.9 | 
+12 | carry | 41:24 | Daniel Carvajal Ramos | carries the ball | Right Back | 79.6, 65.6 | 
+13 | pass | 41:18 | Rodrigo Hernández Cascante | passes the ball | Right Defensive Midfield | 53.5, 36.9 | Robin Aime Robert Le Normand | 
+14 | ball receipt | 41:19 | Robin Aime Robert Le Normand | receives the ball | Right Center Back | 51.3, 57.2 | Rodrigo Hernández Cascante | 
+15 | carry | 41:19 | Robin Aime Robert Le Normand | carries the ball | Right Center Back | 51.3, 57.2 | 
+16 | pass | 41:20 | Robin Aime Robert Le Normand | passes the ball | Right Center Back | 55.3, 61.6 | Lamine Yamal Nasraoui Ebana | 
+17 | ball receipt | 41:21 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 70.7, 76.4 | Robin Aime Robert Le Normand | 
+18 | carry | 41:21 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 70.7, 76.4 | 
+19 | pass | 41:23 | Lamine Yamal Nasraoui Ebana | passes the ball | Right Wing | 72.2, 76.6 | Daniel Carvajal Ramos | 
+20 | pressure | 41:23 | Marc Guehi | applies pressure | Left Center Back | 40.5, 14.5 | Daniel Carvajal Ramos | 
+21 | ball receipt | 41:24 | Daniel Carvajal Ramos | receives the ball | Right Back | 79.6, 65.6 | Lamine Yamal Nasraoui Ebana | 
+22 | pass | 41:24 | Daniel Carvajal Ramos | passes the ball | Right Back | 77.5, 66.7 | Lamine Yamal Nasraoui Ebana | 
+23 | ball receipt | 41:25 | Lamine Yamal Nasraoui Ebana | receives the ball | Right Wing | 71.0, 76.6 | Daniel Carvajal Ramos | 
+24 | carry | 41:25 | Lamine Yamal Nasraoui Ebana | carries the ball | Right Wing | 71.0, 76.6 | 
+25 | pass | 41:25 | Lamine Yamal Nasraoui Ebana | passes the ball | Right Wing | 70.7, 76.6 | Daniel Carvajal Ramos | 
+26 | ball receipt | 41:27 | Daniel Carvajal Ramos | receives the ball | Right Back | 96.7, 77.3 | Lamine Yamal Nasraoui Ebana | 
+27 | throw-in | 41:58 | Luke Shaw | throws the ball | Left Back | 34.0, 0.1 | Kobbie Mainoo | 
+28 | ball receipt | 41:00 | Kobbie Mainoo | receives the ball | Right Defensive Midfield | 85.6, 53.2 | 
+29 | pass | 41:00 | Kobbie Mainoo | passes the ball | Right Defensive Midfield | 85.8, 53.0 | Harry Kane | 
+30 | ball receipt | 41:01 | Harry Kane | receives the ball | Center Forward | 106.1, 32.2 | Kobbie Mainoo | 
+31 | ball recovery | 41:01 | Robin Aime Robert Le Normand | recovers the ball | Right Center Back | 18.6, 44.0 | Kobbie Mainoo | 
+32 | carry | 41:01 | Robin Aime Robert Le Normand | carries the ball | Right Center Back | 18.6, 44.0 | 
+33 | pass | 41:03 | Robin Aime Robert Le Normand | passes the ball | Right Center Back | 35.2, 40.2 | Nicholas Williams Arthuer | 
+34 | ball receipt | 41:05 | Nicholas Williams Arthuer | receives the ball | Left Wing | 49.8, 16.1 | Robin Aime Robert Le Normand | 
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 042
+--------------------------------------------
+1 | Pressure | 42:21 | Marc Guehi | applies pressure | Left Center Back | Left Center Back | Álvaro Borja Morata Martín | result not specified  
+2 | Ball Recovery | 42:24 | Álvaro Borja Morata Martín | recovers ball | Center Forward | Center Forward | none | result not specified  
+3 | Dribble | 42:22 | Álvaro Borja Morata Martín | attempts dribble | Center Forward | Center Forward | none | result incomplete  
+4 | Duel | 42:22 | Marc Guehi | tackles | Left Center Back | Left Center Back | Álvaro Borja Morata Martín | success in play  
+5 | Carry | 42:12 | Aymeric Laporte | carries ball | Left Center Back | Left Center Back | none | result not specified  
+6 | Ball Receipt | 42:12 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+7 | Ball Receipt | 42:00 | Kobbie Mainoo | receives ball | Right Defensive Midfield | Right Defensive Midfield | none | result not specified  
+8 | Pass | 42:00 | Kobbie Mainoo | passes ball | Right Defensive Midfield | Right Defensive Midfield | Phil Foden | result incomplete  
+9 | Ball Receipt | 42:02 | Phil Foden | receives ball | Center Attacking Midfield | Center Attacking Midfield | none | result incomplete  
+10 | Ball Recovery | 42:02 | Aymeric Laporte | recovers ball | Left Center Back | Left Center Back | none | result not specified  
+11 | Carry | 42:21 | Álvaro Borja Morata Martín | carries ball | Center Forward | Center Forward | none | result not specified  
+12 | Carry | 42:02 | Aymeric Laporte | carries ball | Left Center Back | Left Center Back | none | result not specified  
+13 | Pass | 42:02 | Aymeric Laporte | passes ball | Left Center Back | Left Center Back | Unai Simón Mendibil | result not specified  
+14 | Carry | 42:02 | Unai Simón Mendibil | carries ball | Goalkeeper | Goalkeeper | none | result not specified  
+15 | Carry | 42:07 | Unai Simón Mendibil | carries ball | Goalkeeper | Goalkeeper | Robin Aime Robert Le Normand | result not specified  
+16 | Pass | 42:07 | Unai Simón Mendibil | passes ball | Goalkeeper | Goalkeeper | Robin Aime Robert Le Normand | result not specified  
+17 | Carry | 42:08 | Robin Aime Robert Le Normand | carries ball | Right Center Back | Right Center Back | none | result not specified  
+18 | Pass | 42:19 | Aymeric Laporte | passes ball | Left Center Back | Left Center Back | Álvaro Borja Morata Martín | result not specified  
+19 | Ball Receipt | 42:21 | Álvaro Borja Morata Martín | receives ball | Center Forward | Center Forward | none | result not specified  
+20 | Block | 42:24 | John Stones | blocks shot | Right Center Back | Right Center Back | Álvaro Borja Morata Martín | result not specified  
+21 | Shot | 42:24 | Álvaro Borja Morata Martín | shoots to goal | Center Forward | Center Forward | none | **goal blocked**  
+22 | Goal Keeper | 42:24 | Jordan Pickford | faces shot | Goalkeeper | Goalkeeper | none | result not specified  
+23 | Clearance | 42:24 | John Stones | clears ball | Right Center Back | Right Center Back | none | result not specified  
+24 | Ball Receipt | 42:08 | Robin Aime Robert Le Normand | receives ball | Right Center Back | Right Center Back | none | result not specified  
+25 | Pass | 42:10 | Robin Aime Robert Le Normand | passes ball | Right Center Back | Right Center Back | Aymeric Laporte | result not specified  
+26 | Pass | 42:10 | Robin Aime Robert Le Normand | passes ball | Right Center Back | Right Center Back | Aymeric Laporte | result not specified  
+27 | Pass | 42:10 | Robin Aime Robert Le Normand | passes ball | Right Center Back | Right Center Back | Aymeric Laporte | result not specified  
+28 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+29 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+30 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+31 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+32 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+33 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+34 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+35 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+36 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+37 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+38 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+39 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+40 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+41 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+42 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+43 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+44 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+45 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+46 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+47 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+48 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+49 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+50 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+51 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+52 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+53 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+54 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+55 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+56 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+57 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+58 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+59 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+60 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+61 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+62 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+63 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+64 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+65 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+66 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+67 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+68 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+69 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+70 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+71 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+72 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+73 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+74 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+75 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+76 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+77 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+78 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+79 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+80 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+81 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+82 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+83 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+84 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+85 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+86 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+87 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+88 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+89 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+90 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+91 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+92 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+93 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+94 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+95 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+96 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+97 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+98 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+99 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+100 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+101 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+102 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+103 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+104 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+105 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+106 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+107 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+108 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+109 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+110 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+111 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+112 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+113 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+114 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+115 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+116 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+117 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+118 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+119 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+120 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+121 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+122 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+123 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+124 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+125 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+126 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+127 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+128 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+129 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+130 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+131 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+132 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+133 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+134 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+135 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+136 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+137 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+138 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+139 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+140 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+141 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+142 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+143 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+144 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+145 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+146 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+147 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+148 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+149 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+150 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+151 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+152 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+153 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+154 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+155 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+156 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+157 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+158 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+159 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+160 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+161 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+162 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+163 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+164 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+165 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+166 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+167 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+168 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+169 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+170 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+171 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+172 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+173 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+174 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+175 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+176 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+177 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+178 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+179 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+180 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+181 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+182 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+183 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+184 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+185 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+186 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+187 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+188 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+189 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+190 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+191 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+192 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+193 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+194 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+195 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+196 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+197 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+198 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+199 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+200 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+201 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+202 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+203 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+204 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+205 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+206 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+207 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+208 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+209 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+210 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+211 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+212 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+213 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+214 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+215 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+216 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+217 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+218 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+219 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+220 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+221 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+222 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+223 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+224 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+225 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+226 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+227 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+228 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+229 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+230 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+231 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+232 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | none | result not specified  
+233 | Ball Receipt | 42:10 | Aymeric Laporte | receives ball | Left Center Back | Left
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 043
+--------------------------------------------
+1 | clearance | 43:00 | Kyle Walker | clearance | Right Back | Right Back | Álvaro Borja Morata Martín | result not specified  
+2 | ball receipt | 43:00 | Álvaro Borja Morata Martín | ball receipt | Center Forward | Center Forward | none | incomplete  
+3 | duel | 43:00 | Álvaro Borja Morata Martín | aerial lost | Center Forward | Center Forward | Kyle Walker | result not specified  
+4 | ball recovery | 43:03 | Kobbie Mainoo | ball recovery | Right Defensive Midfield | Right Defensive Midfield | none | result not specified  
+5 | carry | 43:03 | Kobbie Mainoo | carry | Right Defensive Midfield | Right Defensive Midfield | none | result not specified  
+6 | pressure | 43:04 | Fabián Ruiz Peña | pressure | Left Defensive Midfield | Left Defensive Midfield | Kobbie Mainoo | result not specified  
+7 | dribble | 43:08 | Kobbie Mainoo | dribble | Right Defensive Midfield | Right Defensive Midfield | none | incomplete  
+8 | ball receipt | 43:54 | Robin Aime Robert Le Normand | ball receipt | Right Center Back | Right Center Back | none | result not specified  
+9 | duel | 43:08 | Fabián Ruiz Peña | tackle lost | Left Defensive Midfield | Left Defensive Midfield | Kobbie Mainoo | result not specified  
+10 | pass | 43:46 | Jordan Pickford | pass | Goalkeeper | Goalkeeper | Harry Kane | result not specified  
+11 | ball receipt | 43:50 | Harry Kane | ball receipt | Center Forward | Center Forward | none | result not specified  
+12 | pass | 43:50 | Harry Kane | pass | Center Forward | Center Forward | Bukayo Saka | incomplete  
+13 | ball receipt | 43:51 | Bukayo Saka | ball receipt | Right Wing | Right Wing | none | incomplete  
+14 | ball recovery | 43:51 | Rodrigo Hernández Cascante | ball recovery | Right Defensive Midfield | Right Defensive Midfield | none | result not specified  
+15 | carry | 43:51 | Rodrigo Hernández Cascante | carry | Right Defensive Midfield | Right Defensive Midfield | none | result not specified  
+16 | pressure | 43:53 | Phil Foden | pressure | Center Attacking Midfield | Center Attacking Midfield | none | result not specified  
+17 | pass | 43:53 | Rodrigo Hernández Cascante | pass | Right Defensive Midfield | Right Defensive Midfield | Robin Aime Robert Le Normand | result not specified  
+18 | ball receipt | 43:56 | Daniel Carvajal Ramos | ball receipt | Right Back | Right Back | none | result not specified  
+19 | carry | 43:56 | Daniel Carvajal Ramos | carry | Right Back | Right Back | none | result not specified  
+20 | pressure | 43:54 | Phil Foden | pressure | Center Attacking Midfield | Center Attacking Midfield | none | result not specified  
+21 | pass | 43:55 | Robin Aime Robert Le Normand | pass | Right Center Back | Right Center Back | Daniel Carvajal Ramos | result not specified  
+22 | ball receipt | 43:56 | Daniel Carvajal Ramos | ball receipt | Right Back | Right Back | none | result not specified  
+23 | carry | 43:56 | Daniel Carvajal Ramos | carry | Right Back | Right Back | none | result not specified  
+24 | pressure | 43:59 | Jude Bellingham | pressure | Left Wing | Left Wing | none | result not specified  
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 044
+--------------------------------------------
+1 | Pressure | 44:08 | Nicholas Williams Arthuer | applies pressure | Left Wing | Left Wing | Kyle Walker | result not specified  
+2 | Foul Committed | 44:08 | Nicholas Williams Arthuer | commits foul | Left Wing | Left Wing | Kyle Walker | result not specified  
+3 | Foul Won | 44:08 | Kyle Walker | wins foul | Right Back | Right Back | Nicholas Williams Arthuer | result not specified  
+4 | Ball Receipt | 44:04 | Harry Kane | receives ball | Center Forward | Center Forward | result not specified | result not specified  
+5 | Carry | 44:04 | Harry Kane | carries ball | Center Forward | Center Forward | result not specified | result not specified  
+6 | Pressure | 44:04 | Rodrigo Hernández Cascante | applies pressure | Right Defensive Midfield | Right Defensive Midfield | Harry Kane | result not specified  
+7 | Shot | 44:05 | Harry Kane | shoots to goal | Center Forward | Center Forward | result not specified | **goal blocked**  
+8 | Block | 44:05 | Rodrigo Hernández Cascante | blocks shot | Right Defensive Midfield | Right Defensive Midfield | Harry Kane | result not specified  
+9 | Goal Keeper | 44:05 | Unai Simón Mendibil | saves shot | Goalkeeper | Goalkeeper | Harry Kane | result not specified  
+10 | Ball Recovery | 44:08 | Kyle Walker | recovers ball | Right Back | Right Back | result not specified | result not specified  
+11 | Dispossessed | 44:00 | Daniel Carvajal Ramos | dispossessed | Right Back | Right Back | Jude Bellingham | result not specified  
+12 | Duel | 44:00 | Jude Bellingham | wins tackle | Left Wing | Left Wing | Daniel Carvajal Ramos | result not specified  
+13 | Carry | 44:00 | Jude Bellingham | carries ball | Left Wing | Left Wing | result not specified | result not specified  
+14 | Carry | 44:08 | Kyle Walker | carries ball | Right Back | Right Back | result not specified | result not specified  
+15 | Pass | 44:03 | Jude Bellingham | passes ball | Left Wing | Left Wing | Harry Kane | result not specified  
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 045
+--------------------------------------------
+1 | duel | 00:45:41 | Harry Kane | Aerial Lost | Center Forward | Center Forward | Daniel Carvajal Ramos | result not specified  
+2 | clearance | 00:45:41 | Daniel Carvajal Ramos | Clearance | Right Back | Right Back | Harry Kane | result not specified  
+3 | ball recovery | 00:45:41 | Phil Foden | Ball Recovery | Center Attacking Midfield | Center Attacking Midfield | none | result not specified  
+4 | **goalkeeper saves** | 00:45:42 | Unai Simón Mendibil | Shot Saved | Goalkeeper | Goalkeeper | Phil Foden | **goal saved**  
+5 | pass | 00:45:39 | Declan Rice | Pass | Left Defensive Midfield | Left Defensive Midfield | Harry Kane | result not specified  
+6 | ball receipt | 00:45:41 | Harry Kane | Ball Receipt | Center Forward | Center Forward | none | result not specified  
+7 | **shoots to goal** | 00:45:41 | Phil Foden | Shot | Center Attacking Midfield | Center Attacking Midfield | Unai Simón Mendibil | **goal saved**  
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 046
+--------------------------------------------
+1 | pass | 00:46 | Unai Simón Mendibil | Pass to Aymeric Laporte | Goalkeeper | Ground Pass | None | None  
+2 | ball receipt | 00:46 | Aymeric Laporte | Receives ball | Left Center Back | None | Unai Simón Mendibil | None  
+3 | pass | 00:46 | Aymeric Laporte | Pass to Lamine Yamal Nasraoui Ebana | Left Center Back | High Pass | None | Out  
+4 | ball receipt | 00:46 | Lamine Yamal Nasraoui Ebana | Receives ball | Right Wing | None | Aymeric Laporte | Incomplete  
+5 | pass | 00:46 | Jordan Pickford | Goal Kick to Bukayo Saka | Goalkeeper | High Pass | None | Incomplete  
+6 | ball receipt | 00:46 | Bukayo Saka | Receives ball | Right Wing | None | Jordan Pickford | Incomplete  
+7 | duel | 00:46 | Bukayo Saka | Aerial Lost | Right Wing | None | None | None  
+8 | pass | 00:46 | Marc Cucurella Saseta | Recovery pass to Nicholas Williams Arthuer | Left Back | Low Pass | None | Aerial Won  
+9 | ball receipt | 00:46 | Nicholas Williams Arthuer | Receives ball | Left Wing | None | Marc Cucurella Saseta | None  
+10 | carry | 00:46 | Nicholas Williams Arthuer | Carries ball | Left Wing | None | None | None  
+11 | pass | 00:46 | Nicholas Williams Arthuer | Pass to Lamine Yamal Nasraoui Ebana | Left Wing | High Pass | None | None  
+12 | ball receipt | 00:46 | Lamine Yamal Nasraoui Ebana | Receives ball | Right Wing | None | Nicholas Williams Arthuer | None  
+13 | carry | 00:46 | Lamine Yamal Nasraoui Ebana | Carries ball | Right Wing | None | None | None  
+14 | pass | 00:46 | Lamine Yamal Nasraoui Ebana | Pass to Daniel Carvajal Ramos | Right Wing | Ground Pass | None | None  
+15 | ball receipt | 00:46 | Daniel Carvajal Ramos | Receives ball | Right Back | None | Lamine Yamal Nasraoui Ebana | None  
+16 | pass | 00:46 | Daniel Carvajal Ramos | Pass to Robin Aime Robert Le Normand | Right Back | High Pass | None | None  
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 047
+--------------------------------------------
+47:02 | half end | 00:47 | Spain | end of half | midfield | midfield | England | none  
+47:02 | half end | 00:47 | England | end of half | midfield | midfield | Spain | none
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 045
+--------------------------------------------
+1 | substitution | 45:00 | Rodrigo Hernández Cascante | substitution due to injury | Right Defensive Midfield | Right Defensive Midfield | Martín Zubimendi Ibáñez | N/A  
+2 | pass | 45:00 | Álvaro Borja Morata Martín | kick off to Martín Zubimendi Ibáñez | Center Forward | Center Forward | Martín Zubimendi Ibáñez | N/A  
+3 | ball receipt | 45:01 | Martín Zubimendi Ibáñez | receives ball | Right Defensive Midfield | Right Defensive Midfield | Álvaro Borja Morata Martín | N/A  
+4 | carry | 45:01 | Martín Zubimendi Ibáñez | carries ball | Right Defensive Midfield | Right Defensive Midfield | N/A | N/A  
+5 | pass | 45:02 | Martín Zubimendi Ibáñez | passes to Daniel Carvajal Ramos | Right Defensive Midfield | Right Defensive Midfield | Daniel Carvajal Ramos | N/A  
+6 | ball receipt | 45:03 | Daniel Carvajal Ramos | receives ball | Right Back | Right Back | Martín Zubimendi Ibáñez | N/A  
+7 | carry | 45:03 | Daniel Carvajal Ramos | carries ball | Right Back | Right Back | N/A | N/A  
+8 | pass | 45:04 | Daniel Carvajal Ramos | passes to Robin Aime Robert Le Normand | Right Back | Right Back | Robin Aime Robert Le Normand | N/A  
+9 | ball receipt | 45:06 | Robin Aime Robert Le Normand | receives ball | Right Center Back | Right Center Back | Daniel Carvajal Ramos | N/A  
+10 | carry | 45:06 | Robin Aime Robert Le Normand | carries ball | Right Center Back | Right Center Back | N/A | N/A  
+11 | pass | 45:08 | Robin Aime Robert Le Normand | passes to Aymeric Laporte | Right Center Back | Right Center Back | Aymeric Laporte | N/A  
+12 | ball receipt | 45:10 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | Robin Aime Robert Le Normand | N/A  
+13 | carry | 45:10 | Aymeric Laporte | carries ball | Left Center Back | Left Center Back | N/A | N/A  
+14 | pass | 45:13 | Aymeric Laporte | passes to Robin Aime Robert Le Normand | Left Center Back | Left Center Back | Robin Aime Robert Le Normand | N/A  
+15 | ball receipt | 45:14 | Robin Aime Robert Le Normand | receives ball | Right Center Back | Right Center Back | Aymeric Laporte | N/A  
+16 | carry | 45:14 | Robin Aime Robert Le Normand | carries ball | Right Center Back | Right Center Back | N/A | N/A  
+17 | pass | 45:16 | Robin Aime Robert Le Normand | passes to Unai Simón Mendibil | Right Center Back | Right Center Back | Unai Simón Mendibil | N/A  
+18 | ball receipt | 45:19 | Unai Simón Mendibil | receives ball | Goalkeeper | Goalkeeper | Robin Aime Robert Le Normand | N/A  
+19 | carry | 45:19 | Unai Simón Mendibil | carries ball | Goalkeeper | Goalkeeper | N/A | N/A  
+20 | carry | 45:28 | Marc Cucurella Saseta | carries ball | Left Back | Left Back | N/A | N/A  
+21 | pass | 45:22 | Unai Simón Mendibil | passes to Álvaro Borja Morata Martín | Goalkeeper | Goalkeeper | Álvaro Borja Morata Martín | N/A  
+22 | ball receipt | 45:24 | Álvaro Borja Morata Martín | receives ball | Center Forward | Center Forward | Unai Simón Mendibil | N/A  
+23 | pass | 45:24 | Álvaro Borja Morata Martín | passes to Kobbie Mainoo | Center Forward | Center Forward | Kobbie Mainoo | N/A  
+24 | pass | 45:24 | Marc Guehi | passes to Kobbie Mainoo | Left Center Back | Left Center Back | Kobbie Mainoo | N/A  
+25 | duel | 45:24 | Álvaro Borja Morata Martín | loses aerial duel | Center Forward | Center Forward | N/A | N/A  
+26 | ball receipt | 45:25 | Kobbie Mainoo | receives ball | Right Defensive Midfield | Right Defensive Midfield | N/A | N/A  
+27 | ball recovery | 45:25 | Daniel Olmo Carvajal | recovers ball | Center Attacking Midfield | Center Attacking Midfield | N/A | N/A  
+28 | carry | 45:25 | Daniel Olmo Carvajal | carries ball | Center Attacking Midfield | Center Attacking Midfield | N/A | N/A  
+29 | pass | 45:27 | Daniel Olmo Carvajal | passes to Marc Cucurella Saseta | Center Attacking Midfield | Center Attacking Midfield | Marc Cucurella Saseta | N/A  
+30 | ball receipt | 45:28 | Marc Cucurella Saseta | receives ball | Left Back | Left Back | Daniel Olmo Carvajal | N/A  
+31 | pass | 45:28 | Marc Cucurella Saseta | passes to Nicholas Williams Arthuer | Left Back | Left Back | Nicholas Williams Arthuer | N/A  
+32 | ball receipt | 45:29 | Nicholas Williams Arthuer | receives ball | Left Wing | Left Wing | Marc Cucurella Saseta | N/A  
+33 | carry | 45:29 | Nicholas Williams Arthuer | carries ball | Left Wing | Left Wing | N/A | N/A  
+34 | pass | 45:29 | Marc Cucurella Saseta | passes to Aymeric Laporte | Left Back | Left Back | Aymeric Laporte | N/A  
+35 | ball receipt | 45:31 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | Nicholas Williams Arthuer | N/A  
+36 | carry | 45:31 | Aymeric Laporte | carries ball | Left Center Back | Left Center Back | N/A | N/A  
+37 | pass | 45:32 | Aymeric Laporte | passes to Robin Aime Robert Le Normand | Left Center Back | Left Center Back | Robin Aime Robert Le Normand | N/A  
+38 | ball receipt | 45:32 | Robin Aime Robert Le Normand | receives ball | Right Center Back | Right Center Back | Aymeric Laporte | N/A  
+39 | carry | 45:32 | Robin Aime Robert Le Normand | carries ball | Right Center Back | Right Center Back | N/A | N/A  
+40 | pass | 45:35 | Marc Cucurella Saseta | passes to Aymeric Laporte | Left Back | Left Back | Aymeric Laporte | N/A  
+41 | ball receipt | 45:37 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | Marc Cucurella Saseta | N/A  
+42 | carry | 45:37 | Aymeric Laporte | carries ball | Left Center Back | Left Center Back | N/A | N/A  
+43 | pass | 45:38 | Aymeric Laporte | passes to Robin Aime Robert Le Normand | Left Center Back | Left Center Back | Robin Aime Robert Le Normand | N/A  
+44 | ball receipt | 45:39 | Robin Aime Robert Le Normand | receives ball | Right Center Back | Right Center Back | Aymeric Laporte | N/A  
+45 | carry | 45:39 | Robin Aime Robert Le Normand | carries ball | Right Center Back | Right Center Back | N/A | N/A  
+46 | pass | 45:41 | Robin Aime Robert Le Normand | passes to Martín Zubimendi Ibáñez | Right Center Back | Right Center Back | Martín Zubimendi Ibáñez | N/A  
+47 | ball receipt | 45:42 | Martín Zubimendi Ibáñez | receives ball | Right Defensive Midfield | Right Defensive Midfield | Robin Aime Robert Le Normand | N/A  
+48 | carry | 45:42 | Martín Zubimendi Ibáñez | carries ball | Right Defensive Midfield | Right Defensive Midfield | N/A | N/A  
+49 | pass | 45:49 | Martín Zubimendi Ibáñez | passes to Marc Cucurella Saseta | Right Defensive Midfield | Right Defensive Midfield | Marc Cucurella Saseta | N/A  
+50 | ball receipt | 45:50 | Marc Cucurella Saseta | receives ball | Left Back | Left Back | Martín Zubimendi Ibáñez | N/A  
+51 | carry | 45:50 | Marc Cucurella Saseta | carries ball | Left Back | Left Back | N/A | N/A  
+52 | pass | 45:51 | Marc Cucurella Saseta | passes to Nicholas Williams Arthuer | Left Back | Left Back | Nicholas Williams Arthuer | N/A  
+53 | ball receipt | 45:52 | Nicholas Williams Arthuer | receives ball | Left Wing | Left Wing | Marc Cucurella Saseta | N/A  
+54 | carry | 45:52 | Nicholas Williams Arthuer | carries ball | Left Wing | Left Wing | N/A | N/A  
+55 | pass | 45:52 | Marc Cucurella Saseta | passes to Aymeric Laporte | Left Back | Left Back | Aymeric Laporte | N/A  
+56 | ball receipt | 45:53 | Aymeric Laporte | receives ball | Left Center Back | Left Center Back | Marc Cucurella Saseta | N/A  
+57 | carry | 45:53 | Aymeric Laporte | carries ball | Left Center Back | Left Center Back | N/A | N/A  
+58 | pass | 45:55 | Aymeric Laporte | passes to Robin Aime Robert Le Normand | Left Center Back | Left Center Back | Robin Aime Robert Le Normand | N/A  
+59 | ball receipt | 45:55 | Robin Aime Robert Le Normand | receives ball | Right Center Back | Right Center Back | Aymeric Laporte | N/A  
+60 | carry | 45:55 | Robin Aime Robert Le Normand | carries ball | Right Center Back | Right Center Back | N/A | N/A  
+61 | pass | 45:59 | Robin Aime Robert Le Normand | passes to Fabián Ruiz Peña | Right Center Back | Right Center Back | Fabián Ruiz Peña | N/A  
+62 | ball receipt | 45:59 | Fabián Ruiz Peña | receives ball | N/A | N/A | Robin Aime Robert Le Normand | N/A  
+63 | carry | 45:59 | Fabián Ruiz Peña | carries ball | N/A | N/A | N/A | N/A  
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 046
+--------------------------------------------
+1 | action type | 00:01 | Fabián Ruiz Peña | Ball Receipt | Left Defensive Midfield | Left Defensive Midfield | Daniel Carvajal Ramos | 
+2 | pass | 00:01 | Fabián Ruiz Peña | Pass | Left Defensive Midfield | Left Defensive Midfield | Daniel Carvajal Ramos | 
+3 | action type | 00:01 | Daniel Carvajal Ramos | Ball Receipt | Right Back | Right Back | Lamine Yamal Nasraoui Ebana | 
+4 | pass | 00:01 | Daniel Carvajal Ramos | Pass | Right Back | Right Back | Lamine Yamal Nasraoui Ebana | 
+5 | action type | 00:01 | Luke Shaw | Pressure | Left Back | Left Back | Lamine Yamal Nasraoui Ebana | 
+6 | action type | 00:01 | Lamine Yamal Nasraoui Ebana | Ball Receipt | Right Wing | Right Wing | Daniel Carvajal Ramos | 
+7 | carry | 00:01 | Lamine Yamal Nasraoui Ebana | Carry | Right Wing | Right Wing | Nicholas Williams Arthuer | 
+8 | pass | 00:01 | Lamine Yamal Nasraoui Ebana | Pass | Right Wing | Right Wing | Nicholas Williams Arthuer | 
+9 | action type | 00:01 | Nicholas Williams Arthuer | Ball Receipt | Left Wing | Left Wing | Lamine Yamal Nasraoui Ebana | 
+10 | shot | 00:01 | Nicholas Williams Arthuer | **Goal** | Left Wing | Left Wing | Jordan Pickford | 
+11 | action type | 00:01 | Jordan Pickford | Goal Keeper | Goalkeeper | Goalkeeper | Nicholas Williams Arthuer | No Touch
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 047
+--------------------------------------------
+1 | carry | 02:36 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 54.3, 3.3 | Aymeric Laporte | 
+2 | pressure | 02:37 | Declan Rice | applies pressure | Left Defensive Midfield | 55.9, 75.6 | Fabián Ruiz Peña | 
+3 | pass | 02:41 | Fabián Ruiz Peña | passes the ball | Left Defensive Midfield | 55.0, 7.8 | Aymeric Laporte | 
+4 | ball receipt | 02:42 | Aymeric Laporte | receives the ball | Left Center Back | 30.1, 12.0 | Fabián Ruiz Peña | 
+5 | carry | 02:42 | Aymeric Laporte | carries the ball | Left Center Back | 30.1, 12.0 | Robin Aime Robert Le Normand | 
+6 | pass | 02:43 | Aymeric Laporte | passes the ball | Left Center Back | 30.4, 11.0 | Robin Aime Robert Le Normand | 
+7 | ball receipt | 02:45 | Robin Aime Robert Le Normand | receives the ball | Right Center Back | 30.1, 33.8 | Aymeric Laporte | 
+8 | pass | 02:21 | Kobbie Mainoo | passes the ball | Right Defensive Midfield | 61.0, 40.1 | Jordan Pickford | 
+9 | ball receipt | 02:24 | Jordan Pickford | receives the ball | Goalkeeper | 24.5, 39.3 | Kobbie Mainoo | 
+10 | carry | 02:24 | Jordan Pickford | carries the ball | Goalkeeper | 24.5, 39.3 | 
+11 | pass | 02:28 | Jordan Pickford | passes the ball | Goalkeeper | 36.2, 27.0 | Harry Kane | 
+12 | ball receipt | 02:31 | Harry Kane | receives the ball | Center Forward | 94.0, 59.6 | Jordan Pickford | 
+13 | duel | 02:31 | Harry Kane | loses aerial duel | Center Forward | 94.7, 59.5 | 
+14 | pass | 02:31 | Aymeric Laporte | passes the ball | Left Center Back | 25.4, 20.6 | Nicholas Williams Arthuer | 
+15 | ball receipt | 02:33 | Nicholas Williams Arthuer | receives the ball | Left Wing | 32.2, 10.2 | Aymeric Laporte | 
+16 | carry | 02:33 | Nicholas Williams Arthuer | carries the ball | Left Wing | 32.2, 10.2 | 
+17 | pressure | 02:34 | Bukayo Saka | applies pressure | Right Wing | 88.8, 72.9 | Nicholas Williams Arthuer | 
+18 | pass | 02:35 | Nicholas Williams Arthuer | passes the ball | Left Wing | 36.8, 2.4 | Fabián Ruiz Peña | 
+19 | ball receipt | 02:36 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 54.3, 3.3 | Nicholas Williams Arthuer | 
+20 | carry | 02:45 | Robin Aime Robert Le Normand | carries the ball | Right Center Back | 30.1, 33.8 | 
+21 | pass | 02:50 | Robin Aime Robert Le Normand | passes the ball | Right Center Back | 26.2, 47.5 | Unai Simón Mendibil | 
+22 | ball receipt | 02:52 | Unai Simón Mendibil | receives the ball | Goalkeeper | 7.3, 39.9 | Robin Aime Robert Le Normand | 
+23 | carry | 02:52 | Unai Simón Mendibil | carries the ball | Goalkeeper | 7.3, 39.9 | 
+24 | pass | 02:53 | Unai Simón Mendibil | passes the ball | Goalkeeper | 6.8, 37.5 | Aymeric Laporte | 
+25 | ball receipt | 02:55 | Aymeric Laporte | receives the ball | Left Center Back | 23.6, 11.6 | Unai Simón Mendibil | 
+26 | carry | 02:55 | Aymeric Laporte | carries the ball | Left Center Back | 23.6, 11.6 | 
+27 | pass | 02:56 | Aymeric Laporte | passes the ball | Left Center Back | 23.2, 13.8 | Unai Simón Mendibil | 
+28 | ball receipt | 02:58 | Unai Simón Mendibil | receives the ball | Goalkeeper | 10.4, 28.8 | Aymeric Laporte | 
+29 | carry | 02:58 | Unai Simón Mendibil | carries the ball | Goalkeeper | 10.4, 28.8 | 
+30 | pass | 02:59 | Unai Simón Mendibil | passes the ball | Goalkeeper | 10.6, 31.0 | Robin Aime Robert Le Normand | 
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 048
+--------------------------------------------
+1 | ball receipt | 48:00 | Jude Bellingham | receives ball | Left Wing | Left Wing | - | -
+2 | ball receipt | 48:00 | Robin Aime Robert Le Normand | receives ball | Right Center Back | Right Center Back | - | -
+3 | carry | 48:00 | Robin Aime Robert Le Normand | carries ball | Right Center Back | Right Center Back | - | -
+4 | pass | 48:09 | Robin Aime Robert Le Normand | passes ball | Right Center Back | Right Center Back | Álvaro Borja Morata Martín | -
+5 | ball receipt | 48:11 | Álvaro Borja Morata Martín | receives ball | Center Forward | Center Forward | - | -
+6 | pass | 48:11 | Álvaro Borja Morata Martín | passes ball | Center Forward | Center Forward | Daniel Carvajal Ramos | -
+7 | ball receipt | 48:13 | Daniel Carvajal Ramos | receives ball | Right Back | Right Back | - | -
+8 | carry | 48:13 | Daniel Carvajal Ramos | carries ball | Right Back | Right Back | - | -
+9 | pass | 48:13 | Daniel Carvajal Ramos | passes ball | Right Back | Right Back | Daniel Olmo Carvajal | -
+10 | ball receipt | 48:14 | Daniel Olmo Carvajal | receives ball | Center Attacking Midfield | Center Attacking Midfield | - | -
+11 | pass | 48:14 | Daniel Olmo Carvajal | passes ball | Center Attacking Midfield | Center Attacking Midfield | Nicholas Williams Arthuer | -
+12 | ball receipt | 48:16 | Nicholas Williams Arthuer | receives ball | Left Wing | Left Wing | - | -
+13 | carry | 48:16 | Nicholas Williams Arthuer | carries ball | Left Wing | Left Wing | - | -
+14 | pass | 48:17 | Nicholas Williams Arthuer | passes ball | Left Wing | Left Wing | Daniel Olmo Carvajal | -
+15 | ball receipt | 48:18 | Daniel Olmo Carvajal | receives ball | Center Attacking Midfield | Center Attacking Midfield | - | -
+16 | pass | 48:18 | Daniel Olmo Carvajal | passes ball | Center Attacking Midfield | Center Attacking Midfield | Daniel Olmo Carvajal | -
+17 | ball receipt | 48:19 | Daniel Olmo Carvajal | receives ball | Center Attacking Midfield | Center Attacking Midfield | - | -
+18 | shot | 48:19 | Daniel Olmo Carvajal | shoots to goal | Center Attacking Midfield | Center Attacking Midfield | - | **goal missed**
+19 | goalkeeper save | 48:20 | Jordan Pickford | saves shot | Goalkeeper | Goalkeeper | Daniel Olmo Carvajal | -
+20 | pass | 48:43 | Jordan Pickford | passes ball | Goalkeeper | Goalkeeper | John Stones | -
+21 | ball receipt | 48:44 | John Stones | receives ball | Right Center Back | Right Center Back | - | -
+22 | pass | 48:44 | John Stones | passes ball | Right Center Back | Right Center Back | Phil Foden | -
+23 | ball receipt | 48:46 | Phil Foden | receives ball | Center Attacking Midfield | Center Attacking Midfield | - | -
+24 | pass | 48:46 | Phil Foden | passes ball | Center Attacking Midfield | Center Attacking Midfield | Kobbie Mainoo | -
+25 | ball receipt | 48:47 | Kobbie Mainoo | receives ball | Right Defensive Midfield | Right Defensive Midfield | - | -
+26 | carry | 48:47 | Kobbie Mainoo | carries ball | Right Defensive Midfield | Right Defensive Midfield | - | -
+27 | pass | 48:48 | Kobbie Mainoo | passes ball | Right Defensive Midfield | Right Defensive Midfield | Declan Rice | -
+28 | ball receipt | 48:49 | Declan Rice | receives ball | Left Defensive Midfield | Left Defensive Midfield | - | -
+29 | carry | 48:49 | Declan Rice | carries ball | Left Defensive Midfield | Left Defensive Midfield | - | -
+30 | pass | 48:49 | Declan Rice | passes ball | Left Defensive Midfield | Left Defensive Midfield | Luke Shaw | -
+31 | ball receipt | 48:51 | Luke Shaw | receives ball | Left Back | Left Back | - | -
+32 | carry | 48:51 | Luke Shaw | carries ball | Left Back | Left Back | - | -
+33 | pass | 48:53 | Luke Shaw | passes ball | Left Back | Left Back | Jude Bellingham | -
+34 | ball receipt | 48:55 | Jude Bellingham | receives ball | Left Wing | Left Wing | - | -
+35 | carry | 48:55 | Jude Bellingham | carries ball | Left Wing | Left Wing | - | -
+36 | pass | 48:55 | Jude Bellingham | passes ball | Left Wing | Left Wing | Marc Guehi | -
+37 | ball receipt | 48:56 | Marc Guehi | receives ball | Left Center Back | Left Center Back | - | -
+38 | carry | 48:56 | Marc Guehi | carries ball | Left Center Back | Left Center Back | - | -
+39 | pass | 48:56 | Marc Guehi | passes ball | Left Center Back | Left Center Back | Jude Bellingham | -
+40 | ball receipt | 48:57 | Jude Bellingham | receives ball | Left Wing | Left Wing | - | -
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 049
+--------------------------------------------
+1 | carry | 00:49 | John Stones | carries the ball | Right Center Back | 40.8, 51.5 | 40.8, 51.5 | - | -
+2 | pass | 00:49 | Jude Bellingham | passes the ball | Left Wing | 40.3, 16.3 | 28.4, 21.6 | Marc Guehi | -
+3 | ball receipt | 00:49 | Marc Guehi | receives the ball | Left Center Back | 28.4, 21.6 | 28.4, 21.6 | Jude Bellingham | -
+4 | carry | 00:49 | Marc Guehi | carries the ball | Left Center Back | 28.4, 21.6 | 30.4, 27.9 | - | -
+5 | pass | 00:49 | Marc Guehi | passes the ball | Left Center Back | 30.4, 27.9 | 29.0, 55.4 | John Stones | -
+6 | ball receipt | 00:49 | John Stones | receives the ball | Right Center Back | 29.0, 55.4 | 29.0, 55.4 | Marc Guehi | -
+7 | carry | 00:49 | John Stones | carries the ball | Right Center Back | 29.0, 55.4 | 27.8, 52.1 | - | -
+8 | pass | 00:49 | John Stones | passes the ball | Right Center Back | 27.8, 52.1 | 15.0, 36.5 | Jordan Pickford | -
+9 | ball receipt | 00:49 | Jordan Pickford | receives the ball | Goalkeeper | 15.0, 36.5 | 15.0, 36.5 | John Stones | -
+10 | carry | 00:49 | Jordan Pickford | carries the ball | Goalkeeper | 15.0, 36.5 | 14.2, 31.5 | - | -
+11 | pressure | 00:49 | Daniel Olmo Carvajal | applies pressure | Center Attacking Midfield | 102.9, 40.8 | - | Jordan Pickford | -
+12 | pass | 00:49 | Jordan Pickford | passes the ball | Goalkeeper | 14.2, 31.5 | 64.5, 28.1 | Harry Kane | -
+13 | ball receipt | 00:49 | Harry Kane | receives the ball | Center Forward | 63.7, 28.1 | 64.5, 28.1 | Jordan Pickford | -
+14 | duel | 00:49 | Harry Kane | loses aerial duel | Center Forward | 64.5, 28.1 | - | - | -
+15 | ball receipt | 00:49 | Daniel Carvajal Ramos | receives the ball | Right Back | 53.6, 71.6 | - | - | -
+16 | pass | 00:49 | Martín Zubimendi Ibáñez | passes the ball | Right Defensive Midfield | 61.7, 46.9 | 61.7, 46.9 | - | -
+17 | pressure | 00:49 | Kobbie Mainoo | applies pressure | Right Defensive Midfield | 57.2, 34.5 | - | - | -
+18 | ball receipt | 00:49 | Martín Zubimendi Ibáñez | receives the ball | Right Defensive Midfield | 61.7, 46.9 | 61.7, 46.9 | - | -
+19 | carry | 00:49 | Martín Zubimendi Ibáñez | carries the ball | Right Defensive Midfield | 61.7, 46.9 | 62.0, 46.9 | - | -
+20 | pass | 00:49 | Daniel Carvajal Ramos | passes the ball | Right Back | 53.6, 71.6 | 61.5, 67.8 | Fabián Ruiz Peña | -
+21 | pressure | 00:49 | Jude Bellingham | applies pressure | Left Wing | 57.9, 15.9 | - | - | -
+22 | ball receipt | 00:49 | Fabián Ruiz Peña | receives the ball | Left Defensive Midfield | 61.5, 67.8 | 61.5, 67.8 | - | -
+23 | carry | 00:49 | Fabián Ruiz Peña | carries the ball | Left Defensive Midfield | 61.5, 67.8 | 57.6, 61.4 | - | -
+24 | dispossessed | 00:49 | Fabián Ruiz Peña | is dispossessed | Left Defensive Midfield | 57.6, 61.4 | - | - | -
+25 | duel | 00:49 | Kobbie Mainoo | wins tackle | Right Defensive Midfield | 62.5, 18.7 | - | - | -
+26 | carry | 00:49 | Kobbie Mainoo | carries the ball | Right Defensive Midfield | 62.5, 18.7 | 63.6, 9.9 | - | -
+27 | pass | 00:49 | Kobbie Mainoo | passes the ball | Right Defensive Midfield | 63.6, 9.9 | 70.3, 4.6 | Jude Bellingham | -
+28 | ball receipt | 00:49 | Jude Bellingham | receives the ball | Left Wing | 70.3, 4.6 | 70.3, 4.6 | Kobbie Mainoo | -
+29 | carry | 00:49 | Jude Bellingham | carries the ball | Left Wing | 70.3, 4.6 | 94.0, 20.2 | - | -
+30 | pass | 00:49 | Jude Bellingham | passes the ball | Left Wing | 94.0, 20.2 | 120.0, 15.1 | Luke Shaw | -
+31 | pressure | 00:49 | Luke Shaw | applies pressure | Left Back | 109.0, 15.7 | - | - | -
+32 | ball receipt | 00:49 | Luke Shaw | receives the ball | Left Back | 102.2, 11.2 | 120.0, 15.1 | - | - |
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 02, minute: 050
+--------------------------------------------
+1 | ball receipt | 50:58 | Jude Bellingham | received the ball | Left Wing | Left Wing | - | -
+2 | carry | 50:58 | Jude Bellingham | carried the ball | Left Wing | Left Wing | - | -
+3 | pass | 50:13 | Unai Simón Mendibil | passed the ball | Goalkeeper | Goalkeeper | Robin Aime Robert Le Normand | -
+4 | ball receipt | 50:14 | Robin Aime Robert Le Normand | received the ball | Right Center Back | Right Center Back | - | -
+5 | carry | 50:14 | Robin Aime Robert Le Normand | carried the ball | Right Center Back | Right Center Back | - | -
+6 | pass | 50:20 | Robin Aime Robert Le Normand | passed the ball | Right Center Back | Right Center Back | Lamine Yamal Nasraoui Ebana | incomplete
+7 | ball receipt | 50:23 | Lamine Yamal Nasraoui Ebana | received the ball | Right Wing | Right Wing | - | -
+8 | duel | 50:23 | Lamine Yamal Nasraoui Ebana | lost an aerial duel | Right Wing | Right Wing | - | -
+9 | pass | 50:23 | Marc Guehi | passed the ball | Left Center Back | Left Center Back | Declan Rice | -
+10 | ball receipt | 50:24 | Declan Rice | received the ball | Left Defensive Midfield | Left Defensive Midfield | - | -
+11 | pass | 50:24 | Declan Rice | passed the ball | Left Defensive Midfield | Left Defensive Midfield | Luke Shaw | -
+12 | ball receipt | 50:26 | Luke Shaw | received the ball | Left Back | Left Back | - | -
+13 | carry | 50:26 | Luke Shaw | carried the ball | Left Back | Left Back | - | -
+14 | pass | 50:31 | Luke Shaw | passed the ball | Left Back | Left Back | Kobbie Mainoo | -
+15 | ball receipt | 50:32 | Kobbie Mainoo | received the ball | Right Defensive Midfield | Right Defensive Midfield | - | -
+16 | carry | 50:32 | Kobbie Mainoo | carried the ball | Right Defensive Midfield | Right Defensive Midfield | - | -
+17 | pass | 50:34 | Kobbie Mainoo | passed the ball | Right Defensive Midfield | Right Defensive Midfield | Declan Rice | -
+18 | ball receipt | 50:34 | Declan Rice | received the ball | Left Defensive Midfield | Left Defensive Midfield | - | -
+19 | carry | 50:34 | Declan Rice | carried the ball | Left Defensive Midfield | Left Defensive Midfield | - | -
+20 | pass | 50:39 | Declan Rice | passed the ball | Left Defensive Midfield | Left Defensive Midfield | Kyle Walker | -
+21 | ball receipt | 50:41 | Kyle Walker | received the ball | Right Back | Right Back | - | -
+22 | carry | 50:41 | Kyle Walker | carried the ball | Right Back | Right Back | - | -
+23 | pass | 50:42 | Kyle Walker | passed the ball | Right Back | Right Back | Bukayo Saka | -
+24 | ball receipt | 50:44 | Bukayo Saka | received the ball | Right Wing | Right Wing | - | -
+25 | carry | 50:44 | Bukayo Saka | carried the ball | Right Wing | Right Wing | - | -
+26 | pass | 50:50 | Bukayo Saka | passed the ball | Right Wing | Right Wing | Phil Foden | -
+27 | ball receipt | 50:51 | Phil Foden | received the ball | Center Attacking Midfield | Center Attacking Midfield | - | -
+28 | carry | 50:51 | Phil Foden | carried the ball | Center Attacking Midfield | Center Attacking Midfield | - | -
+29 | pass | 50:52 | Phil Foden | passed the ball | Center Attacking Midfield | Center Attacking Midfield | Declan Rice | -
+30 | ball receipt | 50:54 | Declan Rice | received the ball | Left Defensive Midfield | Left Defensive Midfield | - | -
+31 | carry | 50:54 | Declan Rice | carried the ball | Left Defensive Midfield | Left Defensive Midfield | - | -
+32 | pass | 50:54 | Declan Rice | passed the ball | Left Defensive Midfield | Left Defensive Midfield | Luke Shaw | -
+33 | ball receipt | 50:56 | Luke Shaw | received the ball | Left Back | Left Back | - | -
+34 | carry | 50:56 | Luke Shaw | carried the ball | Left Back | Left Back | - | -
+35 | pass | 50:57 | Luke Shaw | passed the ball | Left Back | Left Back | Jude Bellingham | -

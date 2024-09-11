@@ -1,0 +1,115 @@
+
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 011
+--------------------------------------------
+In the first half of the match, at the 11th minute, several key actions unfolded, primarily involving players from Spain and England.
+**11:02** - The action began with **Kyle Walker** of England attempting a pass from the right back position, but it was incomplete, leading to a ball recovery by **Marc Cucurella Saseta** of Spain. Spain maintained possession.
+**11:02** - Following this, **Marc Cucurella** carried the ball forward, showcasing his ability to advance play from the left back position.
+**11:03** - Cucurella then executed a low pass to **Fabián Ruiz Peña**, who received the ball successfully. 
+**11:05** - Fabián Ruiz carried the ball a short distance before making another pass, this time to **Nicholas Williams Arthuer** on the left wing.
+**11:08** - Williams, now in possession, carried the ball further down the left flank, demonstrating his pace and skill.
+**11:13** - As the play progressed, **Fabián Ruiz** made a crucial pass to Williams, setting him up for a shot. Williams took the opportunity to shoot at goal, but his attempt was blocked by **John Stones** of England.
+**11:13** - The shot faced by England's goalkeeper **Jordan Pickford** was effectively neutralized, as Stones' block prevented the ball from reaching the net.
+**11:13** - The sequence concluded with a blocked shot from Williams, marking a significant moment in the match as Spain pressed for an opening goal, while England's defense held firm.
+This series of events highlighted the dynamic play from Spain, particularly through the efforts of Cucurella, Ruiz, and Williams, while England's defense, led by Stones, proved resilient in the face of pressure.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 012
+--------------------------------------------
+In the first half of the match, at the 12th minute, a series of events unfolded that showcased the intensity of the game. 
+Starting with a corner kick taken by Nicholas Williams Arthuer of Spain, the ball was delivered with an inswinging technique towards Rodrigo Hernández Cascante, who received it successfully. This set the stage for a critical moment as the Spanish team maintained possession and looked to capitalize on the opportunity.
+As the play progressed, Declan Rice from England applied pressure on Robin Aime Robert Le Normand, who was under pressure but managed to receive the ball. Le Normand then executed a shot on goal with an overhead kick. The shot, however, was not successful as it went off target, missing the goal.
+Jordan Pickford, the England goalkeeper, was alert and ready, having faced the shot. His positioning was crucial as he prepared to defend against any potential threats from the Spanish attack.
+The sequence of events highlighted the competitive nature of the match, with both teams demonstrating their skills and strategies. The score remained unchanged at this point, with no goals scored yet.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 013
+--------------------------------------------
+In the first half of the match, several key actions unfolded in quick succession, showcasing the skills of both England and Spain.
+At the 13th minute, England's goalkeeper Jordan Pickford initiated a goal kick, sending a high pass that traveled 103.55 meters but was incomplete, leading to a ball recovery by Spain's goalkeeper Unai Simón Mendibil just seconds later. Simón then made a ground pass to Robin Aime Robert Le Normand, who received the ball and carried it forward.
+As the play continued, Le Normand executed a pass to Simón, who then received the ball back and carried it briefly before passing to Aymeric Laporte. Laporte, in turn, made a ground pass to Daniel Carvajal, who received the ball and carried it forward.
+Carvajal then passed to Rodrigo Hernández Cascante, who received the ball and carried it before making a ground pass back to Laporte. Laporte received the ball and carried it again, before passing to Nicholas Williams Arthuer. Williams then made a high cross towards Álvaro Morata, but the pass was incomplete.
+In response, England's Marc Guehi executed a clearance under pressure, sending the ball away from danger. Shortly after, Kobbie Mainoo recovered the ball and passed it to Phil Foden, who received it and quickly passed to Jude Bellingham, maintaining possession for England.
+This sequence of events highlighted the fluidity of play and the tactical maneuvers employed by both teams as they sought to gain an advantage in the match.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 014
+--------------------------------------------
+In the first half of the match, at the 14th minute, a series of events unfolded that showcased the intensity of the game between Spain and England.
+At **14:00**, Álvaro Morata of Spain initiated pressure on the English defense, attempting to regain possession. Shortly after, at **14:01**, Lamine Yamal made a block, further emphasizing Spain's defensive efforts.
+As the play continued, England's Jude Bellingham received the ball at **14:00** but was quickly under pressure from Spain's players. He attempted a pass to Phil Foden, but it was incomplete, leading to a dispossession at **14:32**. Foden, under pressure, lost the ball to Rodrigo Hernández Cascante, who was also involved in a duel but lost it.
+Following this, at **14:33**, Luke Shaw made a recovery pass to Jude Bellingham, who then carried the ball forward. Bellingham executed a ground pass to Bukayo Saka at **14:36**, who received it successfully and continued the attack.
+Saka then carried the ball further down the right wing, making a pass to Kyle Walker at **14:41**. Walker attempted a cross to Phil Foden, but the pass was incomplete, leading to a clearance by Aymeric Laporte of Spain at **14:43**.
+Throughout this sequence, the players demonstrated their skills and tactical awareness, with England trying to maintain possession and create opportunities while Spain focused on defensive pressure and regaining control of the ball.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 015
+--------------------------------------------
+In the first period of the match, a series of actions unfolded, showcasing the tactical maneuvers of both teams, Spain and England.
+At the 15th minute, Nicholas Williams Arthuer from Spain initiated a pressure play, attempting to regain possession for his team. This was followed by a corner kick taken by England, where John Stones executed a high pass to goalkeeper Jordan Pickford, who received the ball cleanly.
+As the play continued, Pickford carried the ball forward under pressure, showcasing his ability to maintain possession. England's Phil Foden then attempted a low inswinging corner pass, but Álvaro Morata of Spain managed to clear the ball effectively, relieving the pressure on his team.
+Declan Rice of England quickly recovered the ball, demonstrating his defensive prowess. He then carried the ball forward before passing it to Kyle Walker, who received it and continued the attack. Walker's subsequent carry allowed him to advance the play further up the field.
+Foden was heavily involved in the action, receiving the ball and passing it to Kobbie Mainoo, who was under pressure but managed to maintain possession. Mainoo then passed to John Stones, who received the ball and carried it forward, showcasing England's cohesive play.
+Throughout this sequence, both teams displayed their tactical awareness, with Spain applying pressure while England focused on maintaining possession and advancing their attack. The match remained scoreless as the first period progressed, with both teams looking for opportunities to break the deadlock.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 016
+--------------------------------------------
+In the first half of the match, England and Spain engaged in a series of dynamic plays, particularly around the 16th minute. 
+At **16:01**, England's goalkeeper **Jordan Pickford** initiated a play under pressure, passing the ball to **Jude Bellingham**. This marked the beginning of a sequence that would see England maintain possession and create opportunities.
+Just a few seconds later, at **16:04**, **Bellingham** received the ball and quickly passed it to **Luke Shaw**, who was positioned as a left back. Shaw then carried the ball forward, showcasing England's attacking intent.
+By **16:07**, Shaw executed a high pass to **Bukayo Saka**, who was waiting on the right wing. Saka received the ball at **16:10** and began a carry, moving towards the Spanish goal.
+As the play progressed, **Saka** faced pressure from Spain's **Marc Cucurella** at **16:17**, but he managed to maintain possession. Shortly after, at **16:19**, Saka passed to **Declan Rice**, who was positioned in the left defensive midfield role.
+At **16:20**, Rice took a shot at goal, but it was blocked by Spain's **Rodrigo Hernández**, who was quick to react and prevent the attempt from reaching the net. The ball was then cleared by Spain's goalkeeper **Unai Simón** at **16:20**, who faced the shot from Rice.
+The action continued with England recovering the ball through **Bellingham** at **16:23**, who then carried it forward. However, Spain's **Lamine Yamal** applied pressure at **16:23**, attempting to regain control.
+As the minute progressed, England's **Jude Bellingham** made a pass to **Luke Shaw** at **16:24**, who received it cleanly. Shaw then attempted to pass to **Phil Foden** at **16:27**, but the pass was incomplete, showcasing the intensity of the match as both teams fought for control.
+The sequence of events highlighted the tactical maneuvers and pressure applied by both teams, with England showing a strong offensive strategy while Spain responded with defensive resilience.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 017
+--------------------------------------------
+In the first half of the match, Spain demonstrated a series of coordinated plays, primarily involving their defenders and midfielders. 
+At the 17th minute, Robin Aime Robert Le Normand, positioned as a Right Center Back, initiated a carry from a throw-in, advancing the ball to a location near the center of the field. This action occurred at 17:30, with Spain maintaining possession.
+Shortly after, at 17:44, Unai Simón Mendibil, the goalkeeper, received the ball, continuing Spain's possession. Following this, Aymeric Laporte, playing as a Left Center Back, executed a ground pass to Daniel Olmo Carvajal, which was completed at 17:59.
+Laporte then carried the ball forward, showcasing his ability to transition from defense to attack. He received the ball again at 17:56, demonstrating effective ball control and positioning. 
+At 17:54, Le Normand passed the ball to Laporte, who then received it and carried it further up the field. This sequence of events highlighted Spain's fluid passing and movement.
+As the play continued, Laporte made another pass to Fabián Ruiz Peña, who received the ball under pressure from England's Kobbie Mainoo at 17:16. Despite the pressure, Ruiz managed to pass the ball back to Unai Simón, who then carried it forward.
+The sequence culminated in a series of passes and carries, with Laporte and Le Normand frequently involved, showcasing Spain's tactical approach and teamwork. The players maintained possession effectively, with each action contributing to their overall strategy on the field. 
+This period of play exemplified Spain's focus on maintaining control and building up their attacks through structured passing and movement, with key contributions from their defenders and midfielders.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 018
+--------------------------------------------
+In the first half of the match, at the 18th minute, Spain initiated a series of plays that showcased their attacking intent. 
+**18:00** - Daniel Olmo Carvajal received the ball from a throw-in, positioning himself in the center attacking midfield. Spain maintained possession as they looked to build an attack.
+**18:03** - Olmo carried the ball forward, advancing it to a new location before attempting a pass.
+**18:05** - He passed to Álvaro Borja Morata Martín, but the pass was incomplete, leading to a clearance by England's Luke Shaw, who was under pressure.
+**18:20** - Spain's Marc Cucurella Saseta executed a throw-in, successfully passing to Fabián Ruiz Peña, who received the ball and carried it forward.
+**18:21** - Ruiz Peña continued to advance the ball, demonstrating Spain's control in the midfield.
+**18:22** - Under pressure, Ruiz Peña passed to Aymeric Laporte, who received the ball cleanly.
+**18:24** - Laporte then made a strategic switch, passing to Robin Aime Robert Le Normand, who received the ball and carried it forward.
+**18:27** - Le Normand continued the play with a pass to Fabián Ruiz Peña, who received it and advanced further.
+**18:35** - Ruiz Peña then passed back to Olmo, who received the ball and carried it forward.
+**18:40** - Ruiz Peña made another pass to Marc Cucurella, who received it and continued the play.
+**18:41** - Cucurella passed back to Ruiz Peña, who received the ball again.
+**18:42** - Ruiz Peña carried the ball forward before passing it to Olmo, who received it and advanced.
+**18:43** - Olmo continued to carry the ball, moving it into a more threatening position.
+**18:45** - Olmo then passed to Daniel Carvajal Ramos, who received the ball and was in a good position to create an opportunity.
+**18:48** - Carvajal attempted a cross, but it was incomplete, leading to a collection by England's goalkeeper, Jordan Pickford.
+**18:50** - Pickford successfully collected the ball, maintaining England's defensive integrity.
+**18:50** - He then carried the ball forward, looking to initiate a counter-attack for England.
+Throughout this sequence, Spain demonstrated their attacking prowess, with multiple players involved in the build-up, while England's defense, led by Shaw and Pickford, worked to thwart their efforts.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 019
+--------------------------------------------
+In the first half of the match, several key actions unfolded between England and Spain, showcasing the skills and strategies of both teams.
+At the 19th minute, Declan Rice of England initiated a carry from a throw-in, moving the ball to a location near the left defensive midfield. This action was recorded at 19:27, with England maintaining possession.
+Shortly after, Marc Guehi, also from England, executed a ground pass to Jude Bellingham, who received the ball effectively at 19:09. Bellingham then carried the ball forward, navigating under pressure from Spain's Fabián Ruiz Peña, who applied pressure at the same moment.
+Bellingham attempted to pass to Luke Shaw, but the pass was incomplete, leading to a ball receipt by Shaw at 19:15. However, he could not maintain possession, as Spain's Daniel Carvajal quickly responded with a throw-in to Fabián Ruiz Peña, who received the ball at 19:21.
+Ruiz Peña then carried the ball forward, showcasing his dribbling skills, while Jude Bellingham continued to apply pressure. Ruiz Peña attempted a pass, but it was incomplete, allowing Declan Rice to recover the ball for England at 19:27.
+As the action continued, Rice attempted a dribble but was under pressure from Spain's Daniel Olmo, who won a tackle against him at 19:29. This led to a series of exchanges where Spain's players, including Nicholas Williams and Rodrigo Hernández, executed carries and passes, maintaining possession and applying pressure on England's defense.
+The sequence of events highlighted the tactical maneuvers of both teams, with England focusing on ball recovery and Spain emphasizing their passing game. The match remained competitive, with both sides striving for control as the first half progressed.
+--------------------------------------------
+Table_name: final_match_Spain_England_events_details__minutewise, match_id: 3943043, period: 01, minute: 020
+--------------------------------------------
+In the first half of the match, Spain and England engaged in a series of tactical plays and movements, showcasing their skills on the field.
+At the 20th minute, Fabián Ruiz Peña attempted a ground pass to Daniel Olmo Carvajal, but the pass was incomplete, indicating pressure from the England defense. This action occurred at 20:51, with Spain maintaining possession.
+Shortly after, Rodrigo Hernández Cascante carried the ball forward, moving it to a more advantageous position. He then executed a ground pass to Nicholas Williams Arthuer, who successfully received the ball at 20:40. Nicholas then carried the ball further down the left wing, demonstrating Spain's attacking intent.
+Nicholas Williams Arthuer continued the play by sending a high pass to Fabián Ruiz Peña, who received it cleanly at 20:47. Fabián then carried the ball, but was under pressure from Jude Bellingham of England, who applied pressure at 20:47 as well.
+As the play progressed, Spain's Daniel Olmo Carvajal attempted to receive a pass from Fabián Ruiz Peña, but the pass was again incomplete, leading to a ball recovery by England's Kobbie Mainoo at 20:51. Mainoo quickly transitioned the play by carrying the ball forward and passing it to Phil Foden, who received it at 20:52.
+Foden then carried the ball, showcasing England's offensive strategy. He passed to Bukayo Saka, who received the ball at 20:57. Saka continued to advance, demonstrating England's attacking momentum.
+Throughout this sequence, Spain's players, including Marc Cucurella Saseta and Aymeric Laporte, were actively involved in both offensive and defensive maneuvers, applying pressure on England's players and attempting to regain possession.
+The match continued to unfold with both teams exchanging possession and creating opportunities, highlighting the competitive nature of the encounter.
