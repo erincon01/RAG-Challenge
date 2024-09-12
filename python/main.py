@@ -18,11 +18,12 @@
 """
 
 import os
+from datetime import datetime
 from module_github import download_data_from_github_repo, get_github_data_from_matches
 from module_postgres import load_matches_data_into_postgres_from_folder, load_lineups_data_into_postgres, load_events_data_into_postgres
 from module_postgres import copy_data_from_postgres_to_azure, download_match_script
 from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_pk_from_json_rows_in_database
-from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary, search_details_using_bindings
+from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary, search_details_using_embeddings
 
 if __name__ == "__main__":
 
@@ -198,15 +199,57 @@ if __name__ == "__main__":
     ###### France - Argentina match_id: 3869685
     ###### England - Spain match_id: 3943043
 
+
+    #  search_term = "Goals conceeded"
+    #  system_message = f"""
+    #         Summarize the actions like highlight for these search term: ** {search_term} **.
+    #         Do not invent any information, relate stick to the data. 
+    #         this is the text:
+    #         """     
+
      match_id = 3943043
 
-     search_term = "Goals conceeded"
-     system_message = f"""
-            Summarize the actions like highlight for these search term: ** {search_term} **.
-            Do not invent any information, relate stick to the data. 
-            this is the text:
-            """     
 
-     summary = search_details_using_bindings ("Azure", "events_details__quarter_minute", match_id, "Spain", search_term, system_message, 0.1, 5000)
+     questions = [
+            "What was the final score of the match?",
+            "Who scored the goals and in which minutes?",
+            "How did the home team and the visiting team perform?",
+            "Were there any yellow or red cards issued? To whom?",
+            "Who was the standout player or the MVP of the match?",
+            "What strategies or tactical formations did both teams use?",
+            "How did the referee influence the course of the game?",
+            "Were there any significant injuries during the match?"
+        ]
+
+     for question in questions:
+        print(question)
+
+     #question = "Who scored the goals and in which minutes?"
+     search_term = "Were there any yellow or red cards issued? To whom?"
+     system_message = f"""
+            Do not invent any information, stick to the data. 
+            Do a prose drescription of the result.
+            """   
+
+     system_message = f"""
+                Answer the users QUESTION using the DOCUMENT text above.
+                Keep your answer ground in the facts of the DOCUMENT.
+                If the DOCUMENT doesn't contain the facts to answer the QUESTION return NONE
+            """   
+
+     dataframe, summary = search_details_using_embeddings ("Azure", "events_details__quarter_minute", match_id, "Spain", search_term, system_message, 0.1, 5000)
      print(summary)
+
+     local_folder = os.getenv('LOCAL_FOLDER')
+     folder = os.path.join(local_folder, "scripts_summary", "run")
+     filename = datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".txt"
+
+     text = f"system_message: {system_message}.\n\n"
+     text += f"search_term: {search_term}.\n\nmatch_id: {match_id}.\n\n"
+     text += f"Summary: \n{summary}.\n"
+     text += "-------------------------------------------------------------------------------------------------------\n\n"
+     text += "data_frame: " + dataframe
+    
+     with open(os.path.join(folder, filename), "w", encoding="utf-8") as f:
+         f.write(text)
 

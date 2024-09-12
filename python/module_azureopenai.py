@@ -377,7 +377,7 @@ def create_match_summary(source, tablename, match_id, system_message, temperatur
             conn.close()
 
 
-def search_details_using_bindings(source, table_name, match_id, team_name, search_term, system_message, temperature, tokens):
+def search_details_using_embeddings(source, table_name, match_id, team_name, search_term, system_message, temperature, tokens):
 
     try:
 
@@ -402,16 +402,23 @@ def search_details_using_bindings(source, table_name, match_id, team_name, searc
 
         cursor = conn.cursor()
 
+        # query = sql.SQL(f"""
+        #     SELECT 
+        #         ed.id, ed.period, ed.minute, ed.summary,
+        #         m.match_date, m.competition_name, m.season_name, m.home_team_name, m.away_team_name, m.result
+        #     FROM matches m
+        #     JOIN {table_name} ed on m.match_id = ed.match_id
+        #     WHERE home_team_name = '{team_name}' or away_team_name = '{team_name}'
+        #     and ed.match_id = {match_id}
+        #     ORDER BY ed.summary_embedding_t3_small <#> azure_openai.create_embeddings('text-embedding-3-small', '{search_term}')::vector
+        #     LIMIT 10;
+        # """)
+
         query = sql.SQL(f"""
-            -- Retrieve similarities. NIP
-            SELECT 
-                ed.id, ed.period, ed.minute, ed.summary,
-                m.match_date, m.competition_name, m.season_name, m.home_team_name, m.away_team_name, m.result
-            FROM matches m
-            JOIN {table_name} ed on m.match_id = ed.match_id
-            WHERE home_team_name = '{team_name}' or away_team_name = '{team_name}'
-            and ed.match_id = {match_id}
-            ORDER BY ed.summary_embedding_t3_small <#> azure_openai.create_embeddings('text-embedding-3-small', '{search_term}')::vector
+            SELECT id, summary
+            FROM {table_name} 
+            WHERE match_id = {match_id}
+            ORDER BY summary_embedding_t3_small <#> azure_openai.create_embeddings('text-embedding-3-small', '{search_term}')::vector
             LIMIT 10;
         """)
 
@@ -440,19 +447,32 @@ def search_details_using_bindings(source, table_name, match_id, team_name, searc
         # añadir al df la llamada a una función que recupere los identificadores
         df2 = get_dataframe_from_ids(source, table_name, ids)
 
-        df1['match_date'] = df1['match_date'].astype('datetime64[ns]')
-        df2['match_date'] = df2['match_date'].astype('datetime64[ns]')
+        # df1['match_date'] = df1['match_date'].astype('datetime64[ns]')
+        # df2['match_date'] = df2['match_date'].astype('datetime64[ns]')
 
         # Concatenar los dataframes
         df = pd.concat([df1, df2], ignore_index=True)
         df = df.drop_duplicates(subset='id', keep='first')
         df = df.sort_values(by='id')
+        # remofe the id column from df
+        df = df.drop(columns=['id'])
 
-        result = df.to_string(index=False)
+        prompt = f"DOCUMENT:\n"
 
-        summary = get_chat_completion_from_azure_open_ai(system_message, result, temperature, tokens)
+        prompt += f"EVENTS:\n" + df.to_string(index=False)
+        d_game_result = get_game_result_data(source, match_id)
 
-        return summary
+        prompt += f"\nGAME RESULT:\n" + d_game_result
+        d_game_players = get_game_players_data(source, match_id)
+
+        prompt += f"\nGAME PLAYERS:\n" + d_game_players
+
+        prompt += f"\n\QUESTION:\n{search_term}"
+
+
+        summary = get_chat_completion_from_azure_open_ai(system_message, prompt, temperature, tokens)
+
+        return prompt, summary
 
     except Exception as e:
         print(f"Error connecting or executing the query in the database: {e}")
@@ -492,13 +512,9 @@ def get_dataframe_from_ids(source, table_name, ids):
         ids_str = ','.join(map(str, ids))
 
         query = sql.SQL(f"""
-            -- Retrieve similarities. NIP
-            SELECT 
-                ed.id, ed.period, ed.minute, ed.summary,
-                m.match_date, m.competition_name, m.season_name, m.home_team_name, m.away_team_name, m.result
-            FROM matches m
-            JOIN {table_name} ed on m.match_id = ed.match_id
-            WHERE ed.id IN ({ids_str});
+            SELECT id, summary
+            FROM {table_name}
+            WHERE id IN ({ids_str});
         """)
         cursor.execute(query)
 
@@ -514,3 +530,110 @@ def get_dataframe_from_ids(source, table_name, ids):
             cursor.close()
         if conn:
             conn.close()
+
+
+def get_game_result_data(source, match_id):
+
+    try:
+
+        conn = None
+
+        if source.lower() == "azure":
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER_AZURE'),
+                database=os.getenv('DB_NAME_AZURE'),
+                user=os.getenv('DB_USER_AZURE'),
+                password=os.getenv('DB_PASSWORD_AZURE')
+            )
+        else:
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER'),
+                database=os.getenv('DB_NAME'),
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASSWORD')
+            )
+
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT m.match_date, m.competition_name, m.season_name, m.home_team_name, m.away_team_name, m.result
+            FROM matches m
+            WHERE match_id = {match_id}
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+        result = df.to_string(index=False)
+
+        return result
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
+def get_game_players_data(source, match_id):
+
+    try:
+
+        conn = None
+
+        if source.lower() == "azure":
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER_AZURE'),
+                database=os.getenv('DB_NAME_AZURE'),
+                user=os.getenv('DB_USER_AZURE'),
+                password=os.getenv('DB_PASSWORD_AZURE')
+            )
+        else:
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER'),
+                database=os.getenv('DB_NAME'),
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASSWORD')
+            )
+
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT team_name, player_name, from_time, to_time, position_name from players
+            WHERE match_id = {match_id}
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+        result = df.to_string(index=False)
+
+        return result
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
