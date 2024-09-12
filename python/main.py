@@ -22,7 +22,7 @@ from module_github import download_data_from_github_repo, get_github_data_from_m
 from module_postgres import load_matches_data_into_postgres_from_folder, load_lineups_data_into_postgres, load_events_data_into_postgres
 from module_postgres import copy_data_from_postgres_to_azure, download_match_script
 from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_pk_from_json_rows_in_database
-from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary
+from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary, search_details_using_bindings
 
 if __name__ == "__main__":
 
@@ -95,18 +95,18 @@ if __name__ == "__main__":
                 ###### France - Argentina match_id: 3869685
                 ###### England - Spain match_id: 3943043
 
-    system_message = """
-            Describe the message in English. It's a football match, and I am providing the detailed actions in Json format ordered minute by minute how action how they happenned.
-            By using the id, and related_events columns you can cross-relate events. There may be some hierachies. Mention the players in the script.
-            Do not invent any information. Do relate stick to the data. 
-            In special events like: goal sucessful, goal missed, shoots to goal, and goalkeeper saves relate like a commentator highlighting the action mentioning time, and score changes if apply.
-            Relate in prose format. Use the word keeper instead of goalkeeper.
-            Do not make intro like "In the early moments of the match", "In the openning", etc. Just start with the action.
-            At the end include one sentence as a brief description of what happened starting with "Summary:"
-            This is the Json data: 
-            """
+    # system_message = """
+    #         Describe the message in English. It's a football match, and I am providing the detailed actions in Json format ordered minute by minute how action how they happenned.
+    #         By using the id, and related_events columns you can cross-relate events. There may be some hierachies. Mention the players in the script.
+    #         Do not invent any information. Do relate stick to the data. 
+    #         In special events like: goal sucessful, goal missed, shoots to goal, and goalkeeper saves relate like a commentator highlighting the action mentioning time, and score changes if apply.
+    #         Relate in prose format. Use the word keeper instead of goalkeeper.
+    #         Do not make intro like "In the early moments of the match", "In the openning", etc. Just start with the action.
+    #         At the end include one sentence as a brief description of what happened starting with "Summary:"
+    #         This is the Json data: 
+    #         """
 
-    create_events_summary_per_pk_from_json_rows_in_database ("azure", "events_details__quarter_minute", "id", "summary", 3869685, -1, system_message, 0.1, 7500)
+    # create_events_summary_per_pk_from_json_rows_in_database ("azure", "events_details__quarter_minute", "id", "summary", 3869685, -1, system_message, 0.1, 7500)
 
     # # 6-b) convert each json_ row into a prose script (line by line). in this case it is agnostic of the timing, it is based on the primary key column
 
@@ -187,14 +187,26 @@ if __name__ == "__main__":
     ###### France - Argentina match_id: 3869685
     ###### England - Spain match_id: 3943043
 
-    # s = get_tokens_statistics_from_table_column('azure', "events_details__minutewise", "json_", "match_id = 3943043", -1)
+    # s = get_tokens_statistics_from_table_column('azure', "events_details__quarter_minute", "json_", "match_id = 3943043", -1)
     # print (s)
 
-    # s = get_tokens_statistics_from_table_column('azure', "events_details__minutewise", "summary", "match_id = 3943043", -1)
+    # s = get_tokens_statistics_from_table_column('azure', "events_details__quarter_minute", "summary", "match_id = 3943043", -1)
     # print (s)
 
-    # s = get_tokens_statistics_from_table_column('azure', "events_details__minutewise", "summary_script", "match_id = 3943043", -1)
-    # print (s)
+    # 11) goals scored in a match
 
+    ###### France - Argentina match_id: 3869685
+    ###### England - Spain match_id: 3943043
 
-## -- events_details__minutewise
+     match_id = 3943043
+
+     search_term = "Goals conceeded"
+     system_message = f"""
+            Summarize the actions like highlight for these search term: ** {search_term} **.
+            Do not invent any information, relate stick to the data. 
+            this is the text:
+            """     
+
+     summary = search_details_using_bindings ("Azure", "events_details__quarter_minute", match_id, "Spain", search_term, system_message, 0.1, 5000)
+     print(summary)
+

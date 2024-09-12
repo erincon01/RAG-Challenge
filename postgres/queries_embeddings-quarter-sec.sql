@@ -6,28 +6,26 @@
 -- ###### England - Spain match_id: 3943043
 
 
-
 -- Retrieve similarities. NIP
 SELECT match_id, period, minute, summary, summary_script
---    , summary_script_embedding <#> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal scored')::vector AS nip_script
 --    , summary_embedding <#> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal scored')::vector AS nip_summary
 --    , summary_embedding_ada_002 <#> azure_openai.create_embeddings('text-embedding-ada-002', 'Goal scored')::vector AS nip_summary_script_ada_002
     , summary_embedding_t3_small <#> azure_openai.create_embeddings('text-embedding-3-small', 'Goal scored')::vector AS nip_summary_script_t3_small
 --    , summary_embedding_t3_large <#> azure_openai.create_embeddings('text-embedding-3-large', 'Goal scored')::vector AS nip_summary_script_t3_large
 FROM events_details__quarter_minute
-where match_id = 3869685
+where match_id = 3943043
+--and minute = 85
 ORDER BY 6
 LIMIT 10;
 
 -- Retrieve similarities. COSINE
 SELECT match_id, period, minute, summary, summary_script
---    , summary_script_embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal conceded')::vector AS cos_script
-    , summary_embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal conceded')::vector AS cos_summary
+--    , summary_embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal conceded')::vector AS cos_summary
 --    , summary_embedding_ada_002 <=> azure_openai.create_embeddings('text-embedding-ada-002', 'Goal scored')::vector AS cos_summary_script_ada_002
---    , summary_embedding_t3_small <=> azure_openai.create_embeddings('text-embedding-3-small', 'Goal scored')::vector AS cos_summary_script_t3_small
+    , summary_embedding_t3_small <=> azure_openai.create_embeddings('text-embedding-3-small', 'Goal scored')::vector AS cos_summary_script_t3_small
 --    , summary_embedding_t3_large <=> azure_openai.create_embeddings('text-embedding-3-large', 'Goal scored')::vector AS cos_summary_script_t3_large
 FROM events_details__quarter_minute
-where match_id = 3869685
+where match_id = 3943043
 ORDER BY 6 desc
 LIMIT 10;
 

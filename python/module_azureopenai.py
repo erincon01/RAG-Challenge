@@ -375,3 +375,142 @@ def create_match_summary(source, tablename, match_id, system_message, temperatur
             cursor.close()
         if conn:
             conn.close()
+
+
+def search_details_using_bindings(source, table_name, match_id, team_name, search_term, system_message, temperature, tokens):
+
+    try:
+
+        conn = None
+
+        if source.lower() == "azure":
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER_AZURE'),
+                database=os.getenv('DB_NAME_AZURE'),
+                user=os.getenv('DB_USER_AZURE'),
+                password=os.getenv('DB_PASSWORD_AZURE')
+            )
+        else:
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER'),
+                database=os.getenv('DB_NAME'),
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASSWORD')
+            )
+
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            -- Retrieve similarities. NIP
+            SELECT 
+                ed.id, ed.period, ed.minute, ed.summary,
+                m.match_date, m.competition_name, m.season_name, m.home_team_name, m.away_team_name, m.result
+            FROM matches m
+            JOIN {table_name} ed on m.match_id = ed.match_id
+            WHERE home_team_name = '{team_name}' or away_team_name = '{team_name}'
+            and ed.match_id = {match_id}
+            ORDER BY ed.summary_embedding_t3_small <#> azure_openai.create_embeddings('text-embedding-3-small', '{search_term}')::vector
+            LIMIT 10;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df1 = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        # obtener array de los identificadores de la primera columna
+        ids = df1['id'].values
+        extended_ids = []
+
+        # para cada numero en ids
+        for i in ids:
+            extended_ids.append(i-1)
+            extended_ids.append(i+1)
+
+        # remove duplicates and order by id
+        ids = list(set(extended_ids))
+        ids.sort()
+
+        # añadir al df la llamada a una función que recupere los identificadores
+        df2 = get_dataframe_from_ids(source, table_name, ids)
+
+        df1['match_date'] = df1['match_date'].astype('datetime64[ns]')
+        df2['match_date'] = df2['match_date'].astype('datetime64[ns]')
+
+        # Concatenar los dataframes
+        df = pd.concat([df1, df2], ignore_index=True)
+        df = df.drop_duplicates(subset='id', keep='first')
+        df = df.sort_values(by='id')
+
+        result = df.to_string(index=False)
+
+        summary = get_chat_completion_from_azure_open_ai(system_message, result, temperature, tokens)
+
+        return summary
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def get_dataframe_from_ids(source, table_name, ids):
+
+    try:
+
+        conn = None
+
+        if source.lower() == "azure":
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER_AZURE'),
+                database=os.getenv('DB_NAME_AZURE'),
+                user=os.getenv('DB_USER_AZURE'),
+                password=os.getenv('DB_PASSWORD_AZURE')
+            )
+        else:
+            # Connect to the Azure database
+            conn = psycopg2.connect(
+                host=os.getenv('DB_SERVER'),
+                database=os.getenv('DB_NAME'),
+                user=os.getenv('DB_USER'),
+                password=os.getenv('DB_PASSWORD')
+            )
+
+        cursor = conn.cursor()
+
+        # convertir array de ids a string de numeros separado por comas
+        ids_str = ','.join(map(str, ids))
+
+        query = sql.SQL(f"""
+            -- Retrieve similarities. NIP
+            SELECT 
+                ed.id, ed.period, ed.minute, ed.summary,
+                m.match_date, m.competition_name, m.season_name, m.home_team_name, m.away_team_name, m.result
+            FROM matches m
+            JOIN {table_name} ed on m.match_id = ed.match_id
+            WHERE ed.id IN ({ids_str});
+        """)
+        cursor.execute(query)
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+        return df
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
