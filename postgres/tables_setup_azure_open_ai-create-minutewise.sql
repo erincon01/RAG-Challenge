@@ -38,43 +38,41 @@ add column summary_script text;
 
 
 ALTER TABLE events_details__minutewise
-ADD COLUMN summary_embedding vector(384) -- multilingual-e5 embeddings are 384 dimensions
+ADD COLUMN summary_embedding vector(384) 
 GENERATED ALWAYS AS (azure_local_ai.create_embeddings('multilingual-e5-small:v1', summary)::vector) STORED; 
 
 ALTER TABLE events_details__minutewise
-ADD COLUMN summary_script_embedding vector(384) -- multilingual-e5 embeddings are 384 dimensions
+ADD COLUMN summary_script_embedding vector(384) 
 GENERATED ALWAYS AS (azure_local_ai.create_embeddings('multilingual-e5-small:v1', summary_script)::vector) STORED; 
 
 ALTER TABLE events_details__minutewise
-ADD COLUMN summary_embedding_ada_002 VECTOR(1536) --ADAD embeddings are 1536 dimensions
-GENERATED ALWAYS AS (azure_openai.create_embeddings('text-embedding-ada-002', summary)::vector) STORED; -- TEXT string sent to local model
+ADD COLUMN summary_embedding_ada_002 VECTOR(1536) 
+GENERATED ALWAYS AS (azure_openai.create_embeddings('text-embedding-ada-002', summary)::vector) STORED; 
+
+ALTER TABLE events_details__minutewise
+ADD COLUMN summary_embedding_t3_small VECTOR(1536) 
+GENERATED ALWAYS AS (azure_openai.create_embeddings('text-embedding-3-small', summary)::vector) STORED; 
+
+ALTER TABLE events_details__minutewise
+ADD COLUMN summary_embedding_t3_large VECTOR(3072) 
+GENERATED ALWAYS AS (azure_openai.create_embeddings('text-embedding-3-large', summary)::vector) STORED; 
+
 
 DROP INDEX IF EXISTS events_details__min__se_vIP;
-
-CREATE INDEX events_details__min__se_vIP
-ON events_details__minutewise USING hnsw (summary_embedding vector_ip_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
-
+DROP INDEX IF EXISTS events_details__min__se_cos;
 DROP INDEX IF EXISTS events_details__min__sse_vIP;
-
-CREATE INDEX events_details__min__sse_vIP 
-ON events_details__minutewise USING hnsw (summary_script_embedding vector_ip_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
-
-DROP INDEX IF EXISTS events_details__min__mse_cos;
-
-CREATE INDEX events_details__min__mse_cos
-ON events_details__minutewise USING hnsw (summary_embedding vector_cosine_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
-
-DROP INDEX IF EXISTS events_details__min__msse_cos;
-
-CREATE INDEX events_details__min__msse_cos 
-ON events_details__minutewise USING hnsw (summary_script_embedding vector_cosine_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
-
+DROP INDEX IF EXISTS events_details__min__sse_cos;
 DROP INDEX IF EXISTS events_details__min__ada_002_vIP;
-
-CREATE INDEX events_details__min__ada_002_vIP 
-ON events_details__minutewise USING hnsw (summary_embedding_ada_002 vector_ip_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
-
 DROP INDEX IF EXISTS events_details__min__ada_002_cos;
+DROP INDEX IF EXISTS events_details__min__t3_small_vIP;
+DROP INDEX IF EXISTS events_details__min__t3_small_cos;
 
-CREATE INDEX events_details__min__ada_002_cos 
-ON events_details__minutewise USING hnsw (summary_embedding_ada_002 vector_cosine_ops); -- other option: vector_cosine_ops (cosine similarity, vs inner product)
+CREATE INDEX events_details__min__se_vIP        ON events_details__minutewise USING hnsw (summary_embedding             vector_ip_ops); 
+CREATE INDEX events_details__min__se_cos        ON events_details__minutewise USING hnsw (summary_embedding             vector_cosine_ops); 
+CREATE INDEX events_details__min__sse_vIP       ON events_details__minutewise USING hnsw (summary_script_embedding      vector_ip_ops); 
+CREATE INDEX events_details__min__sse_cos       ON events_details__minutewise USING hnsw (summary_script_embedding      vector_cosine_ops); 
+CREATE INDEX events_details__min__ada_002_vIP   ON events_details__minutewise USING hnsw (summary_embedding_ada_002     vector_ip_ops); 
+CREATE INDEX events_details__min__ada_002_cos   ON events_details__minutewise USING hnsw (summary_embedding_ada_002     vector_cosine_ops); 
+CREATE INDEX events_details__min__t3_small_vIP  ON events_details__minutewise USING hnsw (summary_embedding_t3_small    vector_ip_ops); 
+CREATE INDEX events_details__min__t3_small_cos  ON events_details__minutewise USING hnsw (summary_embedding_t3_small    vector_cosine_ops); 
+

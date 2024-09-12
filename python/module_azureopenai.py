@@ -43,7 +43,7 @@ def get_chat_completion_from_azure_open_ai(system_message, user_prompt, temperat
     return output
 
 
-def get_tokens_statistics_from_table_column(table_name, column_name, num_rows):
+def get_tokens_statistics_from_table_column(source, table_name, column_name, filter, num_rows):
     """
     Retrieves statistics about the tokens in a specified table from a database.
     Args:
@@ -52,6 +52,7 @@ def get_tokens_statistics_from_table_column(table_name, column_name, num_rows):
         num_rows (int): The maximum number of rows to retrieve. Set to 0 to retrieve all rows.
     Returns:
         dict: A dictionary containing the statistics of the tokens.
+            - source (str): The source of the database. Either "azure" or "others".
             - table_name (str): The name of the table.
             - column_name (str): The name of the column.
             - total_rows (int): The total number of rows retrieved.
@@ -61,27 +62,38 @@ def get_tokens_statistics_from_table_column(table_name, column_name, num_rows):
     """
     encoder = tiktoken.get_encoding("cl100k_base")
 
-    conn = psycopg2.connect(
-        host=os.getenv('DB_SERVER'),
-        database=os.getenv('DB_NAME'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD')
-    )
+    conn = None
+
+    if source.lower() == "azure":
+        # Connect to the Azure database
+        conn = psycopg2.connect(
+            host=os.getenv('DB_SERVER_AZURE'),
+            database=os.getenv('DB_NAME_AZURE'),
+            user=os.getenv('DB_USER_AZURE'),
+            password=os.getenv('DB_PASSWORD_AZURE')
+        )
+    else:
+        # Connect to the Azure database
+        conn = psycopg2.connect(
+            host=os.getenv('DB_SERVER'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
+        )
 
     sql = ""
     cursor = conn.cursor()
 
-    if num_rows <= 0:
-        sql = f"""
-            select {column_name}
-            from {table_name}
-            """
-    else:
-        sql = f"""
-                select {column_name}
-                from {table_name}
-                limit {num_rows};
-                """
+    sql = f"""
+        select {column_name}
+        from {table_name}
+        """
+    
+    if filter:
+        sql += f"where {filter} "
+
+    if num_rows > 0:
+        sql += f"limit {num_rows};"
 
     tokens_per_row = []
     cursor.execute(sql)
@@ -235,7 +247,7 @@ def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, p
             query = sql.SQL(f"""
                 SELECT  {primary_key_column} as key, json_ FROM {tablename}
                 WHERE match_id = {match_id} 
-                /* and {message_column} IS NULL */ 
+                and {message_column} IS NULL 
                 and minute = {minute}
                 ORDER BY {primary_key_column};
             """)
@@ -243,7 +255,7 @@ def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, p
             query = sql.SQL(f"""
                 SELECT  {primary_key_column} as key, json_ FROM {tablename}
                 WHERE match_id = {match_id} 
-                /* and {message_column} IS NULL */ 
+                and {message_column} IS NULL
                 ORDER BY {primary_key_column};
             """)
 

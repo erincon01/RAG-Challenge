@@ -65,55 +65,61 @@ if __name__ == "__main__":
 ###### France - Argentina match_id: 3869685
 ###### England - Spain match_id: 3943043
 
-    # matches table
-    table_name = "matches"
-    table_columns = "match_id, match_date, competition_id, competition_country, competition_name, season_id, season_name, home_team_id, home_team_name, home_team_gender, home_team_country, home_team_manager, home_team_manager_country, away_team_id, away_team_name, away_team_gender, away_team_country, away_team_manager, away_team_manager_country, home_score, away_score, result, match_week, stadium_id, stadium_name, stadium_country, referee_id, referee_name, referee_country, json_"
-    copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
+    # # matches table
+    # table_name = "matches"
+    # table_columns = "match_id, match_date, competition_id, competition_country, competition_name, season_id, season_name, home_team_id, home_team_name, home_team_gender, home_team_country, home_team_manager, home_team_manager_country, away_team_id, away_team_name, away_team_gender, away_team_country, away_team_manager, away_team_manager_country, home_score, away_score, result, match_week, stadium_id, stadium_name, stadium_country, referee_id, referee_name, referee_country, json_"
+    # copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
 
-    # lineups table
-    table_name = "lineups"
-    table_columns = "match_id, home_team_id, home_team_name, away_team_id, away_team_name, json_"
-    copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
+    # # lineups table
+    # table_name = "lineups"
+    # table_columns = "match_id, home_team_id, home_team_name, away_team_id, away_team_name, json_"
+    # copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
 
-    # players table
-    table_name = "players"
-    table_columns = "match_id, team_id, team_name, player_id, player_name, jersey_number, country_id, country_name, position_id, position_name, from_time, to_time, from_period, to_period, start_reason, end_reason"
-    copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
+    # # players table
+    # table_name = "players"
+    # table_columns = "match_id, team_id, team_name, player_id, player_name, jersey_number, country_id, country_name, position_id, position_name, from_time, to_time, from_period, to_period, start_reason, end_reason"
+    # copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
 
-    # events table
-    table_name = "events"
-    table_columns = "match_id, json_"
-    copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
+    # # events table
+    # table_name = "events"
+    # table_columns = "match_id, json_"
+    # copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
 
 #     # # events_details table
 #     # this table is loaded using the script /postgres/tables_setup_load_events_details_from_postgres.sql
 #     # reason is because it is more efficient to build the data using json functions in postgres vs trasnferring the data row by row
 
 
-# #     # 6-a) convert each json_ row into a prose script (line by line)
+#     # 6-a) convert each json_ row into a prose script (line by line)
 
-#     system_message = """
-#             Describe the message in English. It's a football match, and I am providing the detailed actions in Json format ordered minute by action how they happenned.
-#             By using the Id column you can cross-relate events. There may be some hierachies. Mention the players in the script.
-#             Do not invent any information. Do relate stick to the data, and do not include any personal opinion. Relate in prose format. 
-#             In special events like: goal sucessful, goal missed, shoots to goal, and goalkeeper saves relate like a commentator highlighting the action mentioning time, and score changes if apply.
-#             This is the Json data: 
-#             """
+                ###### France - Argentina match_id: 3869685
+                ###### England - Spain match_id: 3943043
 
-#     create_events_summary_per_pk_from_json_rows_in_database ("azure", "events_details__minutewise", "id", "summary", 3943043, -1, system_message, 0.1, 7500)
+    system_message = """
+            Describe the message in English. It's a football match, and I am providing the detailed actions in Json format ordered minute by minute how action how they happenned.
+            By using the id, and related_events columns you can cross-relate events. There may be some hierachies. Mention the players in the script.
+            Do not invent any information. Do relate stick to the data. 
+            In special events like: goal sucessful, goal missed, shoots to goal, and goalkeeper saves relate like a commentator highlighting the action mentioning time, and score changes if apply.
+            Relate in prose format. Use the word keeper instead of goalkeeper.
+            Do not make intro like "In the early moments of the match", "In the openning", etc. Just start with the action.
+            At the end include one sentence as a brief description of what happened starting with "Summary:"
+            This is the Json data: 
+            """
 
-#     # 6-b) convert each json_ row into a prose script (line by line). in this case it is agnostic of the timing, it is based on the primary key column
+    create_events_summary_per_pk_from_json_rows_in_database ("azure", "events_details__quarter_minute", "id", "summary", 3869685, -1, system_message, 0.1, 7500)
 
-#     system_message = """
-#             Describe the message in English using this pattern: # | action type | mm:ss | player name | action | player location | location translation | related player | result. 
-#             be bold in goal sucessful, goal missed, goal blocked, shoots to goal, and goalkeeper saves. do not use special marks.
-#             It's a football match, and I am providing the detailed actions in Json format ordered minute by minute.
-#             By using the Id column you can cross-relate events. There may be some hierachies.
-#             Do not invent any information. Do relate stick to the data, and do not include any personal opinion.
-#             This is the Json data: 
-#             """
+    # # 6-b) convert each json_ row into a prose script (line by line). in this case it is agnostic of the timing, it is based on the primary key column
+
+    # system_message = """
+    #         Describe the message in English using this pattern: # | action type | mm:ss | player name | action | player location | location translation | related player | result. 
+    #         be bold in goal sucessful, goal missed, goal blocked, shoots to goal, and goalkeeper saves. do not use special marks.
+    #         It's a football match, and I am providing the detailed actions in Json format ordered minute by minute.
+    #         By using the Id column you can cross-relate events. There may be some hierachies.
+    #         Do not invent any information. Do relate stick to the data, and do not include any personal opinion.
+    #         This is the Json data: 
+    #         """
     
-#     create_events_summary_per_pk_from_json_rows_in_database ("azure", "events_details__minutewise", "id", "summary_script", 3943043, -1, system_message, 0.1, 7500)
+    # create_events_summary_per_pk_from_json_rows_in_database ("azure", "events_details__minutewise", "id", "summary_script", 3943043, -1, system_message, 0.1, 7500)
 
 #     # 7) create a detailed match summary of the match based on the summaries of each event created in 5)
 #     # data is aggegated using the parameter rows_per_prompt
@@ -175,11 +181,20 @@ if __name__ == "__main__":
     # download_match_script("azure", "events_details__minutewise", 3943043, "summary_script", local_folder, 10)
 
 
-#     # 10) get tokens statistics from a table column
-#     # usefull to understand the distribution of tokens in a column for embedding purposes
-    
-#     s = get_tokens_statistics_from_table_column("events_details__minutewise", "json_", -1)
-#     print (s)
+    # 10) get tokens statistics from a table column
+    # usefull to understand the distribution of tokens in a column for embedding purposes
 
-#     s = get_tokens_statistics_from_table_column("events_details", "json_", -1)
-#     print (s)
+    ###### France - Argentina match_id: 3869685
+    ###### England - Spain match_id: 3943043
+
+    # s = get_tokens_statistics_from_table_column('azure', "events_details__minutewise", "json_", "match_id = 3943043", -1)
+    # print (s)
+
+    # s = get_tokens_statistics_from_table_column('azure', "events_details__minutewise", "summary", "match_id = 3943043", -1)
+    # print (s)
+
+    # s = get_tokens_statistics_from_table_column('azure', "events_details__minutewise", "summary_script", "match_id = 3943043", -1)
+    # print (s)
+
+
+## -- events_details__minutewise
