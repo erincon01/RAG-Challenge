@@ -10,7 +10,8 @@ For the Microsoft RAG Hack Challenge, we aim to showcase the power of Retrieval-
 
 Together, we believe that football isn’t just a game – it’s data waiting to be unlocked, and we’re here to show the world how Microsoft Azure can be the key.
 
-With the support of Microsoft—and a special thanks to [Bruno Capuano](https://x.com/elbruno) and  [Davide Mauri](https://x.com/mauridb), who have been close allies in this journey—we’ve processed match data from various football games, thanks to the resources provided by [Verne Tech](https://www.vernegroup.com/). However, we would love to see Microsoft provide even more backing to make this initiative bigger, more consistent, and impactful. This project has motivated us to dive deeper into AI-driven solutions, and if we win, we’re committed to donating our prize to a good cause.
+With the support of Microsoft—and a special thanks to [Bruno Capuano](https://x.com/elbruno) and  [Davide Mauri](https://x.com/mauridb), who are supportive to our community.
+We have processed match data from various football games, thanks to the resources provided by [Verne Tech](https://www.vernegroup.com/). However, we would love to see Microsoft provide even more backing to make this initiative bigger, more consistent, and impactful. This project has motivated us to dive deeper into AI-driven solutions, and if we win, we’re committed to donating our prize to a good cause.
 
 We’d love to secure Azure credits to process the full set of matches from [StatsBomb](https://github.com/statsbomb/open-data) and develop a Version 2 of this project.
 
