@@ -25,6 +25,116 @@ from module_postgres import copy_data_from_postgres_to_azure, download_match_scr
 from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_pk_from_json_rows_in_database
 from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary, search_details_using_embeddings
 
+def export_script_result_to_text(dataframe, summary, search_term, local_folder, filename):
+    """
+    Export the script result to a text file.
+    Parameters:
+    - local_folder (str): The folder path where the text file will be saved.
+    - summary (str): The summary of the script result.
+    - filename (str): The name of the text file.
+    Returns:
+    None
+    """
+
+    now = datetime.now()
+    sc = int(now.strftime("%S"))
+    ms = int(now.strftime("%f"))
+    v = sc * ms
+    v = str(v) + "_"
+
+    tag ="-"
+    if summary.startswith("NONE"):
+        tag = "_NONE_"
+    if summary.startswith("TOKENS"):
+        tag = "_TOKENS_"
+    if summary.startswith("NONE"):
+        tag = "_NONE_"
+
+    folder = os.path.join(local_folder, "scripts_summary", "Answers")
+    filename += tag + v + ".txt"
+
+    text = ""
+    text += f"  ----------------\n"
+    text  = f" - SYSTEM MESSAGE -\n"
+    text += f"  ----------------\n"
+    text += f"       {system_message}.\n\n"
+
+    text += f"  ----------------\n"
+    text += f" - SEARCH TERM    -\n"
+    text += f"  ----------------\n"
+    text += f"       {search_term}.\n\n"
+
+    text += f"  ----------------\n"
+    text += f" - MATCH ID       -\n"
+    text += f"  ----------------\n"
+    text += f"       {match_id}.\n\n"
+
+    text += f" - ANSWER         -\n"
+    text += f"  ----------------\n"
+    text += f"\n\n{summary}.\n"
+    text += "-------------------------------------------------------------------------------------------------------\n\n"
+
+    text += f"  ----------------\n"
+    text += f" - DATA FRAME     -\n"
+    text += f"  ----------------\n"
+
+    text += dataframe
+    
+    with open(os.path.join(folder, filename), "w", encoding="utf-8") as f:
+        f.write(text)
+
+def process_prompt (questions, match_id, system_message, input_tokens, output_tokens, local_folder):
+    """
+    Process tokens and perform search using embeddings.
+    Args:
+        questions (list): List of dictionaries containing questions to be processed.
+        match_id (str): ID of the match.
+        system_message (str): System message.
+        input_tokens (list): List of input tokens.
+        output_tokens (list): List of output tokens.
+        local_folder (str): Local folder path.
+    Returns:
+        None
+    """
+
+     # iterate over the questions and print each column
+    for question in questions:
+        question_number = question["question_number"]
+        search_type = question["search_type"]
+        top_n = question["top_n"]
+        search_term = question["question"]
+        include_lineups = question.get("include_lineups", "")
+        influence_temperature = question.get("temperature", "")
+
+        if include_lineups.lower() != "no":
+            include_lineups = "yes"
+
+        temperature = 0.0
+        if influence_temperature == "":
+            temperature = 0.1
+        else:
+            try:
+                temperature = float(influence_temperature)
+            except ValueError:
+                temperature = 0.1
+
+        include_json = question.get("include_json", "")
+        if include_json.lower() =="":
+            include_json = "no"
+        if include_json.lower() != "no":
+            include_json = "yes"
+
+        model = question.get("model", "")
+
+        dataframe, summary = search_details_using_embeddings ("Azure", "events_details__quarter_minute", match_id, search_type, 
+                                                              include_lineups, include_json, model,
+                                                              top_n, search_term, system_message, temperature, input_tokens, output_tokens)
+        print(f"Question: {question_number} - {search_term}")
+        print(f"Answer: {summary}")
+        print(f"------------------------------------------------------------------------")
+
+        export_script_result_to_text(dataframe, summary, search_term, local_folder, question_number + "_" + search_type)
+
 if __name__ == "__main__":
 
 #     # statsbomb data parameters
@@ -194,62 +304,67 @@ if __name__ == "__main__":
     # s = get_tokens_statistics_from_table_column('azure', "events_details__quarter_minute", "summary", "match_id = 3943043", -1)
     # print (s)
 
-    # 11) goals scored in a match
+    # 11) prompts calls to the model
 
-    ###### France - Argentina match_id: 3869685
-    ###### England - Spain match_id: 3943043
+        # {"question_number": "Q-001", "top_n": 10, "search_type": "Cosine", "question": "Count the successful passes did each team complete in the first half (minutes 41-47) and the second half (minutes 45-50), and what impact did these passes have on their game performance?"},
+        # {"question_number": "Q-001b", "top_n": 10, "include_lineups":"no", "search_type": "Cosine", "question": "Count the successful passes did each team complete in the first half (minutes 41-47) and the second half (minutes 45-50)"},
+        # {"question_number": "Q-002", "top_n": 10, "search_type": "Cosine", "question": "Which players recorded the highest number of carries and passes in both halves, and how did their performances influence the overall strategies of the teams?"},
+        # {"question_number": "Q-002b", "top_n": 10, "include_lineups":"no", "temperature":"0.5", "search_type": "Cosine", "question": "Which players recorded the highest number of carries and passes in both halves in minutes 15 to 30?"},
+        # {"question_number": "Q-002c", "top_n": 10, "include_lineups":"no", "temperature":"0.6", "search_type": "Cosine", "question": "Which players recorded the highest number of carries and passes in both halves in minutes 15 to 30 and impact in the game performance?"}
+        # {"question_number": "Q-002d", "top_n": 10, "include_lineups":"no", "temperature":"0.5", "search_type": "Cosine", "question": "Which players recorded the highest number of carries and passes in minutes between 15 to 30?"},
+        # {"question_number": "Q-002e", "top_n": 10, "include_lineups":"no", "temperature":"0.6", "search_type": "Cosine", "question": "Count the number of carries and passes per team in minutes between 15 to 30"}
+        # {"question_number": "Q-003", "top_n": 10, "search_type": "Cosine", "question": "What were the average pass lengths for each team in each half, and which team showed higher pass accuracy by comparing completed passes to incomplete ones?"},
+        # {"question_number": "Q-003b", "top_n": 10, "search_type": "Cosine", "include_json":"yes", "question": "What were the average pass lengths in minutes between 30 and 45?"},
+        # {"question_number": "Q-003c", "top_n": 10, "search_type": "InnerP", "include_json":"yes", "question": "What were the average pass lengths in minutes between 30 and 40?"},
+        # {"question_number": "Q-004", "top_n": 10, "search_type": "Cosine", "question": "How did the possession percentages of each team change during the first and second halves, and what key moments or events caused these fluctuations?"},
+        # {"question_number": "Q-004b", "top_n": 10, "search_type": "Cosine", "temperature":"0.5", "question": "What were the key moments for each team in minutes 80 to 90 and how affected the result?"},
+        # {"question_number": "Q-005", "top_n": 10, "search_type": "Cosine", "question": "How many defensive actions, such as tackles, saves, and blocks, did each team execute, and show the top 3 players in these actions for each team?"},
+        # {"question_number": "Q-005b", "top_n": 10, "search_type": "Cosine", "question": "What defensive actions, such as tackles, saves, and blocks, did each team execute in second half?"},
+        # {"question_number": "Q-006", "top_n": 10, "search_type": "Cosine", "question": "How many shots on goal did each team take, splitted in 30 minutes timeframes?"},
+        # {"question_number": "Q-006c", "top_n": 10, "search_type": "InnerP", "question": "What shots on goal did each team take, in minutes between 60 and 90?"},
+        # {"question_number": "Q-006d", "top_n": 10, "search_type": "InnerP", "question": "Show details of the goals scored"},
+        # {"question_number": "Q-006d", "top_n": 10, "search_type": "InnerP", "temperature":"0.5", "question": "Show details of the goals scored"},
+        # {"question_number": "Q-006d", "top_n": 10, "search_type": "Cosine", "temperature":"0.5", "question": "Show details of the goals scored"}
+        # {"question_number": "Q-006e", "top_n": 10, "search_type": "InnerP", "model":"text-embedding-3-large", "temperature":"0.5", "question": "Show details of the goals scored"},
+        # {"question_number": "Q-006e", "top_n": 10, "search_type": "Cosine", "model":"text-embedding-3-large", "temperature":"0.5", "question": "Show details of the goals scored"}
+        # {"question_number": "Q-006e", "top_n": 10, "search_type": "InnerP", "model":"text-embedding-3-large", "temperature":"0.5", "question": "Show details of the goals scored"},
+        # {"question_number": "Q-006e", "top_n": 10, "search_type": "Cosine", "model":"text-embedding-3-large", "temperature":"0.5", "question": "Show details of the goals scored"}
+        # {"question_number": "Q-007", "top_n": 10, "search_type": "Cosine", "question": "Which areas on the pitch had the highest concentration of passes, carries, and key actions for both teams during the match?"},
+        # {"question_number": "Q-007c", "top_n": 10, "search_type": "Cosine", "temperature":"0.5", "include_json":"yes", "question": "Which areas on the pitch had the highest concentration of passes, carries, and key actions for both teams in minutes between 30 and 40?"},
+        # {"question_number": "Q-008", "top_n": 10, "search_type": "Cosine", "question": "How many aerial duels and one-on-one challenges did each team engage in, and what were their respective success rates in these confrontations?"},
+        # {"question_number": "Q-008c", "top_n": 10, "search_type": "Cosine", "temperature":"0.5", "include_json":"yes", "question": "How many aerial duels and one-on-one challenges did each team engage in in minutes between 15 to 25"}
+        # {"question_number": "Q-010", "top_n":  5, "search_type": "InnerP", "question": "List the critical moments or sequences, such as blocked shots, successful tackles, and goal attempts"},
+        # {"question_number": "Q-011", "top_n":  5, "search_type": "InnerP", "question": "What was the final scoreline of the match, including goals scored by each team and any additional time or penalty shootout results?"},
+        # {"question_number": "Q-012", "top_n":  5, "search_type": "InnerP", "question": "Who scored the goals for each team in which minutes, and what types of goals were they, such as headers or penalties?"},
+        # {"question_number": "Q-013", "top_n":  5, "search_type": "InnerP", "question": "How did the home and visiting teams perform based on metrics like possession, pass accuracy, shots on target, and defensive actions?"},
+        # {"question_number": "Q-014", "top_n":  5, "search_type": "InnerP", "question": "Were there any yellow or red cards issued during the match, specifying the players involved and the reasons for the bookings?"},
+        # {"question_number": "Q-015b", "top_n":  5, "search_type": "Cosine", "temperature":"0.5", "question": "Who was the best player in minutes between 80 and 100?"}
+        # {"question_number": "Q-016", "top_n":  5, "search_type": "InnerP", "question": "What strategies or tactical formations did both teams employ, and how did these influence the outcome of the match?"},
+        # {"question_number": "Q-017", "top_n":  5, "search_type": "InnerP", "question": "How did the decisions of the referee, such as fouls and penalties, influence the flow and outcome of the game?"},
+        # {"question_number": "Q-018", "top_n":  5, "search_type": "InnerP", "question": "Were there any significant injuries during the match, detailing the players affected and the impact on their teams?"},
+        # {"question_number": "Q-019", "top_n": 10, "search_type": "Cosine", "question": "Which players were most effective in disrupting the play of the the opponent through tackles, interceptions, and defensive actions?"}
 
+     questions = [
+        {"question_number": "Q-010", "top_n":  5, "search_type": "InnerP", "question": "List the critical moments or sequences, such as blocked shots, successful tackles, and goal attempts"},
+        {"question_number": "Q-011", "top_n":  5, "search_type": "InnerP", "question": "What was the final scoreline of the match, including goals scored by each team and any additional time or penalty shootout results?"},
+        {"question_number": "Q-012", "top_n":  5, "search_type": "InnerP", "question": "Who scored the goals for each team in which minutes, and what types of goals were they, such as headers or penalties?"}
+    ]
+     
+     system_message = f"""
+            Answer the users QUESTION using the DOCUMENT text above.
+            Keep your answer ground in the facts of the DOCUMENT.
+            If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
+        """   
 
-    #  search_term = "Goals conceeded"
-    #  system_message = f"""
-    #         Summarize the actions like highlight for these search term: ** {search_term} **.
-    #         Do not invent any information, relate stick to the data. 
-    #         this is the text:
-    #         """     
+     ###### France - Argentina match_id: 3869685
+     ###### England - Spain match_id: 3943043  
 
      match_id = 3943043
 
-
-     questions = [
-            "What was the final score of the match?",
-            "Who scored the goals and in which minutes?",
-            "How did the home team and the visiting team perform?",
-            "Were there any yellow or red cards issued? To whom?",
-            "Who was the standout player or the MVP of the match?",
-            "What strategies or tactical formations did both teams use?",
-            "How did the referee influence the course of the game?",
-            "Were there any significant injuries during the match?"
-        ]
-
-     for question in questions:
-        print(question)
-
-     #question = "Who scored the goals and in which minutes?"
-     search_term = "Were there any yellow or red cards issued? To whom?"
-     system_message = f"""
-            Do not invent any information, stick to the data. 
-            Do a prose drescription of the result.
-            """   
-
-     system_message = f"""
-                Answer the users QUESTION using the DOCUMENT text above.
-                Keep your answer ground in the facts of the DOCUMENT.
-                If the DOCUMENT doesn't contain the facts to answer the QUESTION return NONE
-            """   
-
-     dataframe, summary = search_details_using_embeddings ("Azure", "events_details__quarter_minute", match_id, "Spain", search_term, system_message, 0.1, 5000)
-     print(summary)
-
+     input_tokens = 25000
+     output_tokens = 5000
      local_folder = os.getenv('LOCAL_FOLDER')
-     folder = os.path.join(local_folder, "scripts_summary", "run")
-     filename = datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".txt"
 
-     text = f"system_message: {system_message}.\n\n"
-     text += f"search_term: {search_term}.\n\nmatch_id: {match_id}.\n\n"
-     text += f"Summary: \n{summary}.\n"
-     text += "-------------------------------------------------------------------------------------------------------\n\n"
-     text += "data_frame: " + dataframe
-    
-     with open(os.path.join(folder, filename), "w", encoding="utf-8") as f:
-         f.write(text)
+     process_prompt (questions, match_id, system_message, input_tokens, output_tokens, local_folder)
+
 

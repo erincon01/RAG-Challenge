@@ -8,7 +8,6 @@ from openai import AzureOpenAI
 import datetime
 from datetime import datetime
 
-
 def get_chat_completion_from_azure_open_ai(system_message, user_prompt, temperature, tokens):
     """
     Retrieves a chat completion from Azure OpenAI API.
@@ -42,13 +41,29 @@ def get_chat_completion_from_azure_open_ai(system_message, user_prompt, temperat
 
     return output
 
+def count_tokens(prompt):
+    """
+    Counts the number of tokens in the given prompt.
+    Parameters:
+    prompt (str): The prompt to count tokens from.
+    Returns:
+    int: The number of tokens in the prompt.
+    """
+
+    encoder = tiktoken.get_encoding("cl100k_base")
+    tokens = encoder.encode(prompt)
+
+    return len(tokens)
+
 
 def get_tokens_statistics_from_table_column(source, table_name, column_name, filter, num_rows):
     """
     Retrieves statistics about the tokens in a specified table from a database.
     Args:
+        source (str): The source of the database. Either "azure" or "others".
         table_name (str): The name of the table to retrieve data from.
         column_name (str): The name of the column to retrieve data from.
+        filter (str): The filter condition to apply to the query. Can be an empty string.
         num_rows (int): The maximum number of rows to retrieve. Set to 0 to retrieve all rows.
     Returns:
         dict: A dictionary containing the statistics of the tokens.
@@ -199,7 +214,6 @@ def create_and_download_detailed_match_summary(match_id, rows_per_prompt, file_p
 
         print(f"  Processed {i+1}/{count} rows. Generated file: {filename}. ")
         script = ""
-
 
 def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, primary_key_column, message_column, match_id, minute, system_message, temperature, tokens):
     """
@@ -377,9 +391,73 @@ def create_match_summary(source, tablename, match_id, system_message, temperatur
             conn.close()
 
 
-def search_details_using_embeddings(source, table_name, match_id, team_name, search_term, system_message, temperature, tokens):
+def search_details_using_embeddings(source, table_name, match_id, search_type, include_lineups, include_json, model, top_n, search_term, system_message, temperature, input_tokens, output_tokens):
+    """
+    Searches for details using embeddings in the specified source and table.
+    Args:
+        source (str): The source of the data (e.g., "azure").
+        table_name (str): The name of the table to search in.
+        match_id (int): The ID of the match to search for.
+        search_type (str): The type of search to perform (e.g., "cosine").
+        include_lineups (str): Whether to include lineups in the search results (e.g., "yes").
+        include_json (str): Whether to include JSON data in the search results (e.g., "no").
+        model (str): The model to use for embeddings (e.g., "text-embedding-3-small").
+        top_n (int): The number of results to return.
+        search_term (str): The search term to use.
+        system_message (str): The system message to include in the prompt.
+        temperature (float): The temperature for generating completions.
+        input_tokens (int): The maximum number of input tokens allowed.
+        output_tokens (int): The maximum number of output tokens allowed.
+    Returns:
+        tuple: A tuple containing the prompt and the summary of the search results.
+    """
 
     try:
+
+        column_name = ""
+        model_name = ""
+
+        if model=="" or model=="text-embedding-3-small":
+            column_name = "summary_embedding_t3_small"
+            model_name = "text-embedding-3-small"
+        if model=="text-embedding-3-large":
+            column_name = "summary_embedding_t3_large"
+            model_name = "text-embedding-3-large"
+
+        if isinstance(input_tokens, str):
+            if not input_tokens.isdigit():
+                input_tokens = 10000
+            input_tokens = int(input_tokens)
+
+        if isinstance(output_tokens, str):
+            if not output_tokens.isdigit():
+                output_tokens = 5000
+            output_tokens = int(output_tokens)
+
+        # if top_s is string convert to int
+        if isinstance(top_n, str):
+            # if top_n is not a number set to 10
+            if not top_n.isdigit():
+                top_n = 10
+            top_n = int(top_n)
+
+        if isinstance(top_n, float):
+            top_n = int(top_n)
+
+        if int(top_n) < 1:
+            top_n = 10
+
+        if include_json.lower() =="":
+            include_json = "no"
+        if include_json.lower() != "no":
+            include_json = "yes"            
+
+        # if cosine similarity set var k = "=" else "#"
+        k_search = "#"
+        if search_type.lower() == "cosine":
+            k_search = "="
+        if search_type.lower() == "innerp":
+            k_search = "#"
 
         conn = None
 
@@ -402,31 +480,23 @@ def search_details_using_embeddings(source, table_name, match_id, team_name, sea
 
         cursor = conn.cursor()
 
-        # query = sql.SQL(f"""
-        #     SELECT 
-        #         ed.id, ed.period, ed.minute, ed.summary,
-        #         m.match_date, m.competition_name, m.season_name, m.home_team_name, m.away_team_name, m.result
-        #     FROM matches m
-        #     JOIN {table_name} ed on m.match_id = ed.match_id
-        #     WHERE home_team_name = '{team_name}' or away_team_name = '{team_name}'
-        #     and ed.match_id = {match_id}
-        #     ORDER BY ed.summary_embedding_t3_small <#> azure_openai.create_embeddings('text-embedding-3-small', '{search_term}')::vector
-        #     LIMIT 10;
-        # """)
+        summary = "summary"
+        if include_json.lower() == "yes":
+            summary = "json_"
 
         query = sql.SQL(f"""
-            SELECT id, summary
+            SELECT id, {summary}
             FROM {table_name} 
             WHERE match_id = {match_id}
-            ORDER BY summary_embedding_t3_small <#> azure_openai.create_embeddings('text-embedding-3-small', '{search_term}')::vector
-            LIMIT 10;
+            ORDER BY {column_name} <{k_search}> azure_openai.create_embeddings('{model_name}', '{search_term}')::vector
+            LIMIT {top_n};
         """)
 
         cursor.execute(query)
         rowCount = cursor.rowcount
 
         if rowCount == 0:
-            return "No results found."
+            return "I have not found rows that matches in the database.", "NONE. I cannot find an answer. Please refine the question."
 
         # convertir el resultado a un pandas dataframe
         df1 = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
@@ -445,10 +515,7 @@ def search_details_using_embeddings(source, table_name, match_id, team_name, sea
         ids.sort()
 
         # añadir al df la llamada a una función que recupere los identificadores
-        df2 = get_dataframe_from_ids(source, table_name, ids)
-
-        # df1['match_date'] = df1['match_date'].astype('datetime64[ns]')
-        # df2['match_date'] = df2['match_date'].astype('datetime64[ns]')
+        df2 = get_dataframe_from_ids(source, table_name, summary, ids)
 
         # Concatenar los dataframes
         df = pd.concat([df1, df2], ignore_index=True)
@@ -457,20 +524,31 @@ def search_details_using_embeddings(source, table_name, match_id, team_name, sea
         # remofe the id column from df
         df = df.drop(columns=['id'])
 
-        prompt = f"DOCUMENT:\n"
+        prompt  = f"DOCUMENT:\n"
+        prompt += f"--------\n\n"
 
         prompt += f"EVENTS:\n" + df.to_string(index=False)
+        prompt += f"------\n"
+
         d_game_result = get_game_result_data(source, match_id)
+        prompt += f"\n\nGAME RESULT:\n" + d_game_result
+        prompt +=     f"-----------\n"
 
-        prompt += f"\nGAME RESULT:\n" + d_game_result
-        d_game_players = get_game_players_data(source, match_id)
+        if include_lineups.lower() == "yes":
+            d_game_players = get_game_players_data(source, match_id)
+            prompt += f"\n\nGAME PLAYERS:\n" + d_game_players
+            prompt +=     f"_-----------\n"
 
-        prompt += f"\nGAME PLAYERS:\n" + d_game_players
+        prompt += f"\n\nQUESTION:\n{search_term}"
+        prompt +=     f"--------\n"
 
-        prompt += f"\n\QUESTION:\n{search_term}"
+        tokens = count_tokens(prompt)
 
-
-        summary = get_chat_completion_from_azure_open_ai(system_message, prompt, temperature, tokens)
+        summary = ""
+        if tokens > input_tokens:
+            summary = "TOKENS. The prompt is too long. Please try a shorter query."
+        else:
+            summary = get_chat_completion_from_azure_open_ai(system_message, prompt, temperature, output_tokens)
 
         return prompt, summary
 
@@ -483,7 +561,19 @@ def search_details_using_embeddings(source, table_name, match_id, team_name, sea
         if conn:
             conn.close()
 
-def get_dataframe_from_ids(source, table_name, ids):
+def get_dataframe_from_ids(source, table_name, summary, ids):
+    """
+    Retrieves a pandas DataFrame from a database based on the given source, table name, summary column, and list of IDs.
+    Args:
+        source (str): The source of the database. Can be either "azure" or any other value.
+        table_name (str): The name of the table in the database.
+        summary (str): The name of the column to retrieve in the query.
+        ids (list): A list of IDs to filter the query.
+    Returns:
+        pandas.DataFrame: The resulting DataFrame containing the queried data.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
 
     try:
 
@@ -512,7 +602,7 @@ def get_dataframe_from_ids(source, table_name, ids):
         ids_str = ','.join(map(str, ids))
 
         query = sql.SQL(f"""
-            SELECT id, summary
+            SELECT id, {summary}
             FROM {table_name}
             WHERE id IN ({ids_str});
         """)
@@ -533,6 +623,16 @@ def get_dataframe_from_ids(source, table_name, ids):
 
 
 def get_game_result_data(source, match_id):
+    """
+    Retrieves the game result data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+        match_id (int): The ID of the match.
+    Returns:
+        str: The game result data as a string.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
 
     try:
 
@@ -586,6 +686,16 @@ def get_game_result_data(source, match_id):
 
 
 def get_game_players_data(source, match_id):
+    """
+    Retrieves game player data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+        match_id (int): The ID of the match.
+    Returns:
+        str: The player data as a string.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
 
     try:
 
@@ -635,5 +745,3 @@ def get_game_players_data(source, match_id):
             cursor.close()
         if conn:
             conn.close()
-
-

@@ -1,7 +1,21 @@
-# statsbomb-loader
-statsbomb loader
+# RAG Challence
+
+
+
+## Overview
+This project involves loading football match data from StatsBomb's open data into a PostgreSQL database, as part of the Microsoft RAG Challenge.
+
+Features
+- Data Loading: Download and import match data into PostgreSQL.
+- Data Processing: Extract, summarize, and analyze match details.
+- Integration: Interface with Azure for data transfer and use OpenAI for match summaries.
+
 
 - Load data from https://github.com/statsbomb/open-data into postgres.
+
+
+### How to participate in the challenge
+
 
 - WIP for Microsoft RAG challenge:
 https://github.com/microsoft/RAG_Hack?tab=readme-ov-file#raghack-lets-build-rag-applications-together
@@ -33,6 +47,147 @@ DB_NAME=your_database_name
 DB_USER=your_username
 DB_PASSWORD=your_password
 ```
+
+## Modules description
+
+
+| **Module Name**           | **Purpose**                                                                 | **Functions**                                                                                                    |
+|---------------------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| `module_github.py`         | Interacts with GitHub API to retrieve repository data and download files.   | `get_json_list_from_repo`, `download_file_from_repo_url`, `download_data_from_github_repo`, `get_github_data_from_matches` |
+| `module_azureopenai.py`    | Connects to Azure OpenAI API for text generation, token management, and data retrieval. | `get_chat_completion_from_azure_open_ai`, `count_tokens`, `get_tokens_statistics_from_table_column`, `create_and_download_detailed_match_summary`, `get_top_n_results_from_summary_column`, `get_dataframe_from_ids`, `get_game_result_data`, `get_game_players_data` |
+| `module_postgres.py`       | Handles PostgreSQL database operations including data transfer and processing match information. | `copy_data_from_postgres_to_azure`, `load_lineups_data_into_postgres`, `import_json_to_db`, `get_manager_info`, `get_json_events_details_from_match_id`, `download_match_script` |
+
+
+
+### Module: module_github.py
+
+#### `get_json_list_from_repo(repo_owner, repo_name, dataset)`
+Retrieves a list of JSON files from a GitHub repository by traversing the first-level subdirectories.
+- **Parameters:**
+  - `repo_owner (str)`: The owner of the GitHub repository.
+  - `repo_name (str)`: The name of the GitHub repository.
+  - `dataset (str)`: The dataset directory within the repository.
+- **Returns:** `pandas.DataFrame`: A DataFrame containing the dataset, subdirectory, and URL of each JSON file.
+
+#### `download_file_from_repo_url(url, path, dir, subdir)`
+Downloads a file from a given URL and saves it in the specified local path.
+- **Parameters:**
+  - `url (str)`: The URL of the file to download.
+  - `path (str)`: The destination directory path.
+  - `dir (str)`: The name of the directory.
+  - `subdir (str)`: The name of the subdirectory.
+- **Returns:** None. It prints the result of the download process.
+
+#### `download_data_from_github_repo(repo_owner, repo_name, dataset_name, local_folder)`
+Downloads data from a GitHub repository for the specified dataset and saves it to the local folder while preserving the repository structure.
+- **Parameters:**
+  - `repo_owner (str)`: The owner of the GitHub repository.
+  - `repo_name (str)`: The name of the GitHub repository.
+  - `dataset_name (str)`: The name of the dataset.
+  - `local_folder (str)`: The local folder to save the files.
+- **Returns:** None.
+
+#### `get_github_data_from_matches(repo_owner, repo_name, dataset_name, local_folder)`
+Retrieves data from GitHub related to match datasets and stores it in the specified local folder.
+- **Parameters:** Various arguments related to the GitHub repository and dataset.
+- **Returns:** None.
+
+
+## Module: module_azureopenai.py
+
+#### `get_chat_completion_from_azure_open_ai(system_message, user_prompt, temperature, tokens)`
+Retrieves a chat completion from Azure OpenAI API.
+- **Parameters:**
+  - `system_message (str)`: The system message.
+  - `user_prompt (str)`: The user prompt.
+  - `temperature (float)`: The temperature value for generating chat completions.
+  - `tokens (int)`: The maximum number of tokens for generating chat completions.
+- **Returns:** `str`: The generated chat completion.
+
+#### `count_tokens(prompt)`
+Counts the number of tokens in the given prompt.
+- **Parameters:** `prompt (str)`: The prompt to count tokens from.
+- **Returns:** `int`: The number of tokens in the prompt.
+
+### `get_tokens_statistics_from_table_column(source, table_name, column_name, filter, num_rows)`
+Retrieves statistics about tokens in a specified table from the database.
+- **Parameters:**
+  - `source (str)`: The database source ("azure" or others).
+  - `table_name (str)`: The name of the table.
+  - `column_name (str)`: The name of the column to retrieve data from.
+  - `filter (str)`: The filter condition for the query.
+  - `num_rows (int)`: The number of rows to retrieve.
+- **Returns:** `dict`: Token statistics, including total rows, mean, median, and standard deviation of tokens.
+
+#### `create_and_download_detailed_match_summary(match_id, rows_per_prompt, file_prompt_size, temperature, system_message, tokens, local_folder)`
+Generates a detailed match summary by splitting a match into multiple prompts and downloading the summary to a file.
+- **Parameters:** Various arguments related to the match, prompt size, and temperature for generating the summary.
+- **Returns:** None.
+
+#### `get_top_n_results_from_summary_column(source, table_name, column_name, top_n, search_term, system_message, temperature, input_tokens, output_tokens)`
+Fetches the top `n` results from the summary column based on the search term and other parameters.
+- **Parameters:** Various arguments related to the source, table, and search term.
+- **Returns:** A tuple with the prompt and the summary of the search results.
+
+#### `get_dataframe_from_ids(source, table_name, summary, ids)`
+Retrieves a DataFrame from the database using the given source, table name, summary column, and a list of IDs.
+- **Parameters:**
+  - `source (str)`: The source of the data (either "azure" or other).
+  - `table_name (str)`: The table name.
+  - `summary (str)`: The summary column to query.
+  - `ids (list)`: A list of IDs to filter the query.
+- **Returns:** `pandas.DataFrame`: The resulting DataFrame.
+
+#### `get_game_result_data(source, match_id)`
+Fetches game result data for a specific match from the database.
+- **Parameters:**
+  - `source (str)`: The source of the data ("azure" or other).
+  - `match_id (int)`: The match ID.
+- **Returns:** `str`: The game result data.
+
+#### `get_game_players_data(source, match_id)`
+Retrieves player data for a specific match from the database.
+- **Parameters:**
+  - `source (str)`: The source of the data ("azure" or other).
+  - `match_id (int)`: The match ID.
+- **Returns:** `str`: The player data.
+
+
+## Module: module_postgres.py
+
+#### `copy_data_from_postgres_to_azure(table_name, columns_list, match_id)`
+Connects to a local PostgreSQL database and transfers data to an Azure PostgreSQL database.
+- **Parameters:**
+  - `table_name (str)`: The name of the table to copy data from.
+  - `columns_list (str)`: A list of column names to transfer.
+  - `match_id (int)`: The match ID to filter the data. If `<= 0`, all data will be copied.
+- **Returns:** None. Outputs feedback on the data transfer process, including rows copied.
+
+#### `load_lineups_data_into_postgres(local_folder)`
+Imports lineup data from JSON files into the PostgreSQL database.
+- **Parameters:** `local_folder (str)`: The directory path containing the lineup JSON files.
+- **Returns:** None. Provides feedback on the number of records processed and inserted.
+
+#### `import_json_to_db(folder_name)`
+Processes match data from JSON files and stores it in the PostgreSQL database.
+- **Parameters:** `folder_name (str)`: The folder containing the match JSON files.
+- **Returns:** None. Outputs information about the matches inserted into the database.
+
+#### `get_manager_info(managers)`
+Retrieves detailed information about football managers from the database.
+- **Parameters:** `managers (str)`: The manager(s) to retrieve information for.
+- **Returns:** None.
+
+#### `get_json_events_details_from_match_id(match_id)`
+Retrieves event data for a specific match from the database.
+- **Parameters:** `match_id (str)`: The ID of the match to retrieve.
+- **Returns:** `pandas.DataFrame`: A DataFrame containing the match event details.
+
+#### `download_match_script(source, table_name, match_id, column_name, local_folder, minutes_chunks)`
+Downloads a match script from the PostgreSQL database, splitting it into chunks based on minutes.
+- **Parameters:** Various arguments related to the match and table structure.
+- **Returns:** None. The script is saved to the specified local folder.
+
 
 Run the script:
 
