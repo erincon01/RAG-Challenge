@@ -4,3 +4,4 @@ pandas
 psycopg2
 tiktoken
 streamlit
+streamlit-option-menu

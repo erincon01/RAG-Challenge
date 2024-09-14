@@ -167,35 +167,6 @@ if __name__ == "__main__":
 #     get_github_data_from_matches(repo_owner, repo_name, "events", local_folder)
 
 
-#     # 4) load downloadded data into PostgreSQL from local folder
-#     load_lineups_data_into_postgres(local_folder)
-#     load_events_data_into_postgres(local_folder)
-
-#     # 5) copy data from local to azure
-
-###### France - Argentina match_id: 3869685
-###### England - Spain match_id: 3943043
-
-    # # matches table
-    # table_name = "matches"
-    # table_columns = "match_id, match_date, competition_id, competition_country, competition_name, season_id, season_name, home_team_id, home_team_name, home_team_gender, home_team_country, home_team_manager, home_team_manager_country, away_team_id, away_team_name, away_team_gender, away_team_country, away_team_manager, away_team_manager_country, home_score, away_score, result, match_week, stadium_id, stadium_name, stadium_country, referee_id, referee_name, referee_country, json_"
-    # copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
-
-    # # lineups table
-    # table_name = "lineups"
-    # table_columns = "match_id, home_team_id, home_team_name, away_team_id, away_team_name, json_"
-    # copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
-
-    # # players table
-    # table_name = "players"
-    # table_columns = "match_id, team_id, team_name, player_id, player_name, jersey_number, country_id, country_name, position_id, position_name, from_time, to_time, from_period, to_period, start_reason, end_reason"
-    # copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
-
-    # # events table
-    # table_name = "events"
-    # table_columns = "match_id, json_"
-    # copy_data_from_postgres_to_azure(table_name, table_columns, 3869685)
-
 #     # # events_details table
 #     # this table is loaded using the script /postgres/tables_setup_load_events_details_from_postgres.sql
 #     # reason is because it is more efficient to build the data using json functions in postgres vs trasnferring the data row by row

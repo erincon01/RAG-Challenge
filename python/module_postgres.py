@@ -1,6 +1,7 @@
 import os
 import json
 import psycopg2
+import traceback
 from datetime import datetime
 from psycopg2 import sql
 import pandas as pd
@@ -19,7 +20,7 @@ def get_connection(source):
             password=os.getenv('DB_PASSWORD_AZURE')
         )
     else:
-        # Connect to the Azure database
+        # Connect to the other database configuration
         conn = psycopg2.connect(
             host=os.getenv('DB_SERVER'),
             database=os.getenv('DB_NAME'),
@@ -29,7 +30,7 @@ def get_connection(source):
 
     return conn
 
-def copy_data_from_postgres_to_azure(table_name, columns_list, match_id):
+def copy_data_from_postgres_to_azure(table_name, columns_list, filter_predicate="", match_id=-1):
     """
     Connects to a local PostgreSQL database and copies data from specified tables to an Azure PostgreSQL database.
     This function facilitates the migration of data between two PostgreSQL databases, allowing for seamless transfer
@@ -38,6 +39,7 @@ def copy_data_from_postgres_to_azure(table_name, columns_list, match_id):
     Parameters:
     - table_name (str): The name of the table to copy data from the local database to the Azure database.
     - column_list (str): A list of column names to copy from the local table to the Azure table.
+    - filter_predicate (str): A filter predicate to apply when selecting data from the local table.
     - match_id (int): The ID of the match to copy data for. If <= 0, all data from the table will be copied.
 
     Functionality:
@@ -60,12 +62,16 @@ def copy_data_from_postgres_to_azure(table_name, columns_list, match_id):
 
         select_query=""
         # if match_id <= 0, then copy all data from the table
-        if match_id <= 0:
+        if filter_predicate:
             # Query to select all data from the table
-            select_query = sql.SQL(f"""SELECT {columns_list} FROM {table_name};""")
+            select_query = sql.SQL(f"""SELECT {columns_list} FROM {table_name} WHERE {filter_predicate};""")
         else:
-            # Query to select all data from the table
-            select_query = sql.SQL(f"""SELECT {columns_list} FROM {table_name} WHERE match_id = {match_id};""")
+            if match_id <= 0:
+                # Query to select all data from the table
+                select_query = sql.SQL(f"""SELECT {columns_list} FROM {table_name};""")
+            else:
+                # Query to select all data from the table
+                select_query = sql.SQL(f"""SELECT {columns_list} FROM {table_name} WHERE match_id = {match_id};""")
 
         cursor.execute(select_query)
 
@@ -92,20 +98,13 @@ def copy_data_from_postgres_to_azure(table_name, columns_list, match_id):
                 print(f"{i} of {num_rows} rows copied from [{table_name}] table to Azure database.")
 
     except Exception as e:
-        print(f"Error copying data to Azure database: {e}")
-
-    finally:
-    
-        # Close the cursor and the connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-        if cursor_azure:
-            cursor_azure.close()
-        if conn_azure:
-            conn_azure.close()
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
         
 def load_lineups_data_into_postgres(local_folder):
@@ -573,8 +572,6 @@ def load_matches_data_into_postgres_from_folder (folder_name):
     print(f"Process completed. {i} files processed.")
 
 
-            
-
 def get_json_events_details_from_match_id (match_id):
     """Retrieves events data from a database based on the given parameters.
     Parameters:
@@ -647,15 +644,13 @@ def download_match_script(source, table_name, match_id, column_name, local_folde
                 f.write(summary_output_all)
 
     except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        # Close the cursor and the connection
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
 
 def get_game_result_data(source, match_id, as_data_frame=False):
@@ -697,14 +692,13 @@ def get_game_result_data(source, match_id, as_data_frame=False):
             return result
 
     except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
 
 def get_game_players_data(source, match_id, as_data_frame=False):
@@ -746,14 +740,166 @@ def get_game_players_data(source, match_id, as_data_frame=False):
             return result
 
     except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
+def get_players_summary_data(source, as_data_frame=False):
+    """
+    Retrieves game player data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+    Returns:
+        str: The player data as a string.
+        data_frame: The player data as a pandas DataFrame.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
 
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT player_name, team_name, position_name, count(DISTINCT match_id) count_matches
+            FROM players
+            GROUP BY player_name, team_name, position_name
+            ORDER BY player_name, team_name, position_name;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
+
+def get_teams_summary_data(source, as_data_frame=False):
+    """
+    Retrieves game player data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+    Returns:
+        str: The player data as a string.
+        data_frame: The player data as a pandas DataFrame.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT team_name, sum(num_matches) as num_matches
+            FROM (
+                SELECT home_team_name team_name, season_name, count(DISTINCT match_id) as num_matches
+                FROM matches
+                GROUP BY home_team_name, season_name
+                UNION 
+                SELECT away_team_name team_name, season_name, count(DISTINCT match_id) as num_matches
+                FROM matches
+                GROUP BY away_team_name, season_name
+                ) v
+            GROUP BY team_name;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
+
+def get_events_summary_data(source, as_data_frame=False):
+    """
+    Retrieves game player data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+    Returns:
+        str: The player data as a string.
+        data_frame: The player data as a pandas DataFrame.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT competition_name, count(*) count_events
+            FROM events_details ed 
+            JOIN matches m 
+            ON ed.match_id = m.match_id
+            GROUP BY competition_name
+            ORDER BY competition_name;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
 
 def get_competitions_summary_data(source, as_data_frame=False):
@@ -773,11 +919,12 @@ def get_competitions_summary_data(source, as_data_frame=False):
         conn = get_connection(source)
         cursor = conn.cursor()
 
+
         query = sql.SQL(f"""
-            SELECT competition_name, season_name, count(*) matches_count
+            SELECT competition_name, count(*) matches_count
             FROM matches
-            GROUP BY competition_name, season_name
-            ORDER BY competition_name, season_name;
+            GROUP BY competition_name
+            ORDER BY competition_name;
         """)
 
         cursor.execute(query)
@@ -796,13 +943,13 @@ def get_competitions_summary_data(source, as_data_frame=False):
             return result
 
     except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
 def get_matches_summary_data(source, as_data_frame=False):
     """
@@ -843,10 +990,9 @@ def get_matches_summary_data(source, as_data_frame=False):
             return result
 
     except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}] Error connecting or executing the query in the database.") from e

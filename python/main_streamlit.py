@@ -3,15 +3,16 @@ import sys
 import re
 from datetime import datetime
 from dotenv import load_dotenv
+from streamlit_option_menu import option_menu
+import streamlit as st
 
 from module_github import download_data_from_github_repo, get_github_data_from_matches
 from module_postgres import load_matches_data_into_postgres_from_folder, load_lineups_data_into_postgres, \
     load_events_data_into_postgres, copy_data_from_postgres_to_azure, download_match_script, \
-    get_game_players_data, get_competitions_summary_data, get_matches_summary_data
+    get_game_players_data, \
+    get_competitions_summary_data, get_matches_summary_data, get_players_summary_data, get_teams_summary_data, get_events_summary_data
 from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_pk_from_json_rows_in_database, \
     create_and_download_detailed_match_summary, create_match_summary, search_details_using_embeddings
-
-import streamlit as st
 
 def load_file(filename):
     with open(filename, "r", encoding="utf-8") as file:
@@ -52,63 +53,144 @@ def extract_section(content, section_title):
         return match.group(1).strip()
     return "Section not found."
 
+def connection_button():
+
+    data_source = st.radio(
+            "Data source:",
+            options=["Azure", "Local"],
+            index=0, horizontal=True
+        )
+
+    st.session_state.data_source = data_source.lower()
+
+def load_header():
+
+    st.set_page_config(page_title="RAG-Challenge", page_icon="🏠")
+    st.title("Sabados Tech - RAG Challenge")
+
+    st.markdown(
+        """
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        """,
+        unsafe_allow_html=True
+    )
+
+    with st.sidebar:
+
+        selected = option_menu(
+            menu_title="Menu",  # 
+            options=[
+                "The project",
+                "Competitions",
+                "Matches",
+                "Players",
+                "Teams",
+                "Events",
+                "Statistics",
+                "Chatbot",
+                "Readme"
+            ],
+            icons=[
+                "house", "list-task", "calendar", "person", "people", 
+                "list", "bar-chart", "chat-dots", "book"
+            ],  # Iconos opcionales
+            menu_icon="cast",  # Icono del menú
+            default_index=0,  # Índice de la opción por defecto
+            orientation="vertical",  # Orientación del menú
+            styles={
+                "container": {"padding": "5!important", "background-color": "#ffffff"},  # Fondo normal
+                "icon": {"color": "black", "font-size": "16px"},  # Color y tamaño de los iconos
+                "nav-link": {"font-size": "16px", "text-align": "left", "margin": "0px", "--hover-color": "#f0f0f0"},  # Estilos de los enlaces
+                "nav-link-selected": {"background-color": "#444444", "color": "white"},  # Estilo de la opción seleccionada
+            }        
+        )
+
+    icon_mapping = {
+        "The project": "house",
+        "Competitions": "list-task",
+        "Matches": "calendar",
+        "Players": "person",
+        "Teams": "people",
+        "Events": "list",
+        "Statistics": "bar-chart",
+        "Chatbot": "chat-dots",
+        "Readme": "book"
+    }
+
+    icon = icon_mapping.get(selected, "house")  # Obtiene el icono del menú seleccionado
+
+    st.markdown(
+        f"""
+        <h2><i class="bi bi-{icon}" style="margin-right: 8px;"></i>{selected}</h2>
+        """,
+        unsafe_allow_html=True
+    )
+
+    if selected.lower() == "competitions" or selected.lower() == "matches" or \
+        selected.lower() == "players" or selected.lower() == "teams" or \
+        selected.lower() == "events":
+
+        content = load_file("../statsbomb_data_introduction.md")
+        selected_section = extract_section(content, selected.capitalize())
+        st.markdown(selected_section)
+
+    return selected
+
 ###
 ### main section / page
 ###
 
-load_dotenv(dotenv_path='./../.env')
-st.set_page_config(page_title="RAG-Challenge", page_icon="🏠")
-st.title("Sabados Tech - RAG Challenge")
-
-# Create the menu in the sidebar
-menu = st.sidebar.radio(
-    "Menu",
-    ["Start", "Competitions", "Matches", "Players", "Teams", "Events", "Statistics", "Chatbot", "Readme"]
-)
-
-menu = menu.lower()
-
 try:
 
-    # Show content based on the selected option
-    if menu == "start":
-        st.subheader("💬 Overview")
-        content = load_file(".//..//README.md")
+    load_dotenv(dotenv_path='./../.env')
+    selected = load_header()
+    menu = selected.lower()
 
+    connection_button()
+    source = st.session_state.data_source
+
+    # Show content based on the selected option
+    if menu == "the project":
+
+        content = load_file(".//..//README.md")
         section = extract_section(content, "Overview")
         st.markdown(section)
 
     elif menu == "competitions":
-        st.subheader("Competitions")
-        df = get_competitions_summary_data("azure", True)
-        st.dataframe(df)
 
+        df = get_competitions_summary_data(source, True)
+        df.index = df.index + 1
+        st.dataframe(df, width=750)
+        
     elif menu == "matches":
-        st.subheader("Matches")
-        df = get_matches_summary_data("azure", True)
-        st.dataframe(df)
+
+        df = get_matches_summary_data(source, True)
+        df.index = df.index + 1
+        st.dataframe(df, width=750)
 
     elif menu == "players":
-        df = get_game_players_data("azure", 3943043, True)
-        st.markdown("### Players")
-        st.dataframe(df)
+
+        df = get_players_summary_data(source, True)
+        df.index = df.index + 1
+        st.dataframe(df, width=750)
 
     elif menu == "teams":
-        df = get_game_players_data("azure", 3943043, True)
-        st.markdown("### Players")
-        st.dataframe(df)
+
+        df = get_teams_summary_data(source, True)
+        df.index = df.index + 1
+        st.dataframe(df, width=750)
 
     elif menu == "events":
-        df = get_game_players_data("azure", 3943043, True)
-        st.markdown("### Players")
-        st.dataframe(df)
+
+        df = get_events_summary_data(source, True)
+        df.index = df.index + 1
+        st.dataframe(df, width=750)
 
     elif menu =="statistics":
 
-        st.title("Statistics")
-        s = get_tokens_statistics_from_table_column('azure', "events_details__quarter_minute", "json_", "match_id = 3943043", -1)
+        s = get_tokens_statistics_from_table_column(source, "events_details", "json_", "", 25000)
         st.markdown("### Data Statistics")
-        st.dataframe(s)
+        st.write(s)
 
     elif menu == "chatbot":
 
