@@ -6,6 +6,29 @@ from psycopg2 import sql
 import pandas as pd
 from module_azureopenai import get_chat_completion_from_azure_open_ai
 
+def get_connection(source):
+    
+    conn = None
+
+    if source.lower() == "azure":
+        # Connect to the Azure database
+        conn = psycopg2.connect(
+            host=os.getenv('DB_SERVER_AZURE'),
+            database=os.getenv('DB_NAME_AZURE'),
+            user=os.getenv('DB_USER_AZURE'),
+            password=os.getenv('DB_PASSWORD_AZURE')
+        )
+    else:
+        # Connect to the Azure database
+        conn = psycopg2.connect(
+            host=os.getenv('DB_SERVER'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
+        )
+
+    return conn
+
 def copy_data_from_postgres_to_azure(table_name, columns_list, match_id):
     """
     Connects to a local PostgreSQL database and copies data from specified tables to an Azure PostgreSQL database.
@@ -29,24 +52,10 @@ def copy_data_from_postgres_to_azure(table_name, columns_list, match_id):
     """
 
     try:
-        # Connect to the local database
-        conn = psycopg2.connect(
-            host=os.getenv('DB_SERVER'),
-            database=os.getenv('DB_NAME'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD')
-        )
-
+        conn = get_connection("local")
         cursor = conn.cursor()
 
-        # Connect to the Azure database
-        conn_azure = psycopg2.connect(
-            host=os.getenv('DB_SERVER_AZURE'),
-            database=os.getenv('DB_NAME_AZURE'),
-            user=os.getenv('DB_USER_AZURE'),
-            password=os.getenv('DB_PASSWORD_AZURE')
-        )
-        
+        conn_azure = get_connection("azure")
         cursor_azure = conn_azure.cursor()
 
         select_query=""
@@ -125,13 +134,7 @@ def load_lineups_data_into_postgres(local_folder):
     """
 
     # Connect to the database
-    conn = psycopg2.connect(
-        host=os.getenv('DB_SERVER'),
-        database=os.getenv('DB_NAME'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD')
-    )
-    
+    conn = get_connection("local")
     cursor = conn.cursor()
     # events files
 
@@ -285,13 +288,7 @@ def load_events_data_into_postgres(local_folder):
     - Database Update: Updates the 'events' and 'events_details' tables in the database with new data from the processed JSON files.
     """
         # Connect to the database
-    conn = psycopg2.connect(
-        host=os.getenv('DB_SERVER'),
-        database=os.getenv('DB_NAME'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD')
-    )
-    
+    conn = get_connection("local")
     cursor = conn.cursor()
 
     # Path to the events files
@@ -428,13 +425,7 @@ def load_matches_data_into_postgres_from_folder (folder_name):
     """
 
     # Connect to the database
-    conn = psycopg2.connect(
-        host=os.getenv('DB_SERVER'),
-        database=os.getenv('DB_NAME'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD')
-    )
-    
+    conn = get_connection("local")
     cursor = conn.cursor()
 
     # Path to the match files
@@ -592,13 +583,7 @@ def get_json_events_details_from_match_id (match_id):
     - df (pandas.DataFrame): A DataFrame containing the events data.
     """
 
-    conn = psycopg2.connect(
-        host=os.getenv('DB_SERVER'),
-        database=os.getenv('DB_NAME'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD')
-    )
-
+    conn = get_connection("local")
     cursor = conn.cursor()
 
     sql = f"""
@@ -618,25 +603,7 @@ def download_match_script(source, table_name, match_id, column_name, local_folde
 
     try:
 
-        conn = None
-
-        if source.lower() == "azure":
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER_AZURE'),
-                database=os.getenv('DB_NAME_AZURE'),
-                user=os.getenv('DB_USER_AZURE'),
-                password=os.getenv('DB_PASSWORD_AZURE')
-            )
-        else:
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER'),
-                database=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD')
-            )
-
+        conn = get_connection(source)
         cursor = conn.cursor()
 
         query = sql.SQL(f"""
@@ -689,3 +656,197 @@ def download_match_script(source, table_name, match_id, column_name, local_folde
         if conn:
             conn.close()
 
+
+
+def get_game_result_data(source, match_id, as_data_frame=False):
+    """
+    Retrieves the game result data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+        match_id (int): The ID of the match.
+    Returns:
+        str: The game result data as a string.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT m.match_date, m.competition_name, m.season_name, m.home_team_name, m.away_team_name, m.result
+            FROM matches m
+            WHERE match_id = {match_id}
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
+
+def get_game_players_data(source, match_id, as_data_frame=False):
+    """
+    Retrieves game player data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+        match_id (int): The ID of the match.
+    Returns:
+        str: The player data as a string.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT team_name, player_name, from_time, to_time, position_name 
+            FROM players
+            WHERE match_id = {match_id}
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
+
+def get_competitions_summary_data(source, as_data_frame=False):
+    """
+    Retrieves game player data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+    Returns:
+        str: The player data as a string.
+        data_frame: The competition data as a pandas DataFrame.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT competition_name, season_name, count(*) matches_count
+            FROM matches
+            GROUP BY competition_name, season_name
+            ORDER BY competition_name, season_name;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def get_matches_summary_data(source, as_data_frame=False):
+    """
+    Retrieves game matches data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+    Returns:
+        str: The player data as a string.
+        data_frame: The competition data as a pandas DataFrame.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT competition_name, season_name, match_date, home_team_name, away_team_name, result
+            FROM matches
+            order by 1, 2, 3;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        print(f"Error connecting or executing the query in the database: {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()

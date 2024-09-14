@@ -4,32 +4,29 @@
 
 ## Overview
 
-Our team, Sabados Techs, is a passionate group of friends from Argentina and Spain who share two loves: football and technology. We meet weekly in virtual events to dive deep into Microsoft technologies, and our latest challenge brings us to the forefront of AI-driven data analysis.
+Our team, [Sabados Tech](https://www.youtube.com/channel/UCw89YeTGdK74ZZ97_xcI2FA), is a passionate group of friends from Argentina and Spain who share two loves: football and technology. We meet weekly in virtual events to dive deep into Microsoft technologies, and our latest challenge brings us to the forefront of AI-driven data analysis.
 
 For the Microsoft RAG Hack Challenge, we aim to showcase the power of Retrieval-Augmented Generation (RAG) on Azure, combined with PostgreSQL and OpenAI extensions. Our project leverages advanced AI to analyze football match data, providing detailed insights into the beautiful game. Whether it’s breaking down player performance or reviewing match events, we’re using the latest cloud tools to transform raw data into actionable knowledge.
 
 Together, we believe that football isn’t just a game – it’s data waiting to be unlocked, and we’re here to show the world how Microsoft Azure can be the key.
 
-With the support of Microsoft—and a special thanks to [Bruno Capuano](https://x.com/elbruno) and  [Davide Mauri](https://x.com/mauridb), who are supportive to our community.
-We have processed match data from various football games, thanks to the resources provided by [Verne Tech](https://www.vernegroup.com/). However, we would love to see Microsoft provide even more backing to make this initiative bigger, more consistent, and impactful. This project has motivated us to dive deeper into AI-driven solutions, and if we win, we’re committed to donating our prize to a good cause.
+With the support of Microsoft - special thanks to [Bruno Capuano](https://x.com/elbruno) and  [Davide Mauri](https://x.com/mauridb), who are supportive to our community - we have processed match data from various football games, thanks to Azure resources provided by [Verne Tech](https://www.vernegroup.com/). If we win, we’re committed to donating our prize to a good cause.
 
-We’d love to secure Azure credits to process the full set of matches from [StatsBomb](https://github.com/statsbomb/open-data) and develop a Version 2 of this project.
+We’d love to secure Azure credits to process the full set of matches from [StatsBomb](https://github.com/statsbomb/open-data) and develop a Version 2 of this project. Our goal is to make this initiative bigger, more consistent, and impactful processing ALL the open data exposed by Statsbomb.
 
 Football is more than a game to us—it’s data, passion, and endless possibilities. WE LOVE FOOTBALL and with Azure and OpenAI, we’re ready to show the world just how powerful these technologies can be in transforming the way we analyze the sport we love!
 
 
+## Features
 
-
-Features
 - Data Loading: Download and import match data into PostgreSQL.
 - Data Processing: Extract, summarize, and analyze match details.
 - Integration: Interface with Azure for data transfer and use OpenAI for match summaries.
+- Prompt based Q&A using phyton and RAG pattern.
 
 
-- Load data from https://github.com/statsbomb/open-data into postgres.
 
-
-### How to participate in the challenge
+## How to participate in the challenge
 
 
 - WIP for Microsoft RAG challenge:
@@ -62,6 +59,14 @@ DB_NAME=your_database_name
 DB_USER=your_username
 DB_PASSWORD=your_password
 ```
+
+## Start the application
+
+```bash
+python -m streamlit run main.py
+streamlit hello
+```
+
 
 ## Modules description
 

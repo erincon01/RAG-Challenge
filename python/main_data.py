@@ -23,7 +23,7 @@ from module_github import download_data_from_github_repo, get_github_data_from_m
 from module_postgres import load_matches_data_into_postgres_from_folder, load_lineups_data_into_postgres, load_events_data_into_postgres
 from module_postgres import copy_data_from_postgres_to_azure, download_match_script
 from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_pk_from_json_rows_in_database
-from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary, search_details_using_embeddings
+from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary, search_details_using_embeddings, get_game_players_data
 
 def export_script_result_to_text(dataframe, summary, search_term, local_folder, filename):
     """
@@ -345,7 +345,6 @@ if __name__ == "__main__":
         # {"question_number": "Q-019", "top_n": 10, "search_type": "Cosine", "question": "Which players were most effective in disrupting the play of the the opponent through tackles, interceptions, and defensive actions?"}
 
      questions = [
-        {"question_number": "Q-010", "top_n":  5, "search_type": "InnerP", "question": "List the critical moments or sequences, such as blocked shots, successful tackles, and goal attempts"},
         {"question_number": "Q-011", "top_n":  5, "search_type": "InnerP", "question": "What was the final scoreline of the match, including goals scored by each team and any additional time or penalty shootout results?"},
         {"question_number": "Q-012", "top_n":  5, "search_type": "InnerP", "question": "Who scored the goals for each team in which minutes, and what types of goals were they, such as headers or penalties?"}
     ]

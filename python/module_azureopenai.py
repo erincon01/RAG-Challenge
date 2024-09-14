@@ -8,6 +8,29 @@ from openai import AzureOpenAI
 import datetime
 from datetime import datetime
 
+def get_connection(source):
+    
+    conn = None
+
+    if source.lower() == "azure":
+        # Connect to the Azure database
+        conn = psycopg2.connect(
+            host=os.getenv('DB_SERVER_AZURE'),
+            database=os.getenv('DB_NAME_AZURE'),
+            user=os.getenv('DB_USER_AZURE'),
+            password=os.getenv('DB_PASSWORD_AZURE')
+        )
+    else:
+        # Connect to the Azure database
+        conn = psycopg2.connect(
+            host=os.getenv('DB_SERVER'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
+        )
+
+    return conn
+
 def get_chat_completion_from_azure_open_ai(system_message, user_prompt, temperature, tokens):
     """
     Retrieves a chat completion from Azure OpenAI API.
@@ -77,26 +100,7 @@ def get_tokens_statistics_from_table_column(source, table_name, column_name, fil
     """
     encoder = tiktoken.get_encoding("cl100k_base")
 
-    conn = None
-
-    if source.lower() == "azure":
-        # Connect to the Azure database
-        conn = psycopg2.connect(
-            host=os.getenv('DB_SERVER_AZURE'),
-            database=os.getenv('DB_NAME_AZURE'),
-            user=os.getenv('DB_USER_AZURE'),
-            password=os.getenv('DB_PASSWORD_AZURE')
-        )
-    else:
-        # Connect to the Azure database
-        conn = psycopg2.connect(
-            host=os.getenv('DB_SERVER'),
-            database=os.getenv('DB_NAME'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD')
-        )
-
-    sql = ""
+    conn = get_connection(source)
     cursor = conn.cursor()
 
     sql = f"""
@@ -234,25 +238,7 @@ def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, p
     """
     try:
 
-        conn = None
-
-        if source.lower() == "azure":
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER_AZURE'),
-                database=os.getenv('DB_NAME_AZURE'),
-                user=os.getenv('DB_USER_AZURE'),
-                password=os.getenv('DB_PASSWORD_AZURE')
-            )
-        else:
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER'),
-                database=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD')
-            )
-
+        conn = get_connection(source)
         cursor = conn.cursor()
 
         query=""
@@ -343,25 +329,7 @@ def create_match_summary(source, tablename, match_id, system_message, temperatur
     """
     try:
 
-        conn = None
-
-        if source.lower() == "azure":
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER_AZURE'),
-                database=os.getenv('DB_NAME_AZURE'),
-                user=os.getenv('DB_USER_AZURE'),
-                password=os.getenv('DB_PASSWORD_AZURE')
-            )
-        else:
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER'),
-                database=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD')
-            )
-
+        conn = get_connection(source)
         cursor = conn.cursor()
 
         query = sql.SQL(f"""
@@ -459,30 +427,12 @@ def search_details_using_embeddings(source, table_name, match_id, search_type, i
         if search_type.lower() == "innerp":
             k_search = "#"
 
-        conn = None
-
-        if source.lower() == "azure":
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER_AZURE'),
-                database=os.getenv('DB_NAME_AZURE'),
-                user=os.getenv('DB_USER_AZURE'),
-                password=os.getenv('DB_PASSWORD_AZURE')
-            )
-        else:
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER'),
-                database=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD')
-            )
-
+        conn = get_connection(source)
         cursor = conn.cursor()
 
         summary = "summary"
         if include_json.lower() == "yes":
-            summary = "json_"
+            summary = "json_"        
 
         query = sql.SQL(f"""
             SELECT id, {summary}
@@ -577,25 +527,7 @@ def get_dataframe_from_ids(source, table_name, summary, ids):
 
     try:
 
-        conn = None
-
-        if source.lower() == "azure":
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER_AZURE'),
-                database=os.getenv('DB_NAME_AZURE'),
-                user=os.getenv('DB_USER_AZURE'),
-                password=os.getenv('DB_PASSWORD_AZURE')
-            )
-        else:
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER'),
-                database=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD')
-            )
-
+        conn = get_connection(source)
         cursor = conn.cursor()
 
         # convertir array de ids a string de numeros separado por comas
@@ -606,7 +538,7 @@ def get_dataframe_from_ids(source, table_name, summary, ids):
             FROM {table_name}
             WHERE id IN ({ids_str});
         """)
-        cursor.execute(query)
+        cursor.execute(query)        
 
         # convertir el resultado a un pandas dataframe
         df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
@@ -621,127 +553,3 @@ def get_dataframe_from_ids(source, table_name, summary, ids):
         if conn:
             conn.close()
 
-
-def get_game_result_data(source, match_id):
-    """
-    Retrieves the game result data from the database.
-    Args:
-        source (str): The source of the database (either "azure" or any other value).
-        match_id (int): The ID of the match.
-    Returns:
-        str: The game result data as a string.
-    Raises:
-        Exception: If there is an error connecting to or executing the query in the database.
-    """
-
-    try:
-
-        conn = None
-
-        if source.lower() == "azure":
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER_AZURE'),
-                database=os.getenv('DB_NAME_AZURE'),
-                user=os.getenv('DB_USER_AZURE'),
-                password=os.getenv('DB_PASSWORD_AZURE')
-            )
-        else:
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER'),
-                database=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD')
-            )
-
-        cursor = conn.cursor()
-
-        query = sql.SQL(f"""
-            SELECT m.match_date, m.competition_name, m.season_name, m.home_team_name, m.away_team_name, m.result
-            FROM matches m
-            WHERE match_id = {match_id}
-        """)
-
-        cursor.execute(query)
-        rowCount = cursor.rowcount
-
-        if rowCount == 0:
-            return "No results found."
-
-        # convertir el resultado a un pandas dataframe
-        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
-        result = df.to_string(index=False)
-
-        return result
-
-    except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
-
-
-def get_game_players_data(source, match_id):
-    """
-    Retrieves game player data from the database.
-    Args:
-        source (str): The source of the database (either "azure" or any other value).
-        match_id (int): The ID of the match.
-    Returns:
-        str: The player data as a string.
-    Raises:
-        Exception: If there is an error connecting to or executing the query in the database.
-    """
-
-    try:
-
-        conn = None
-
-        if source.lower() == "azure":
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER_AZURE'),
-                database=os.getenv('DB_NAME_AZURE'),
-                user=os.getenv('DB_USER_AZURE'),
-                password=os.getenv('DB_PASSWORD_AZURE')
-            )
-        else:
-            # Connect to the Azure database
-            conn = psycopg2.connect(
-                host=os.getenv('DB_SERVER'),
-                database=os.getenv('DB_NAME'),
-                user=os.getenv('DB_USER'),
-                password=os.getenv('DB_PASSWORD')
-            )
-
-        cursor = conn.cursor()
-
-        query = sql.SQL(f"""
-            SELECT team_name, player_name, from_time, to_time, position_name from players
-            WHERE match_id = {match_id}
-        """)
-
-        cursor.execute(query)
-        rowCount = cursor.rowcount
-
-        if rowCount == 0:
-            return "No results found."
-
-        # convertir el resultado a un pandas dataframe
-        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
-        result = df.to_string(index=False)
-
-        return result
-
-    except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()

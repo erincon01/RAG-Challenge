@@ -1,4 +1,6 @@
+dotenv
 requests
 pandas 
 psycopg2
 tiktoken
+streamlit

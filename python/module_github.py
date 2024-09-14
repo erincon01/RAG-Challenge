@@ -4,6 +4,29 @@ import pandas as pd
 import psycopg2
 from psycopg2 import sql
 
+def get_connection(source):
+    
+    conn = None
+
+    if source.lower() == "azure":
+        # Connect to the Azure database
+        conn = psycopg2.connect(
+            host=os.getenv('DB_SERVER_AZURE'),
+            database=os.getenv('DB_NAME_AZURE'),
+            user=os.getenv('DB_USER_AZURE'),
+            password=os.getenv('DB_PASSWORD_AZURE')
+        )
+    else:
+        # Connect to the Azure database
+        conn = psycopg2.connect(
+            host=os.getenv('DB_SERVER'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
+        )
+
+    return conn
+
 def get_json_list_from_repo(repo_owner, repo_name, dataset):
     """
     Retrieves a list of JSON files from a GitHub repository.
@@ -169,13 +192,7 @@ def  get_github_data_from_matches(repo_owner, repo_name, dataset_name, local_fol
 
     try:        
         # Connect to the database
-        conn = psycopg2.connect(
-            host=os.getenv('DB_SERVER'),
-            database=os.getenv('DB_NAME'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD')
-        )
-        
+        conn = get_connection("local")
         cursor = conn.cursor()
 
         count_query = sql.SQL(f"""select distinct match_id from matches order by match_id""")
