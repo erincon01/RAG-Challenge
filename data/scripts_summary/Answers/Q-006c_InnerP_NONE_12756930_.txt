@@ -1,29 +1,29 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        What shots on goal did each team take, in minutes between 60 and 90?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
+
+
+## DATA FRAME
+
 I have not found rows that matches in the database.

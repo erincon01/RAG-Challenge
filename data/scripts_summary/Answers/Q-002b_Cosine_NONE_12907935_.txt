@@ -1,35 +1,35 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Which players recorded the highest number of carries and passes in both halves in minutes 15 to 30?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
---------
 
-EVENTS:
+
+## DATA FRAME
+
+
+
+
+### EVENTS
   summary
  In the first half of the match, at the 9th minute, England is showcasing some fluid play. \nIt all begins with John Stones, positioned as the Right Center Back, who carries the ball forward from a throw-in at 00:09:12. He moves the ball to a location near the center of the pitch, demonstrating solid control and composure.\nJust before that, at 00:09:05, Bukayo Saka, playing as the Right Wing, also carries the ball after receiving it under pressure. He makes a quick move, advancing the ball to a position closer to the opponent's goal. Saka's efforts are crucial as he is actively involved in the build-up play.\nMeanwhile, Álvaro Morata from Spain applies pressure on the England players, trying to disrupt their rhythm. This pressure is noted at 00:09:01, but England maintains possession.\nAs the play progresses, Jordan Pickford, the England keeper, makes a strategic pass to Saka at 00:09:03. This pass is under pressure, but it successfully reaches Saka, who then receives the ball at 00:09:05.\nSaka quickly passes to Kyle Walker at 00:09:07, who is positioned as the Right Back. Walker receives the ball and carries it forward, showcasing his ability to transition the play effectively. \nAt 00:09:08, Walker makes a further carry, moving the ball closer to the left side of the pitch. He then passes back to John Stones at 00:09:10, who receives the ball at 00:09:12, completing a series of quick exchanges among the England players.\nThroughout this sequence, England demonstrates their tactical awareness and teamwork, maintaining possession and building up their attack. The score remains unchanged as the match continues.
  In the first half of the match, at the 9th minute, England's Jude Bellingham made a notable carry from the left wing, maneuvering under pressure before reaching the end location at coordinates [72.6, 10.6]. This action was recorded at 00:09:29, showcasing Bellingham's skill in maintaining possession.\nJust before this, at 00:09:15, John Stones, positioned as a right center back, executed a ground pass to keeper Jordan Pickford, who received the ball effectively at [21.0, 26.3]. Pickford then carried the ball forward, moving to [25.6, 21.6] while still under pressure from Spain's Daniel Olmo Carvajal, who applied pressure at 00:09:21.\nAs the play continued, Pickford attempted a high pass towards Luke Shaw, but the pass was incomplete, failing to reach its intended target. This occurred at 00:09:21, and Shaw, positioned as a left back, was unable to secure the ball, which was noted at 00:09:25.\nSpain's Daniel Carvajal then made a recovery pass, but it too was incomplete. Meanwhile, Declan Rice, playing as a left defensive midfielder, managed to pass the ball back to Bellingham at 00:09:28, who received it successfully despite being under pressure.\nThe sequence culminated in a foul committed by Rodrigo Hernández Cascante of Spain at 00:09:29, which resulted in a foul won by Jude Bellingham. This moment highlighted the intensity of the match, with both teams vying for control as the first half progressed.
@@ -61,10 +61,10 @@ EVENTS:
  In the 83rd minute of the match, Spain was in full swing, showcasing their attacking prowess. \nAt 38:30, Martín Zubimendi Ibáñez, positioned as a Right Defensive Midfielder, made a crucial ground pass to José Ignacio Fernández Iglesias, who was playing as a Right Center Back. This pass was under pressure but successfully reached its target, allowing Spain to maintain possession.\nJust a few seconds later, at 38:31, José Ignacio Fernández Iglesias received the ball and carried it forward, advancing to a location that set up the next play. He then executed another ground pass at 38:34 to Daniel Olmo Carvajal, who was positioned as a Center Attacking Midfielder. This pass was well-placed, allowing Olmo to receive the ball cleanly.\nContinuing the momentum, Olmo carried the ball forward at 38:35, moving into a more attacking position. He then made a precise ground pass at 38:40 back to Nicholas Williams Arthuer, who was on the Left Wing. This pass was executed perfectly, allowing Williams to receive the ball at 90.1, 22.5.\nAt 38:41, Williams took possession and immediately looked to make an impact. He carried the ball towards the opponent's goal, showcasing his speed and skill. \nJust moments later, at 38:42, Williams made a ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the Right Wing. This pass was crucial as it allowed Spain to maintain their attacking momentum.\nAt 38:43, Lamine Yamal Nasraoui Ebana received the ball and carried it forward, further advancing Spain's attack. He then made a ground pass at 38:44 to Daniel Carvajal, who was positioned to continue the offensive play.\nThroughout this sequence, Spain demonstrated their fluid passing and movement, creating opportunities and maintaining pressure on their opponents. The players involved, including Zubimendi, Fernández Iglesias, Olmo, Williams, and Lamine Yamal, all contributed to a cohesive and dynamic attacking display.
  In the 83rd minute of the match, Spain was in control of the ball, showcasing a series of coordinated plays. \n**83:00** - Daniel Carvajal Ramos, playing as the right back, initiated a ball recovery, regaining possession for Spain. He was positioned at [106.5, 66.0] and quickly transitioned into a carry, moving the ball forward to [100.0, 64.9].\n**83:00** - Carvajal then executed a precise ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing at [90.9, 64.4]. This pass was well-timed, allowing Spain to maintain their attacking momentum.\n**83:00** - Lamine Yamal received the ball and carried it forward, showcasing his agility and control. He then passed it to Nicholas Williams Arthuer, who was on the left wing at [96.2, 46.1]. Williams received the ball cleanly and continued to advance, carrying it to [95.0, 51.6].\n**83:00** - Meanwhile, Fabián Ruiz Peña, positioned in the left defensive midfield, received a pass from Carvajal and carried the ball to [106.1, 52.8]. He then made a ground pass back to Carvajal, who was now at [111.4, 61.0].\n**83:00** - Carvajal attempted a quick cut-back pass, but it was blocked by Phil Foden of England, who was applying pressure. Foden's timely intervention prevented a potential scoring opportunity for Spain.\nThroughout this sequence, Spain demonstrated their cohesive teamwork and strategic ball movement, but Foden's defensive effort highlighted the ongoing battle for possession in this tightly contested match.------
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
-2024-07-14        UEFA Euro        2024          Spain        England  2 - 1-----------
+2024-07-14        UEFA Euro        2024          Spain        England  2 - 1---
 
 
-QUESTION:
-Which players recorded the highest number of carries and passes in both halves in minutes 15 to 30?--------
+## PROMPT
+Which players recorded the highest number of carries and passes in both halves in minutes 15 to 30?

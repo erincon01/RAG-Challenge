@@ -1,23 +1,23 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Which players were most effective in disrupting the play of the the opponent through tackles, interceptions, and defensive actions?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 The players who were most effective in disrupting the play of the opponent through tackles, interceptions, and defensive actions include:
@@ -27,13 +27,13 @@ The players who were most effective in disrupting the play of the opponent throu
 4. **Kyle Walker (England)** - He made a crucial interception that disrupted Spain's play, showcasing England's defensive efforts.
 5. **Marc Guehi (England)** - He made effective clearances and interceptions, contributing to England's defensive solidity.
 These players played pivotal roles in maintaining their teams' defensive structures and disrupting the opponent's attacking flow..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
   summary
  In the opening minute of the match, Spain quickly establishes possession. At 1:16, Robin Aime Robert Le Normand receives the ball from a throw-in, showcasing his role as a Right Center Back. Just a second earlier, Aymeric Laporte, playing as the Left Center Back, executed a ground pass to Le Normand, who was positioned at 35.6, 55.6 on the field.\nLe Normand then carries the ball forward, moving to 42.9, 54.1, demonstrating his ability to advance play. At 1:22, he passes the ball back to Laporte, who is now at 43.5, 25.2. Laporte, maintaining the momentum, carries the ball further to 61.7, 20.2 by 1:24.\nContinuing the build-up, at 1:28, Laporte delivers a high pass to Lamine Yamal Nasraoui Ebana, who is positioned at 97.1, 71.6. This sequence of plays highlights Spain's early strategy of maintaining possession and advancing the ball effectively, setting the tone for the match.
  In the opening minute of the match, England's Luke Shaw made an early impact. At 1:38, he received the ball under pressure and carried it forward, showcasing his skill as a left back. Just a second later, at 1:39, Shaw attempted a dribble, successfully nutmegging his opponent but ultimately the outcome was incomplete, as he couldn't maintain possession.\nSpain's Daniel Carvajal responded quickly, winning a tackle against Shaw at the same moment, demonstrating Spain's defensive resilience. Carvajal then carried the ball forward, moving it to a more advantageous position.\nAt 1:43, Carvajal executed a ground pass to Robin Aime Robert Le Normand, who was positioned to continue the play for Spain. This sequence highlighted Spain's ability to transition quickly from defense to attack.\nMeanwhile, Shaw continued to be active, winning a duel against Lamine Yamal, who had just received the ball from a throw-in. Shaw's defensive efforts were crucial in maintaining England's pressure.\nAs the play progressed, Declan Rice received a pass from Shaw at 1:32, allowing him to carry the ball forward. Rice then made a ground pass to Jude Bellingham, who was well-positioned to receive it.\nBellingham, showing his agility, carried the ball forward before passing it back to Shaw, who was now in a better position to advance the play. This series of actions illustrated England's cohesive teamwork and strategic ball movement.\nThe first minute was filled with intense action, showcasing both teams' skills and strategies as they vied for control of the match.
@@ -66,10 +66,10 @@ EVENTS:
  In the 68th minute of the match, Spain was pressing hard against England, showcasing their attacking prowess. \nAt 23:45, Luke Shaw of England executed a crucial clearance with his head, under pressure from Spain, as they attempted to capitalize on a corner kick. This clearance was vital in maintaining England's defensive integrity.\nJust moments later, at 23:47, Daniel Olmo Carvajal from Spain regained possession with a ball recovery, demonstrating his tenacity in midfield. He then carried the ball forward, showcasing his dribbling skills, and moved it to a more advantageous position.\nContinuing the attack, Olmo attempted a high cross to Martín Zubimendi Ibáñez at 23:49. However, the pass was incomplete, failing to connect with Zubimendi. \nAt 23:51, Zubimendi received the ball but was unable to maintain possession, as the keeper, Jordan Pickford, intervened with a punch to clear the danger, ensuring the ball remained in play safely.\nAs the pressure mounted, Bukayo Saka of England applied pressure on Spain's Nicholas Williams Arthuer at 23:53, trying to disrupt Spain's rhythm. Nevertheless, Williams managed to carry the ball forward, evading Saka's challenge.\nFinally, at 23:58, Williams executed a ground pass to Zubimendi, aiming to keep the momentum alive for Spain. The sequence of events highlighted Spain's relentless pursuit of a goal, while England's defense remained resolute under pressure.
  In the 69th minute of the match, Spain initiated a series of actions following a corner kick. Fabián Ruiz Peña, positioned in the Left Defensive Midfield, carried the ball from a location near the left side of the pitch (coordinates: [89.5, 33.1]) towards the end location at [93.3, 35.9]. This carry lasted just under a second, showcasing his quick movement.\nAs the play unfolded, Phil Foden from England applied pressure on Spain, attempting to disrupt their rhythm. However, Spain maintained possession and continued their attack.\nFabián Ruiz Peña then took a shot at goal in the 69th minute, specifically at 00:24:07.631. He aimed with his left foot, but unfortunately, the shot went off target, missing the goal. The keeper, Jordan Pickford, was positioned to face the shot but did not need to make a save as it did not threaten the goal.\nFollowing this, Martín Zubimendi Ibáñez received the ball and carried it forward, demonstrating Spain's intent to keep the pressure on England. He then attempted a pass to Robin Aime Robert Le Normand, but the pass was incomplete, leading to a duel where Le Normand lost an aerial challenge against Marc Guehi of England, who cleared the ball effectively.\nDespite the pressure from Spain, England's defense held firm, with Guehi and Kobbie Mainoo both making crucial clearances to maintain their defensive integrity. The sequence of events highlighted Spain's attacking efforts, but they were unable to convert their chances into goals at this moment in the match.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -122,5 +122,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 Which players were most effective in disrupting the play of the the opponent through tackles, interceptions, and defensive actions?

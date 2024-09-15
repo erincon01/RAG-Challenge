@@ -1,23 +1,23 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Count the number of carries and passes per team in minutes between 15 to 30.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 In the minutes between 15 to 30, the counts are as follows:
@@ -28,15 +28,15 @@ In the minutes between 15 to 30, the counts are as follows:
 - Carries: 5
 - Passes: 9
 This reflects the offensive and defensive actions taken by both teams during that period..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
---------
 
-EVENTS:
+
+## DATA FRAME
+
+
+
+
+### EVENTS
   summary
  In the 10th minute of the match, England's Marc Guehi committed a foul against Spain's Aymeric Laporte. This incident occurred at 10 minutes and 15 seconds into the first half. The foul was significant enough to earn Laporte a free kick, showcasing the defensive pressure he was under at the time.\nAs the play unfolded, England maintained possession, but the foul won by Laporte shifted the momentum slightly in favor of Spain. The referee's whistle indicated the foul, and the players prepared for the ensuing free kick, setting the stage for the next phase of the game.
  In the first half of the match, at the 10th minute, Spain is demonstrating a series of coordinated plays. \n**10:30** - Aymeric Laporte, positioned as the Left Center Back, initiates the action with a free kick. He delivers a ground pass to Robin Aime Robert Le Normand, who is stationed as the Right Center Back. The pass travels approximately 22.19 meters, successfully reaching Le Normand at the 11.5, 55.7 location on the field.\n**10:32** - Le Normand receives the ball, marking a smooth transition in possession for Spain. \n**10:34** - Le Normand then passes the ball back to Aymeric Laporte, who is now at 19.7, 27.9 on the field. This pass is also a ground pass, traveling 24.62 meters.\n**10:36** - Laporte receives the ball and carries it forward, moving to the location of 27.8, 28.1. \n**10:40** - Continuing the play, Laporte sends a left-footed ground pass back to Le Normand, who is now at 26.6, 49.5. This pass is executed with precision, maintaining Spain's possession.\n**10:41** - Le Normand receives the ball again, showcasing Spain's effective ball movement and teamwork. \nThroughout this sequence, Spain's players are effectively utilizing short passes and carries to maintain possession and advance the ball strategically. The keeper, Unai Simón Mendibil, remains alert, ready to support his teammates as they build their attack. The score remains unchanged as the match progresses, but Spain's fluid play indicates their intent to create scoring opportunities.
@@ -67,10 +67,10 @@ EVENTS:
  In the 77th minute of the match, Spain is showcasing a series of coordinated plays. \nAt **32:15**, Fabián Ruiz Peña initiates the action with a ground pass to Robin Aime Robert Le Normand, who receives the ball effectively. This sets the stage for a quick transition as Le Normand carries the ball forward to **32:24**.\nLe Normand then makes a decisive carry, moving the ball to a more advanced position before passing it to Daniel Carvajal Ramos at **32:26**. Carvajal, now in possession, quickly receives the ball and continues the play.\nAt **32:29**, Carvajal delivers a high cross to Nicholas Williams Arthuer, aiming to create a scoring opportunity. The ball travels a significant distance, but the outcome of this cross is yet to be determined.\nMeanwhile, Le Normand continues to be active, receiving another pass from Carvajal at **32:20** and then carrying the ball further to **32:22**. He maintains possession and looks for options to advance the play.\nAs the sequence unfolds, Fabián Ruiz Peña also gets involved again, receiving a pass from Le Normand at **32:22** and carrying the ball to **32:23**. This fluid movement highlights Spain's tactical approach as they work together to penetrate the opposing defense.\nThe minute concludes with Spain maintaining possession and looking to capitalize on their coordinated efforts, showcasing their teamwork and strategy on the field.
  In the 77th minute of the match, the action intensified as England and Spain battled for possession. \nAt 32 minutes and 31 seconds into the second half, Nicholas Williams Arthuer of Spain received the ball on the left wing and began a carry, moving the ball forward to a new location. He demonstrated skill and control, advancing the play for his team.\nJust moments later, at 32 minutes and 39 seconds, Arthuer attempted a high cross pass aimed at Mikel Oyarzabal Ugarte, but the pass was incomplete, failing to reach its intended target. This was a crucial moment as Spain was under pressure from the English defense.\nAs the play continued, John Stones of England made a vital clearance at 32 minutes and 40 seconds, using his head to clear the ball away from danger. This clearance was essential in maintaining England's defensive integrity.\nHowever, Spain quickly regained possession, with Oyarzabal attempting to receive the ball but failing to do so, resulting in another incomplete action for Spain. \nKyle Walker of England also contributed defensively during this sequence, making a clearance of his own at 32 minutes and 31 seconds, showcasing the defensive efforts from both teams as they fought for control of the match.\nThe tension was palpable as both teams exchanged possession, with Spain's Oyarzabal under pressure, ultimately losing an aerial duel against Stones, marking a significant moment in this ongoing contest. \nThe score remained unchanged as the teams continued to battle fiercely for every inch on the pitch.------
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
-2024-07-14        UEFA Euro        2024          Spain        England  2 - 1-----------
+2024-07-14        UEFA Euro        2024          Spain        England  2 - 1---
 
 
-QUESTION:
-Count the number of carries and passes per team in minutes between 15 to 30--------
+## PROMPT
+Count the number of carries and passes per team in minutes between 15 to 30

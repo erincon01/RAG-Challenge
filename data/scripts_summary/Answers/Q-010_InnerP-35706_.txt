@@ -1,23 +1,23 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
             Answer the users QUESTION using the DOCUMENT text above.
             Keep your answer ground in the facts of the DOCUMENT.
             If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
         .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        List the critical moments or sequences, such as blocked shots, successful tackles, and goal attempts.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 1. **Blocked Pass**: At 17:01, Lamine Yamal's low pass aimed at a teammate was intercepted by England's Luke Shaw, disrupting Spain's momentum.
@@ -31,15 +31,15 @@
 9. **Corner Kick**: At 68:00, Lamine Yamal took another corner kick, which was incomplete and cleared by Jordan Pickford.
 10. **Pressure and Recovery**: At 23:47, Daniel Olmo regained possession for Spain after a clearance by Luke Shaw.
 These moments highlight the intensity and critical actions taken by both teams throughout the match..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
---------
 
-EVENTS:
+
+## DATA FRAME
+
+
+
+
+### EVENTS
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         summary
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       In the first half of the match, at the 17th minute, Spain initiated a series of plays that showcased their attacking intent. \nIt all began with Daniel Carvajal Ramos, positioned as the right back, executing a throw-in that reached Fabián Ruiz Peña. This throw-in was a high pass, effectively moving the ball into play at the 17:14 mark. Spain maintained possession as they looked to build an attack.\nShortly after, Lamine Yamal Nasraoui Ebana, playing on the right wing, received the ball and carried it forward, demonstrating his agility and control. This carry took place at 17:00, and he was in a prime position to create an opportunity for Spain.\nHowever, as Lamine attempted to pass the ball forward, his low pass aimed at a teammate was intercepted. The pass, which was incomplete, occurred at 17:01 and was blocked by England's Luke Shaw, who was quick to react and effectively disrupted Spain's momentum. This defensive action by Shaw was crucial in maintaining England's defensive structure.\nThus, the sequence of events highlighted Spain's efforts to penetrate England's defense, but ultimately, it was Shaw's timely block that thwarted their advance, keeping the scoreline unchanged at this point in the match.
                                                                                                             In the 17th minute of the match, Spain is in possession, and the action unfolds rapidly. \nAt **17:16**, Kobbie Mainoo of England applies pressure on Spain's Fabián Ruiz Peña, who is under pressure but manages to receive the ball successfully. This moment is crucial as it highlights the intensity of the game, with Spain trying to maintain control.\nJust moments later, at **17:18**, Unai Simón Mendibil, Spain's keeper, receives a low pass from Fabián Ruiz Peña, showcasing a quick transition in play. The keeper's ability to handle the ball under pressure is vital for Spain's strategy.\nFollowing this, at **17:20**, Unai Simón plays a ground pass to Aymeric Laporte, who is positioned well to continue the play. This pass is executed with precision, allowing Spain to maintain their possession.\nAt **17:21**, Aymeric Laporte receives the ball and immediately carries it forward, demonstrating his intent to advance the play. He then passes to Marc Cucurella Saseta at **17:22**, who receives the ball cleanly, continuing Spain's offensive momentum.\nCucurella then carries the ball forward at **17:24**, before passing it back to Aymeric Laporte at **17:25**. Laporte, now in a better position, receives the ball again and continues to push forward.\nFinally, at **17:28**, Aymeric Laporte makes a significant pass to Robin Aime Robert Le Normand, aiming to create a scoring opportunity. This sequence of events illustrates Spain's cohesive teamwork and strategic ball movement as they look to break through England's defense. \nThroughout this minute, Spain's players demonstrate their skill and coordination, with Unai Simón, Fabián Ruiz Peña, Aymeric Laporte, and Marc Cucurella all playing pivotal roles in maintaining possession and advancing the ball.
@@ -58,12 +58,12 @@ In the 82nd minute of the match, the action intensified as England and Spain bat
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                In the 82nd minute of the match, Spain made a tactical substitution. Robin Aime Robert Le Normand, who had been playing as a Right Center Back, was replaced by José Ignacio Fernández Iglesias. This change was part of Spain's strategy as they sought to adjust their formation and tactics in the closing stages of the game. The possession at this moment was with England, indicating that Spain was looking to regain control and possibly create scoring opportunities.------
 
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
-2024-07-14        UEFA Euro        2024          Spain        England  2 - 1-----------
+2024-07-14        UEFA Euro        2024          Spain        England  2 - 1---
 
 
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -115,8 +115,8 @@ team_name                     player_name from_time to_time             position
   England                     Cole Palmer     69:53   69:58  Right Defensive Midfield
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
-    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_-----------
+    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_---
 
 
-QUESTION:
-List the critical moments or sequences, such as blocked shots, successful tackles, and goal attempts--------
+## PROMPT
+List the critical moments or sequences, such as blocked shots, successful tackles, and goal attempts

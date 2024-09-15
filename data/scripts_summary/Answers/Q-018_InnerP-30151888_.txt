@@ -1,36 +1,36 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Were there any significant injuries during the match, detailing the players affected and the impact on their teams?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 Yes, there were significant injuries during the match. 
 1. **Declan Rice** of England suffered an injury stoppage at **29:59**. This injury occurred after a foul committed by Spain's Daniel Olmo, which may have affected England's midfield stability as Rice plays a crucial role in their defensive setup.
 2. **Phil Foden** also experienced an injury stoppage at **32:22**. His injury came during a sequence where he was involved in applying pressure on Spain's Fabián Ruiz. Foden's absence could impact England's attacking options, as he is a key player in their offensive strategy.
 These injuries added to the tension of the match and could have influenced the teams' performances moving forward..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
   summary
  In the first period of the match, at the 13th minute, Spain showcased a series of coordinated plays that highlighted their possession and teamwork.\nAt **13:30**, Robin Aime Robert Le Normand, playing as a Right Center Back, received the ball, demonstrating his ability to control the game from the backline. He then carried the ball forward, moving it to a more advantageous position.\nJust a few seconds later, at **13:34**, Le Normand executed a ground pass to Daniel Carvajal Ramos, the Right Back, who was positioned further up the field. Carvajal received the ball cleanly, maintaining Spain's possession.\nContinuing the momentum, at **13:35**, Carvajal carried the ball forward, advancing it to a more strategic location on the pitch. His movement was crucial in keeping the pressure on the opposing team.\nAt **13:37**, Carvajal made another ground pass, this time to Rodrigo Hernández Cascante, who was positioned as a Right Defensive Midfielder. This pass was precise, allowing Rodrigo to take control of the ball and continue the attack.\nRodrigo then carried the ball at **13:38**, moving it further down the field, showcasing his dribbling skills and maintaining Spain's attacking flow. He then passed the ball to Aymeric Laporte at **13:41**, who was positioned as a Left Center Back. Laporte received the ball effectively, demonstrating Spain's fluid passing game.\nAt **13:44**, Laporte received the ball and carried it forward, further advancing Spain's position on the field. This sequence of events illustrated Spain's cohesive play and their ability to maintain possession while looking for opportunities to penetrate the opposition's defense.\nThroughout this minute, Spain's players, including Carvajal, Le Normand, Rodrigo, and Laporte, worked in harmony, showcasing their tactical awareness and skillful execution. The score remained unchanged, but the pressure was clearly mounting on their opponents as Spain continued to dominate possession.
  In the first half of the match, the action unfolded rapidly around the 13th minute, showcasing some key plays from both England and Spain.\nAt **13:55**, Jude Bellingham of England made a significant carry down the left wing, maneuvering under pressure and advancing the ball to a location near the edge of the penalty area. This was a crucial moment as England maintained possession, with the score still at 0-0.\nJust moments later, at **13:45**, Aymeric Laporte from Spain executed a ground pass to Nicholas Williams Arthuer, who received the ball effectively at **13:47**. Williams then carried the ball forward, demonstrating Spain's intent to attack.\nAs the play progressed, Williams attempted a high cross to Álvaro Morata at **13:51**, but the pass was incomplete, leading to a clearance by Marc Guehi of England at **13:52**. This clearance was vital as it relieved the pressure on England's defense.\nFollowing the clearance, Kobbie Mainoo of England made a recovery pass to Phil Foden at **13:53**, who then received the ball at **13:54**. Foden quickly passed back to Jude Bellingham, who was in a promising position on the left wing, receiving the ball at **13:55**. \nThis sequence of events highlighted the back-and-forth nature of the match, with both teams showcasing their skills and tactical awareness, yet the score remained unchanged at 0-0 as the first half continued.
@@ -48,10 +48,10 @@ EVENTS:
  In the first half of the match, the action heated up around the 44th minute. \nAt **44:00**, Spain's **Daniel Carvajal Ramos** was dispossessed by England's **Jude Bellingham**, who executed a successful tackle, gaining possession for his team. This moment marked a shift in momentum as England began to press forward.\nJust moments later, at **44:08**, **Kyle Walker** of England won a foul, further solidifying their control in this phase of play. \nFollowing this, **Jude Bellingham** carried the ball forward, showcasing his skill and determination. He made a crucial pass to **Harry Kane** at **44:04**, setting up a promising opportunity. Kane received the ball and, under pressure from Spain's **Rodrigo Hernández Cascante**, managed to take a shot at goal at **44:05**. \nHowever, the shot was blocked by Rodrigo, who was quick to react, preventing a potential goal. The keeper, **Unai Simón Mendibil**, was also on alert, ready to respond if needed. \nAs the play continued, England maintained their pressure, with **Nicholas Williams Arthuer** from Spain attempting to regain possession. However, **Kyle Walker** successfully recovered the ball for England, demonstrating their resilience in the face of Spain's attempts to counter.\nThe tension in the match was palpable as both teams fought for dominance, with England looking to capitalize on their chances while Spain aimed to regain control before the half-time whistle.
  In a thrilling moment during the first half of the match, England's Phil Foden made a significant impact at the 45th minute. After a free kick, Foden successfully recovered the ball, showcasing his agility and awareness on the field.\nJust moments later, Declan Rice attempted a high cross to Harry Kane, but unfortunately, the pass was incomplete. Kane, positioned as the center forward, received the ball but was under pressure and lost an aerial duel against Spain's Daniel Carvajal, who executed a clearance with his head, effectively relieving the pressure on his team.\nAs the clock ticked towards the end of the first half, Foden seized an opportunity to shoot from open play. With a volley using his left foot, he aimed for the goal, but Spain's keeper, Unai Simón, was alert and made a fantastic save, denying England a goal. The score remained unchanged as the first half came to a close, with both teams showcasing their defensive skills and determination.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -104,5 +104,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 Were there any significant injuries during the match, detailing the players affected and the impact on their teams?

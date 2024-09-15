@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Which areas on the pitch had the highest concentration of passes, carries, and key actions for both teams during the match?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
    summary
  In the first five minutes of the match between England and Spain, the action unfolded rapidly, showcasing both teams' tactical maneuvers.\nAt the 5th minute, Declan Rice of England initiated a pressure play, attempting to regain possession for his team. However, Spain maintained control, with Álvaro Morata receiving a pass from his teammate, which he executed under pressure. Morata then passed the ball to Rodrigo Hernández Cascante, who successfully received it and carried it forward.\nRodrigo, now in possession, made a ground pass to Robin Le Normand, who was positioned as a right center back. Le Normand received the ball cleanly and continued the play by carrying it further up the field. He then passed to Daniel Carvajal, who was positioned on the right wing.\nMeanwhile, England's Phil Foden attempted to receive a pass but was unsuccessful, indicating a missed opportunity for the English side. Spain's Fabián Ruiz Peña then made a significant carry, moving the ball forward before passing it to Morata, who was again involved in the play.\nMorata, demonstrating his skill, carried the ball while under pressure, showcasing Spain's attacking intent. The sequence of events highlighted Spain's ability to maintain possession and create opportunities, while England struggled to regain control.\nAs the clock ticked on, the intensity of the match was palpable, with both teams showcasing their strengths and strategies in this tightly contested encounter.
  In the first five minutes of the match, Spain showcased a series of coordinated plays, demonstrating their possession and tactical approach.\nAt the 5th minute and 15 seconds, Daniel Carvajal received the ball, marking the beginning of a sequence of events. He carried the ball forward, maintaining possession, and then executed a ground pass to Aymeric Laporte at 5 minutes and 16 seconds. This pass was precise, covering a distance of approximately 32.7 meters, allowing Laporte to take control of the ball.\nJust two seconds later, at 5 minutes and 18 seconds, Laporte continued the play by carrying the ball forward, showcasing his ability to transition from defense to attack. His movement was fluid, and he maintained possession effectively.\nMeanwhile, Marc Cucurella was also active during this period. At 5 minutes and 27 seconds, he received the ball after a carry and made a ground pass to Fabián Ruiz Peña, who was positioned to advance the play further. This pass was executed smoothly, demonstrating Spain's cohesive teamwork.\nAs the action unfolded, Nicholas Williams Arthuer also contributed significantly. He received a pass from Aymeric Laporte at 5 minutes and 23 seconds, which allowed him to carry the ball forward. His movement was under pressure from England's Kobbie Mainoo, who was applying pressure at that moment.\nOverall, Spain's early possession and passing game were characterized by quick transitions and effective ball control, setting the tone for the match. The players involved, including Carvajal, Laporte, Cucurella, and Williams, displayed a strong understanding of each other's movements, which is crucial in maintaining possession and creating scoring opportunities.
@@ -58,10 +58,10 @@ EVENTS:
  In the 81st minute of the match, Spain was in control of the ball, showcasing a series of coordinated plays. \nAt 36:59, Daniel Carvajal Ramos, playing as the right back, received the ball from a throw-in, maintaining possession for Spain. Shortly after, at 36:45, Martín Zubimendi Ibáñez executed a precise ground pass to Aymeric Laporte, who was positioned as the left center back. Laporte then received the ball at 36:46 and carried it forward, demonstrating his ability to advance the play.\nContinuing the momentum, Laporte made a ground pass to Robin Aime Robert Le Normand at 36:49, who was positioned as the right center back. Le Normand then carried the ball further up the field before passing it to Carvajal at 36:52. Carvajal, now in a more advanced position, received the ball and carried it forward to 36:53.\nAt this point, Carvajal made a ground pass to Fabián Ruiz Peña, who was playing as the left defensive midfielder, at 36:54. Ruiz Peña received the ball and carried it forward, showcasing Spain's fluid attacking play. \nFinally, at 36:57, Ruiz Peña passed the ball back to Carvajal, who was in a good position to continue the attack. This sequence of events highlighted Spain's teamwork and tactical execution as they maintained possession and looked for opportunities to penetrate the opposing defense.
  In the 82nd minute of the match, the action intensified as England and Spain battled for control. \nAt **37:11**, Kyle Walker of England attempted a dribble but unfortunately, it was incomplete as he was under pressure from the Spanish defense. This moment was crucial as it highlighted the ongoing struggle for possession.\nJust moments later, at **37:01**, Daniel Carvajal of Spain executed a low pass to Robin Aime Robert Le Normand, who received the ball effectively. This was a strategic move from Spain, showcasing their intent to build an attack.\nLe Normand then carried the ball forward, moving it to **77.5, 48.3** before passing it to Martín Zubimendi Ibáñez at **37:03**. Zubimendi, now in a better position, received the ball and continued the play, demonstrating Spain's fluid passing game.\nAt **37:04**, Zubimendi carried the ball further, advancing to **83.1, 24.7**, before making another pass to Nicholas Williams Arthuer at **37:06**. Williams received the ball cleanly, showing Spain's effective ball movement.\nAs Williams carried the ball forward to **99.7, 13.3**, he attempted a dribble at **37:09** but it was incomplete, indicating the pressure from England's defense. \nKyle Walker, sensing the urgency, engaged in a tackle against Zubimendi at **37:09** and successfully won the duel, regaining possession for England. This was a pivotal moment as Walker's defensive effort showcased England's resilience.\nHowever, Zubimendi quickly applied pressure back on Walker, attempting to regain control at **37:10**. Despite his efforts, Walker managed to carry the ball to **27.8, 67.9**, maintaining England's possession.\nThe sequence of events in this minute encapsulated the high stakes of the match, with both teams showcasing their skills in both attack and defense. The tension was palpable as the players fought for every inch on the pitch.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   In the 82nd minute of the match, Spain made a tactical substitution. Robin Aime Robert Le Normand, who had been playing as a Right Center Back, was replaced by José Ignacio Fernández Iglesias. This change was part of Spain's strategy as they sought to adjust their formation and tactics in the closing stages of the game. The possession at this moment was with England, indicating that Spain was looking to regain control and possibly create scoring opportunities.
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -114,5 +114,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 Which areas on the pitch had the highest concentration of passes, carries, and key actions for both teams during the match?

@@ -1,35 +1,35 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Who was the best player in minutes between 80 and 100?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
---------
 
-EVENTS:
+
+## DATA FRAME
+
+
+
+
+### EVENTS
   summary
  In the 72nd minute of the match, England was applying pressure, with Bukayo Saka carrying the ball forward from the right wing. He maneuvered past defenders and made a crucial pass to Jude Bellingham, who received the ball effectively.\nAt 27:07, Bellingham, positioned in the right defensive midfield, executed a precise ground pass to Cole Palmer, who was waiting in the center attacking midfield. This pass was pivotal as it set up an opportunity for a shot on goal.\nJust a second later, at 27:08, Palmer took a shot with his left foot. The ball was deflected, but it found its way into the net, marking a successful goal for England. The score changed to 1-0 in favor of England, showcasing Palmer's quick thinking and execution.\nHowever, Spain's Martín Zubimendi was quick to react, attempting to block the shot. Despite his efforts, the ball went past keeper Unai Simón, who had no chance to intervene effectively. \nAs the action unfolded, the crowd erupted in cheers for England's goal, while Spain's players regrouped to strategize for the remainder of the match.
  In the 73rd minute of the match, Spain was in possession and displayed a series of coordinated plays. \nStarting at 28:21, Mikel Oyarzabal Ugarte initiated the action with a ground pass to Robin Aime Robert Le Normand, who received the ball effectively at 36.1, 52.2. This marked a smooth transition as Le Normand quickly passed the ball to Aymeric Laporte at 28:24, allowing Laporte to maintain the momentum.\nLaporte, positioned as a Left Center Back, then carried the ball forward, moving from 37.6, 23.9 to 40.6, 14.9. At 28:27, he executed a precise ground pass to Marc Cucurella Saseta, who was positioned at 38.1, 5.8. Cucurella received the ball and continued the play, showcasing Spain's fluid passing style.\nJust moments later, at 28:29, Cucurella sent a ground pass to Unai Simón Mendibil, the keeper, who was positioned at 12.6, 30.0. This sequence highlighted Spain's ability to maintain possession and transition the ball effectively across the field.\nThroughout this minute, Spain's players demonstrated excellent teamwork and coordination, keeping the ball moving and maintaining pressure on their opponents. The score remained unchanged as they continued to build their play.
@@ -46,12 +46,12 @@ EVENTS:
  In the 83rd minute of the match, Spain was in full swing, showcasing their attacking prowess. \nAt 38:30, Martín Zubimendi Ibáñez, positioned as a Right Defensive Midfielder, made a crucial ground pass to José Ignacio Fernández Iglesias, who was playing as a Right Center Back. This pass was under pressure but successfully reached its target, allowing Spain to maintain possession.\nJust a few seconds later, at 38:31, José Ignacio Fernández Iglesias received the ball and carried it forward, advancing to a location that set up the next play. He then executed another ground pass at 38:34 to Daniel Olmo Carvajal, who was positioned as a Center Attacking Midfielder. This pass was well-placed, allowing Olmo to receive the ball cleanly.\nContinuing the momentum, Olmo carried the ball forward at 38:35, moving into a more attacking position. He then made a precise ground pass at 38:40 back to Nicholas Williams Arthuer, who was on the Left Wing. This pass was executed perfectly, allowing Williams to receive the ball at 90.1, 22.5.\nAt 38:41, Williams took possession and immediately looked to make an impact. He carried the ball towards the opponent's goal, showcasing his speed and skill. \nJust moments later, at 38:42, Williams made a ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the Right Wing. This pass was crucial as it allowed Spain to maintain their attacking momentum.\nAt 38:43, Lamine Yamal Nasraoui Ebana received the ball and carried it forward, further advancing Spain's attack. He then made a ground pass at 38:44 to Daniel Carvajal, who was positioned to continue the offensive play.\nThroughout this sequence, Spain demonstrated their fluid passing and movement, creating opportunities and maintaining pressure on their opponents. The players involved, including Zubimendi, Fernández Iglesias, Olmo, Williams, and Lamine Yamal, all contributed to a cohesive and dynamic attacking display.
  In the 83rd minute of the match, Spain was in control of the ball, showcasing a series of coordinated plays. \n**83:00** - Daniel Carvajal Ramos, playing as the right back, initiated a ball recovery, regaining possession for Spain. He was positioned at [106.5, 66.0] and quickly transitioned into a carry, moving the ball forward to [100.0, 64.9].\n**83:00** - Carvajal then executed a precise ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing at [90.9, 64.4]. This pass was well-timed, allowing Spain to maintain their attacking momentum.\n**83:00** - Lamine Yamal received the ball and carried it forward, showcasing his agility and control. He then passed it to Nicholas Williams Arthuer, who was on the left wing at [96.2, 46.1]. Williams received the ball cleanly and continued to advance, carrying it to [95.0, 51.6].\n**83:00** - Meanwhile, Fabián Ruiz Peña, positioned in the left defensive midfield, received a pass from Carvajal and carried the ball to [106.1, 52.8]. He then made a ground pass back to Carvajal, who was now at [111.4, 61.0].\n**83:00** - Carvajal attempted a quick cut-back pass, but it was blocked by Phil Foden of England, who was applying pressure. Foden's timely intervention prevented a potential scoring opportunity for Spain.\nThroughout this sequence, Spain demonstrated their cohesive teamwork and strategic ball movement, but Foden's defensive effort highlighted the ongoing battle for possession in this tightly contested match.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
-2024-07-14        UEFA Euro        2024          Spain        England  2 - 1-----------
+2024-07-14        UEFA Euro        2024          Spain        England  2 - 1---
 
 
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -103,8 +103,8 @@ team_name                     player_name from_time to_time             position
   England                     Cole Palmer     69:53   69:58  Right Defensive Midfield
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
-    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_-----------
+    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_---
 
 
-QUESTION:
-Who was the best player in minutes between 80 and 100?--------
+## PROMPT
+Who was the best player in minutes between 80 and 100?

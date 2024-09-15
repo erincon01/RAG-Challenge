@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        What was the final scoreline of the match, including goals scored by each team and any additional time or penalty shootout results?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 The final scoreline of the match was Spain 2 - 1 England. There were no additional time or penalty shootout results mentioned..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
   summary
  In the 85th minute of the match, England is in control of the ball, showcasing a series of coordinated plays. \n**Marc Guehi**, positioned as a Left Center Back, receives the ball from the keeper, initiating the action at 40:27. He makes a quick pass to **Declan Rice**, who is playing as a Left Defensive Midfielder. This pass, executed with his right foot, is precise and allows Rice to maintain possession.\nAt 40:26, Rice carries the ball forward, demonstrating his skill and composure. He then receives another pass from Guehi, who has moved up the field. This time, Guehi uses his left foot to deliver a ground pass, which Rice successfully receives, further advancing the play.\nContinuing the momentum, Rice carries the ball again, moving it strategically across the field. He is clearly looking to create an opportunity for England. \nGuehi, not to be outdone, then takes the initiative to carry the ball himself, moving it to a more advantageous position. He makes a significant pass to **Jordan Pickford**, the keeper, ensuring that the ball is safely back with the team while maintaining their attacking strategy.\nThroughout this sequence, the players exhibit excellent teamwork and communication, keeping England in a strong position as they look to capitalize on their possession in the closing minutes of the match.
  In the closing minutes of the match, the action intensified as both teams sought to secure a decisive moment.\nAt the 85th minute, Spain's Daniel Carvajal Ramos executed a throw-in, skillfully passing the ball to Aymeric Laporte. This play was a strategic move from the right back, aiming to maintain possession for Spain as the clock ticked down.\nSimultaneously, England's Marc Guehi initiated a series of plays. He first carried the ball forward, showcasing his agility and control, before making a high pass towards Ollie Watkins. Unfortunately, the pass went out of play, marking a missed opportunity for England.\nGuehi's earlier actions included receiving the ball from keeper Jordan Pickford, who had made a ground pass to him. Pickford, demonstrating his role as a pivotal player in the build-up, then carried the ball himself before passing it to Guehi, who was positioned well to advance the play.\nAs the minute progressed, Ollie Watkins attempted to receive a pass from Guehi but was unable to complete the action, resulting in another missed opportunity for England. The tension in the match was palpable as both teams fought for control, with Spain looking to defend their position and England striving to find an opening.\nThe minute concluded with both teams showcasing their skills, but no goals were scored, leaving the score unchanged as they entered the final moments of the match.
@@ -43,10 +43,10 @@ EVENTS:
  In the closing moments of the match, at the 93rd minute, Spain's Mikel Merino Zazón received the ball after a free kick taken by Unai Simón Mendibil. The pass was a high ball, aimed towards Merino, but unfortunately, it was incomplete, leading to a turnover in possession.\nJust moments later, Merino committed a foul, which resulted in a free kick awarded to England. The foul was won by Marc Guehi, who was under pressure during the play. This sequence of events highlighted the intensity of the match as both teams fought for control in the dying minutes. \nAs the clock ticked down, the tension was palpable, with Spain desperately trying to create opportunities while England sought to maintain their advantage.
  In the closing moments of the match, at the 94th minute, Spain and England were engaged in a tense battle. The action unfolded as Spain was awarded a free kick, showcasing their possession and tactical play. \nAs the clock ticked down to 00:49:01, Spain took control of the ball, looking to capitalize on the opportunity. The keeper was alert, ready to respond to any threat. This moment marked the end of the second half, with both teams having fought hard throughout the match.\nThe match concluded with Spain maintaining possession, but no goals were scored in this final segment. The score remained unchanged as the referee blew the whistle, signaling the end of the game.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -99,5 +99,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 What was the final scoreline of the match, including goals scored by each team and any additional time or penalty shootout results?

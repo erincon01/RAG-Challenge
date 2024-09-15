@@ -1,23 +1,23 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Show details of the goals scored.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 In the match between Spain and England, two goals were scored by Spain:
@@ -28,15 +28,15 @@ In the match between Spain and England, two goals were scored by Spain:
    - **Scorer**: Mikel Oyarzabal Ugarte
    - **Details**: Oyarzabal executed a cross pass from Marc Cucurella and took a first-time shot with his right foot, which resulted in another goal for Spain. The score then stood at 2-0.
 England later scored one goal, but the final result of the match was Spain 2, England 1..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
---------
 
-EVENTS:
+
+## DATA FRAME
+
+
+
+
+### EVENTS
    summary
  The match between England and Spain kicked off with both teams starting strong. \nAt the very beginning, the game commenced with England taking the first kick-off at 00:00. Kobbie Mainoo initiated the play, passing the ball to keeper Jordan Pickford, who received it cleanly. This marked the start of the first half, with Spain quickly gaining possession.\nAs the match progressed, Pickford showcased his skills by carrying the ball forward before executing a long pass aimed at Bukayo Saka. However, the pass was incomplete, and Saka was unable to secure the ball, resulting in a missed opportunity for England.\nBoth teams were eager to establish their dominance early on, with Spain also looking to make their mark. The players were well-positioned, with Spain's Unai Simón in goal and England's Pickford ready to defend against any threats.\nThe first few minutes were characterized by tactical plays and attempts to control the midfield, setting the stage for what promised to be an exciting encounter.
  In the first minute of the match between England and Spain, the action unfolded rapidly, showcasing both teams' attempts to establish control.\nAt **00:00:34**, Spain's keeper, **Unai Simón**, initiated the play with a goal kick, passing to **Robin Aime Robert Le Normand**. The pass was executed with precision, reaching Le Normand at **[9.1, 57.2]**.\nJust a second later, at **00:00:35**, Le Normand received the ball and carried it forward to **[8.9, 57.2]**. This was a crucial moment as Spain sought to build their attack.\nFollowing this, at **00:00:36**, Le Normand made a ground pass to **Daniel Carvajal**, who was positioned at **[20.6, 75.8]**. Carvajal then carried the ball further to **[28.6, 76.4]** at **00:00:37**, demonstrating Spain's intent to press forward.\nHowever, England's **Jude Bellingham** applied pressure at **00:00:38**, trying to disrupt Spain's rhythm. This pressure was felt by Carvajal, who was under duress as he continued his run.\nAt **00:00:39**, Carvajal executed a pass to **Daniel Olmo**, who was positioned at **[50.2, 68.5]**. This pass was crucial as it allowed Spain to maintain possession and transition into a more attacking position.\nJust moments later, at **00:00:40**, Olmo received the ball but was immediately under pressure from England's **Declan Rice**. Despite this, Olmo managed to carry the ball to **[49.3, 68.9]**.\nUnfortunately for Spain, Olmo miscontrolled the ball at **00:00:40**, leading to a moment of uncertainty as England's defense tightened. This miscontrol was a missed opportunity for Spain to capitalize on their possession.\nIn a quick response, at **00:00:41**, Spain's **Álvaro Morata** attempted a recovery pass to **Lamine Yamal**, but the pass was incomplete, indicating the growing tension in the match.\nAs the action continued, England's **Marc Guehi** made a crucial block at **00:00:42**, thwarting Spain's efforts to advance further. This defensive play highlighted England's resilience and determination to keep Spain at bay.\nThe first minute concluded with both teams showcasing their tactical approaches, with Spain attempting to build momentum while England focused on solidifying their defense. The score remained at **0-0** as the match progressed into the next phase.
@@ -69,12 +69,12 @@ EVENTS:
  In the closing minutes of the match, Spain showcased a series of coordinated plays that culminated in a thrilling goal.\nAt the 85th minute, Aymeric Laporte, positioned as the Left Center Back, initiated the action with a ground pass to Fabián Ruiz Peña. This pass, executed with his left foot, traveled approximately 22.5 meters, setting the stage for Spain's offensive maneuver. Laporte's involvement began at 40:47, and he maintained possession as he carried the ball forward.\nJust seconds later, at 40:49, Fabián Ruiz Peña received the ball and quickly passed it to Daniel Olmo Carvajal, who was positioned in the Center Attacking Midfield. Olmo then carried the ball before delivering a low pass to Mikel Oyarzabal Ugarte at 40:52. Oyarzabal, now in a prime scoring position, received the ball and made a decisive move.\nAt 40:55, Mikel Oyarzabal executed a cross pass to Marc Cucurella Saseta, who was under pressure from England's Kyle Walker. Cucurella, demonstrating composure, received the ball and immediately assisted Oyarzabal with a well-placed pass.\nFinally, at 40:56, Oyarzabal took a shot on goal with his right foot. The shot was a first-time effort and found the back of the net, resulting in a successful goal for Spain. The keeper, Jordan Pickford, was unable to make a save as the ball sailed past him, marking a significant moment in the match. The score now stood at 1-0 in favor of Spain, showcasing their skillful teamwork and determination in the final moments of the game.
  In the closing moments of the match, at the 87th minute, England's keeper, Jordan Pickford, received the ball from Ollie Watkins with a ground pass. The pass was executed with precision, allowing Pickford to maintain possession for his team. The timestamp for this event was 00:42:40.388.\nJust a few seconds later, at 00:42:42.058, Pickford made a ball receipt, confirming his control over the play. The score remained unchanged as the match continued.\nAs the action unfolded, Ollie Watkins attempted to pass to Jude Bellingham, but the pass was incomplete, as noted at 00:42:44.235. This was a crucial moment as Nicholas Williams Arthuer from Spain attempted to block the pass, showcasing the defensive efforts from the Spanish side.\nBellingham, however, managed to regain possession shortly after, demonstrating his skill in navigating through pressure. The sequence of events highlighted the intensity of the match, with both teams vying for control as the clock ticked down. \nOverall, the final minutes were marked by a series of passes and attempts to maintain possession, with England's players working diligently to secure their lead.------
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
-2024-07-14        UEFA Euro        2024          Spain        England  2 - 1-----------
+2024-07-14        UEFA Euro        2024          Spain        England  2 - 1---
 
 
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -126,8 +126,8 @@ team_name                     player_name from_time to_time             position
   England                     Cole Palmer     69:53   69:58  Right Defensive Midfield
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
-    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_-----------
+    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_---
 
 
-QUESTION:
-Show details of the goals scored--------
+## PROMPT
+Show details of the goals scored

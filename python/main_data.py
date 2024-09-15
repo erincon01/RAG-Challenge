@@ -22,118 +22,10 @@ from datetime import datetime
 from module_github import download_data_from_github_repo, get_github_data_from_matches
 from module_postgres import load_matches_data_into_postgres_from_folder, load_lineups_data_into_postgres, load_events_data_into_postgres
 from module_postgres import copy_data_from_postgres_to_azure, download_match_script
-from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_pk_from_json_rows_in_database
-from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary, search_details_using_embeddings, get_game_players_data
+from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_pk_from_json_rows_in_database 
+from module_azureopenai import create_and_download_detailed_match_summary, create_match_summary, search_details_using_embeddings, process_prompt_from_web
 
-def export_script_result_to_text(dataframe, summary, search_term, local_folder, filename):
-    """
-    Export the script result to a text file.
-    Parameters:
-    - local_folder (str): The folder path where the text file will be saved.
-    - summary (str): The summary of the script result.
-    - filename (str): The name of the text file.
-    Returns:
-    None
-    """
 
-    now = datetime.now()
-    sc = int(now.strftime("%S"))
-    ms = int(now.strftime("%f"))
-    v = sc * ms
-    v = str(v) + "_"
-
-    tag ="-"
-    if summary.startswith("NONE"):
-        tag = "_NONE_"
-    if summary.startswith("TOKENS"):
-        tag = "_TOKENS_"
-    if summary.startswith("NONE"):
-        tag = "_NONE_"
-
-    folder = os.path.join(local_folder, "scripts_summary", "Answers")
-    filename += tag + v + ".txt"
-
-    text = ""
-    text += f"  ----------------\n"
-    text  = f" - SYSTEM MESSAGE -\n"
-    text += f"  ----------------\n"
-    text += f"       {system_message}.\n\n"
-
-    text += f"  ----------------\n"
-    text += f" - SEARCH TERM    -\n"
-    text += f"  ----------------\n"
-    text += f"       {search_term}.\n\n"
-
-    text += f"  ----------------\n"
-    text += f" - MATCH ID       -\n"
-    text += f"  ----------------\n"
-    text += f"       {match_id}.\n\n"
-
-    text += f" - ANSWER         -\n"
-    text += f"  ----------------\n"
-    text += f"\n\n{summary}.\n"
-    text += "-------------------------------------------------------------------------------------------------------\n\n"
-
-    text += f"  ----------------\n"
-    text += f" - DATA FRAME     -\n"
-    text += f"  ----------------\n"
-
-    text += dataframe
-    
-    with open(os.path.join(folder, filename), "w", encoding="utf-8") as f:
-        f.write(text)
-
-def process_prompt (questions, match_id, system_message, input_tokens, output_tokens, local_folder):
-    """
-    Process tokens and perform search using embeddings.
-    Args:
-        questions (list): List of dictionaries containing questions to be processed.
-        match_id (str): ID of the match.
-        system_message (str): System message.
-        input_tokens (list): List of input tokens.
-        output_tokens (list): List of output tokens.
-        local_folder (str): Local folder path.
-    Returns:
-        None
-    """
-
-     # iterate over the questions and print each column
-    for question in questions:
-        question_number = question["question_number"]
-        search_type = question["search_type"]
-        top_n = question["top_n"]
-        search_term = question["question"]
-        include_lineups = question.get("include_lineups", "")
-        influence_temperature = question.get("temperature", "")
-
-        if include_lineups.lower() != "no":
-            include_lineups = "yes"
-
-        temperature = 0.0
-        if influence_temperature == "":
-            temperature = 0.1
-        else:
-            try:
-                temperature = float(influence_temperature)
-            except ValueError:
-                temperature = 0.1
-
-        include_json = question.get("include_json", "")
-        if include_json.lower() =="":
-            include_json = "no"
-        if include_json.lower() != "no":
-            include_json = "yes"
-
-        model = question.get("model", "")
-
-        dataframe, summary = search_details_using_embeddings ("Azure", "events_details__quarter_minute", match_id, search_type, 
-                                                              include_lineups, include_json, model,
-                                                              top_n, search_term, system_message, temperature, input_tokens, output_tokens)
-        print(f"Question: {question_number} - {search_term}")
-        print(f"Answer: {summary}")
-        print(f"------------------------------------------------------------------------")
-
-        export_script_result_to_text(dataframe, summary, search_term, local_folder, question_number + "_" + search_type)
 
 if __name__ == "__main__":
 
@@ -320,21 +212,44 @@ if __name__ == "__main__":
         {"question_number": "Q-012", "top_n":  5, "search_type": "InnerP", "question": "Who scored the goals for each team in which minutes, and what types of goals were they, such as headers or penalties?"}
     ]
      
-     system_message = f"""
-            Answer the users QUESTION using the DOCUMENT text above.
-            Keep your answer ground in the facts of the DOCUMENT.
-            If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
-        """   
+    #  system_message = f"""
+    #         Answer the users QUESTION using the DOCUMENT text above.
+    #         Keep your answer ground in the facts of the DOCUMENT.
+    #         If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
+    #     """   
 
-     ###### France - Argentina match_id: 3869685
-     ###### England - Spain match_id: 3943043  
+    #  ###### France - Argentina match_id: 3869685
+    #  ###### England - Spain match_id: 3943043  
+
+    #  match_id = 3943043
+
+    #  input_tokens = 25000
+    #  output_tokens = 5000
+    #  local_folder = os.getenv('LOCAL_FOLDER')
+
+    #  process_prompt (questions, match_id, system_message, input_tokens, output_tokens, local_folder)
+
+
+
+     input_tokens = 2000
+     output_tokens = 5000
+     selected_model="text-embedding-3-large"
+     selected_search_type="Cosine"
+     temperature = 0.1
+     top_n = 10
+     system_message = f"""Answer the users QUESTION using the DOCUMENT text above.
+Keep your answer ground in the facts of the DOCUMENT.
+If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question." """   
 
      match_id = 3943043
+     include_lineups = "yes"
 
-     input_tokens = 25000
-     output_tokens = 5000
-     local_folder = os.getenv('LOCAL_FOLDER')
-
-     process_prompt (questions, match_id, system_message, input_tokens, output_tokens, local_folder)
+     question = "What were the key moments for each team in minutes 80 to 90 and how affected the result?"
+     dataframe, result = process_prompt_from_web (match_id, selected_model, \
+                                 selected_search_type, top_n, include_lineups, temperature, \
+                                 system_message, question, input_tokens, output_tokens)
+     
+     print (result)
+     print (dataframe)
 
 

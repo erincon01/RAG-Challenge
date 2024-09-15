@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        How many defensive actions, such as tackles, saves, and blocks, did each team execute, and show the top 3 players in these actions for each team?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
  summary
  In the first half of the match, at the 13th minute, Spain is demonstrating solid ball control and teamwork. \n**13:15** - Robin Aime Robert Le Normand, playing as a Right Center Back, carries the ball forward from his position, moving it to a more advantageous location on the field. He ends his carry at coordinates [20.4, 57.9]. \n**13:19** - Le Normand then executes a ground pass to Unai Simón Mendibil, the keeper, who is positioned at [10.7, 45.7]. This pass is precise, allowing the keeper to receive the ball effectively.\n**13:21** - Unai Simón, now in possession, carries the ball briefly before making a ground pass back to Aymeric Laporte, the Left Center Back, who is positioned at [21.1, 29.2]. \n**13:22** - Laporte receives the ball and immediately carries it forward, showcasing his ability to advance play. He maintains possession and moves the ball to a more strategic location.\n**13:28** - Finally, Laporte sends a ground pass to Le Normand, who is now positioned at [43.1, 53.0]. This pass is well-executed, demonstrating Spain's cohesive play and tactical awareness.\nThroughout these moments, Spain maintains possession and displays a fluid passing game, with key contributions from players like Aymeric Laporte and Unai Simón Mendibil, highlighting their teamwork and strategy on the field.
  In the first period of the match, at the 13th minute, Spain showcased a series of coordinated plays that highlighted their possession and teamwork.\nAt **13:30**, Robin Aime Robert Le Normand, playing as a Right Center Back, received the ball, demonstrating his ability to control the game from the backline. He then carried the ball forward, moving it to a more advantageous position.\nJust a few seconds later, at **13:34**, Le Normand executed a ground pass to Daniel Carvajal Ramos, the Right Back, who was positioned further up the field. Carvajal received the ball cleanly, maintaining Spain's possession.\nContinuing the momentum, at **13:35**, Carvajal carried the ball forward, advancing it to a more strategic location on the pitch. His movement was crucial in keeping the pressure on the opposing team.\nAt **13:37**, Carvajal made another ground pass, this time to Rodrigo Hernández Cascante, who was positioned as a Right Defensive Midfielder. This pass was precise, allowing Rodrigo to take control of the ball and continue the attack.\nRodrigo then carried the ball at **13:38**, moving it further down the field, showcasing his dribbling skills and maintaining Spain's attacking flow. He then passed the ball to Aymeric Laporte at **13:41**, who was positioned as a Left Center Back. Laporte received the ball effectively, demonstrating Spain's fluid passing game.\nAt **13:44**, Laporte received the ball and carried it forward, further advancing Spain's position on the field. This sequence of events illustrated Spain's cohesive play and their ability to maintain possession while looking for opportunities to penetrate the opposition's defense.\nThroughout this minute, Spain's players, including Carvajal, Le Normand, Rodrigo, and Laporte, worked in harmony, showcasing their tactical awareness and skillful execution. The score remained unchanged, but the pressure was clearly mounting on their opponents as Spain continued to dominate possession.
@@ -57,10 +57,10 @@ EVENTS:
  In the 80th minute of the match, Spain is in control of the ball, showcasing a series of coordinated plays. \n**00:35:01** - Aymeric Laporte, positioned as the Left Center Back, initiates a recovery pass from his location at [50.3, 38.3]. He sends a low pass to Martín Zubimendi Ibáñez, who is positioned at [52.9, 29.9]. This pass is crucial as it maintains Spain's possession.\n**00:35:02** - Zubimendi receives the ball successfully, demonstrating his ability to handle pressure as he carries the ball forward to [50.3, 27.4]. \n**00:35:03** - Under pressure from England's Cole Palmer, Zubimendi makes a ground pass to Unai Simón Mendibil, the keeper, who is positioned at [15.0, 40.2]. This pass is significant as it allows the keeper to play a role in the build-up.\n**00:35:05** - Unai Simón, now in possession, carries the ball to [16.5, 38.3]. His movement is strategic, allowing Spain to maintain their attacking momentum.\n**00:35:09** - The keeper then executes a ground pass to Aymeric Laporte, who is now at [26.2, 24.4]. Laporte receives the ball, continuing the fluid play from Spain.\nThroughout this sequence, Spain's players demonstrate excellent teamwork and ball control, effectively navigating through the pressure applied by England. The interplay between Laporte, Zubimendi, and Simón highlights Spain's tactical approach as they aim to create scoring opportunities.
  In the 80th minute of the match, Spain was in control of the ball, showcasing their tactical play. \nAt 35:16, Aymeric Laporte, positioned as the Left Center Back, initiated a ground pass with his left foot, sending the ball 28 meters to Robin Aime Robert Le Normand, who was positioned as the Right Center Back. This pass was executed smoothly, allowing Le Normand to receive the ball effectively at 35:17.\nFollowing this, Le Normand carried the ball forward, moving it to a new location at 48.2, 50.2, demonstrating his ability to advance the play. At 35:22, he then delivered a precise ground pass back to Laporte, who was now in a better position to continue the attack.\nLaporte received the ball at 35:24, maintaining possession and looking to further contribute to Spain's offensive efforts. The sequence of plays highlighted the fluidity and teamwork of the Spanish side, with both players effectively linking up to maintain pressure on their opponents. \nAs the match progressed, Spain's possession and tactical execution were evident, showcasing their skillful play in the latter stages of the game.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             In the 80th minute of the match, Spain is in possession and looking to build an attack. \nAt 35 minutes and 30 seconds, Robin Aime Robert Le Normand, playing as the Right Center Back, carries the ball forward from his position, moving it to a location near the center of the pitch. He successfully receives the ball and initiates a pass to his teammate Aymeric Laporte, who is positioned as the Left Center Back. This action is recorded as a ball receipt, marking a smooth transition in Spain's play.\nJust a few seconds later, at 35 minutes and 36 seconds, Le Normand executes a ground pass to Laporte, covering a distance of approximately 21.9 meters. This pass is precise, allowing Laporte to take control of the ball effectively.\nHowever, as Laporte carries the ball forward at 35 minutes and 38 seconds, he finds himself under pressure from England's Bukayo Saka, who is positioned on the right wing. Saka's pressure adds intensity to the moment, as he attempts to disrupt Spain's flow and regain possession.\nThe sequence of events highlights Spain's coordinated efforts to maintain possession and advance the ball, while England's defensive pressure seeks to thwart their progress.
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -113,5 +113,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 How many defensive actions, such as tackles, saves, and blocks, did each team execute, and show the top 3 players in these actions for each team?

@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Who was the standout player or MVP of the match, highlighting their key contributions and impact on the game?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
     summary
  In the first half of the match, at the 27th minute, England's keeper, Jordan Pickford, was involved in a series of crucial plays. \nAt 27 minutes and 55 seconds, Pickford received the ball, showcasing his ability to maintain possession under pressure from Spain's Álvaro Morata, who was applying pressure just moments later. The tension was palpable as Pickford carried the ball forward, demonstrating composure despite the looming threat from Morata.\nJust a second later, at 27 minutes and 56 seconds, Pickford executed a ground pass to Marc Guehi, who was positioned at the left center back. This pass was critical as it transitioned the play from defense to offense, allowing England to maintain their possession.\nGuehi then received the ball at 27 minutes and 58 seconds, quickly carrying it forward before making another pass. This time, he sent a ground pass to Jude Bellingham, who was positioned further up the field, indicating England's intent to push forward.\nMeanwhile, earlier in the minute, at 27 minutes and 50 seconds, Pickford had also made a pass to John Stones, who was playing as the right center back. Stones received the ball and carried it forward, showcasing England's strategy of building from the back.\nAs the minute progressed, Stones passed the ball back to Pickford at 27 minutes and 53 seconds, completing a cycle of play that highlighted England's teamwork and tactical awareness.\nOverall, this sequence of events illustrated England's defensive solidity and their ability to transition into attack, with Pickford playing a pivotal role in orchestrating the play from the back.
  In the first half of the match, at the 28th minute, England showcased a series of coordinated plays that highlighted their attacking prowess.\nStarting at **28:11**, Kobbie Mainoo initiated the action with a precise ground pass to Kyle Walker, who was positioned as the right back. The pass was well-executed, covering a distance of approximately 13.6 meters, allowing Walker to receive the ball cleanly.\nJust a second later, at **28:12**, Walker received the ball and immediately carried it forward, advancing to a new position on the field. He then made a strategic pass to John Stones, the right center back, at **28:13**. This pass was longer, spanning about 21.4 meters, and was also a ground pass.\nStones, now in possession, carried the ball forward for a few moments before making another pass back to Walker at **28:05**. Walker received this pass and continued to push forward, demonstrating England's fluid movement and teamwork.\nAt **28:09**, Walker executed a short pass to Mainoo, who was now in a more advanced position. Mainoo received the ball cleanly, showcasing England's ability to maintain possession and transition quickly between players.\nThis sequence of events not only illustrated England's tactical approach but also highlighted the individual skills of players like Mainoo, Walker, and Stones, as they worked together to maintain control and advance the play. The score remained unchanged during this period, but the pressure was clearly building as England sought to create a scoring opportunity.
@@ -45,10 +45,10 @@ EVENTS:
  In the 80th minute of the match, the action intensified as England and Spain battled for control. \nAt 35:54, Phil Foden of England made a crucial block against a pass from Spain's Aymeric Laporte, who had just completed a ground pass to Martín Zubimendi. This defensive effort by Foden was vital as Spain was looking to build momentum.\nJust moments later, at 35:56, Foden recovered the ball, showcasing his determination and skill. He then carried the ball forward, moving into a more attacking position.\nAs the clock ticked to 35:58, Jude Bellingham received a pass from Foden, demonstrating England's quick transition from defense to attack. Bellingham, positioned in the right defensive midfield, was now in a prime spot to make a play.\nWith the score still level, Bellingham quickly passed the ball to Cole Palmer, who was making a run into space. This pass, executed at 35:58, was crucial as England sought to break the deadlock.\nMeanwhile, Spain's Martín Zubimendi was applying pressure on Bellingham, trying to disrupt England's flow. The tension was palpable as both teams fought for dominance in this critical phase of the match.\nThe minute concluded with both teams showcasing their defensive and offensive capabilities, setting the stage for an exciting finish.
  In the 81st minute of the match, the action intensified as Spain pressed forward. Cole Palmer of England received the ball under pressure but was soon dispossessed by Martín Zubimendi Ibáñez, who executed a successful tackle. This allowed Spain to regain possession, with Nicholas Williams Arthuer quickly carrying the ball forward.\nWilliams then made a short pass to Daniel Olmo Carvajal, who received the ball and continued the attack. Olmo carried the ball further before delivering a precise ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing.\nYamal, now in a promising position, took a shot at goal. However, England's keeper, Jordan Pickford, was alert and made a crucial save, keeping the scoreline intact. The shot was classified as an open play attempt, but it was ultimately saved, maintaining the pressure on Spain as they sought to break through England's defense.\nAs the clock ticked on, the match remained tense, with both teams vying for control and the opportunity to score.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -101,5 +101,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 Who was the standout player or MVP of the match, highlighting their key contributions and impact on the game?

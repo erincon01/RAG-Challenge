@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        How did the home and visiting teams perform based on metrics like possession, pass accuracy, shots on target, and defensive actions?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
    summary
  In the first five minutes of the match between England and Spain, the action unfolded rapidly, showcasing both teams' tactical maneuvers.\nAt the 5th minute, Declan Rice of England initiated a pressure play, attempting to regain possession for his team. However, Spain maintained control, with Álvaro Morata receiving a pass from his teammate, which he executed under pressure. Morata then passed the ball to Rodrigo Hernández Cascante, who successfully received it and carried it forward.\nRodrigo, now in possession, made a ground pass to Robin Le Normand, who was positioned as a right center back. Le Normand received the ball cleanly and continued the play by carrying it further up the field. He then passed to Daniel Carvajal, who was positioned on the right wing.\nMeanwhile, England's Phil Foden attempted to receive a pass but was unsuccessful, indicating a missed opportunity for the English side. Spain's Fabián Ruiz Peña then made a significant carry, moving the ball forward before passing it to Morata, who was again involved in the play.\nMorata, demonstrating his skill, carried the ball while under pressure, showcasing Spain's attacking intent. The sequence of events highlighted Spain's ability to maintain possession and create opportunities, while England struggled to regain control.\nAs the clock ticked on, the intensity of the match was palpable, with both teams showcasing their strengths and strategies in this tightly contested encounter.
  In the first five minutes of the match, Spain showcased a series of coordinated plays, demonstrating their possession and tactical approach.\nAt the 5th minute and 15 seconds, Daniel Carvajal received the ball, marking the beginning of a sequence of events. He carried the ball forward, maintaining possession, and then executed a ground pass to Aymeric Laporte at 5 minutes and 16 seconds. This pass was precise, covering a distance of approximately 32.7 meters, allowing Laporte to take control of the ball.\nJust two seconds later, at 5 minutes and 18 seconds, Laporte continued the play by carrying the ball forward, showcasing his ability to transition from defense to attack. His movement was fluid, and he maintained possession effectively.\nMeanwhile, Marc Cucurella was also active during this period. At 5 minutes and 27 seconds, he received the ball after a carry and made a ground pass to Fabián Ruiz Peña, who was positioned to advance the play further. This pass was executed smoothly, demonstrating Spain's cohesive teamwork.\nAs the action unfolded, Nicholas Williams Arthuer also contributed significantly. He received a pass from Aymeric Laporte at 5 minutes and 23 seconds, which allowed him to carry the ball forward. His movement was under pressure from England's Kobbie Mainoo, who was applying pressure at that moment.\nOverall, Spain's early possession and passing game were characterized by quick transitions and effective ball control, setting the tone for the match. The players involved, including Carvajal, Laporte, Cucurella, and Williams, displayed a strong understanding of each other's movements, which is crucial in maintaining possession and creating scoring opportunities.
@@ -45,10 +45,10 @@ EVENTS:
  In the second half of the match, specifically at the 53rd minute, Spain showcased a series of coordinated plays that highlighted their possession and passing skills.\nStarting at **00:08:31**, Martín Zubimendi Ibáñez received the ball and carried it forward from the right defensive midfield position, moving to a location at [49.3, 26.4]. His efforts were quick, lasting just over six seconds, as he aimed to advance the play.\nJust a few seconds later, at **00:08:38**, Zubimendi made a ground pass to Fabián Ruiz Peña, who was positioned in the left defensive midfield. Ruiz Peña received the ball cleanly, demonstrating Spain's fluid passing game.\nRuiz Peña then carried the ball forward to [53.9, 25.3] before making another pass to Aymeric Laporte at **00:08:43**. Laporte, now in the left center back position, received the ball and continued the play by carrying it to [49.3, 24.7].\nAt this point, Laporte executed a ground pass to Martín Zubimendi, who was now positioned at [48.7, 29.9]. Zubimendi received the ball and carried it further, maintaining Spain's possession and control of the game.\nThe sequence continued as Zubimendi passed back to Ruiz Peña, who was in a favorable position at [54.5, 21.9]. Ruiz Peña received the ball again, showcasing Spain's ability to recycle possession effectively.\nThis series of events, all occurring within a span of seconds, illustrated Spain's tactical approach and their emphasis on maintaining possession through short, precise passes and coordinated movement. The score remained unchanged as these actions unfolded, but Spain's dominance in possession was evident.
  In the second half of the match, specifically at the 53rd minute, Spain demonstrated a series of coordinated plays that showcased their attacking prowess.\nStarting at **08:47**, Aymeric Laporte, positioned as a Left Center Back, initiated the action with a ground pass to Fabián Ruiz Peña, who was playing as a Left Defensive Midfielder. The pass was precise, covering a distance of approximately 7.5 meters, and Fabián received the ball successfully at **08:48**.\nFabián, under pressure from England's Phil Foden, carried the ball forward for about a meter before passing it to Aymeric Laporte again at **08:49**. Laporte received the ball and continued the play by carrying it further up the field.\nAt **08:50**, Laporte made another pass, this time to Robin Aime Robert Le Normand, who was positioned as a Right Center Back. Le Normand received the ball and carried it forward, showcasing Spain's fluid movement and teamwork.\nJust a few seconds later, at **08:53**, Le Normand passed the ball back to Daniel Carvajal Ramos, the Right Back, who was positioned further up the right flank. Carvajal received the ball and carried it forward, maintaining Spain's possession and attacking momentum.\nThis sequence of events highlighted Spain's tactical approach, with players like Laporte, Fabián, Le Normand, and Carvajal all contributing to a well-orchestrated offensive effort. The crowd could feel the anticipation as Spain continued to press forward, looking for an opportunity to break through England's defense.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -101,5 +101,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 How did the home and visiting teams perform based on metrics like possession, pass accuracy, shots on target, and defensive actions?

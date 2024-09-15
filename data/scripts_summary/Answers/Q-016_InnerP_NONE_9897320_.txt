@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        What strategies or tactical formations did both teams employ, and how did these influence the outcome of the match?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
    summary
  In the 15th minute of the match, England is showcasing a series of coordinated plays following a corner kick. \nAt **15:36**, Marc Guehi receives the ball, positioned as a Left Center Back, and initiates the play. He carries the ball forward for a brief moment before passing it to Kyle Walker, who is stationed as the Right Back. Walker executes a high pass towards Luke Shaw, the Left Back, at **15:30**. \nShaw, receiving the ball at **15:32**, quickly transitions into a carry, moving the ball forward to **51.1, 8.5**. He then passes back to Guehi at **15:34**, who is still in the vicinity, maintaining possession for England.\nGuehi then makes a short ground pass to Declan Rice, the Left Defensive Midfielder, at **15:38**. Rice receives the ball and carries it forward to **44.2, 27.7**. \nAt **15:43**, Rice sends a ground pass to John Stones, the Right Center Back, who is positioned at **50.9, 56.7**. Stones receives the ball and carries it further up the field, moving to **56.7, 60.1**.\nThroughout this sequence, England maintains possession and demonstrates effective teamwork, moving the ball fluidly across the pitch.
  In the first half of the match, the action began to unfold at the 15th minute. \nAt **15:54**, Nicholas Williams Arthuer from **Spain** applied pressure on the ball, attempting to regain possession for his team. This was part of a sequence that started from a corner kick taken by **England**.\nJust seconds later, at **15:46**, **John Stones**, playing as a right center back for **England**, executed a ground pass to **Phil Foden**, who was positioned as a center attacking midfielder. Foden received the ball at **15:47**, showcasing his skill by quickly transitioning into a carry, moving the ball forward under pressure.\nAs Foden advanced, he faced pressure from **Fabián Ruiz Peña** and Nicholas Williams Arthuer, both from **Spain**, who were keen to disrupt England's flow. Despite the pressure, Foden managed to pass the ball to **Kobbie Mainoo** at **15:49**. Mainoo, also under pressure, received the ball and carried it forward.\nAt **15:50**, **Rodrigo Hernández Cascante** from **Spain** continued to apply pressure on Mainoo, but the young midfielder maintained composure and passed to **John Stones** at **15:50**. Stones, now in possession, carried the ball forward before executing a long switch pass to **Jordan Pickford**, the keeper, at **15:55**.\nPickford received the ball cleanly at **15:59** and carried it forward, showcasing his ability to play out from the back. This sequence of play highlighted the tactical battle between the two teams, with **England** trying to maintain possession and **Spain** applying relentless pressure throughout the minute. \nThe match remained scoreless as the teams continued to vie for control, with both sides demonstrating their skills and strategies on the pitch.
@@ -45,10 +45,10 @@ EVENTS:
  In the 82nd minute of the match, the action intensified as England and Spain battled for control. \nAt **37:11**, Kyle Walker of England attempted a dribble but unfortunately, it was incomplete as he was under pressure from the Spanish defense. This moment was crucial as it highlighted the ongoing struggle for possession.\nJust moments later, at **37:01**, Daniel Carvajal of Spain executed a low pass to Robin Aime Robert Le Normand, who received the ball effectively. This was a strategic move from Spain, showcasing their intent to build an attack.\nLe Normand then carried the ball forward, moving it to **77.5, 48.3** before passing it to Martín Zubimendi Ibáñez at **37:03**. Zubimendi, now in a better position, received the ball and continued the play, demonstrating Spain's fluid passing game.\nAt **37:04**, Zubimendi carried the ball further, advancing to **83.1, 24.7**, before making another pass to Nicholas Williams Arthuer at **37:06**. Williams received the ball cleanly, showing Spain's effective ball movement.\nAs Williams carried the ball forward to **99.7, 13.3**, he attempted a dribble at **37:09** but it was incomplete, indicating the pressure from England's defense. \nKyle Walker, sensing the urgency, engaged in a tackle against Zubimendi at **37:09** and successfully won the duel, regaining possession for England. This was a pivotal moment as Walker's defensive effort showcased England's resilience.\nHowever, Zubimendi quickly applied pressure back on Walker, attempting to regain control at **37:10**. Despite his efforts, Walker managed to carry the ball to **27.8, 67.9**, maintaining England's possession.\nThe sequence of events in this minute encapsulated the high stakes of the match, with both teams showcasing their skills in both attack and defense. The tension was palpable as the players fought for every inch on the pitch.
  In the 82nd minute of the match, Spain made a tactical substitution. Robin Aime Robert Le Normand, who had been playing as a Right Center Back, was replaced by José Ignacio Fernández Iglesias. This change was part of Spain's strategy as they sought to adjust their formation and tactics in the closing stages of the game. The possession at this moment was with England, indicating that Spain was looking to regain control and possibly create scoring opportunities.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -101,5 +101,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 What strategies or tactical formations did both teams employ, and how did these influence the outcome of the match?

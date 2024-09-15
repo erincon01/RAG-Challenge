@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Which players recorded the highest number of carries and passes in both halves, and how did their performances influence the overall strategies of the teams?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
   summary
  In the first half of the match, at the 19th minute, Spain is demonstrating a series of coordinated plays. \nStarting at **19:41**, Marc Cucurella Saseta, positioned as the left back, receives the ball from a throw-in, maintaining possession for Spain. He then carries the ball forward, still at **19:41**, before making a precise ground pass to Rodrigo Hernández Cascante at **19:42**. This pass, executed with his left foot, travels approximately 12 meters, allowing Rodrigo to take control of the ball.\nRodrigo, now in the right defensive midfield position, receives the ball at **19:43** and carries it forward for a short distance before passing it to Lamine Yamal Nasraoui Ebana at **19:44**. This pass is also a ground pass, showcasing Spain's fluid movement and teamwork.\nMeanwhile, Fabián Ruiz Peña, playing as a left defensive midfielder, is involved in the action as well. He receives a pass from Daniel Olmo Carvajal at **19:30**, while under pressure from England's Kobbie Mainoo. Fabián manages to carry the ball and make a subsequent pass to Nicholas Williams Arthuer at **19:34**. Nicholas, now on the left wing, carries the ball forward for several seconds, demonstrating Spain's attacking intent.\nAt **19:40**, Nicholas makes a pass back to Marc Cucurella, who is now in a position to receive it again. This sequence of events highlights Spain's possession play and their ability to maintain control while transitioning the ball effectively across the field. \nThe match remains scoreless as these intricate plays unfold, showcasing Spain's tactical approach and teamwork.
  In the first half of the match, at the 19th minute, Spain showcased a series of coordinated plays that highlighted their attacking prowess.\nStarting at 19:45, Lamine Yamal Nasraoui Ebana, positioned on the right wing, received the ball and carried it forward, ending his run at coordinates [87.5, 45.5]. This action was part of a sequence initiated from a throw-in, maintaining Spain's possession.\nJust seconds later, at 19:54, Daniel Olmo Carvajal, playing as a center attacking midfielder, executed a ground pass with his left foot to Nicholas Williams Arthuer on the left wing. This pass was under pressure from England's Kobbie Mainoo, who was applying defensive pressure at that moment.\nAt 19:56, Nicholas Williams Arthuer received the ball and carried it forward to [97.4, 6.7], continuing the momentum for Spain. He then made a pass to Marc Cucurella Saseta at 19:59, showcasing Spain's fluid attacking style.\nThroughout this minute, Spain maintained possession and demonstrated effective teamwork, with each player contributing to the build-up play. The score remained unchanged as the match continued, but Spain's attacking intent was clear.
@@ -59,10 +59,10 @@ EVENTS:
  In the second half of the match, specifically at the 76th minute, Spain showcased a series of coordinated plays that highlighted their tactical prowess.\nStarting at **31:01**, Robin Aime Robert Le Normand, positioned as the Right Center Back, executed a ground pass to Unai Simón Mendibil, the keeper. This pass, measuring approximately 18.67 meters, was aimed to maintain possession and build from the back.\nJust two seconds later, at **31:03**, Unai Simón received the ball and immediately carried it forward, moving to a location closer to the midfield. His carry ended at **17.3, 39.1**, allowing him to maintain control and look for further options.\nAt **31:04**, the keeper then made a precise ground pass of about 19.48 meters back to Aymeric Laporte, who was positioned as the Left Center Back. This pass was crucial in transitioning the play and maintaining Spain's possession.\nAymeric Laporte received the ball at **31:06** and continued the play with a carry, moving to **28.7, 23.3**. His actions were pivotal in keeping the momentum for Spain as they sought to advance further into the opponent's territory.\nMeanwhile, Robin Aime Robert Le Normand, after receiving the ball from Laporte, carried it forward to **32.9, 60.5** at **31:09**, demonstrating Spain's fluid movement and teamwork.\nFinally, at **31:13**, Le Normand executed another ground pass back to the keeper, Unai Simón, who was now positioned at **13.9, 43.5**. This sequence of events showcased Spain's ability to maintain possession and build their play methodically from the back, emphasizing their tactical discipline and teamwork. \nThroughout this minute, Spain's players demonstrated excellent coordination, with Le Normand, Laporte, and Simón all contributing to the fluidity of their play.
  In the second half of the match, specifically at the 76th minute, Spain showcased a series of coordinated plays that highlighted their attacking prowess.\nStarting with the keeper, Unai Simón Mendibil, he received the ball and carried it forward at 31 minutes and 15 seconds. After a brief moment, he executed a ground pass to Aymeric Laporte, who was positioned as a left center back. Laporte received the ball at 31 minutes and 18 seconds and then carried it forward, demonstrating his ability to advance the play.\nLaporte then made a high pass to Marc Cucurella Saseta, who was positioned as a left back. This pass occurred at 31 minutes and 20 seconds, and Cucurella received it successfully just two seconds later. Following this, Cucurella made a low pass to Fabián Ruiz Peña, who was playing as a left defensive midfielder. Ruiz received the ball at 31 minutes and 24 seconds and carried it forward, maintaining Spain's momentum.\nAt 31 minutes and 26 seconds, Ruiz executed a high switch pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing. This pass was crucial as it allowed Spain to stretch the play and exploit the width of the pitch. Yamal received the ball at 31 minutes and 29 seconds, showcasing Spain's fluidity and teamwork during this sequence.\nThroughout this minute, Spain displayed excellent ball movement and coordination, with each player contributing to the build-up, demonstrating their tactical awareness and skill on the field.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -115,5 +115,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 Which players recorded the highest number of carries and passes in both halves, and how did their performances influence the overall strategies of the teams?

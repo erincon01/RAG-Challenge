@@ -1,35 +1,35 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Which players recorded the highest number of carries and passes in minutes between 15 to 30?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
---------
 
-EVENTS:
+
+## DATA FRAME
+
+
+
+
+### EVENTS
   summary
  In the first six minutes of the match, Spain showcased a series of coordinated plays, primarily led by Marc Cucurella Saseta and Nicholas Williams Arthuer.\nAt the 6th minute, Marc Cucurella, positioned as the left back, initiated the action with a ground pass to Nicholas Williams Arthuer, who was playing on the left wing. This pass, executed at 00:06:21, was precise, covering a distance of approximately 13 meters. The play continued as Nicholas received the ball and carried it forward, demonstrating his agility under pressure from England's Bukayo Saka.\nJust moments later, at 00:06:26, Nicholas Williams made a ground pass back to Cucurella, who was now in a better position to advance the play. Cucurella received the ball cleanly and carried it further, maintaining possession for Spain.\nAs the action unfolded, Cucurella continued to be involved, receiving another pass from Aymeric Laporte at 00:06:19. Laporte, playing as a left center back, had carried the ball before delivering a precise ground pass back to Cucurella, who was now well-positioned to make a decisive move.\nThe sequence of plays highlighted Spain's fluidity and teamwork, with Cucurella consistently involved in the build-up. The players demonstrated excellent ball control and awareness, setting the stage for potential scoring opportunities as the match progressed. \nOverall, the first six minutes were marked by Spain's tactical execution and the interplay between Cucurella and Williams, showcasing their intent to dominate possession and create chances.
  In the first six minutes of the match, Spain showcased a series of coordinated plays, primarily involving Lamine Yamal Nasraoui Ebana and Robin Aime Robert Le Normand.\nAt the 6th minute, Lamine Yamal, positioned on the right wing, initiated a carry from the right side of the pitch, advancing the ball to a location near the center (timestamp: 00:06:36). This was a significant moment as it set the stage for further action.\nShortly after, Aymeric Laporte, playing as a left center back, received the ball and carried it forward, demonstrating Spain's intent to maintain possession and build up their attack. He then executed a ground pass to Robin Aime Robert Le Normand, who was positioned as a right center back. This pass was precise, allowing Le Normand to continue the play effectively.\nLe Normand then carried the ball further up the field before passing it back to Lamine Yamal, who was now in a more advanced position. Yamal received the ball and quickly passed it to Le Normand again, showcasing a fluid exchange between the two players.\nAs the play progressed, Le Normand made another carry, moving the ball towards the right side of the pitch. He then executed a pass to Daniel Carvajal Ramos, who was positioned as a right back. Carvajal received the ball cleanly, maintaining Spain's possession and continuing their attacking momentum.\nThe sequence of events highlighted Spain's tactical approach, with quick passes and carries that kept the ball moving and the opposition on their toes. The players demonstrated excellent teamwork and communication, setting a positive tone for the remainder of the match.
@@ -60,10 +60,10 @@ EVENTS:
  In the 83rd minute of the match, Spain was in full swing, showcasing their attacking prowess. \nAt 38:30, Martín Zubimendi Ibáñez, positioned as a Right Defensive Midfielder, made a crucial ground pass to José Ignacio Fernández Iglesias, who was playing as a Right Center Back. This pass was under pressure but successfully reached its target, allowing Spain to maintain possession.\nJust a few seconds later, at 38:31, José Ignacio Fernández Iglesias received the ball and carried it forward, advancing to a location that set up the next play. He then executed another ground pass at 38:34 to Daniel Olmo Carvajal, who was positioned as a Center Attacking Midfielder. This pass was well-placed, allowing Olmo to receive the ball cleanly.\nContinuing the momentum, Olmo carried the ball forward at 38:35, moving into a more attacking position. He then made a precise ground pass at 38:40 back to Nicholas Williams Arthuer, who was on the Left Wing. This pass was executed perfectly, allowing Williams to receive the ball at 90.1, 22.5.\nAt 38:41, Williams took possession and immediately looked to make an impact. He carried the ball towards the opponent's goal, showcasing his speed and skill. \nJust moments later, at 38:42, Williams made a ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the Right Wing. This pass was crucial as it allowed Spain to maintain their attacking momentum.\nAt 38:43, Lamine Yamal Nasraoui Ebana received the ball and carried it forward, further advancing Spain's attack. He then made a ground pass at 38:44 to Daniel Carvajal, who was positioned to continue the offensive play.\nThroughout this sequence, Spain demonstrated their fluid passing and movement, creating opportunities and maintaining pressure on their opponents. The players involved, including Zubimendi, Fernández Iglesias, Olmo, Williams, and Lamine Yamal, all contributed to a cohesive and dynamic attacking display.
  In the 83rd minute of the match, Spain was in control of the ball, showcasing a series of coordinated plays. \n**83:00** - Daniel Carvajal Ramos, playing as the right back, initiated a ball recovery, regaining possession for Spain. He was positioned at [106.5, 66.0] and quickly transitioned into a carry, moving the ball forward to [100.0, 64.9].\n**83:00** - Carvajal then executed a precise ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing at [90.9, 64.4]. This pass was well-timed, allowing Spain to maintain their attacking momentum.\n**83:00** - Lamine Yamal received the ball and carried it forward, showcasing his agility and control. He then passed it to Nicholas Williams Arthuer, who was on the left wing at [96.2, 46.1]. Williams received the ball cleanly and continued to advance, carrying it to [95.0, 51.6].\n**83:00** - Meanwhile, Fabián Ruiz Peña, positioned in the left defensive midfield, received a pass from Carvajal and carried the ball to [106.1, 52.8]. He then made a ground pass back to Carvajal, who was now at [111.4, 61.0].\n**83:00** - Carvajal attempted a quick cut-back pass, but it was blocked by Phil Foden of England, who was applying pressure. Foden's timely intervention prevented a potential scoring opportunity for Spain.\nThroughout this sequence, Spain demonstrated their cohesive teamwork and strategic ball movement, but Foden's defensive effort highlighted the ongoing battle for possession in this tightly contested match.------
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
-2024-07-14        UEFA Euro        2024          Spain        England  2 - 1-----------
+2024-07-14        UEFA Euro        2024          Spain        England  2 - 1---
 
 
-QUESTION:
-Which players recorded the highest number of carries and passes in minutes between 15 to 30?--------
+## PROMPT
+Which players recorded the highest number of carries and passes in minutes between 15 to 30?

@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        How many shots on goal did each team take, splitted in 30 minutes timeframes?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
  summary
  In the 12th minute of the match, Spain initiated a corner kick taken by Nicholas Williams Arthuer. The ball was delivered with an inswinging high pass aimed at Rodrigo Hernández Cascante, who successfully received it under pressure from England's Kobbie Mainoo.\nRodrigo then made a key pass to Robin Aime Robert Le Normand, who was positioned well to take a shot. At 12 minutes and 21 seconds, Le Normand executed an overhead kick. Unfortunately, the shot went off target, missing the goal. The keeper, Jordan Pickford, was ready but did not need to intervene as the ball sailed past the goal.\nDeclan Rice from England applied pressure during this sequence, attempting to disrupt Spain's play. Despite the pressure, Spain maintained possession and continued to build their attack. The score remained unchanged at 0-0 as the match progressed.
  In the first half of the match, at the 13th minute, England's keeper, Jordan Pickford, took a goal kick. The kick was a high pass aimed towards the midfield but unfortunately ended up incomplete, as it did not reach its intended target. This action occurred at 00:13:02.\nJust moments later, at 00:13:08, Spain's keeper, Unai Simón Mendibil, capitalized on the situation by recovering the ball, marking a shift in possession to Spain. This quick recovery showcased Spain's readiness to take advantage of any mistakes made by England.\nFollowing this, at 00:13:14, Unai Simón Mendibil executed a ground pass using his arm to Robin Aime Robert Le Normand. This pass was precise and allowed Spain to maintain their momentum in the game. The action highlighted Spain's tactical play as they sought to build an attack following their recovery of the ball.\nThe match continued to unfold with both teams demonstrating their skills, but these moments in the 13th minute were pivotal in showcasing the dynamic nature of the game.
@@ -59,10 +59,10 @@ EVENTS:
  In the closing minutes of the match, Spain showcased a series of coordinated plays that culminated in a thrilling goal.\nAt the 85th minute, Aymeric Laporte, positioned as the Left Center Back, initiated the action with a ground pass to Fabián Ruiz Peña. This pass, executed with his left foot, traveled approximately 22.5 meters, setting the stage for Spain's offensive maneuver. Laporte's involvement began at 40:47, and he maintained possession as he carried the ball forward.\nJust seconds later, at 40:49, Fabián Ruiz Peña received the ball and quickly passed it to Daniel Olmo Carvajal, who was positioned in the Center Attacking Midfield. Olmo then carried the ball before delivering a low pass to Mikel Oyarzabal Ugarte at 40:52. Oyarzabal, now in a prime scoring position, received the ball and made a decisive move.\nAt 40:55, Mikel Oyarzabal executed a cross pass to Marc Cucurella Saseta, who was under pressure from England's Kyle Walker. Cucurella, demonstrating composure, received the ball and immediately assisted Oyarzabal with a well-placed pass.\nFinally, at 40:56, Oyarzabal took a shot on goal with his right foot. The shot was a first-time effort and found the back of the net, resulting in a successful goal for Spain. The keeper, Jordan Pickford, was unable to make a save as the ball sailed past him, marking a significant moment in the match. The score now stood at 1-0 in favor of Spain, showcasing their skillful teamwork and determination in the final moments of the game.
  In the closing moments of the match, at the 87th minute, England's keeper, Jordan Pickford, received the ball from Ollie Watkins with a ground pass. The pass was executed with precision, allowing Pickford to maintain possession for his team. The timestamp for this event was 00:42:40.388.\nJust a few seconds later, at 00:42:42.058, Pickford made a ball receipt, confirming his control over the play. The score remained unchanged as the match continued.\nAs the action unfolded, Ollie Watkins attempted to pass to Jude Bellingham, but the pass was incomplete, as noted at 00:42:44.235. This was a crucial moment as Nicholas Williams Arthuer from Spain attempted to block the pass, showcasing the defensive efforts from the Spanish side.\nBellingham, however, managed to regain possession shortly after, demonstrating his skill in navigating through pressure. The sequence of events highlighted the intensity of the match, with both teams vying for control as the clock ticked down. \nOverall, the final minutes were marked by a series of passes and attempts to maintain possession, with England's players working diligently to secure their lead.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    In the closing moments of the match, specifically at the 87th minute, England's Jude Bellingham initiated a carry from the right defensive midfield position, moving the ball forward to an end location of [86.4, 40.4]. This action was part of a series of plays that showcased England's attacking intent.\nShortly after, Ollie Watkins applied pressure on the Spanish defense, demonstrating England's aggressive approach as they sought to maintain possession and create scoring opportunities. \nSpain's Martín Zubimendi attempted a recovery pass to Fabián Ruiz Peña, but the pass was incomplete, allowing England's Cole Palmer to recover the ball. Palmer then carried the ball forward, showcasing his skill and composure under pressure, ending his run at [85.3, 27.3].\nAs the play continued, Palmer executed a ground pass to Bellingham, who received the ball cleanly at [79.7, 40.4]. Bellingham then passed to Watkins, who was positioned at [103.6, 41.6]. However, Watkins miscontrolled the ball, which was a missed opportunity for England to capitalize on their attacking momentum.\nDespite the miscontrol, Watkins continued to apply pressure on the Spanish defense, indicating England's relentless pursuit of a goal. In a defensive response, Spain's José Ignacio Fernández Iglesias made a clearance under pressure, ensuring that the ball was moved away from danger.\nThis sequence of events highlighted the intensity and urgency of the match as both teams fought for control in the final minutes.
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -115,5 +115,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 How many shots on goal did each team take, splitted in 30 minutes timeframes?

@@ -1,23 +1,23 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Were there any yellow or red cards issued during the match, specifying the players involved and the reasons for the bookings?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 Yes, there were yellow cards issued during the match. The players involved and the reasons for the bookings are as follows:
@@ -26,13 +26,13 @@ Yes, there were yellow cards issued during the match. The players involved and t
 3. **Ollie Watkins** (England) - Received a yellow card for committing a foul against Spain at **90:06**.
 4. **Mikel Merino Zazón** (Spain) - Received a yellow card for committing a foul against Marc Guehi at **92:16**. 
 These bookings reflect the competitive nature of the match as both teams fought for control..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
     summary
  In the 10th minute of the match, England's Luke Shaw took a free kick from the left back position. With precision, he executed a high pass that traveled approximately 55 meters. The ball was aimed towards the attacking players, showcasing Shaw's ability to switch play effectively. However, the outcome of the pass remains unknown, as the action did not lead to a clear scoring opportunity. The match continues with the score still at 0-0.
  In the 10th minute of the match, England's Marc Guehi committed a foul against Spain's Aymeric Laporte. This incident occurred at 10 minutes and 15 seconds into the first half. The foul was significant enough to earn Laporte a free kick, showcasing the defensive pressure he was under at the time.\nAs the play unfolded, England maintained possession, but the foul won by Laporte shifted the momentum slightly in favor of Spain. The referee's whistle indicated the foul, and the players prepared for the ensuing free kick, setting the stage for the next phase of the game.
@@ -50,10 +50,10 @@ EVENTS:
  In the closing moments of the match, specifically at the 92nd minute, Mikel Merino Zazón of Spain was involved in a critical sequence of events. As the game approached its final whistle, Spain was applying pressure on England. Merino, playing as a Center Attacking Midfielder, committed a foul, which was noted at 92 minutes and 16 seconds. This foul led to England being awarded a free kick.\nThe foul was committed against Marc Guehi, the Left Center Back for England, who was under pressure from the Spanish players. Guehi's ability to draw the foul showcased his defensive skills and awareness on the pitch. The incident occurred at a location near the center of the field, indicating a tense moment as both teams fought for control.\nAs the clock ticked down, the match remained intense, with both teams vying for a decisive advantage. The score remained unchanged, but the pressure was palpable as the players pushed themselves to secure a favorable outcome before the final whistle blew.
  In the closing moments of the match, specifically at the 92nd minute, England's keeper, Jordan Pickford, took a free kick. The ball was intended for Ivan Toney, who was positioned as a left center forward. However, the pass was incomplete, failing to reach Toney effectively.\nJust moments later, at 92 minutes and 43 seconds, Spain's Aymeric Laporte, playing as a left center back, executed a clearance. He used his head to win the aerial duel against Toney, who was under pressure and attempting to contest for the ball. This clearance was crucial as it prevented England from capitalizing on the free kick opportunity.\nToney, despite his efforts, received the ball but was unable to maintain possession, marking a missed chance for England to score in the dying minutes of the game. The tension was palpable as both teams fought for control, but ultimately, the sequence ended without a goal.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -106,5 +106,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 Were there any yellow or red cards issued during the match, specifying the players involved and the reasons for the bookings?

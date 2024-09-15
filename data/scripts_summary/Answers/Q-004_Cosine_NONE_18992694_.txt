@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        How did the possession percentages of each team change during the first and second halves, and what key moments or events caused these fluctuations?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
    summary
  In the first half of the match, at the 22nd minute, England's John Stones found himself in an aerial duel but unfortunately lost it to Spain's Álvaro Morata. This duel occurred under pressure, with Spain maintaining possession.\nFollowing this, Morata executed a high pass to Nicholas Williams Arthuer, who successfully received the ball. Williams then carried the ball forward, showcasing his agility and control, before making a ground pass to Daniel Carvajal Ramos. Carvajal, positioned as the right back, received the ball cleanly and continued the play.\nCarvajal then made a quick pass to Lamine Yamal, who was positioned on the right wing. Yamal received the ball and carried it further down the field, demonstrating his pace and skill. He then attempted a high pass towards Daniel Olmo, but unfortunately, the pass was incomplete, failing to reach its intended target.\nThroughout this sequence, Spain displayed a series of coordinated plays, maintaining possession and applying pressure on the English defense. The match remained scoreless as the teams continued to battle for control of the ball.
  In the first half of the match, at the 22nd minute, the action began to intensify. \n**22:51** - Rodrigo Hernández Cascante from Spain applied pressure, attempting to regain possession as England held the ball. The possession was at 37% for Spain at this moment.\n**22:56** - Phil Foden of England responded with a counter-press, showcasing his agility in the center attacking midfield position. He was under pressure but managed to maintain possession.\n**22:57** - Marc Guehi, also from England, joined the effort, further pressuring Spain's possession. \n**22:52** - Foden then attempted a ground pass to Declan Rice, but the pass was incomplete, indicating Spain's defensive resilience.\n**22:54** - Declan Rice received the ball but was unable to control it effectively, leading to an interception by Daniel Olmo Carvajal from Spain, who successfully won the ball back.\n**22:54** - Following the interception, Olmo carried the ball forward, demonstrating Spain's quick transition from defense to attack.\n**22:55** - Olmo then executed a short ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing.\n**22:56** - Yamal received the ball and carried it further up the pitch, showcasing his speed and skill.\n**22:58** - Yamal attempted a pass, but it was blocked by Marc Guehi, who was alert in defense for England, preventing a potential scoring opportunity for Spain.\nThroughout this sequence, the match was characterized by a back-and-forth exchange of pressure, with both teams showcasing their tactical awareness and individual skills. The score remained unchanged as the players continued to battle for control of the game.
@@ -59,10 +59,10 @@ EVENTS:
  In the 82nd minute of the match, the action intensified as England and Spain battled for control. \nAt **37:11**, Kyle Walker of England attempted a dribble but unfortunately, it was incomplete as he was under pressure from the Spanish defense. This moment was crucial as it highlighted the ongoing struggle for possession.\nJust moments later, at **37:01**, Daniel Carvajal of Spain executed a low pass to Robin Aime Robert Le Normand, who received the ball effectively. This was a strategic move from Spain, showcasing their intent to build an attack.\nLe Normand then carried the ball forward, moving it to **77.5, 48.3** before passing it to Martín Zubimendi Ibáñez at **37:03**. Zubimendi, now in a better position, received the ball and continued the play, demonstrating Spain's fluid passing game.\nAt **37:04**, Zubimendi carried the ball further, advancing to **83.1, 24.7**, before making another pass to Nicholas Williams Arthuer at **37:06**. Williams received the ball cleanly, showing Spain's effective ball movement.\nAs Williams carried the ball forward to **99.7, 13.3**, he attempted a dribble at **37:09** but it was incomplete, indicating the pressure from England's defense. \nKyle Walker, sensing the urgency, engaged in a tackle against Zubimendi at **37:09** and successfully won the duel, regaining possession for England. This was a pivotal moment as Walker's defensive effort showcased England's resilience.\nHowever, Zubimendi quickly applied pressure back on Walker, attempting to regain control at **37:10**. Despite his efforts, Walker managed to carry the ball to **27.8, 67.9**, maintaining England's possession.\nThe sequence of events in this minute encapsulated the high stakes of the match, with both teams showcasing their skills in both attack and defense. The tension was palpable as the players fought for every inch on the pitch.
  In the 82nd minute of the match, Spain made a tactical substitution. Robin Aime Robert Le Normand, who had been playing as a Right Center Back, was replaced by José Ignacio Fernández Iglesias. This change was part of Spain's strategy as they sought to adjust their formation and tactics in the closing stages of the game. The possession at this moment was with England, indicating that Spain was looking to regain control and possibly create scoring opportunities.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -115,5 +115,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 How did the possession percentages of each team change during the first and second halves, and what key moments or events caused these fluctuations?

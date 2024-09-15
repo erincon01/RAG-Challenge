@@ -5,7 +5,6 @@ import traceback
 from datetime import datetime
 from psycopg2 import sql
 import pandas as pd
-from module_azureopenai import get_chat_completion_from_azure_open_ai
 
 def get_connection(source):
     
@@ -766,10 +765,11 @@ def get_players_summary_data(source, as_data_frame=False):
         cursor = conn.cursor()
 
         query = sql.SQL(f"""
-            SELECT player_name, team_name, position_name, count(DISTINCT match_id) count_matches
-            FROM players
-            GROUP BY player_name, team_name, position_name
-            ORDER BY player_name, team_name, position_name;
+            SELECT competition_name, season_name, competition_country, player_name, team_name, position_name, count(DISTINCT m.match_id) count_matches
+            FROM players p
+            JOIN matches m ON p.match_id = m.match_id
+            GROUP BY competition_name, season_name, competition_country, player_name, team_name, position_name
+            ORDER BY competition_name, season_name, competition_country, player_name, team_name, position_name;
         """)
 
         cursor.execute(query)
@@ -814,15 +814,15 @@ def get_teams_summary_data(source, as_data_frame=False):
         cursor = conn.cursor()
 
         query = sql.SQL(f"""
-            SELECT team_name, sum(num_matches) as num_matches
+            SELECT team_name, sum(matches_count) as matches_count
             FROM (
-                SELECT home_team_name team_name, season_name, count(DISTINCT match_id) as num_matches
+                SELECT home_team_name team_name, count(DISTINCT match_id) as matches_count
                 FROM matches
-                GROUP BY home_team_name, season_name
+                GROUP BY home_team_name
                 UNION 
-                SELECT away_team_name team_name, season_name, count(DISTINCT match_id) as num_matches
+                SELECT away_team_name team_name, count(DISTINCT match_id) as matches_count
                 FROM matches
-                GROUP BY away_team_name, season_name
+                GROUP BY away_team_name
                 ) v
             GROUP BY team_name;
         """)
@@ -869,12 +869,12 @@ def get_events_summary_data(source, as_data_frame=False):
         cursor = conn.cursor()
 
         query = sql.SQL(f"""
-            SELECT competition_name, count(*) count_events
-            FROM events_details ed 
+            SELECT competition_name, season_name, play_pattern, possession_team, count(*) count_events
+            FROM (select * from events_details limit 250000) as ed 
             JOIN matches m 
             ON ed.match_id = m.match_id
-            GROUP BY competition_name
-            ORDER BY competition_name;
+            GROUP BY competition_name, season_name, play_pattern, possession_team
+            ORDER BY competition_name, season_name, play_pattern, possession_team;
         """)
 
         cursor.execute(query)
@@ -919,7 +919,6 @@ def get_competitions_summary_data(source, as_data_frame=False):
         conn = get_connection(source)
         cursor = conn.cursor()
 
-
         query = sql.SQL(f"""
             SELECT competition_name, count(*) matches_count
             FROM matches
@@ -951,7 +950,167 @@ def get_competitions_summary_data(source, as_data_frame=False):
         file_name = os.path.basename(frame.filename)
         raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
-def get_matches_summary_data(source, as_data_frame=False):
+
+def get_competitions_summary_with_teams_and_season_data(source, as_data_frame=False):
+    """
+    Retrieves game player data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+    Returns:
+        str: The player data as a string.
+        data_frame: The competition data as a pandas DataFrame.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT competition_name, season_name, team_name, sum(matches_count) as matches_count
+            FROM (
+                SELECT competition_name, home_team_name team_name, season_name, count(DISTINCT match_id) as matches_count
+                FROM matches
+                GROUP BY competition_name, season_name, home_team_name
+                UNION 
+                SELECT competition_name, away_team_name team_name, season_name, count(DISTINCT match_id) as matches_count
+                FROM matches
+                GROUP BY competition_name, season_name, away_team_name
+                ) v
+            GROUP BY competition_name, season_name, team_name;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
+
+
+
+def get_competitions_summary_with_teams_data(source, as_data_frame=False):
+    """
+    Retrieves game player data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+    Returns:
+        str: The player data as a string.
+        data_frame: The competition data as a pandas DataFrame.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT competition_name, team_name, sum(matches_count) as matches_count
+            FROM (
+                SELECT competition_name, home_team_name team_name, count(DISTINCT match_id) as matches_count
+                FROM matches
+                GROUP BY competition_name, home_team_name
+                UNION 
+                SELECT competition_name, away_team_name team_name, count(DISTINCT match_id) as matches_count
+                FROM matches
+                GROUP BY competition_name, away_team_name
+                ) v
+            GROUP BY competition_name, team_name;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
+
+def get_competitions_results_data(source, as_data_frame=False):
+    """
+    Retrieves game player data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+    Returns:
+        str: The player data as a string.
+        data_frame: The competition data as a pandas DataFrame.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT competition_name, result
+                FROM matches;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
+
+
+def get_all_matches_data(source, as_data_frame=False):
     """
     Retrieves game matches data from the database.
     Args:
@@ -969,9 +1128,14 @@ def get_matches_summary_data(source, as_data_frame=False):
         cursor = conn.cursor()
 
         query = sql.SQL(f"""
-            SELECT competition_name, season_name, match_date, home_team_name, away_team_name, result
+            SELECT competition_name, competition_country, season_name, match_date, home_team_name team_name, 
+                    result, home_score goals_scored, away_score goals_conceded
             FROM matches
-            order by 1, 2, 3;
+            UNION ALL 
+            SELECT competition_name, competition_country, season_name, match_date, away_team_name team_name, 
+                    result, away_score goals_scored, home_score goals_conceded
+            FROM matches
+            order by competition_name, competition_country, season_name, match_date;
         """)
 
         cursor.execute(query)

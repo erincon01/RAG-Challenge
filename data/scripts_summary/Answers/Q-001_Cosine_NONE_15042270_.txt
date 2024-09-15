@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Count the successful passes did each team complete in the first half (minutes 41-47) and the second half (minutes 45-50), and what impact did these passes have on their game performance?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
  summary
  In the 10th minute of the match, England's Marc Guehi committed a foul against Spain's Aymeric Laporte. This incident occurred at 10 minutes and 15 seconds into the first half. The foul was significant enough to earn Laporte a free kick, showcasing the defensive pressure he was under at the time.\nAs the play unfolded, England maintained possession, but the foul won by Laporte shifted the momentum slightly in favor of Spain. The referee's whistle indicated the foul, and the players prepared for the ensuing free kick, setting the stage for the next phase of the game.
  In the first half of the match, at the 10th minute, Spain is demonstrating a series of coordinated plays. \n**10:30** - Aymeric Laporte, positioned as the Left Center Back, initiates the action with a free kick. He delivers a ground pass to Robin Aime Robert Le Normand, who is stationed as the Right Center Back. The pass travels approximately 22.19 meters, successfully reaching Le Normand at the 11.5, 55.7 location on the field.\n**10:32** - Le Normand receives the ball, marking a smooth transition in possession for Spain. \n**10:34** - Le Normand then passes the ball back to Aymeric Laporte, who is now at 19.7, 27.9 on the field. This pass is also a ground pass, traveling 24.62 meters.\n**10:36** - Laporte receives the ball and carries it forward, moving to the location of 27.8, 28.1. \n**10:40** - Continuing the play, Laporte sends a left-footed ground pass back to Le Normand, who is now at 26.6, 49.5. This pass is executed with precision, maintaining Spain's possession.\n**10:41** - Le Normand receives the ball again, showcasing Spain's effective ball movement and teamwork. \nThroughout this sequence, Spain's players are effectively utilizing short passes and carries to maintain possession and advance the ball strategically. The keeper, Unai Simón Mendibil, remains alert, ready to support his teammates as they build their attack. The score remains unchanged as the match progresses, but Spain's fluid play indicates their intent to create scoring opportunities.
@@ -59,10 +59,10 @@ EVENTS:
  In the second half of the match, specifically at the 76th minute, Spain showcased a series of coordinated plays that highlighted their attacking prowess.\nStarting with the keeper, Unai Simón Mendibil, he received the ball and carried it forward at 31 minutes and 15 seconds. After a brief moment, he executed a ground pass to Aymeric Laporte, who was positioned as a left center back. Laporte received the ball at 31 minutes and 18 seconds and then carried it forward, demonstrating his ability to advance the play.\nLaporte then made a high pass to Marc Cucurella Saseta, who was positioned as a left back. This pass occurred at 31 minutes and 20 seconds, and Cucurella received it successfully just two seconds later. Following this, Cucurella made a low pass to Fabián Ruiz Peña, who was playing as a left defensive midfielder. Ruiz received the ball at 31 minutes and 24 seconds and carried it forward, maintaining Spain's momentum.\nAt 31 minutes and 26 seconds, Ruiz executed a high switch pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing. This pass was crucial as it allowed Spain to stretch the play and exploit the width of the pitch. Yamal received the ball at 31 minutes and 29 seconds, showcasing Spain's fluidity and teamwork during this sequence.\nThroughout this minute, Spain displayed excellent ball movement and coordination, with each player contributing to the build-up, demonstrating their tactical awareness and skill on the field.
  In the 76th minute of the match, Spain is showcasing a series of coordinated plays. \nAt 31 minutes and 31 seconds, Daniel Carvajal receives the ball at the right back position, initiating a sequence of events. He quickly passes to Daniel Olmo, who is positioned as a center attacking midfielder. Olmo, under pressure from England's Declan Rice, manages to receive the ball at 32 minutes and 32 seconds. \nOlmo then carries the ball forward, moving towards the center of the pitch before passing to Martín Zubimendi, who is playing as a right defensive midfielder. Zubimendi receives the ball at 35 minutes and 35 seconds and carries it further, demonstrating Spain's fluid movement and possession play.\nZubimendi then makes a pass to Robin Le Normand, who is positioned as a right center back. Le Normand receives the ball at 40 minutes and 40 seconds and carries it slightly before passing it back to Lamine Yamal, who is on the right wing. \nAt 43 minutes and 43 seconds, Lamine Yamal receives the ball and is now in a promising position on the right flank. This sequence highlights Spain's effective ball movement and teamwork, maintaining possession and creating opportunities as they push forward in the match. \nThe score remains unchanged as Spain continues to build their attack, showcasing their tactical prowess and skillful play.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -115,5 +115,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 Count the successful passes did each team complete in the first half (minutes 41-47) and the second half (minutes 45-50), and what impact did these passes have on their game performance?

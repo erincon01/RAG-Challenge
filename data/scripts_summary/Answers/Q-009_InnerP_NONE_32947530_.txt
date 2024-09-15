@@ -1,33 +1,33 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        What effect did substitution of Martín Zubimendi Ibáñez for Rodrigo Hernández Cascante have on performance of the team and possession statistics in the second half?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 NONE. I cannot find an answer. Please refine the question..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
   summary
  As the first half of the match drew to a close, the tension was palpable on the pitch. At the 47th minute, England and Spain were locked in a fierce contest, with Spain holding a significant 79% possession. \nThe action unfolded as Spain made a strategic play, showcasing their control of the game. The referee signaled the end of the first half, marking a moment of reflection for both teams. The score remained unchanged, with neither side finding the back of the net during this period.\nAs the players headed to their respective dressing rooms, the atmosphere was charged with anticipation for the second half. England would need to regroup and strategize if they hoped to turn the tide against a dominant Spanish side.
  As the second half of the match commenced, Spain kicked off with a pass from Martín Zubimendi to Daniel Carvajal Ramos at the 45th minute. The action began with Zubimendi executing a ground pass, successfully reaching Carvajal, who was positioned on the right flank.\nAt the same minute, Spain made a substitution, bringing on Rodrigo Hernández for Martín Zubimendi due to an injury. This change was crucial as Spain aimed to maintain their momentum.\nImmediately following the kick-off, Álvaro Morata received the ball and passed it back to Zubimendi, who then carried the ball forward before passing it to Carvajal. Carvajal, demonstrating his agility, carried the ball further up the pitch before executing another pass to Robin Aime Robert Le Normand.\nLe Normand, now in possession, made a decisive carry, moving the ball forward before passing it to Aymeric Laporte. Laporte, showing great vision, then passed the ball back to Le Normand, who continued to advance the play.\nAs the action unfolded, Le Normand carried the ball again, showcasing Spain's fluid passing and movement. The team maintained possession, with each player contributing to the build-up, demonstrating their tactical cohesion and intent to penetrate the English defense.\nThis sequence of events highlighted Spain's strategy of maintaining possession and creating opportunities, setting the stage for what could be a pivotal moment in the match.
@@ -45,10 +45,10 @@ EVENTS:
  In the 82nd minute of the match, Spain made a tactical substitution. Robin Aime Robert Le Normand, who had been playing as a Right Center Back, was replaced by José Ignacio Fernández Iglesias. This change was part of Spain's strategy as they sought to adjust their formation and tactics in the closing stages of the game. The possession at this moment was with England, indicating that Spain was looking to regain control and possibly create scoring opportunities.
  In the 82nd minute of the match, England was in possession, and the action began with John Stones, positioned as a right center back. He attempted a high pass to Ollie Watkins, but unfortunately, the pass was incomplete, marking a missed opportunity for England.\nShortly after, Kyle Walker, playing as a right back, executed a low throw-in to Declan Rice, who was under pressure from Spain's Nicholas Williams Arthuer. Rice managed to receive the ball and quickly carried it forward, moving to a more advantageous position.\nDeclan Rice then made a ground pass to Kyle Walker, who received the ball successfully. Walker continued the play by carrying the ball forward, showcasing England's determination to maintain possession despite the pressure from Spain.\nWalker then delivered another ground pass to John Stones, who received it cleanly. Stones, still under pressure, carried the ball further up the field, demonstrating England's resilience in the face of Spain's defensive efforts.\nThroughout this sequence, Spain's Nicholas Williams Arthuer was actively applying pressure, trying to disrupt England's flow. However, England's players, particularly Rice and Walker, managed to maintain control and keep the ball moving forward, indicating their strategic approach as the match progressed.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -101,5 +101,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 What effect did substitution of Martín Zubimendi Ibáñez for Rodrigo Hernández Cascante have on performance of the team and possession statistics in the second half?

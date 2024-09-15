@@ -1,23 +1,23 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        What were the key moments for each team in minutes 80 to 90 and how affected the result?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 In the minutes 80 to 90, several key moments for each team occurred:
@@ -32,15 +32,15 @@ In the minutes 80 to 90, several key moments for each team occurred:
 3. **85th Minute:** England struggled to maintain possession, with missed opportunities, including a high pass attempt by Marc Guehi that went out of play.
 4. **90th Minute:** England's Ollie Watkins committed a foul, resulting in a yellow card, which halted their momentum as they sought to equalize.
 The key moments, particularly Spain's goal in the 85th minute, directly affected the result, leading to a final score of 2-1 in favor of Spain. England's inability to capitalize on their chances and the defensive efforts of Spain ultimately determined the match outcome..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
---------
 
-EVENTS:
+
+## DATA FRAME
+
+
+
+
+### EVENTS
   summary
  In the 24th minute of the match, the action intensified as England and Spain battled for control. \nAt **24:15**, Jude Bellingham initiated pressure for England, while Daniel Carvajal Ramos of Spain responded with defensive pressure. Luke Shaw, playing as England's left back, received the ball under pressure and carried it forward, showcasing his dribbling skills. He successfully dribbled past Carvajal, moving the ball to a more advantageous position.\nAs the play continued, Shaw made a ground pass to Kobbie Mainoo at **24:18**. However, Mainoo struggled to control the ball, resulting in a miscontrol at **24:19**. This misstep allowed Spain's Marc Cucurella to clear the ball effectively, relieving the pressure on his team at **24:20**.\nSpain's Álvaro Morata then attempted to regain possession, passing to Nicholas Williams, who carried the ball forward. Williams made a ground pass to Morata, who was under pressure from England's John Stones. Stones, demonstrating solid defensive skills, successfully tackled Morata, regaining possession for England at **24:26**.\nAs the minute progressed, Kyle Walker made a recovery pass to Bukayo Saka, who received the ball and began to carry it down the right wing. Saka's movement was crucial as he aimed to create an opportunity for England, showcasing the dynamic play between both teams during this intense moment of the match. \nThe minute concluded with both teams displaying their tactical prowess, with England maintaining pressure while Spain sought to counter effectively.
  In the first half of the match, the action heated up around the 24th minute. \nAt **24:33**, Bukayo Saka of England was dispossessed by Álvaro Morata from Spain, who executed a successful tackle, putting pressure on the English side. This moment showcased Morata's defensive prowess as he regained possession for his team.\nJust moments later, at **24:37**, Daniel Olmo applied further pressure on England, demonstrating Spain's intent to dominate the midfield. \nAs the play continued, Harry Kane attempted a pass to Phil Foden at **24:38**, but the pass was incomplete, failing to reach its intended target. Foden, however, was ready to receive the ball but could not secure it, leading to a missed opportunity for England.\nIn the same minute, Kane committed a foul, which resulted in a yellow card for him. This foul was won by Fabián Ruiz, who was under pressure from Kane. The foul added tension to the match, highlighting the competitive nature of both teams.\nFollowing this, England's Bukayo Saka made a block at **24:33**, showcasing his defensive skills as he attempted to thwart Spain's advances. \nAs the minute progressed, Kobbie Mainoo made a recovery pass to Harry Kane at **24:35**, which Kane successfully received. This sequence of events illustrated England's resilience as they tried to regain control of the game.\nOverall, the 24th minute was marked by intense back-and-forth action, with both teams showcasing their skills in both attack and defense. The score remained unchanged, but the competitive spirit was palpable as players like Saka, Kane, Morata, and Olmo made their presence felt on the pitch.
@@ -70,12 +70,12 @@ EVENTS:
  In the closing moments of the match, at the 93rd minute, Spain's Mikel Merino Zazón received the ball after a free kick taken by Unai Simón Mendibil. The pass was a high ball, aimed towards Merino, but unfortunately, it was incomplete, leading to a turnover in possession.\nJust moments later, Merino committed a foul, which resulted in a free kick awarded to England. The foul was won by Marc Guehi, who was under pressure during the play. This sequence of events highlighted the intensity of the match as both teams fought for control in the dying minutes. \nAs the clock ticked down, the tension was palpable, with Spain desperately trying to create opportunities while England sought to maintain their advantage.
  In the closing moments of the match, at the 94th minute, Spain and England were engaged in a tense battle. The action unfolded as Spain was awarded a free kick, showcasing their possession and tactical play. \nAs the clock ticked down to 00:49:01, Spain took control of the ball, looking to capitalize on the opportunity. The keeper was alert, ready to respond to any threat. This moment marked the end of the second half, with both teams having fought hard throughout the match.\nThe match concluded with Spain maintaining possession, but no goals were scored in this final segment. The score remained unchanged as the referee blew the whistle, signaling the end of the game.------
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
-2024-07-14        UEFA Euro        2024          Spain        England  2 - 1-----------
+2024-07-14        UEFA Euro        2024          Spain        England  2 - 1---
 
 
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -127,8 +127,8 @@ team_name                     player_name from_time to_time             position
   England                     Cole Palmer     69:53   69:58  Right Defensive Midfield
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
-    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_-----------
+    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_---
 
 
-QUESTION:
-What were the key moments for each team in minutes 80 to 90 and how affected the result?--------
+## PROMPT
+What were the key moments for each team in minutes 80 to 90 and how affected the result?

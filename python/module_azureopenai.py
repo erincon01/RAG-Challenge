@@ -7,6 +7,7 @@ import pandas as pd
 from openai import AzureOpenAI
 import datetime
 from datetime import datetime
+from module_postgres import get_game_result_data, get_game_players_data, get_json_events_details_from_match_id
 
 def get_connection(source):
     
@@ -474,23 +475,17 @@ def search_details_using_embeddings(source, table_name, match_id, search_type, i
         # remofe the id column from df
         df = df.drop(columns=['id'])
 
-        prompt  = f"DOCUMENT:\n"
-        prompt += f"--------\n\n"
-
-        prompt += f"EVENTS:\n" + df.to_string(index=False)
-        prompt += f"------\n"
+        prompt=""
+        prompt += f"### EVENTS\n" + df.to_string(index=False, justify='left')
 
         d_game_result = get_game_result_data(source, match_id)
-        prompt += f"\n\nGAME RESULT:\n" + d_game_result
-        prompt +=     f"-----------\n"
+        prompt += f"\n\n### GAME RESULT\n" + d_game_result
 
         if include_lineups.lower() == "yes":
             d_game_players = get_game_players_data(source, match_id)
-            prompt += f"\n\nGAME PLAYERS:\n" + d_game_players
-            prompt +=     f"_-----------\n"
+            prompt += f"\n\n### GAME PLAYERS\n" + d_game_players
 
-        prompt += f"\n\nQUESTION:\n{search_term}"
-        prompt +=     f"--------\n"
+        prompt += f"\n\n### PROMPT\n{search_term}"
 
         tokens = count_tokens(prompt)
 
@@ -512,18 +507,6 @@ def search_details_using_embeddings(source, table_name, match_id, search_type, i
             conn.close()
 
 def get_dataframe_from_ids(source, table_name, summary, ids):
-    """
-    Retrieves a pandas DataFrame from a database based on the given source, table name, summary column, and list of IDs.
-    Args:
-        source (str): The source of the database. Can be either "azure" or any other value.
-        table_name (str): The name of the table in the database.
-        summary (str): The name of the column to retrieve in the query.
-        ids (list): A list of IDs to filter the query.
-    Returns:
-        pandas.DataFrame: The resulting DataFrame containing the queried data.
-    Raises:
-        Exception: If there is an error connecting to or executing the query in the database.
-    """
 
     try:
 
@@ -553,3 +536,126 @@ def get_dataframe_from_ids(source, table_name, summary, ids):
         if conn:
             conn.close()
 
+def process_prompt_from_web (match_id, model, \
+                             search_type, top_n, include_lineups, influence_temperature, \
+                             system_message, question, input_tokens, output_tokens):
+
+    if include_lineups.lower() != "no":
+        include_lineups = "yes"
+
+    temperature = 0.0
+    if influence_temperature == "":
+        temperature = 0.1
+    else:
+        try:
+            temperature = float(influence_temperature)
+        except ValueError:
+            temperature = 0.1
+
+    include_json = "no"
+
+    dataframe, summary = search_details_using_embeddings ("Azure", "events_details__quarter_minute", match_id, search_type, 
+                                                            include_lineups, include_json, model,
+                                                            top_n, question, system_message, temperature, input_tokens, output_tokens)
+
+    return dataframe, summary
+
+def process_prompt (questions, match_id, system_message, input_tokens, output_tokens, local_folder):
+    """
+    Process tokens and perform search using embeddings.
+    Args:
+        questions (list): List of dictionaries containing questions to be processed.
+        match_id (str): ID of the match.
+        system_message (str): System message.
+        input_tokens (list): List of input tokens.
+        output_tokens (list): List of output tokens.
+        local_folder (str): Local folder path.
+    Returns:
+        None
+    """
+
+     # iterate over the questions and print each column
+    for question in questions:
+        question_number = question["question_number"]
+        search_type = question["search_type"]
+        top_n = question["top_n"]
+        search_term = question["question"]
+        include_lineups = question.get("include_lineups", "")
+        influence_temperature = question.get("temperature", "")
+
+        if include_lineups.lower() != "no":
+            include_lineups = "yes"
+
+        temperature = 0.0
+        if influence_temperature == "":
+            temperature = 0.1
+        else:
+            try:
+                temperature = float(influence_temperature)
+            except ValueError:
+                temperature = 0.1
+
+        include_json = question.get("include_json", "")
+        if include_json.lower() =="":
+            include_json = "no"
+        if include_json.lower() != "no":
+            include_json = "yes"
+
+        model = question.get("model", "")
+
+        dataframe, summary = search_details_using_embeddings ("Azure", "events_details__quarter_minute", match_id, search_type, 
+                                                              include_lineups, include_json, model,
+                                                              top_n, search_term, system_message, temperature, input_tokens, output_tokens)
+        print(f"Question: {question_number} - {search_term}")
+        print(f"Answer: {summary}")
+        print(f"------------------------------------------------------------------------")
+
+        export_script_result_to_text(dataframe, summary, match_id, system_message, search_term, local_folder, question_number + "_" + search_type)
+
+def export_script_result_to_text(dataframe, match_id, system_message, summary, search_term, local_folder, filename):
+    """
+    Export the script result to a text file.
+    Parameters:
+    - local_folder (str): The folder path where the text file will be saved.
+    - summary (str): The summary of the script result.
+    - filename (str): The name of the text file.
+    Returns:
+    None
+    """
+
+    now = datetime.now()
+    sc = int(now.strftime("%S"))
+    ms = int(now.strftime("%f"))
+    v = sc * ms
+    v = str(v) + "_"
+
+    tag ="-"
+    if summary.startswith("NONE"):
+        tag = "_NONE_"
+    if summary.startswith("TOKENS"):
+        tag = "_TOKENS_"
+    if summary.startswith("NONE"):
+        tag = "_NONE_"
+
+    folder = os.path.join(local_folder, "scripts_summary", "Answers")
+    filename += tag + v + ".txt"
+
+    text = ""
+    text  = f"## SYSTEM MESSAGE\n"
+    text += f"       {system_message}.\n\n"
+
+    text += f"## SEARCH TERM\n"
+    text += f"       {search_term}.\n\n"
+
+    text += f"## MATCH ID\n"
+    text += f"       {match_id}.\n\n"
+
+    text += f"## ANSWER\n"
+    text += f"\n\n{summary}.\n"
+
+    text += f"## DATA FRAME\n"
+
+    text += dataframe
+    
+    with open(os.path.join(folder, filename), "w", encoding="utf-8") as f:
+        f.write(text)

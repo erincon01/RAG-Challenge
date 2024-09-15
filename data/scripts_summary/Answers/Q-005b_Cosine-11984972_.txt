@@ -1,23 +1,23 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        What defensive actions, such as tackles, saves, and blocks, did each team execute in second half?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 In the second half of the match, the following defensive actions were executed by each team:
@@ -28,15 +28,15 @@ In the second half of the match, the following defensive actions were executed b
 1. **Martín Zubimendi Ibáñez** executed a successful tackle against Cole Palmer, regaining possession for Spain at 81:00.
 2. **Aymeric Laporte** blocked a pass intended for Harry Kane at 39:34, demonstrating solid defensive work.
 These actions highlight the defensive efforts of both teams as they sought to maintain control and prevent scoring opportunities..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
---------
 
-EVENTS:
+
+## DATA FRAME
+
+
+
+
+### EVENTS
    summary
  In the 16th minute of the match, the action was intense as England and Spain battled for control. \nAt 16:45, John Stones initiated a play with a ground pass to Bukayo Saka, who received the ball effectively on the right wing. Saka, under pressure, carried the ball forward, showcasing his skill and determination.\nJust moments later, at 16:53, Saka passed the ball to Phil Foden, who was positioned centrally. Foden, however, faced immediate pressure from Spain's Rodrigo Hernández Cascante, who attempted to dribble past him but was unsuccessful. Foden then made a dribble of his own but unfortunately overran the ball, resulting in an incomplete dribble at 16:54.\nDespite the pressure from Spain, Foden managed to maintain possession and carried the ball forward again, demonstrating his resilience. He received a pass from Saka and continued to push the play forward, but Spain's Marc Cucurella applied pressure, trying to disrupt England's rhythm.\nAt 16:56, Spain's Daniel Olmo received a pass from Aymeric Laporte, allowing him to carry the ball into a more attacking position. Olmo's movement was crucial as he sought to create opportunities for his team.\nThe minute was filled with back-and-forth action, with both teams showcasing their skills and tactical awareness. The score remained unchanged, but the intensity of the match was palpable as both sides sought to gain the upper hand.
  In the first half of the match, at the 17th minute, Spain initiated a series of plays that showcased their attacking intent. \nIt all began with Daniel Carvajal Ramos, positioned as the right back, executing a throw-in that reached Fabián Ruiz Peña. This throw-in was a high pass, effectively moving the ball into play at the 17:14 mark. Spain maintained possession as they looked to build an attack.\nShortly after, Lamine Yamal Nasraoui Ebana, playing on the right wing, received the ball and carried it forward, demonstrating his agility and control. This carry took place at 17:00, and he was in a prime position to create an opportunity for Spain.\nHowever, as Lamine attempted to pass the ball forward, his low pass aimed at a teammate was intercepted. The pass, which was incomplete, occurred at 17:01 and was blocked by England's Luke Shaw, who was quick to react and effectively disrupted Spain's momentum. This defensive action by Shaw was crucial in maintaining England's defensive structure.\nThus, the sequence of events highlighted Spain's efforts to penetrate England's defense, but ultimately, it was Shaw's timely block that thwarted their advance, keeping the scoreline unchanged at this point in the match.
@@ -69,12 +69,12 @@ EVENTS:
  In the 80th minute of the match, the action intensified as England and Spain battled for control. \nAt 35:54, Phil Foden of England made a crucial block against a pass from Spain's Aymeric Laporte, who had just completed a ground pass to Martín Zubimendi. This defensive effort by Foden was vital as Spain was looking to build momentum.\nJust moments later, at 35:56, Foden recovered the ball, showcasing his determination and skill. He then carried the ball forward, moving into a more attacking position.\nAs the clock ticked to 35:58, Jude Bellingham received a pass from Foden, demonstrating England's quick transition from defense to attack. Bellingham, positioned in the right defensive midfield, was now in a prime spot to make a play.\nWith the score still level, Bellingham quickly passed the ball to Cole Palmer, who was making a run into space. This pass, executed at 35:58, was crucial as England sought to break the deadlock.\nMeanwhile, Spain's Martín Zubimendi was applying pressure on Bellingham, trying to disrupt England's flow. The tension was palpable as both teams fought for dominance in this critical phase of the match.\nThe minute concluded with both teams showcasing their defensive and offensive capabilities, setting the stage for an exciting finish.
  In the 81st minute of the match, the action intensified as Spain pressed forward. Cole Palmer of England received the ball under pressure but was soon dispossessed by Martín Zubimendi Ibáñez, who executed a successful tackle. This allowed Spain to regain possession, with Nicholas Williams Arthuer quickly carrying the ball forward.\nWilliams then made a short pass to Daniel Olmo Carvajal, who received the ball and continued the attack. Olmo carried the ball further before delivering a precise ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing.\nYamal, now in a promising position, took a shot at goal. However, England's keeper, Jordan Pickford, was alert and made a crucial save, keeping the scoreline intact. The shot was classified as an open play attempt, but it was ultimately saved, maintaining the pressure on Spain as they sought to break through England's defense.\nAs the clock ticked on, the match remained tense, with both teams vying for control and the opportunity to score.------
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
-2024-07-14        UEFA Euro        2024          Spain        England  2 - 1-----------
+2024-07-14        UEFA Euro        2024          Spain        England  2 - 1---
 
 
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -126,8 +126,8 @@ team_name                     player_name from_time to_time             position
   England                     Cole Palmer     69:53   69:58  Right Defensive Midfield
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
-    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_-----------
+    Spain              Mikel Merino Zazón     88:40   89:54                Right Wing_---
 
 
-QUESTION:
-What defensive actions, such as tackles, saves, and blocks, did each team execute in second half?--------
+## PROMPT
+What defensive actions, such as tackles, saves, and blocks, did each team execute in second half?

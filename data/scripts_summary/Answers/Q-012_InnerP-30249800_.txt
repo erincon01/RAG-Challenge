@@ -1,36 +1,36 @@
- - SYSTEM MESSAGE -
-  ----------------
+## SYSTEM MESSAGE
+
        
                 Answer the users QUESTION using the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT.
                 If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
             .
 
-  ----------------
- - SEARCH TERM    -
-  ----------------
+
+## SEARCH TERM
+
        Who scored the goals for each team in which minutes, and what types of goals were they, such as headers or penalties?.
 
-  ----------------
- - MATCH ID       -
-  ----------------
+
+## MATCH ID
+
        3943043.
 
- - ANSWER         -
-  ----------------
+## ANSWER
+
 
 
 The goals in the match were scored as follows:
 - **Spain**: Mikel Oyarzabal scored in the **85th minute** with a shot on goal, resulting in a successful goal.
 - **England**: Jude Bellingham scored in the **90th minute** with a shot on goal, resulting in a successful goal.
 The types of goals were both regular shots on goal, with no headers or penalties mentioned in the document..
--------------------------------------------------------------------------------------------------------
 
-  ----------------
- - DATA FRAME     -
-  ----------------
-DOCUMENT:
-EVENTS:
+
+
+## DATA FRAME
+
+
+### EVENTS
   summary
  In the first period of the match, at the 13th minute, Spain showcased a series of coordinated plays that highlighted their possession and teamwork.\nAt **13:30**, Robin Aime Robert Le Normand, playing as a Right Center Back, received the ball, demonstrating his ability to control the game from the backline. He then carried the ball forward, moving it to a more advantageous position.\nJust a few seconds later, at **13:34**, Le Normand executed a ground pass to Daniel Carvajal Ramos, the Right Back, who was positioned further up the field. Carvajal received the ball cleanly, maintaining Spain's possession.\nContinuing the momentum, at **13:35**, Carvajal carried the ball forward, advancing it to a more strategic location on the pitch. His movement was crucial in keeping the pressure on the opposing team.\nAt **13:37**, Carvajal made another ground pass, this time to Rodrigo Hernández Cascante, who was positioned as a Right Defensive Midfielder. This pass was precise, allowing Rodrigo to take control of the ball and continue the attack.\nRodrigo then carried the ball at **13:38**, moving it further down the field, showcasing his dribbling skills and maintaining Spain's attacking flow. He then passed the ball to Aymeric Laporte at **13:41**, who was positioned as a Left Center Back. Laporte received the ball effectively, demonstrating Spain's fluid passing game.\nAt **13:44**, Laporte received the ball and carried it forward, further advancing Spain's position on the field. This sequence of events illustrated Spain's cohesive play and their ability to maintain possession while looking for opportunities to penetrate the opposition's defense.\nThroughout this minute, Spain's players, including Carvajal, Le Normand, Rodrigo, and Laporte, worked in harmony, showcasing their tactical awareness and skillful execution. The score remained unchanged, but the pressure was clearly mounting on their opponents as Spain continued to dominate possession.
  In the first half of the match, the action unfolded rapidly around the 13th minute, showcasing some key plays from both England and Spain.\nAt **13:55**, Jude Bellingham of England made a significant carry down the left wing, maneuvering under pressure and advancing the ball to a location near the edge of the penalty area. This was a crucial moment as England maintained possession, with the score still at 0-0.\nJust moments later, at **13:45**, Aymeric Laporte from Spain executed a ground pass to Nicholas Williams Arthuer, who received the ball effectively at **13:47**. Williams then carried the ball forward, demonstrating Spain's intent to attack.\nAs the play progressed, Williams attempted a high cross to Álvaro Morata at **13:51**, but the pass was incomplete, leading to a clearance by Marc Guehi of England at **13:52**. This clearance was vital as it relieved the pressure on England's defense.\nFollowing the clearance, Kobbie Mainoo of England made a recovery pass to Phil Foden at **13:53**, who then received the ball at **13:54**. Foden quickly passed back to Jude Bellingham, who was in a promising position on the left wing, receiving the ball at **13:55**. \nThis sequence of events highlighted the back-and-forth nature of the match, with both teams showcasing their skills and tactical awareness, yet the score remained unchanged at 0-0 as the first half continued.
@@ -48,10 +48,10 @@ EVENTS:
  In the closing moments of the match, at the 90th minute, the tension was palpable as Spain and England battled for control. \n**90:00** - José Ignacio Fernández Iglesias of Spain won a foul, demonstrating his defensive prowess as he was under pressure from England's attack. This foul occurred just as the clock ticked to 90 minutes, with the score still level.\n**90:00 - 90:03** - Aymeric Laporte, also from Spain, made a crucial clearance with his head, ensuring that the ball was moved away from danger. This clearance came just moments after the foul was won, showcasing Spain's defensive efforts to maintain their position.\n**90:03** - The action continued as Bukayo Saka of England attempted a recovery pass to Ollie Watkins. However, the pass was incomplete, indicating the pressure Spain was applying in their defensive third.\n**90:03 - 90:06** - Jordan Pickford, England's keeper, executed a goal kick, aiming to clear the ball from his area. Unfortunately for him, the pass also ended up being incomplete, reflecting the chaotic nature of the final moments of the match.\n**90:06** - Ollie Watkins received the ball but was unable to maintain possession, as the ball receipt was marked incomplete. This was a critical moment as England sought to capitalize on any opportunity.\n**90:06** - In a swift turn of events, Watkins committed a foul against Spain, resulting in a yellow card for him. This foul was a significant moment, as it not only halted England's momentum but also added to the mounting pressure on the English side as the match drew to a close.\nAs the final whistle approached, both teams were eager to secure a result, but the defensive efforts from Spain, highlighted by the actions of players like Laporte and Fernández Iglesias, kept England at bay. The match ended with both teams still searching for that elusive goal.
  In the closing moments of the match, specifically at the 91st minute, Spain's keeper, Unai Simón Mendibil, took a free kick from just outside the penalty area. The ball was intended for Mikel Merino Zazón, who was positioned to receive it. However, the pass was incomplete, failing to reach its target effectively.\nAs the play continued, Mikel Merino attempted to receive the ball but was under pressure and lost an aerial duel against England's Marc Guehi. This duel occurred simultaneously with the ball receipt attempt, highlighting the intensity of the moment.\nMarc Guehi, playing as a left center back for England, managed to recover the ball and executed a pass to Declan Rice. This recovery was crucial as it shifted the momentum back to England, showcasing their defensive resilience in the dying minutes of the game.\nThe action unfolded rapidly, with the clock ticking down, emphasizing the high stakes and the competitive nature of the match.
 
-GAME RESULT:
+### GAME RESULT
 match_date competition_name season_name home_team_name away_team_name result
 2024-07-14        UEFA Euro        2024          Spain        England  2 - 1
-GAME PLAYERS:
+### GAME PLAYERS
 team_name                     player_name from_time to_time             position_name
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
     Spain        José Luis Sanmartín Mato      None    None                          
@@ -104,5 +104,5 @@ team_name                     player_name from_time to_time             position
   England                    Adam Wharton      None    None                          
   England                   Kobbie Mainoo     00:00   69:53  Right Defensive Midfield
     Spain              Mikel Merino Zazón     88:40   89:54                Right Wing
-\QUESTION:
+\## PROMPT
 Who scored the goals for each team in which minutes, and what types of goals were they, such as headers or penalties?
