@@ -7,6 +7,7 @@ import pandas as pd
 from openai import AzureOpenAI
 import datetime
 from datetime import datetime
+import traceback
 from module_postgres import get_game_result_data, get_game_players_data, get_json_events_details_from_match_id
 
 def get_connection(source):
@@ -304,13 +305,12 @@ def create_events_summary_per_pk_from_json_rows_in_database(source, tablename, p
             print(f"Estimated remaining time: {time_str} [{estimated_end_str}].")
             
     except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}] Error connecting or executing the query in the database.") from e
 
 
 def create_match_summary(source, tablename, match_id, system_message, temperature, tokens):
@@ -351,13 +351,12 @@ def create_match_summary(source, tablename, match_id, system_message, temperatur
         return summary
 
     except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
-
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}] Error connecting or executing the query in the database.") from e
 
 
 def search_details_using_embeddings(source, table_name, match_id, search_type, include_lineups, include_json, model, top_n, search_term, system_message, temperature, input_tokens, output_tokens):
@@ -498,13 +497,13 @@ def search_details_using_embeddings(source, table_name, match_id, search_type, i
         return prompt, summary
 
     except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}] Error connecting or executing the query in the database.") from e
 
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
 
 def get_dataframe_from_ids(source, table_name, summary, ids):
 
@@ -528,13 +527,13 @@ def get_dataframe_from_ids(source, table_name, summary, ids):
         return df
 
     except Exception as e:
-        print(f"Error connecting or executing the query in the database: {e}")
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}] Error connecting or executing the query in the database.") from e
 
-    finally:
-        if cursor:
-            cursor.close()
-        if conn:
-            conn.close()
 
 def process_prompt_from_web (match_id, model, \
                              search_type, top_n, include_lineups, influence_temperature, \

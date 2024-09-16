@@ -1160,3 +1160,61 @@ def get_all_matches_data(source, as_data_frame=False):
         method_name = frame.name
         file_name = os.path.basename(frame.filename)
         raise RuntimeError(f"[{file_name}].[{method_name}] Error connecting or executing the query in the database.") from e
+
+
+def get_tables_info_data(source, as_data_frame=False):
+    """
+    Retrieves tables data from the database.
+    Args:
+        source (str): The source of the database (either "azure" or any other value).
+    Returns:
+        str: The player data as a string.
+        data_frame: The competition data as a pandas DataFrame.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        cursor = conn.cursor()
+
+        query = sql.SQL(f"""
+            SELECT
+                pg_namespace.nspname AS schema_name,
+                pg_class.relname AS table_name,
+                pg_size_pretty(pg_total_relation_size(pg_class.oid)) AS total_size,
+                pg_size_pretty(pg_relation_size(pg_class.oid)) AS table_size,
+                pg_size_pretty(pg_indexes_size(pg_class.oid)) AS indexes_size
+            FROM
+                pg_class
+            JOIN
+                pg_namespace ON pg_class.relnamespace = pg_namespace.oid
+            WHERE
+                pg_class.relkind = 'r'
+            ORDER BY
+                pg_total_relation_size(pg_class.oid) DESC;
+        """)
+
+        cursor.execute(query)
+        rowCount = cursor.rowcount
+
+        if rowCount == 0:
+            return "No results found."
+
+        # convertir el resultado a un pandas dataframe
+        df = pd.DataFrame(cursor.fetchall(), columns=[desc[0] for desc in cursor.description])
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}] Error connecting or executing the query in the database.") from e

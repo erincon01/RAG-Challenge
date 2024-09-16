@@ -7,3 +7,6 @@ streamlit
 streamlit-option-menu
 matplotlib
 seaborn
+requests
+beautifulsoup4
+pillow

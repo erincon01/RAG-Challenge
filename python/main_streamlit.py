@@ -16,7 +16,7 @@ from module_postgres import load_matches_data_into_postgres_from_folder, load_li
     load_events_data_into_postgres, copy_data_from_postgres_to_azure, download_match_script, \
     get_competitions_summary_data, get_competitions_summary_with_teams_data, get_competitions_results_data, \
     get_all_matches_data, get_players_summary_data, get_teams_summary_data, get_events_summary_data, \
-    get_competitions_summary_with_teams_and_season_data
+    get_competitions_summary_with_teams_and_season_data, get_tables_info_data
 from module_azureopenai import get_tokens_statistics_from_table_column, create_events_summary_per_pk_from_json_rows_in_database, \
     create_and_download_detailed_match_summary, create_match_summary, search_details_using_embeddings, process_prompt, \
     process_prompt_from_web
@@ -109,9 +109,10 @@ If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. 
         with st.container(border=True):
                 st.markdown(result)
 
+        st.write(selected_show_logs)
         if selected_show_logs == "Yes":
             with st.container(border=True, height=250):
-                    st.write(dataframe)
+                    st.markdown(dataframe)
 
 def parse_sections(content):
     sections = {}
@@ -171,8 +172,18 @@ def generate_toc(toc, levels):
     return toc_html
 
 def extract_section(content, section_title):
-    # Define regex pattern to match the desired section
-    pattern = re.compile(rf'## {re.escape(section_title)}(.*?)(?=## |$)', re.DOTALL)
+    """
+    Extracts the content of a specified section from a Markdown document.
+
+    Parameters:
+    content (str): The Markdown content as a string.
+    section_title (str): The title of the section to extract.
+
+    Returns:
+    str: The content of the section if found, otherwise "Section not found."
+    """
+    # Define regex pattern to match the desired section, handling both level 2 and level 3 headers
+    pattern = re.compile(rf'## {re.escape(section_title)}(.*?)(?=## |### |$)', re.DOTALL)
     
     # Find the section matching the pattern
     match = pattern.search(content)
@@ -206,7 +217,7 @@ def load_header():
     with st.sidebar:
 
         selected = option_menu(
-            menu_title="Menu",  # 
+            menu_title="Menu",
             options=[
                 "The project",
                 "Competitions",
@@ -214,13 +225,15 @@ def load_header():
                 "Teams",
                 "Players",
                 "Events",
+                "Tables Information",
                 "Chat History",
                 "Chatbot",
-                "Readme"
+                "Readme",
+                "About Us"
             ],
             icons=[
                 "house", "list-task", "calendar", "people", "person",
-                "list", "bar-chart", "chat-dots", "book"
+                "list", "database", "bar-chart", "chat-dots", "book", "book"
             ],  # Iconos opcionales
             menu_icon="cast",  # Icono del menú
             default_index=0,  # Índice de la opción por defecto
@@ -240,9 +253,11 @@ def load_header():
         "Players": "person",
         "Teams": "people",
         "Events": "list",
+        "Tables Information": "database",
         "Chat History": "bar-chart",
         "Chatbot": "chat-dots",
-        "Readme": "book"
+        "Readme": "book",
+        "About Us": "book"
     }
 
     icon = icon_mapping.get(selected, "house")  # Obtiene el icono del menú seleccionado
@@ -256,9 +271,9 @@ def load_header():
 
     if selected.lower() == "competitions" or selected.lower() == "matches" or \
         selected.lower() == "players" or selected.lower() == "teams" or \
-        selected.lower() == "events":
+        selected.lower() == "events" or selected.lower() == "tables information":
 
-        content = load_file("../statsbomb_data_introduction.md")
+        content = load_file("../README-statsbomb_introduction.md")
         selected_section = extract_section(content, selected.capitalize())
         st.markdown(selected_section)
 
@@ -277,7 +292,7 @@ try:
     selected = load_header()
     menu = selected.lower()
 
-    if menu != "the project" and menu != "chat history" and menu != "chatbot" and menu != "readme":
+    if menu != "the project" and menu != "chat history" and menu != "chatbot" and menu != "readme" and menu != "about us":
         connection_button()
         source = st.session_state.data_source
 
@@ -287,6 +302,51 @@ try:
         content = load_file(".//..//README.md")
         section = extract_section(content, "Overview")
         st.markdown(section)
+
+        st.subheader("8 minutes pitch!")
+        st.video(".//..//RAG-Challenge_Sabados_Tech.mp4")
+
+        # insert video
+        st.markdown("""
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        """, unsafe_allow_html=True)
+
+        # Mostrar el ícono de balón de fútbol
+        st.markdown('<h2>Spain <i class="fa fa-futbol-o"></i><i class="fa fa-futbol-o"></i> - England <i class="fa fa-futbol-o"></i></h2>', unsafe_allow_html=True)
+
+        st.video("https://www.youtube.com/watch?v=sQ6rgX77tB0")
+
+        st.header("What we have built")
+
+        # show an image
+        with st.container(border=True):
+            st.image("./../images/streamlit/image-23.png", use_column_width=True)
+        
+        with st.container(border=True):
+            st.image("./../images/streamlit/image-24.png", use_column_width=True)
+        
+        content = load_file(".//..//README-process.md")
+        st.markdown(content)
+
+    elif menu == "about us":
+
+        st.markdown("#### About Us")
+
+        with st.container(border=True):
+                
+            st.markdown("##### https://www.linkedin.com/in/eugenio-serrano/")
+            st.markdown("##### https://www.linkedin.com/in/josemarianoalvarez/")
+            st.markdown("##### https://www.linkedin.com/in/erincon/")
+        
+    elif menu == "tables information":
+
+        try:
+            df = get_tables_info_data(source, True)
+            st.markdown("#### Tables Space Summary")
+            st.dataframe(df)
+
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
 
     elif menu == "competitions":
 
