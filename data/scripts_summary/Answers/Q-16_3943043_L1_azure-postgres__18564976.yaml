@@ -1,0 +1,18 @@
+  - question_number: Q-16
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Identify the players who had the most possession in each half of the match.
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      In the first half of the match, Spain showcased significant possession, with players like Fabián Ruiz Peña and Daniel Carvajal Ramos actively involved in maintaining control. However, specific possession statistics for individual players are not detailed in the EVENTS.
+      In the second half, Spain continued to dominate possession, particularly with players like Unai Simón Mendibil and Aymeric Laporte contributing to ball control and distribution. Again, specific possession statistics for individual players are not provided in the EVENTS.
+      Therefore, while we know that Spain had a strong possession game in both halves, the exact players with the most possession are not specified.
+      NONE. I cannot find an answer. Please refine the question.
+    dataframe: |
+      Identify the players who had the most possession in each half of the match.

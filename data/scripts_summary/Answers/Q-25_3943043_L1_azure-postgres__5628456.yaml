@@ -1,0 +1,28 @@
+  - question_number: Q-25
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many free kicks did each team receive, and what was the outcome of each free kick?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      Based on the EVENTS provided, here are the free kicks awarded to each team along with their outcomes:
+      ### England:
+      1. **10th Minute**: Free kick awarded to Aymeric Laporte after a foul by Marc Guehi. Outcome: The free kick was taken, but the specific result is not detailed.
+      2. **55th Minute**: Free kick awarded to England after a foul by Marc Cucurella against Bukayo Saka. Outcome: The specific result of the free kick is not detailed.
+      3. **61st Minute**: Free kick awarded to England after a foul by Nicholas Williams Arthuer against Bukayo Saka. Outcome: The specific result of the free kick is not detailed.
+      4. **92nd Minute**: Free kick taken by Jordan Pickford intended for Ivan Toney. Outcome: The pass was incomplete, failing to reach Toney.
+      ### Spain:
+      1. **12th Minute**: Corner kick taken by Nicholas Williams Arthuer. Outcome: An overhead kick by Robin Aime Robert Le Normand went off target.
+      2. **10th Minute**: Free kick awarded to Spain after a foul by Jude Bellingham. Outcome: The specific result of the free kick is not detailed.
+      3. **92nd Minute**: Free kick awarded to Spain after a foul by Declan Rice. Outcome: The specific result of the free kick is not detailed.
+      ### Summary:
+      - **England** received 4 free kicks, but the outcomes of most are not specified.
+      - **Spain** received 3 free kicks, with one resulting in a corner kick, and the outcomes of the others are not specified.
+      Overall, the specific outcomes of the free kicks taken are not detailed in the EVENTS.
+    dataframe: |
+      How many free kicks did each team receive, and what was the outcome of each free kick?

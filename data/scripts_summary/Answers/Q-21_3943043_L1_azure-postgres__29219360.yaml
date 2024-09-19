@@ -1,0 +1,16 @@
+  - question_number: Q-21
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many fouls were committed by each team in each half?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      The provided events do not specify the total number of fouls committed by each team in each half. Therefore, I cannot provide an exact count of fouls for England and Spain. 
+      NONE. I cannot find an answer. Please refine the question.
+    dataframe: |
+      How many fouls were committed by each team in each half?

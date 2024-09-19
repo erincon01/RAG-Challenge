@@ -1,0 +1,20 @@
+  - question_number: Q-02
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Which players recorded the highest number of carries and passes in both halves, and how did their performances influence the overall strategies of the teams?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      The provided events do not specify the exact number of carries and passes for each player, nor do they quantify their performances in a way that allows for a direct comparison of who recorded the highest numbers. However, several players were frequently involved in the play, showcasing their importance in maintaining possession and executing strategies.
+      In the first half, players like **Marc Cucurella Saseta**, **Rodrigo Hernández Cascante**, and **Fabián Ruiz Peña** were actively involved in passing sequences and ball carries, contributing to Spain's possession play, which was notably high at 79% by the end of the first half. Their ability to maintain possession and transition the ball effectively was crucial in Spain's strategy to control the game.
+      In the second half, players like **Aymeric Laporte** and **Robin Aime Robert Le Normand** continued to play pivotal roles in maintaining possession and advancing the ball, demonstrating Spain's tactical discipline and teamwork.
+      Overall, the performances of these players influenced their teams' strategies by emphasizing possession-based play, quick transitions, and coordinated movements, which were essential for Spain's eventual victory over England with a score of 2-1.
+      However, without specific numerical data on carries and passes, I cannot definitively state which players had the highest counts. 
+      NONE. I cannot find an answer. Please refine the question.
+    dataframe: |
+      Which players recorded the highest number of carries and passes in both halves, and how did their performances influence the overall strategies of the teams?

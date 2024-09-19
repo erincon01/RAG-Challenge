@@ -3,6 +3,9 @@
 /data/lineups/
 /data/matches/
 /data/three-sixty/
-
-
+/data/openai/matches_summary/*.yaml
 *.pyc
+
+rag_challenge.db
+rag_challenge.db-journal
+04_create_openai_stored_procedures_api_key_included.sql

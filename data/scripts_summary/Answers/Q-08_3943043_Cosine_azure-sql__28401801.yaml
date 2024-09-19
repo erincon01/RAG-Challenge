@@ -1,0 +1,26 @@
+  - question_number: Q-08
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: What defensive actions, such as tackles, saves, and blocks, did each team execute in second half?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      In the second half, the following defensive actions were executed by each team:
+      ### Spain:
+      1. **Aymeric Laporte** - Executed a crucial clearance with his head after a free kick taken by Phil Foden at 62 minutes.
+      2. **Lamine Yamal Nasraoui Ebana** - Made a clearance under pressure at 62 minutes and 46 seconds, winning an aerial duel with a header.
+      3. **Aymeric Laporte** - Cleared the ball under pressure after a series of England attacks, particularly when Jude Bellingham was applying pressure.
+      4. **Daniel Carvajal** - Blocked a shot from Ollie Watkins at 69 minutes, preventing a goal.
+      ### England:
+      1. **Jordan Pickford** - Made several key saves, including a save from a header by Declan Rice after a corner kick at 89 minutes.
+      2. **Jude Bellingham** - Made a crucial clearance with his head after a corner taken by Spain at 78 minutes and 17 seconds.
+      3. **Cole Palmer** - Executed a clearance with his left foot after a failed corner kick from Spain at 78 minutes.
+      4. **Marc Guehi** - Blocked a shot from Fabián Ruiz Peña at 89 minutes and attempted another shot that was also blocked.
+      These actions highlight the defensive efforts from both teams during the second half of the match.
+    dataframe: |
+      What defensive actions, such as tackles, saves, and blocks, did each team execute in second half?

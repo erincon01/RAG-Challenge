@@ -1,0 +1,21 @@
+  - question_number: Q-15
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Which players were most effective in disrupting the play of the opponent through tackles, interceptions, and defensive actions?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      The players who were most effective in disrupting the play of the opponent through tackles, interceptions, and defensive actions include:
+      1. **Luke Shaw (England)** - He made several key defensive actions, including successfully nutmegging an opponent and winning a duel against Lamine Yamal. He also applied pressure on Spain's players, showcasing his defensive skills.
+      2. **Jude Bellingham (England)** - Bellingham applied pressure on Spain's players, successfully dispossessing Lamine Yamal and showcasing his defensive prowess.
+      3. **Daniel Carvajal (Spain)** - He won a tackle against Luke Shaw, demonstrating Spain's defensive resilience.
+      4. **Kobbie Mainoo (England)** - He applied pressure on Spain's Fabián Ruiz Peña and made crucial interceptions, disrupting Spain's attempts to build an attack.
+      5. **Marc Guehi (England)** - He made effective clearances and interceptions, helping to maintain England's defensive integrity.
+      These players highlighted their defensive capabilities throughout the match, contributing significantly to their teams' efforts to regain possession and disrupt the opponent's play.
+    dataframe: |
+      Which players were most effective in disrupting the play of the opponent through tackles, interceptions, and defensive actions?

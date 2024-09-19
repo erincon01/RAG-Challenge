@@ -1,0 +1,15 @@
+python-dotenv
+requests
+pandas 
+tiktoken
+streamlit
+streamlit-option-menu
+matplotlib
+seaborn
+beautifulsoup4
+pillow
+openai
+pyodbc
+psycopg2
+sqlalchemy
+pyyaml

@@ -1,0 +1,15 @@
+  - question_number: Q-12
+    search_type: InnerP
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: What was the final scoreline of the match, including goals scored by each team and any additional time or penalty shootout results?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      The final scoreline of the match was Spain 2 - 1 England. There are no additional time or penalty shootout results mentioned.
+    dataframe: |
+      What was the final scoreline of the match, including goals scored by each team and any additional time or penalty shootout results?

@@ -1,0 +1,40 @@
+  - question_number: Q-01
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Count the successful passes did each team complete in the first half (minutes 41-47) and the second half (minutes 45-50), and what impact did these passes have on their game performance?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      In the first half (minutes 41-47), the following successful passes were noted:
+      **Spain:**
+      1. **41:15** - Fabián Ruiz Peña to Rodrigo Hernández Cascante
+      2. **41:16** - Rodrigo Hernández to Robin Aime Robert Le Normand
+      3. **41:18** - Rodrigo Hernández to Le Normand
+      4. **41:20** - Le Normand to Lamine Yamal Nasraoui Ebana
+      5. **41:21** - Lamine Yamal to Daniel Carvajal Ramos
+      6. **41:24** - Carvajal back to Lamine Yamal
+      Total successful passes for Spain in the first half: **6**
+      **England:**
+      1. **41:00** - Luke Shaw to Kobbie Mainoo (successful throw-in)
+      Total successful passes for England in the first half: **1**
+      In the second half (minutes 45-50), the following successful passes were noted:
+      **Spain:**
+      1. **46:46** - Nicholas Williams to Lamine Yamal Nasraoui Ebana
+      2. **46:48** - Lamine Yamal to Daniel Carvajal Ramos
+      3. **46:55** - Carvajal to Robin Aime Robert Le Normand
+      Total successful passes for Spain in the second half: **3**
+      **England:**
+      - No successful passes were recorded in this timeframe.
+      Total successful passes for England in the second half: **0**
+      ### Impact on Game Performance:
+      - **Spain** demonstrated a strong passing game, especially in the first half, where they maintained possession and built up their attacks effectively. Their successful passes contributed to their overall control of the match, reflected in their high possession percentage (79% at the end of the first half).
+        
+      - **England**, with significantly fewer successful passes, struggled to maintain possession and build effective attacks. This lack of successful passing likely hindered their ability to create scoring opportunities, contributing to their eventual loss in the match.
+      Overall, Spain's successful passing contributed positively to their performance, while England's limited successful passes negatively impacted their game.
+    dataframe: |
+      Count the successful passes did each team complete in the first half (minutes 41-47) and the second half (minutes 45-50), and what impact did these passes have on their game performance?
