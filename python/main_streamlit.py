@@ -61,16 +61,7 @@ def call_gpt():
 
      ###### England - Spain match_id: 3943043  
 
-    # if session state var questions is empty or not exists load the file
-    if "questions" not in st.session_state:
-        #load json file from local
-        with open('../questions.json') as f:
-            questions = json.load(f)
 
-        # save the data in session state
-        st.session_state.questions = questions
-
-    questions = st.session_state.questions
 
     system_message = f"""Answer the users QUESTION using the DOCUMENT text above.
 Keep your answer ground in the facts of the DOCUMENT.
@@ -109,7 +100,6 @@ If the DOCUMENT does not contain the facts to answer the QUESTION return "NONE. 
         with st.container(border=True):
                 st.markdown(result)
 
-        st.write(selected_show_logs)
         if selected_show_logs == "Yes":
             with st.container(border=True, height=250):
                     st.markdown(dataframe)
@@ -273,7 +263,7 @@ def load_header():
         selected.lower() == "players" or selected.lower() == "teams" or \
         selected.lower() == "events" or selected.lower() == "tables information":
 
-        content = load_file("../README-statsbomb_introduction.md")
+        content = load_file("./README-statsbomb_introduction.md")
         selected_section = extract_section(content, selected.capitalize())
         st.markdown(selected_section)
 
@@ -286,7 +276,7 @@ def load_header():
 
 try:
 
-    load_dotenv(dotenv_path='./../.env')
+    load_dotenv(dotenv_path='././.env')
     module_path = os.path.abspath(os.path.join("python"))
     sys.path.append(module_path)
     selected = load_header()
@@ -299,12 +289,12 @@ try:
     # Show content based on the selected option
     if menu == "the project":
 
-        content = load_file(".//..//README.md")
+        content = load_file(".//.//README.md")
         section = extract_section(content, "Overview")
         st.markdown(section)
 
         st.subheader("8 minutes pitch!")
-        st.video(".//..//RAG-Challenge_Sabados_Tech.mp4")
+        st.video(".//.//RAG-Challenge_Sabados_Tech.mp4")
 
         # insert video
         st.markdown("""
@@ -320,12 +310,12 @@ try:
 
         # show an image
         with st.container(border=True):
-            st.image("./../images/streamlit/image-23.png", use_column_width=True)
+            st.image("././images/streamlit/image-23.png", use_column_width=True)
         
         with st.container(border=True):
-            st.image("./../images/streamlit/image-24.png", use_column_width=True)
+            st.image("././images/streamlit/image-24.png", use_column_width=True)
         
-        content = load_file(".//..//README-process.md")
+        content = load_file(".//.//README-process.md")
         st.markdown(content)
 
     elif menu == "about us":
@@ -846,7 +836,7 @@ try:
         st.markdown("### Chat History")
         
         # Lista de archivos en el directorio 'statistics_files'
-        directory = "../data/scripts_summary/Answers" 
+        directory = "./data/scripts_summary/Answers" 
         try:
             files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
         except FileNotFoundError:
@@ -911,7 +901,7 @@ try:
         call_gpt()
 
     elif menu == "readme":
-        content = load_file("../README.md")
+        content = load_file("./README.md")
 
         # Extract headers and generate TOC
         toc = extract_headers(content)

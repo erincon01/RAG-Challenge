@@ -1,4 +1,4 @@
-dotenv
+python-dotenv
 requests
 pandas 
 psycopg2
@@ -7,6 +7,6 @@ streamlit
 streamlit-option-menu
 matplotlib
 seaborn
-requests
 beautifulsoup4
 pillow
+openai

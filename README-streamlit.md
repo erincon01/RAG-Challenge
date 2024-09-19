@@ -5,10 +5,17 @@
 This readme describes the web-app we have created for the challenge.
 
 ```bash
-.\cd python
-.\streamlit run main_streamlit.py
+.\streamlit run ./python/main_streamlit.py
 
 ```
+
+## Container setup
+
+1. build the image. (see the _docker-commands.ps1 file)
+2. publish the container in ACR. (see the _azure_commands.ps1 file)
+3. create the container in Azure. (see the _azure_commands.ps1 file)
+
+## Screen captures
 
 In each page there is an option button to consume the data from local postgres, or from Azure postgres PaaS. If using the local data, the application is not prepared to run the queries to the embeddings out of Azure postgres. This means that the chatbot would not work.
 
