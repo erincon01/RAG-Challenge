@@ -1,5 +1,4 @@
-# RAG Challenge
-
+# Football Analytics Copilot
 
 ## The Application
 ![alt text](./images/app/image-24b.png)
@@ -20,7 +19,7 @@
 
 - Official event: <https://reactor.microsoft.com/es-es/reactor/events/23332/>
 
-## What we have built (Readme)
+## What we have built (links to all the Readme)
 
 - [ST: Statsbomb introduction](README-statsbomb-intro.md)
 - [ST: Application screenshots](README-app-screenshots.md)
@@ -31,7 +30,7 @@
 - [ST: Python code](README-python-code.md)
 
 
-## Overview of the challenge and team members
+## Overview of the Challenge and Team Members
 
 Our team, [Sabados Tech](https://www.youtube.com/channel/UCw89YeTGdK74ZZ97_xcI2FA), is a passionate group of friends from Argentina and Spain who share two loves: football and technology. We meet weekly in virtual events to dive deep into Microsoft technologies, and our latest challenge brings us to the forefront of AI-driven data analysis. For this particular project, 2 SQL Server Former MVPs, and 1 .NET Former MVP have joined forces: [Eugenio Serrano](https://www.linkedin.com/in/eugenio-serrano/), [José Mariano Álvarez](https://www.linkedin.com/in/josemarianoalvarez/) and [Eladio Rincón](https://www.linkedin.com/in/erincon/). [Eric](https://github.com/eric-net), [Walter](https://github.com/Exodo77), and [Nestor](https://github.com/nnarvaez) have helped too.
 

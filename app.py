@@ -10,14 +10,94 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import altair as alt
 import json as json
+import yaml
 
 sys.path.append(os.path.abspath('./python_modules'))
 
 # from module_github import download_data_from_github_repo, get_github_data_from_matches
-from  module_data import get_competitions_summary_data, get_competitions_summary_with_teams_data, get_competitions_results_data,\
+from module_data import get_competitions_summary_data, get_competitions_summary_with_teams_data, get_competitions_results_data,\
     get_all_matches_data, get_players_summary_data, get_teams_summary_data, get_events_summary_data, \
     get_competitions_summary_with_teams_and_season_data, get_tables_info_data
 from module_azure_openai import search_details_using_embeddings
+
+
+def create_table_with_columns(data_dict):
+    """Display the key-value pairs using Streamlit's column layout."""
+
+    with st.container(border=True):    
+    # Create 3 columns for the first row
+        col1, col2, col3 = st.columns(3)
+        # Create 3 columns for the second row
+        col4, col5, col6 = st.columns(3)
+
+    # Use get() method with a default value to handle missing keys
+    with col1:
+        st.write("**question_number**")
+        st.write(data_dict.get('question_number', 'N/A'))  # N/A if missing
+
+    with col2:
+        st.write("**search_type**")
+        st.write(data_dict.get('search_type', 'N/A'))  # N/A if missing
+
+    with col3:
+        st.write("**embeddings_model**")
+        st.write(data_dict.get('embeddings_model', 'N/A'))  # N/A if missing
+
+
+    with col4:
+        st.write("**add_match_info**")
+        st.write("yes" if data_dict.get('add_match_info') else "no")  # yes/no or default 'no'
+
+    with col5:
+        st.write("**temperature**")
+        st.write(data_dict.get('temperature', 'N/A'))  # N/A if missing
+
+    with col6:
+        st.write("**top_n**")
+        st.write(data_dict.get('top_n', 'N/A'))  # N/A if missing
+
+    with st.container(border=True):    
+        st.write("**system_message**")
+        st.write(data_dict.get('system_message', 'N/A'))  # N/A if missing
+        st.write("**search_term**")
+        st.write(data_dict.get('search_term', 'N/A'))  # N/A if missing
+        st.write("**error_category**")
+        st.write(data_dict.get('error_category', 'N/A'))  # N/A if missing
+
+    st.write("#### Response")   
+    with st.container(border=True):    
+        st.markdown(data_dict.get('summary', 'N/A'))  # N/A if missing
+
+
+def process_Yaml_content(content):
+    """Process YAML content to extract required fields and display in table."""
+    # Parse the YAML content
+    try:
+        yaml_content = yaml.safe_load(content)
+        if not yaml_content or not isinstance(yaml_content, list) or not yaml_content[0]:
+            st.error("Invalid or empty YAML content")
+            return
+        
+        # Extract fields and handle missing keys
+        data_dict = {
+            "question_number": yaml_content[0].get('question_number', 'N/A'),
+            "search_type": yaml_content[0].get('search_type', 'N/A'),
+            "embeddings_model": yaml_content[0].get('embeddings_model', 'N/A'),
+            "add_match_info": yaml_content[0].get('add_match_info', False),  # Default False if missing
+            "temperature": yaml_content[0].get('temperature', 'N/A'),
+            "search_term": yaml_content[0].get('search_term', 'N/A'),
+            "system_message": yaml_content[0].get('system_message', 'N/A'),
+            "error_category": yaml_content[0].get('error_category', 'N/A'),
+            "summary": yaml_content[0].get('summary', 'N/A'),
+            "dataframe": yaml_content[0].get('dataframe', 'N/A'),
+            "top_n": yaml_content[0].get('top_n', 'N/A')
+        }
+
+        # Display the extracted data in a table format
+        create_table_with_columns(data_dict)
+    
+    except yaml.YAMLError as e:
+        st.error(f"Error parsing YAML content: {e}")
 
 
 def process_markdown_with_images(markdown_content):
@@ -975,8 +1055,11 @@ try:
                     
                     if content:
 
-                        st.write("#### File name: ", selected_file)
-                        st.write(content)
+                        with st.container(border=True):    
+                            st.write("##### File name: ", selected_file)
+
+                        process_Yaml_content(content)
+                        # st.write(content)
 
                 else:
                     st.error(f"File {selected_file} not found.")
