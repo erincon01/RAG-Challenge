@@ -1,0 +1,18 @@
+  - question_number: Q-02
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Which players recorded the highest number of carries and passes in both halves, and how did their performances influence the overall strategies of the teams?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      Based on the EVENTS provided, Robin Aime Robert Le Normand of Spain consistently recorded a high number of carries and passes throughout the match, particularly in the first half. He played a crucial role in advancing the ball and maintaining possession for Spain, showcasing effective ball movement and teamwork. His ability to carry the ball forward and execute precise passes allowed Spain to build their attacking strategy and control the game.
+      In the second half, Aymeric Laporte also demonstrated significant involvement with multiple passes and carries, contributing to Spain's possession play and tactical approach. His actions helped Spain maintain control and create opportunities, especially under pressure from England.
+      For England, players like Jude Bellingham and Declan Rice were notable for their defensive contributions and attempts to regain possession. Bellingham's defensive efforts included blocking passes and clearances, while Rice was involved in several key passes that helped England transition from defense to attack.
+      Overall, Le Normand and Laporte's performances influenced Spain's strategy by facilitating ball movement and maintaining possession, while Bellingham and Rice's contributions were vital for England's defensive resilience and counter-attacking efforts.
+    dataframe: |
+      Which players recorded the highest number of carries and passes in both halves, and how did their performances influence the overall strategies of the teams?

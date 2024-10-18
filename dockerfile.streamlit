@@ -1,0 +1,50 @@
+# Usa una imagen base de Python
+FROM python:3.9-slim
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Instala el controlador ODBC y herramientas relacionadas
+RUN apt-get update && apt-get install -y gnupg2 curl \
+&& curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+&& curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+&& apt-get update \
+&& ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18 unixodbc-dev \
+&& rm -rf /var/lib/apt/lists/*
+
+# Añade las herramientas SQL Server al PATH
+ENV PATH="$PATH:/opt/mssql-tools18/bin"
+
+# instal postgresl client
+RUN apt-get update \
+    && apt-get -y install libpq-dev gcc \
+    && pip install psycopg2
+
+# install Qdrant client
+RUN apt-get update && apt-get install -y libgomp1 \
+&& pip install qdrant-client
+
+# install git
+RUN apt-get update && apt-get install -y git
+
+# NOT NEEDED IN DEV CONTAINERS --> REVIEW THE devcontainer.json FILE
+# COPY ./python/requirements.txt /app/requirements.txt
+# COPY ./python/*.py /app/
+# COPY ./*.py /app/
+# COPY ./*.md /app/
+# COPY ./*.pdf /app/
+# COPY ./*.mp4 /app/
+# COPY ./data/scripts_summary /app/data/scripts_summary
+# COPY ./images /app/images
+
+# RUN cat /app/requirements.txt
+
+EXPOSE 4040
+EXPOSE 6333
+EXPOSE 8080
+EXPOSE 8501
+
+#### these commands cannot be executed here if you do not have the drive mounted.
+#### these commands in Dev Containers must be executed as postCreateCommands.
+# RUN pip install --no-cache-dir -r ./python_modules/requirements.txt
+# RUN streamlit run app.py

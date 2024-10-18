@@ -1,0 +1,46 @@
+  - question_number: Q-04
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Count the number of carries and passes per team in minutes between 15 to 30
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      To count the number of carries and passes per team between the 15 to 30-minute mark, we can analyze the provided events.
+      ### Spain:
+      - **Carries:**
+        - 17:30 - Le Normand carried the ball forward.
+        - 17:38 - Carvajal carried the ball for about 2 seconds.
+        - 17:42 - Simón carried the ball briefly.
+        - 17:46 - Laporte carried the ball forward.
+        - 17:49 - Laporte carried the ball again.
+        
+      - **Passes:**
+        - 17:30 - Le Normand passed to Carvajal.
+        - 17:39 - Carvajal passed to Simón.
+        - 17:44 - Simón passed to Laporte.
+        - 17:28 - Laporte passed to Le Normand.
+        - 17:55 - Le Normand passed to Fabián Ruiz Peña.
+        
+      ### England:
+      - **Carries:**
+        - No specific carries were noted in the events between 15 to 30 minutes.
+        
+      - **Passes:**
+        - No specific passes were noted in the events between 15 to 30 minutes.
+      ### Summary:
+      - **Spain:**
+        - Carries: 5
+        - Passes: 5
+      - **England:**
+        - Carries: 0
+        - Passes: 0
+      Thus, the counts are:
+      - Spain: 5 carries, 5 passes
+      - England: 0 carries, 0 passes
+    dataframe: |
+      Count the number of carries and passes per team in minutes between 15 to 30

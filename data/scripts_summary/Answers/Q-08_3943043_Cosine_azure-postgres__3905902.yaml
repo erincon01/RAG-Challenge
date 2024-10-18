@@ -1,0 +1,22 @@
+  - question_number: Q-08
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: What defensive actions, such as tackles, saves, and blocks, did each team execute in second half?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      In the second half of the match, the following defensive actions were executed by each team:
+      ### England:
+      1. **Phil Foden** made a crucial block against a pass from Spain's Aymeric Laporte at **35:54**.
+      2. **Jordan Pickford**, England's keeper, made a crucial save against a shot from Spain's Lamine Yamal Nasraoui Ebana at **81:00**.
+      ### Spain:
+      1. **Martín Zubimendi** executed a successful tackle on Cole Palmer of England, regaining possession for Spain at **81:00**.
+      2. **Aymeric Laporte** blocked a pass intended for Harry Kane during the sequence at **39:34**.
+      These actions highlight the defensive efforts from both teams in the second half of the match.
+    dataframe: |
+      What defensive actions, such as tackles, saves, and blocks, did each team execute in second half?

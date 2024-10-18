@@ -1,0 +1,22 @@
+  - question_number: Q-04
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Count the number of carries and passes per team in minutes between 15 to 30
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      In the minutes between 15 to 30, the counts for carries and passes per team are as follows:
+      ### Spain:
+      - **Carries**: 6
+      - **Passes**: 9
+      ### England:
+      - **Carries**: 2
+      - **Passes**: 4
+      This data reflects the coordinated plays and ball movement from both teams during that period.
+    dataframe: |
+      Count the number of carries and passes per team in minutes between 15 to 30

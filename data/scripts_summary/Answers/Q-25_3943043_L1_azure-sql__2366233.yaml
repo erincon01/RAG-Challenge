@@ -1,0 +1,34 @@
+  - question_number: Q-25
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many free kicks did each team receive, and what was the outcome of each free kick?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      The events do not provide a complete count of all free kicks received by each team, but here are the instances mentioned:
+      ### England Free Kicks:
+      1. **21:48** - Free kick taken by Jordan Pickford aimed at Harry Kane, but the pass was incomplete.
+      2. **55:46** - Free kick taken by Kyle Walker, passed to John Stones.
+      3. **61:00** - Free kick awarded after a foul by Nicholas Williams on Bukayo Saka, leading to a throw-in for England.
+      4. **62:00** - Free kick taken by Phil Foden, but the cross was incomplete as it failed to find a teammate.
+      5. **92:00** - Free kick taken by Jordan Pickford aimed at Ivan Toney, but the pass was incomplete.
+      ### Spain Free Kicks:
+      1. **91:00** - Free kick taken by Unai Simón aimed at Mikel Merino, but the pass was incomplete, leading to a foul by Merino on Marc Guehi, resulting in a free kick for England.
+      ### Summary of Outcomes:
+      - **England**: 
+        - 1 incomplete pass (to Kane)
+        - 1 successful pass (to Stones)
+        - 1 throw-in awarded
+        - 1 incomplete cross (by Foden)
+        - 1 incomplete pass (to Toney)
+      - **Spain**: 
+        - 1 incomplete pass (to Merino) leading to a foul on Guehi.
+      Overall, the events indicate that England received more free kicks than Spain, but specific counts and outcomes for all free kicks are not fully detailed in the provided events. 
+      If you need a more detailed analysis or specific counts, please refine your question.
+    dataframe: |
+      How many free kicks did each team receive, and what was the outcome of each free kick?

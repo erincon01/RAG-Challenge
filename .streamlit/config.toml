@@ -1,0 +1,11 @@
+[server]
+runOnSave = true
+fileWatcherType = "poll"
+
+[theme]
+base = "light"
+primaryColor = "#87ceeb"  # Azul claro (skyblue)
+backgroundColor = "#ffffff"  # Blanco para un fondo claro
+secondaryBackgroundColor = "#87ceeb"  # Azul claro para los menús
+textColor = "#000000"  # Texto en negro para mejor visibilidad
+font = "sans serif"

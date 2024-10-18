@@ -1,0 +1,46 @@
+  - question_number: Q-06
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: What were the average pass lengths in minutes between 30 and 45?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      To calculate the average pass lengths between the 30th and 45th minutes, we can extract the relevant events from the provided data.
+      1. **32nd Minute:**
+         - Aymeric Laporte to Robin Aime Robert Le Normand: 25 meters
+         - Le Normand to Aymeric Laporte: 27 meters
+         - Laporte to Marc Cucurella: 25 meters
+         - Cucurella to Nicholas Williams: 12 meters
+         - Williams to Álvaro Morata: Not specified
+         - Morata to Daniel Carvajal: Not specified
+         - Carvajal to Lamine Yamal: Not specified
+         - Yamal to Luke Shaw: Not specified
+      2. **39th Minute:**
+         - Lamine Yamal to Nicholas Williams: 12 meters
+         - Williams to Daniel Carvajal: Not specified
+         - Carvajal to Rodrigo Hernández: Not specified
+         - Rodrigo to Aymeric Laporte: Not specified
+         - Laporte to Marc Cucurella: Not specified
+      3. **40th Minute:**
+         - Marc Cucurella to Aymeric Laporte: Not specified
+         - Laporte to Robin Aime Robert Le Normand: Not specified
+         - Le Normand to Daniel Olmo: Not specified
+      4. **45th Minute:**
+         - Declan Rice to Luke Shaw: Not specified
+      From the events listed, we have the following pass lengths:
+      - 25 meters (Laporte to Le Normand)
+      - 27 meters (Le Normand to Laporte)
+      - 25 meters (Laporte to Cucurella)
+      - 12 meters (Yamal to Williams)
+      Calculating the average of the specified lengths:
+      - Total length = 25 + 27 + 25 + 12 = 89 meters
+      - Number of passes = 4
+      Average pass length = Total length / Number of passes = 89 / 4 = 22.25 meters
+      Thus, the average pass length between the 30th and 45th minutes is **22.25 meters**.
+    dataframe: |
+      What were the average pass lengths in minutes between 30 and 45?

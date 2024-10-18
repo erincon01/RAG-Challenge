@@ -1,0 +1,86 @@
+events:
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 1
+    minute: 46
+    description: |
+      In the first half of the match, at the 46th minute, England's keeper, Jordan Pickford, initiated a goal kick. He executed a high pass with his left foot, aiming for Bukayo Saka. However, the pass was incomplete, failing to reach its intended target. This moment marked a continuation of England's possession, as they sought to regain control of the game. The action unfolded at a location near the edge of the penalty area, showcasing the strategic plays typical of a competitive football match.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 1
+    minute: 46
+    description: |
+      In the first half of the match, the action began to unfold at the 46th minute. 
+**46:46** - Nicholas Williams Arthuer of Spain initiated a carry from the left wing, moving the ball forward with purpose. He managed to advance the play, showcasing his agility and control.
+**46:48** - Williams executed a high pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing. The pass was precise, covering a distance of approximately 58 meters, and it found its target perfectly. 
+**46:51** - Lamine Yamal received the ball successfully, demonstrating his readiness to contribute to the attack. He then carried the ball further, moving into a more advantageous position.
+**46:55** - Yamal made a ground pass to Daniel Carvajal Ramos, who was positioned as the right back. This pass was shorter, but it maintained the momentum of the play.
+**46:57** - Carvajal received the ball cleanly and quickly transitioned the play by sending a high pass towards Robin Aime Robert Le Normand, who was positioned to receive it.
+As the action continued, Bukayo Saka of England attempted to regain possession but faced pressure, resulting in an incomplete ball receipt. 
+**46:45** - In a moment of recovery, Marc Cucurella Saseta of Spain intercepted the ball and executed a low pass back to Nicholas Williams, who was ready to take control again.
+The sequence of events highlighted Spain's fluid passing and movement, with players like Williams, Yamal, Carvajal, and Cucurella working in harmony to maintain possession and create opportunities. The match was still scoreless, but the intensity was palpable as both teams vied for control.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 1
+    minute: 46
+    description: |
+      In the first minute of the second half, Spain is looking to build momentum. At the 46th minute, keeper Unai Simón Mendibil initiates the play with a ground pass to Aymeric Laporte, who is positioned as the left center back. This pass, which travels approximately 32.6 meters, is completed successfully, allowing Laporte to receive the ball at the 46:03 mark.
+Just a moment later, at 46:04, Laporte receives the ball and quickly looks to advance the play. He then attempts a high pass, aiming for Lamine Yamal Nasraoui Ebana on the right wing. However, this pass is incomplete, as indicated at the 46:11 mark. The ball is not successfully received by Yamal, and the play is interrupted.
+As the action unfolds, Spain maintains possession, but the incomplete pass highlights the challenges of breaking through the opposition's defense early in the second half. The score remains unchanged as the match continues.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 1
+    minute: 47
+    description: |
+      As the first half of the match drew to a close, the tension was palpable on the pitch. At the 47th minute, England and Spain were locked in a fierce contest, with Spain holding a significant 79% possession. 
+The action unfolded as Spain made a strategic play, showcasing their control of the game. The referee signaled the end of the first half, marking a moment of reflection for both teams. The score remained unchanged, with neither side finding the back of the net during this period.
+As the players headed to their respective dressing rooms, the atmosphere was charged with anticipation for the second half. England would need to regroup and strategize if they hoped to turn the tide against a dominant Spanish side.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 45
+    description: |
+      In the second half of the match, the action began to unfold at the 45th minute. Spain was in possession, and Robin Aime Robert Le Normand, positioned as a right center back, executed a ground pass to Martín Zubimendi Ibáñez, who was playing as a right defensive midfielder. The pass was precise, covering a distance of approximately 13 meters, and was completed at 00:00:41, maintaining Spain's possession.
+Shortly after, Bukayo Saka from England applied pressure on Spain's play, attempting to disrupt their rhythm at 00:00:31. However, Spain's Nicholas Williams Arthuer attempted a pass to Marc Cucurella Saseta, which unfortunately was incomplete due to Saka's effective block.
+Despite the pressure, Marc Cucurella managed to receive the ball but was unable to maintain possession, as Saka's block was decisive. This led to a throw-in taken by Cucurella, which was directed to Aymeric Laporte, who was positioned as a left center back. Laporte then carried the ball forward, showcasing Spain's intent to build an attack.
+As the play progressed, Laporte executed a switch pass to Le Normand, who received the ball effectively. Le Normand then carried the ball forward, demonstrating Spain's fluid movement and coordination. 
+Finally, Zubimendi received the ball from Le Normand, solidifying Spain's control in the midfield area. The sequence of events highlighted Spain's tactical approach and their ability to maintain possession under pressure from England, setting the stage for further developments in the match.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 45
+    description: |
+      In the second half of the match, the action began to unfold at the 45th minute. England's Kyle Walker initiated a pressure play, showcasing his defensive prowess as he positioned himself well on the right flank.
+Shortly after, Spain's Robin Le Normand executed a ground pass to his keeper, Unai Simón Mendibil, who received the ball cleanly. Unai then carried the ball forward, demonstrating his ability to contribute to the play beyond just goalkeeping.
+As the play progressed, Unai Simón attempted a high pass towards Álvaro Morata, but the pass was incomplete, indicating a missed opportunity for Spain. Morata, however, managed to recover the ball but was under pressure from England's Marc Guehi, who was also involved in the action.
+Kobbie Mainoo of England received a pass but was unable to maintain possession, leading to a ball recovery by Spain's Daniel Olmo. Olmo then carried the ball forward, looking to create an attacking opportunity.
+Marc Cucurella, playing as a left back for Spain, received a pass from Olmo and quickly made a ground pass to Nicholas Williams, who was positioned on the left wing. Williams, under pressure from England's Bukayo Saka, managed to carry the ball forward, showcasing Spain's persistence in maintaining possession and looking for openings.
+The sequence of events highlighted the tactical maneuvers from both teams, with Spain attempting to build their attack while England applied pressure to regain control of the match. The intensity of the game was palpable as both teams sought to capitalize on any mistakes made by their opponents.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 45
+    description: |
+      In the second half of the match, the action began to unfold at the 45th minute. Nicholas Williams Arthuer, positioned on the left wing for Spain, executed a ground pass to Aymeric Laporte, who was stationed as a left center back. This pass, which traveled approximately 27 meters, was completed at 00:00:53, maintaining Spain's possession.
+Just moments later, at 00:00:49, Martín Zubimendi Ibáñez, playing as a right defensive midfielder, made a ground pass to Marc Cucurella Saseta, the left back. Cucurella received the ball cleanly at 00:00:50, showcasing Spain's fluid play from a throw-in.
+Cucurella then carried the ball forward, demonstrating his agility and control, before passing it back to Nicholas Williams Arthuer at 00:00:51. The left winger received the ball under pressure from Kyle Walker, the right back for England, who was applying pressure at 00:00:52.
+As the play continued, Williams Arthuer managed to carry the ball further up the field, maintaining Spain's possession. At 00:00:55, Aymeric Laporte received the ball again, this time from Williams Arthuer, and carried it forward, showcasing Spain's cohesive teamwork.
+Finally, at 00:00:59, Laporte executed a ground pass to Fabián Ruiz Peña, who was positioned to receive the ball effectively. This sequence of plays highlighted Spain's strategic passing and movement, keeping the pressure on England as they sought to maintain their defensive structure.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 45
+    description: |
+      As the second half of the match commenced, Spain kicked off with a pass from Martín Zubimendi to Daniel Carvajal Ramos at the 45th minute. The action began with Zubimendi executing a ground pass, successfully reaching Carvajal, who was positioned on the right flank.
+At the same minute, Spain made a substitution, bringing on Rodrigo Hernández for Martín Zubimendi due to an injury. This change was crucial as Spain aimed to maintain their momentum.
+Immediately following the kick-off, Álvaro Morata received the ball and passed it back to Zubimendi, who then carried the ball forward before passing it to Carvajal. Carvajal, demonstrating his agility, carried the ball further up the pitch before executing another pass to Robin Aime Robert Le Normand.
+Le Normand, now in possession, made a decisive carry, moving the ball forward before passing it to Aymeric Laporte. Laporte, showing great vision, then passed the ball back to Le Normand, who continued to advance the play.
+As the action unfolded, Le Normand carried the ball again, showcasing Spain's fluid passing and movement. The team maintained possession, with each player contributing to the build-up, demonstrating their tactical cohesion and intent to penetrate the English defense.
+This sequence of events highlighted Spain's strategy of maintaining possession and creating opportunities, setting the stage for what could be a pivotal moment in the match.

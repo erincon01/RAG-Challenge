@@ -1,0 +1,27 @@
+  - question_number: Q-18
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many goal attempts did each team make during the match, and in which minutes were these attempts made?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      The match events do not provide a complete count of all goal attempts made by each team. However, I can summarize the notable attempts mentioned:
+      ### England's Goal Attempts:
+      1. **89:14** - Declan Rice attempted a header from a corner kick, which was saved by Unai Simón.
+      2. **89:XX** - Marc Guehi attempted a header from open play, which was blocked by Daniel Olmo Carvajal.
+      3. **89:XX** - Declan Rice took another shot from open play that went off target.
+      ### Spain's Goal Attempts:
+      1. **46:09** - Nicholas Williams took a shot that resulted in a goal, making the score 1-0.
+      2. **65:58** - Álvaro Morata attempted a shot that missed the target.
+      3. **66:XX** - Aymeric Laporte attempted a header from a corner kick that was blocked by Declan Rice.
+      ### Summary:
+      - **England**: 3 notable attempts (89:14, 89:XX, 89:XX)
+      - **Spain**: 3 notable attempts (46:09, 65:58, 66:XX)
+      Please note that the exact number of attempts may vary as not all attempts are detailed in the events provided.
+    dataframe: |
+      How many goal attempts did each team make during the match, and in which minutes were these attempts made?

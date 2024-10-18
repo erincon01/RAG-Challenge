@@ -1,0 +1,27 @@
+  - question_number: Q-03
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Which players recorded the highest number of carries and passes in both halves in minutes 15 to 30 and impact in the game performance?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      Based on the events recorded between minutes 15 to 30, the following players had notable carries and passes:
+      1. **Jude Bellingham (England)**:
+         - Recorded multiple carries, particularly at **13:55**, **29:04**, and **29:16**.
+         - He was involved in key passes, including a pass to Harry Kane at **29:18**.
+      2. **Daniel Carvajal (Spain)**:
+         - Had significant involvement with carries and passes, including a carry at **19:42** and a pass to Nicholas Williams at **29:40**.
+      3. **Nicholas Williams (Spain)**:
+         - Made carries and passes, notably receiving the ball at **29:41** and passing to Álvaro Morata.
+      4. **Declan Rice (England)**:
+         - Made a crucial interception at **29:03** and had a carry and pass to Bellingham at **29:16**.
+      These players demonstrated their impact through their ability to maintain possession, create opportunities, and contribute to their team's overall performance during this period. 
+      However, specific statistics on the exact number of carries and passes are not provided in the events. 
+      If you need more detailed statistics or specific numbers, please refine the question.
+    dataframe: |
+      Which players recorded the highest number of carries and passes in both halves in minutes 15 to 30 and impact in the game performance?

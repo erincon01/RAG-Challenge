@@ -1,0 +1,24 @@
+  - question_number: Q-22
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many yellow and red cards were given to each team, and at what times?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      In the match, the following yellow cards were issued:
+      **England:**
+      - Harry Kane received a yellow card at **24:38**.
+      - Ollie Watkins received a yellow card at **90:06**.
+      **Spain:**
+      - Daniel Olmo received a yellow card at **29:57**.
+      There were no red cards mentioned in the events. 
+      So, the summary is:
+      - **England:** 2 yellow cards (Kane at 24:38, Watkins at 90:06)
+      - **Spain:** 1 yellow card (Olmo at 29:57)
+    dataframe: |
+      How many yellow and red cards were given to each team, and at what times?

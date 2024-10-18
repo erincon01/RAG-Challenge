@@ -1,0 +1,23 @@
+  - question_number: Q-23
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many substitutions were made by each team during the match, and at what times?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      Spain made two substitutions during the match:
+      1. Álvaro Borja Morata Martín was replaced by Mikel Oyarzabal Ugarte at 67 minutes and 19 seconds.
+      2. Robin Aime Robert Le Normand was replaced by José Ignacio Fernández Iglesias at 82 minutes.
+      England made two substitutions as well:
+      1. Harry Kane was replaced by Ollie Watkins at 60 minutes and 41 seconds.
+      2. Phil Foden was replaced by Ivan Toney at 89 minutes.
+      In summary:
+      - Spain: 2 substitutions (67:19, 82:00)
+      - England: 2 substitutions (60:41, 89:00)
+    dataframe: |
+      How many substitutions were made by each team during the match, and at what times?

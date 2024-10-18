@@ -1,0 +1,664 @@
+events:
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 46
+    description: |
+      In the second half of the match, starting at the 46th minute, Spain initiated a series of plays that showcased their attacking prowess.
+**46:01** - Fabián Ruiz Peña received the ball and began a carry from the left defensive midfield position, moving towards the center of the field. The possession remained with Spain.
+**46:02** - Fabián then executed a precise ground pass with his left foot to Daniel Carvajal Ramos, who was positioned at right back. The pass traveled approximately 20.6 meters, allowing Carvajal to take control of the ball.
+**46:03** - Daniel Carvajal successfully received the ball, maintaining Spain's possession and positioning himself for the next play.
+**46:03** - Carvajal quickly followed up with a low pass to Lamine Yamal Nasraoui Ebana, who was making a run on the right wing. This pass covered a distance of nearly 27.8 meters.
+**46:06** - Under pressure from England's Luke Shaw, Lamine Yamal managed to receive the ball, demonstrating his skill in maintaining possession despite the defensive pressure.
+**46:06** - Lamine then carried the ball forward, advancing towards the goal and creating space for a potential attack.
+**46:08** - Lamine Yamal executed a low pass to Nicholas Williams Arthuer, who was positioned on the left wing. This pass was crucial as it set up the next attacking opportunity.
+**46:09** - Nicholas Williams received the ball cleanly, preparing for a shot on goal.
+**46:09** - With a swift movement, Nicholas took a shot with his left foot. The ball found the back of the net, marking a successful goal for Spain! The score now stood at 1-0.
+**46:10** - England's keeper, Jordan Pickford, was unable to make a touch on the ball as it sailed past him, resulting in a goal conceded.
+This sequence of events highlighted Spain's effective teamwork and attacking strategy, culminating in a well-deserved lead in the match.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 47
+    description: |
+      In the second half of the match, at the 47th minute, England kicked off with Kobbie Mainoo initiating the play. He executed a ground pass to keeper Jordan Pickford, who received the ball at the 24.5 mark on the field. This marked the beginning of England's possession as they aimed to build their attack.
+Just a few seconds later, at 47 minutes and 24 seconds, Pickford carried the ball forward, moving it to a new location at 36.2 on the field. This was a strategic move to advance the play and maintain possession.
+At 47 minutes and 28 seconds, Pickford attempted a high pass aimed at Harry Kane. However, the pass was incomplete, failing to reach its intended target. This moment highlighted the pressure on England to convert their possession into a scoring opportunity, but it also showcased the challenges they faced in executing their plays effectively. 
+As the match progressed, the tension remained high, with England looking to capitalize on their possession while the opposing team sought to regain control.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 47
+    description: |
+      In the second half of the match, the action began to unfold at the 47th minute. Harry Kane of England received the ball but was unable to complete the pass, resulting in an incomplete ball receipt. This moment was marked by a duel where Kane lost an aerial challenge, indicating the pressure he was under from the Spanish defense.
+Shortly after, Aymeric Laporte of Spain executed a recovery pass to Nicholas Williams Arthuer, who was positioned on the left wing. Williams then carried the ball forward, showcasing his skill as he maneuvered past defenders. Bukayo Saka from England applied pressure, attempting to disrupt Spain's flow.
+Nicholas Williams Arthuer continued his run and made a ground pass to Fabián Ruiz Peña, who received the ball effectively. Ruiz then carried the ball further, demonstrating Spain's attacking intent. Declan Rice from England responded with pressure, trying to regain possession for his team.
+Fabián Ruiz Peña then made a precise pass to Aymeric Laporte, who received it comfortably. Laporte carried the ball forward before passing it to Robin Aime Robert Le Normand, maintaining Spain's possession and control of the game.
+Throughout these moments, the players displayed their tactical awareness and skill, with both teams vying for dominance on the pitch. The match remained intense as England sought to regain control while Spain looked to capitalize on their opportunities.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 47
+    description: |
+      In the second half of the match, starting at the 47th minute, Spain showcased a series of coordinated plays that highlighted their possession and teamwork.
+At **47:00**, Robin Aime Robert Le Normand, positioned as a Right Center Back, initiated a carry from the right side of the field, moving the ball forward to a location near the center. This action set the stage for Spain's continued possession.
+Just a few seconds later, at **47:05**, Le Normand executed a precise ground pass with his left foot to Unai Simón Mendibil, the keeper, who was positioned further back. This pass traveled approximately 20 meters, allowing the keeper to receive the ball comfortably.
+By **47:12**, Simón, now in possession, made a quick carry, advancing the ball slightly before looking for options. He then delivered a ground pass of about 30 meters to Aymeric Laporte, who was positioned as a Left Center Back. This pass was executed with Simón's right foot, demonstrating his ability to distribute the ball effectively.
+At **47:15**, Laporte received the ball and immediately carried it forward, maintaining Spain's momentum. He then made another ground pass back to Simón, who was now positioned closer to the left side of the field.
+Simón, at **47:16**, received the ball again and carried it forward, showcasing his involvement in the play. He then passed the ball to Le Normand, who was now positioned further up the field, continuing the fluid movement of the Spanish side.
+This sequence of events, marked by quick passes and carries, illustrated Spain's dominance in possession and their strategic approach to maintaining control of the game. The players involved, particularly Simón and Le Normand, demonstrated their ability to connect and create opportunities, keeping the pressure on their opponents.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 48
+    description: |
+      In the second half of the match, at the 48th minute, England's keeper, Jordan Pickford, initiated a goal kick. With precision, he executed a ground pass using his left foot to John Stones, who was positioned at the right center back. The pass traveled approximately 14.87 meters, landing at coordinates [7.2, 60.6]. This action marked the beginning of a new play for England.
+Just a second later, at 48 minutes and 44 seconds, John Stones received the ball cleanly, maintaining possession for England. He then quickly transitioned the play by delivering a high pass to Phil Foden, who was positioned further up the field. This pass covered a distance of about 35.67 meters, reaching Foden at coordinates [41.7, 64.1]. 
+These actions showcased England's strategic buildup as they sought to advance their position on the field.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 48
+    description: |
+      In the second half of the match, starting at the 48th minute, England began to build their play with Luke Shaw receiving the ball from a goal kick. The possession was firmly in England's favor as they looked to create opportunities.
+At 48:01, Phil Foden, under pressure from Spain's Martín Zubimendi, managed to receive the ball and quickly passed it to Kobbie Mainoo. Mainoo, also feeling the pressure, carried the ball forward before making a short pass to Declan Rice at 48:48. Rice received the ball and, under pressure from Álvaro Morata, carried it a few steps before passing it to Luke Shaw.
+Shaw, now in a more advanced position, executed a ground pass to Jude Bellingham at 48:53. Bellingham received the ball and carried it forward, showing great composure despite the pressure from Fabián Ruiz. He then passed it to Marc Guehi, who received it at 48:56. Guehi carried the ball and made a short pass back to Bellingham, who continued to advance.
+As the play unfolded, England maintained their possession and looked to create a scoring opportunity, demonstrating their tactical awareness and teamwork. The match remained intense, with both teams applying pressure, but England's fluid passing and movement were evident as they sought to break through Spain's defense.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 48
+    description: |
+      In the second half of the match, at the 48th minute, Spain initiated a series of well-coordinated plays. 
+**00:03:00** - Robin Aime Robert Le Normand, positioned as the Right Center Back, received the ball, maintaining possession for Spain. 
+**00:03:09** - Le Normand then carried the ball forward, advancing to a location near the midfield. He executed a high pass to Álvaro Borja Morata Martín, the Center Forward, who was positioned further up the field. 
+**00:03:11** - Morata successfully received the ball and quickly passed it to Daniel Carvajal Ramos, the Right Back, who was making a run down the right flank.
+**00:03:13** - Carvajal received the ball and carried it forward, maintaining Spain's possession. He then delivered a high pass to Daniel Olmo Carvajal, the Center Attacking Midfielder, who was positioned closer to the opponent's goal.
+**00:03:14** - Olmo received the ball and immediately passed it to Nicholas Williams Arthuer, who was in a promising position to create a scoring opportunity.
+Throughout this sequence, Spain demonstrated excellent teamwork and fluid ball movement, showcasing their attacking prowess as they sought to break through the opposition's defense.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 48
+    description: |
+      In the second half of the match, at the 48th minute, Spain's Nicholas Williams Arthuer received the ball on the left wing, showcasing his agility and control. He quickly transitioned into a carry, moving the ball forward to a more advantageous position.
+Just a second later, Williams Arthuer executed a precise ground pass with his right foot to Daniel Olmo Carvajal, who was positioned in the center attacking midfield. This pass was crucial as it set up a potential scoring opportunity.
+Carvajal received the ball and immediately carried it forward, advancing towards the goal. With a swift movement, he took a shot at the goal using a half volley with his left foot. The shot was aimed well, but unfortunately, it went off target, missing the goal.
+As the action unfolded, England's keeper, Jordan Pickford, was alert and ready, having faced the shot. Although he did not need to make a save, his positioning was critical in ensuring that the shot did not find the back of the net.
+The score remained unchanged as Spain continued to press forward, looking for that elusive goal.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 49
+    description: |
+      In the second half of the match, starting at the 49th minute, England initiated a series of plays that showcased their tactical approach. 
+**49:01** - Marc Guehi, positioned as a Left Center Back, began the action by carrying the ball forward from a goal kick, moving it to a location near the left side of the pitch.
+**49:03** - Guehi then executed a ground pass with his left foot to John Stones, who was positioned as a Right Center Back. The pass traveled approximately 27.5 meters, reaching Stones at a location further up the field.
+**49:05** - John Stones received the ball successfully, marking a smooth transition in possession for England. He then carried the ball forward, advancing it to a location closer to the center of the pitch.
+**49:05** - Following this, Stones made another pass, this time to Jordan Pickford, the keeper, who was positioned near the edge of the penalty area. This pass was also a ground pass, measuring about 20.2 meters.
+**49:07** - Pickford received the ball, maintaining possession for England. Under pressure from the Spanish players, he carried the ball forward, moving it closer to the midfield area.
+**49:08** - Daniel Olmo Carvajal from Spain applied pressure on Pickford, attempting to disrupt England's play.
+**49:10** - Despite the pressure, Pickford made a pass towards Harry Kane, but it was incomplete. The pass was a high ball that traveled over 50 meters, but Kane was unable to secure it.
+**49:13** - Harry Kane, now in a position to receive the ball, attempted to win an aerial duel but lost it, indicating the ongoing struggle for possession between the two teams.
+Throughout this sequence, England demonstrated their intent to control the game, with Guehi, Stones, and Pickford playing pivotal roles in maintaining possession and attempting to advance the ball despite the pressure from Spain. The match remained intense, with both teams vying for dominance on the field.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 49
+    description: |
+      In the second half of the match, at the 49th minute, the action began to heat up. Spain's Daniel Carvajal Ramos, playing as a right back, initiated a pressure play against England. The timestamp read 00:04:23, and Spain was in possession.
+As the play unfolded, Jude Bellingham of England received the ball under pressure, showcasing his skill on the left wing. He managed to maintain possession despite the pressure from Carvajal. The tension was palpable as both teams fought for control.
+Carvajal then made a crucial ball receipt, demonstrating his defensive prowess. He quickly passed the ball to Fabián Ruiz Peña, who was also under pressure but managed to receive it effectively. Ruiz, positioned as a left defensive midfielder, was pivotal in maintaining Spain's possession.
+However, Bellingham was relentless, applying pressure on Ruiz, which led to a series of quick exchanges. Carvajal executed a successful dribble, maneuvering past Bellingham, and carried the ball forward, showcasing his agility and determination.
+As the play continued, Carvajal made a ground pass to Ruiz, who was positioned well to receive it. Ruiz then attempted to carry the ball further up the field, but Bellingham's pressure was unyielding. In a critical moment, Ruiz was dispossessed by England's Kobbie Mainoo, who won the tackle, shifting the momentum back to England.
+Mainoo then carried the ball forward, looking to create an opportunity for his team. He passed to Bellingham, who attempted a quick pass to Mainoo, but it was incomplete. The pressure from Spain's defense, particularly Carvajal, was evident as he blocked Bellingham's attempt to progress.
+The match was intense, with both teams showcasing their skills and determination to gain the upper hand. The score remained unchanged, but the action was far from over as both sides continued to battle for control on the pitch.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 49
+    description: |
+      In the second half of the match, starting at the 49th minute, England showcased a series of coordinated plays that highlighted their attacking prowess.
+At **49:33**, Luke Shaw initiated a throw-in, successfully passing to Declan Rice, who received the ball cleanly at the left defensive midfield position. This marked the beginning of a promising sequence for England.
+Just two seconds later, at **49:35**, Declan Rice carried the ball forward, advancing it to a more central position on the field. He then executed a ground pass at **49:38**, sending the ball to John Stones, who was positioned as the right center back. This pass was well-placed, allowing Stones to maintain possession.
+Continuing the momentum, John Stones carried the ball forward at **49:40**, moving it closer to the attacking area. He then made a precise ground pass to Phil Foden at **49:41**, who was positioned in the center attacking midfield. Foden received the ball effectively, demonstrating England's fluid passing and movement.
+Finally, at **49:42**, Foden carried the ball further, maintaining possession and positioning himself for a potential attack. This sequence of events illustrated England's cohesive teamwork and strategic play, setting the stage for further offensive opportunities. 
+Throughout this sequence, the players involved—Luke Shaw, Declan Rice, John Stones, and Phil Foden—demonstrated their skills and coordination, keeping the pressure on the opposing team.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 49
+    description: |
+      In the second half of the match, at the 49th minute, England initiated a series of actions that showcased their attacking intent. 
+Luke Shaw, positioned as the left back, began the sequence with a throw-in, maintaining possession for England. Shortly after, Lamine Yamal Nasraoui Ebana from Spain applied pressure, but Declan Rice, playing as a left defensive midfielder, received the ball effectively under pressure. 
+Rice then carried the ball forward, demonstrating composure despite the Spanish defense closing in. He executed a low pass to Jude Bellingham, who was positioned on the left wing. Bellingham received the ball cleanly and carried it further down the field, showcasing his dribbling skills.
+However, as Bellingham attempted to pass back to Shaw, the pass was incomplete, leading to a moment of tension as the ball went out of play. This was followed by Daniel Carvajal Ramos from Spain shielding the ball effectively, preventing England from regaining possession immediately.
+Throughout this sequence, England maintained a strong possession percentage, indicating their control over the match despite the pressure from Spain. The actions highlighted the dynamic interplay between the players, with Rice and Bellingham playing pivotal roles in advancing the ball, while Spain's defense, led by Carvajal, worked hard to disrupt their flow.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 50
+    description: |
+      In the second half of the match, at the 50th minute, England's Jude Bellingham received the ball on the left wing, showcasing his skill and control. This marked the beginning of a series of dynamic plays for England.
+As the action unfolded, Marc Cucurella Saseta from Spain applied pressure on Bukayo Saka, who was positioned on the right wing. Despite the pressure, Saka managed to execute a ground pass to Phil Foden, who was in a central attacking midfield position. Foden received the ball cleanly and immediately carried it forward, demonstrating his agility and vision.
+Foden then passed the ball to Declan Rice, who was positioned as a left defensive midfielder. Rice, maintaining the momentum, carried the ball further before delivering a precise pass to Luke Shaw, stationed at left back. Shaw received the ball and continued the attack by carrying it forward.
+In a well-coordinated move, Shaw passed the ball back to Jude Bellingham, who was now in a more advanced position on the left wing. Bellingham, with excellent control, carried the ball forward, looking to create an opportunity for England.
+This sequence of plays highlighted England's fluid attacking style, with each player contributing to the build-up, showcasing their teamwork and individual skills. The score remained unchanged as the match continued, but the pressure was clearly mounting on the Spanish defense.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 50
+    description: |
+      In the second half of the match, at the 50th minute, the action began to heat up. Spain's Álvaro Morata applied pressure on England's Declan Rice, who was under pressure himself. Morata's efforts were part of a regular play pattern, indicating Spain's intent to regain possession.
+As the play unfolded, Declan Rice successfully received the ball, showcasing his ability to handle the pressure from Morata. He then executed a high pass to Luke Shaw, who was positioned on the left flank. This pass was crucial as it allowed England to maintain their possession and transition the play forward.
+Luke Shaw, now in possession, received the ball cleanly and carried it forward, moving towards the center of the pitch. His carry was effective, as he advanced the ball to a more advantageous position on the field.
+Meanwhile, Spain's Lamine Yamal attempted to receive a pass from Robin Le Normand, but the attempt was incomplete. Yamal was also involved in an aerial duel, which he lost, further emphasizing the pressure Spain was under during this sequence.
+In a swift response, England's Marc Guehi recovered the ball and made a quick pass back to Declan Rice, who was ready to continue the attack. This sequence of events highlighted the dynamic nature of the match, with both teams vying for control and creating opportunities.
+As the minute concluded, the score remained unchanged, but the intensity of the game was palpable, with both teams demonstrating their tactical prowess and determination to seize the advantage.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 50
+    description: |
+      In the second half of the match, at the 50th minute, Spain initiated a play from a goal kick. Unai Simón Mendibil, the keeper for Spain, executed a ground pass with his right foot to Robin Aime Robert Le Normand, who was positioned as the right center back. This pass was precise, reaching Le Normand at the coordinates [5.9, 58.5].
+As the play continued, Le Normand received the ball and began to carry it forward, moving towards the end location at [21.7, 61.7]. This carry lasted approximately 5.5 seconds, showcasing Le Normand's ability to advance the ball effectively for Spain.
+At this moment, the score remains unchanged, but Spain is clearly looking to build momentum in the second half.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 50
+    description: |
+      In the second half of the match, at the 50th minute, England is in possession and looking to build an attack. 
+**00:05:41** - Kyle Walker, playing as a right back, receives the ball and maintains possession. He is positioned at [50.9, 66.6] on the field, demonstrating his role in the play.
+**00:05:42** - Walker then carries the ball forward to [55.3, 68.7], showing his intent to advance the play. 
+**00:05:42** - Following this, Walker makes a high pass to Bukayo Saka, who is positioned on the right wing. The pass travels a distance of approximately 42.3 meters, landing at [97.6, 70.7]. 
+**00:05:44** - Saka receives the ball and carries it further to [97.5, 76.8], indicating he is under pressure but managing to keep the ball moving forward.
+**00:05:44** - Saka's successful ball receipt allows him to maintain possession and continue the attack.
+**00:05:31** - Meanwhile, earlier in the same minute, Luke Shaw, playing as a left back, passes the ball to Kobbie Mainoo, who is in a right defensive midfield position at [57.2, 18.1]. This pass is a ground pass, indicating a strategic play to maintain control.
+**00:05:32** - Mainoo receives the ball and carries it to [55.4, 16.3], showing his ability to maneuver under pressure.
+**00:05:33** - Daniel Olmo Carvajal from Spain applies pressure on Mainoo, trying to disrupt England's flow.
+**00:05:34** - Mainoo then makes a short ground pass to Declan Rice, who is positioned at [46.7, 18.4]. Rice receives the ball successfully.
+**00:05:34** - Rice carries the ball forward to [47.6, 47.6], continuing the build-up for England.
+**00:05:39** - Finally, Rice passes the ball back to Walker, who is now back at [50.9, 66.6], completing a series of connected plays that showcase England's teamwork and strategy in this phase of the match.
+Throughout this sequence, England maintains possession and demonstrates a cohesive effort to advance the ball, with key contributions from Walker, Saka, Shaw, Mainoo, and Rice.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 51
+    description: |
+      In the second half of the match, starting at the 51st minute, England displayed a series of coordinated plays that showcased their attacking prowess.
+At **51:00**, Declan Rice received the ball in the left defensive midfield position, marking the beginning of a promising sequence for England. He quickly passed to Jude Bellingham, who executed a precise ground pass to Rice, allowing him to maintain possession.
+Just two seconds later, Rice carried the ball forward, moving it to John Stones, who was positioned as a right center back. Stones then made a strategic pass to Bukayo Saka, who was waiting on the right wing. Saka received the ball and immediately carried it forward, demonstrating his speed and agility.
+At **51:08**, Saka delivered a well-placed pass to Kobbie Mainoo, who was positioned in the right defensive midfield area. Mainoo received the ball and carried it further, showcasing his ability to maintain possession under pressure.
+Following this, Mainoo executed a pass back to Declan Rice, who was now in a more advanced position. Rice received the ball and continued to push forward, demonstrating England's fluid movement and teamwork.
+As the play continued, Rice made another carry, moving the ball to Jude Bellingham, who was ready to receive it in a more attacking position. This sequence of passes and carries highlighted England's tactical approach and their ability to transition quickly from defense to attack.
+Overall, this minute encapsulated England's cohesive play, with each player contributing to the build-up, showcasing their skills and teamwork as they sought to create a scoring opportunity.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 51
+    description: |
+      In the second half of the match, at the 51st minute, Jude Bellingham of England received the ball on the left wing, showcasing his skill as he maintained possession under pressure from Spain's Nicholas Williams Arthuer. Bellingham then carried the ball forward, demonstrating his agility and control.
+Just a moment later, Bellingham executed a precise ground pass to Kyle Walker, who was positioned on the right flank. This pass was crucial as it allowed England to transition the play effectively. Walker received the ball cleanly, continuing the momentum of the attack.
+Walker then carried the ball further up the pitch, showcasing his pace and determination. After advancing, he delivered a high cross intended to switch the play, but unfortunately, the pass went out of bounds, resulting in a missed opportunity for England.
+Throughout this sequence, England maintained possession and demonstrated their attacking intent, with Bellingham and Walker playing pivotal roles in the build-up.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 51
+    description: |
+      In the second half of the match, at the 51st minute, Spain initiated a series of plays that showcased their attacking intent. 
+**51:48** - Daniel Carvajal Ramos, positioned as the right back, took a throw-in for Spain. He aimed to pass to Álvaro Borja Morata Martín, but the pass was incomplete, failing to reach its intended target.
+**51:49** - Following the throw-in, Morata attempted to receive the ball but was unable to secure it, marking another incomplete action for Spain.
+**51:49** - On the other side, England's Marc Guehi, playing as a left center back, made a recovery attempt with a high pass aimed at Jude Bellingham. However, this pass also ended up incomplete.
+**51:51** - Bellingham, now on the left wing, tried to receive the ball but was unsuccessful, continuing the trend of missed opportunities.
+**51:51** - Spain's Daniel Olmo Carvajal, positioned as a center attacking midfielder, made a recovery pass with his head to Martín Zubimendi Ibáñez, who was playing as a right defensive midfielder. This pass was also incomplete.
+**51:52** - Zubimendi successfully received the ball, marking a positive moment for Spain as they maintained possession.
+**51:52** - Zubimendi then passed the ball to Robin Aime Robert Le Normand, a right center back, who received it cleanly, keeping Spain's momentum alive.
+**51:54** - Jude Bellingham attempted an aerial duel but lost it, indicating the pressure Spain was applying.
+**51:54** - Le Normand then made a high pass to Fabián Ruiz Peña, who was positioned as a left defensive midfielder. Ruiz won the aerial duel and successfully received the ball.
+**51:55** - Ruiz then passed to Nicholas Williams Arthuer, a left winger, who received the ball cleanly, showcasing Spain's fluid passing and movement.
+**51:58** - Williams carried the ball forward, demonstrating his pace and skill as he advanced towards the opposition's half.
+This sequence of events highlighted Spain's persistence in trying to break through England's defense, despite several incomplete passes. The players involved showed determination, with Spain maintaining possession and looking to create opportunities as the match progressed.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 52
+    description: |
+      In the second half of the match, at the 52nd minute, Spain initiated a series of well-coordinated plays. Fabián Ruiz Peña took a free kick, executing a precise ground pass with his left foot to Martín Zubimendi Ibáñez, who was positioned in the right defensive midfield area. The pass was successful, and Zubimendi received the ball at coordinates [74.7, 41.4].
+Just a few seconds later, Zubimendi made a strategic pass to Robin Aime Robert Le Normand, who was positioned as a right center back. This pass traveled a distance of approximately 19 meters, maintaining the momentum of Spain's attack.
+Le Normand then quickly passed the ball to Aymeric Laporte, the left center back, who received it effectively. Laporte, not wasting any time, carried the ball forward, moving it to a new location at [57.2, 28.3]. 
+Throughout this sequence, Spain demonstrated excellent teamwork and ball control, maintaining possession and advancing their play. The score remained unchanged as these actions unfolded, but the pressure on the opposing team was palpable.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 52
+    description: |
+      In the second half of the match, at the 52nd minute, England's John Stones committed a foul against Spain's Martín Zubimendi Ibáñez. The incident occurred as the game was transitioning from a throw-in, with England holding possession at that moment.
+As the play unfolded, Stones, positioned as a Right Center Back, found himself in a challenging situation and was penalized, resulting in a yellow card for the foul. This decision not only highlighted the intensity of the match but also shifted the momentum slightly in favor of Spain, who were awarded the free kick.
+Zubimendi, playing as a Right Defensive Midfielder, was the player who won the foul. He was under pressure during the encounter, showcasing the competitive nature of the game. The foul was a pivotal moment, reflecting the ongoing battle for control between the two teams. 
+The score remained unchanged at this point, but the tension on the field was palpable as both teams sought to capitalize on every opportunity.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 52
+    description: |
+      In the second half of the match, at the 52nd minute, Spain is in possession of the ball. The action begins with Marc Cucurella Saseta, playing as a left back, receiving the ball from Nicholas Williams Arthuer, who is positioned on the left wing. This ball receipt occurs at 00:07:05, and Spain maintains possession.
+Cucurella then carries the ball forward, moving it to a new location at 56.4, 11.6. Following this, he makes a ground pass to Aymeric Laporte, who is positioned as a left center back. This pass is executed at 00:07:06, and Laporte successfully receives the ball, continuing Spain's possession.
+Laporte then carries the ball further, advancing to 49.2, 24.9, before making another ground pass to Robin Aime Robert Le Normand, who is playing as a right center back. This pass occurs at 00:07:09, and Le Normand receives it cleanly, keeping Spain in control of the play.
+Le Normand then carries the ball forward to 38.9, 56.1, showcasing Spain's fluid movement and teamwork as they maintain possession and build up their attack. The sequence of events highlights Spain's coordinated efforts and strategic passing as they look to create scoring opportunities.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 52
+    description: |
+      In the second half of the match, starting at the 52nd minute, Spain showcased a series of coordinated plays. 
+**52:00** - The action begins with **Martín Zubimendi Ibáñez** carrying the ball from a throw-in, maneuvering under pressure from **John Stones** of England. Zubimendi successfully advances the ball to a location near the right defensive midfield area.
+**52:17** - **Robin Aime Robert Le Normand** then makes a precise ground pass to **Daniel Carvajal Ramos**, who is positioned as the right back. This pass is crucial as it maintains Spain's possession.
+**52:18** - Carvajal receives the ball and immediately carries it forward, moving towards the center of the field.
+**52:20** - Carvajal then executes a ground pass to **Unai Simón Mendibil**, the keeper, who is positioned near the goal area. This pass is vital for maintaining Spain's control of the game.
+**52:23** - Simón receives the ball and carries it a short distance, indicating Spain's intent to build up play from the back.
+**52:24** - Under pressure from **Harry Kane**, Simón makes a low pass to **Álvaro Borja Morata Martín**, who is positioned further up the field.
+**52:27** - Morata receives the ball and carries it forward, showcasing his agility and skill in navigating through the defense.
+**52:28** - He then passes the ball back to **Martín Zubimendi Ibáñez**, who is now in a better position to continue the attack.
+**52:29** - Zubimendi receives the ball, completing this sequence of plays that highlights Spain's teamwork and strategic positioning.
+Throughout this minute, Spain maintained possession and demonstrated their ability to transition the ball effectively under pressure from England, with key contributions from Zubimendi, Carvajal, Simón, and Morata.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 53
+    description: |
+      In the second half of the match, specifically at the 53rd minute, Spain showcased a series of coordinated plays that highlighted their possession and passing skills.
+Starting at **00:08:31**, Martín Zubimendi Ibáñez received the ball and carried it forward from the right defensive midfield position, moving to a location at [49.3, 26.4]. His efforts were quick, lasting just over six seconds, as he aimed to advance the play.
+Just a few seconds later, at **00:08:38**, Zubimendi made a ground pass to Fabián Ruiz Peña, who was positioned in the left defensive midfield. Ruiz Peña received the ball cleanly, demonstrating Spain's fluid passing game.
+Ruiz Peña then carried the ball forward to [53.9, 25.3] before making another pass to Aymeric Laporte at **00:08:43**. Laporte, now in the left center back position, received the ball and continued the play by carrying it to [49.3, 24.7].
+At this point, Laporte executed a ground pass to Martín Zubimendi, who was now positioned at [48.7, 29.9]. Zubimendi received the ball and carried it further, maintaining Spain's possession and control of the game.
+The sequence continued as Zubimendi passed back to Ruiz Peña, who was in a favorable position at [54.5, 21.9]. Ruiz Peña received the ball again, showcasing Spain's ability to recycle possession effectively.
+This series of events, all occurring within a span of seconds, illustrated Spain's tactical approach and their emphasis on maintaining possession through short, precise passes and coordinated movement. The score remained unchanged as these actions unfolded, but Spain's dominance in possession was evident.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 53
+    description: |
+      In the second half of the match, specifically at the 53rd minute, Spain demonstrated a series of coordinated plays that showcased their attacking prowess.
+Starting at **08:47**, Aymeric Laporte, positioned as a Left Center Back, initiated the action with a ground pass to Fabián Ruiz Peña, who was playing as a Left Defensive Midfielder. The pass was precise, covering a distance of approximately 7.5 meters, and Fabián received the ball successfully at **08:48**.
+Fabián, under pressure from England's Phil Foden, carried the ball forward for about a meter before passing it to Aymeric Laporte again at **08:49**. Laporte received the ball and continued the play by carrying it further up the field.
+At **08:50**, Laporte made another pass, this time to Robin Aime Robert Le Normand, who was positioned as a Right Center Back. Le Normand received the ball and carried it forward, showcasing Spain's fluid movement and teamwork.
+Just a few seconds later, at **08:53**, Le Normand passed the ball back to Daniel Carvajal Ramos, the Right Back, who was positioned further up the right flank. Carvajal received the ball and carried it forward, maintaining Spain's possession and attacking momentum.
+This sequence of events highlighted Spain's tactical approach, with players like Laporte, Fabián, Le Normand, and Carvajal all contributing to a well-orchestrated offensive effort. The crowd could feel the anticipation as Spain continued to press forward, looking for an opportunity to break through England's defense.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 53
+    description: |
+      In the 53rd minute of the match, Spain is showcasing a series of coordinated plays. 
+At 53:18, Martín Zubimendi Ibáñez initiates a ground pass from the right defensive midfield to Fabián Ruiz Peña, who is positioned on the left defensive midfield. The pass travels approximately 8.5 meters, landing perfectly at Fabián's feet at coordinates [36.2, 33.8]. 
+Just a second later, Fabián receives the ball and immediately carries it forward, moving towards the left side of the pitch. Under pressure from England's Phil Foden, who applies pressure at 53:21, Fabián manages to maintain possession and advances the ball to [48.7, 25.8].
+At 53:22, Fabián executes another ground pass, this time to Marc Cucurella Saseta, who is positioned at left back. The pass covers a distance of nearly 19 meters, and Marc receives it at [52.9, 7.2]. 
+Marc then carries the ball forward, moving to [52.9, 7.2] before making a pass to Nicholas Williams Arthuer at 53:24. Nicholas receives the ball at [64.0, 3.0] and continues to carry it forward, reaching [69.2, 3.0] by 53:25.
+Finally, Nicholas delivers a pass to Álvaro Borja Morata Martín at 53:28, who is positioned as a center forward. Álvaro receives the ball at [70.6, 16.6] and is immediately under pressure from Declan Rice. 
+This sequence of events highlights Spain's fluid passing and movement, showcasing their tactical prowess as they build up play in the second half.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 53
+    description: |
+      In the second half of the match, at the 53rd minute, Spain is in possession and begins a series of coordinated plays. 
+**00:08:00** - Aymeric Laporte, positioned as a Left Center Back, receives the ball from a free kick and executes a ground pass to Marc Cucurella Saseta, who is playing as a Left Back. The pass travels approximately 20.7 meters, setting up the next action.
+**00:08:01** - Cucurella successfully receives the ball and immediately carries it forward, moving under pressure from England's Bukayo Saka, who is applying pressure from the Right Wing.
+**00:08:02** - Under pressure, Cucurella makes a quick ground pass to Nicholas Williams Arthuer, who is positioned as a Left Wing. The pass is precise, allowing Williams to take control of the ball.
+**00:08:03** - Williams then carries the ball forward, advancing towards the opponent's goal.
+**00:08:06** - After a few strides, Williams delivers a ground pass back to Aymeric Laporte, who is now in a better position to continue the attack.
+**00:08:08** - Laporte receives the ball and carries it forward, maintaining possession and looking for options.
+**00:08:10** - Laporte then passes the ball to Fabián Ruiz Peña, who is positioned as a Left Defensive Midfield. This pass is also a ground pass, and it allows Ruiz to take control of the ball.
+**00:08:11** - Ruiz carries the ball forward, making a significant advance towards the opponent's territory, showcasing Spain's fluid movement and teamwork.
+Throughout this sequence, Spain demonstrates effective ball movement and teamwork, maintaining possession and creating opportunities to advance towards the goal. The players involved, particularly Laporte, Cucurella, and Ruiz, are pivotal in orchestrating this phase of play.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 54
+    description: |
+      In the 54th minute of the match, Spain was in possession and initiated a series of plays that showcased their attacking prowess. 
+**00:09:51** - Robin Aime Robert Le Normand, positioned as a Right Center Back, carried the ball forward from his own half, moving towards the opposition's territory, ending his run at coordinates [68.6, 53.9].
+**00:09:54** - Le Normand then passed the ball to Lamine Yamal Nasraoui Ebana, who was stationed on the Right Wing. This ground pass was precise, allowing Yamal to receive the ball comfortably at [79.0, 49.2].
+**00:09:55** - Yamal, with the ball at his feet, made a strategic move and executed a through ball to Álvaro Borja Morata Martín, who was positioned as a Center Forward. This pass was well-timed and set Morata up for a potential scoring opportunity.
+**00:09:57** - Morata received the ball at [110.9, 51.0] and, with a quick touch, prepared for a shot on goal.
+**00:09:58** - Morata unleashed a shot with his right foot, aiming for the goal. However, the attempt was wayward, missing the target and ending up at [115.5, 40.2]. 
+**00:09:58** - Jordan Pickford, the keeper for England, was alert and ready as he faced Morata's shot. Although he did not need to make a save, he remained positioned to respond to any follow-up attempts.
+**00:09:59** - Following the missed shot, John Stones, playing as a Right Center Back for England, executed a clearance under pressure, ensuring that the ball was moved away from danger.
+This sequence of events highlighted Spain's attacking intent, with Yamal and Morata playing pivotal roles in the build-up, though they were unable to convert the opportunity into a goal. The score remained unchanged as the match continued.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 54
+    description: |
+      In the second half of the match, at the 54th minute, Spain's Álvaro Morata made a significant attempt on goal. He received the ball in a central position and unleashed a shot with his left foot. However, the effort was blocked by England's Marc Guehi, who was quick to react and prevented the ball from reaching the net. The keeper, Jordan Pickford, was positioned to face the shot but did not need to intervene as the block occurred before the ball could reach him.
+Following this action, Fabián Ruiz Peña, a teammate of Morata, received the ball from a throw-in executed by Marc Cucurella. Ruiz then carried the ball forward, showcasing his dribbling skills as he advanced towards the opposition's half.
+This sequence of events highlighted Spain's attacking intent, but England's defense remained resolute, successfully thwarting the immediate threat. The score remained unchanged as the match continued.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 54
+    description: |
+      In the 54th minute of the match, Spain was in possession and displayed a series of coordinated plays. 
+**00:09:36** - Fabián Ruiz Peña, positioned as a Left Defensive Midfielder, received the ball and executed a ground pass to Aymeric Laporte, who was playing as a Left Center Back. The pass was precise, covering a distance of approximately 13 meters, and allowed Laporte to maintain possession.
+**00:09:37** - Aymeric Laporte then carried the ball forward, moving it to a more advantageous position while under pressure from England's Harry Kane. This carry lasted for about 1.25 seconds, showcasing Laporte's ability to navigate through defensive pressure.
+**00:09:38** - Laporte passed the ball to Martín Zubimendi Ibáñez, who was positioned as a Right Defensive Midfielder. This pass was under pressure but successfully reached Zubimendi, allowing Spain to maintain their attacking momentum.
+**00:09:39** - Zubimendi received the ball and carried it forward, demonstrating his skill in transitioning play. He then made a ground pass to Fabián Ruiz Peña, who was now in a better position to advance the play.
+**00:09:41** - Zubimendi's pass to Ruiz Peña was followed by another quick pass from Ruiz Peña to Zubimendi, showcasing their effective teamwork. Ruiz Peña then carried the ball further, moving it closer to the opposition's goal.
+**00:09:43** - Ruiz Peña received the ball again and carried it forward, demonstrating Spain's fluid passing and movement strategy. 
+**00:09:44** - Finally, Ruiz Peña executed a ground pass to Daniel Olmo Carvajal, who was positioned to make a significant play. This pass was crucial as it set up a potential scoring opportunity for Spain.
+Throughout this sequence, Spain maintained possession and demonstrated their tactical prowess, with players like Zubimendi, Laporte, and Ruiz Peña effectively collaborating to advance the ball and create opportunities.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 54
+    description: |
+      In the 54th minute of the match, Spain is in possession and Daniel Carvajal Ramos, playing as a right back, receives the ball from Lamine Yamal Nasraoui Ebana with a high pass. Carvajal then carries the ball forward, but he is under pressure from Jude Bellingham of England, who applies pressure as Carvajal attempts to dribble past him. Unfortunately for Carvajal, his dribble is incomplete, and Bellingham's pressure results in a lost tackle.
+Despite the pressure, Carvajal manages to recover and attempts a pass to Álvaro Morata, but this pass is also incomplete. Morata, however, continues to press forward, trying to regain possession. 
+As the play unfolds, Declan Rice of England receives the ball from Marc Guehi and carries it forward, but he too is under pressure from Martín Zubimendi Ibáñez of Spain. Zubimendi applies pressure effectively, trying to disrupt England's play.
+Declan Rice then attempts a ground pass to Jude Bellingham, but this pass is also incomplete. Bellingham, however, manages to receive the ball shortly after, but again, the play does not result in a successful advancement.
+In a moment of creativity, Carvajal makes a significant pass to Morata, who is positioned well to take a shot. This pass is a ground pass that sets up Morata for a potential goal-scoring opportunity. Morata receives the ball and carries it forward, but he is under pressure from England's Kobbie Mainoo and Marc Guehi.
+The tension builds as Spain continues to press forward, with Carvajal and Morata both playing pivotal roles in this sequence of play. The match remains intense, with both teams vying for control and looking for that crucial breakthrough.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 55
+    description: |
+      In the second half of the match, specifically at the 55th minute, England's keeper, Jordan Pickford, executed a goal kick. With precision, he sent a high pass using his left foot towards Bukayo Saka, who was positioned to receive the ball. The kick traveled approximately 50.7 meters, showcasing Pickford's strong leg. This action was part of England's strategy to regain possession and build an attack. The play pattern indicated that this was a continuation from a goal kick, emphasizing the importance of maintaining control after defensive plays. 
+As the match progressed, the dynamics shifted, and the players continued to engage in a tactical battle on the field.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 55
+    description: |
+      In the 55th minute of the match, the action intensified as Jude Bellingham of England made a determined carry down the left wing, showcasing his skill under pressure from Spain. He maneuvered the ball from his own half, reaching a location near the center of the pitch before the play transitioned.
+Simultaneously, Daniel Carvajal Ramos of Spain initiated a carry of his own from the right back position, moving the ball forward and demonstrating Spain's intent to regain control. He successfully recovered the ball and executed a ground pass to Lamine Yamal Nasraoui Ebana, who was positioned on the right wing. This pass was precise, allowing Lamine to receive the ball cleanly.
+However, as Lamine attempted to advance, he found himself under pressure from Bellingham, who was keen to disrupt Spain's flow. In a swift turn of events, Lamine was dispossessed by Bellingham, who won the tackle, showcasing his defensive prowess.
+As the minute progressed, Lamine continued to apply pressure, attempting to regain possession, but the momentum shifted back to England as Bellingham's defensive efforts paid off. The intensity of the match was palpable, with both teams vying for control, but it was England's Bellingham who emerged victorious in this exchange, highlighting the competitive spirit of the game.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 55
+    description: |
+      In the second half of the match, at the 55th minute, Jude Bellingham of England made a low pass with his right foot to Declan Rice, who was positioned on the left wing. The pass was under pressure from the Spanish team, specifically from Fabián Ruiz Peña, who quickly recovered the ball for Spain.
+Just moments later, Fabián Ruiz Peña carried the ball forward before executing a ground pass to Nicholas Williams Arthuer, who was also on the left wing. This pass was a key assist, setting up a shot for Williams.
+At the 55th minute and 23 seconds, Nicholas Williams Arthuer took a shot on goal. Unfortunately for Spain, the shot went off target, missing the goal entirely. However, England's keeper, Jordan Pickford, was ready and alert, having faced the shot without needing to make a save.
+Throughout this sequence, the tension was palpable as both teams fought for control, with Spain looking to capitalize on their attacking opportunity while England remained vigilant in defense.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 55
+    description: |
+      In the 55th minute of the match, England is in possession and looking to build an attack. Kyle Walker, positioned as the right back, takes a free kick from the right side of the field. He delivers a precise ground pass to John Stones, who is playing as the right center back. The pass travels approximately 21 meters, reaching Stones at the coordinates [23.3, 61.3].
+As the play unfolds, Bukayo Saka, stationed on the right wing, receives the ball under pressure from Spain's Marc Cucurella Saseta, who is actively applying pressure from the left back position. Saka manages to carry the ball forward, moving from [50.9, 68.4] to [44.6, 69.7].
+However, Cucurella commits a foul against Saka, resulting in a free kick awarded to England. This foul occurs just after Saka has made his carry, and it highlights the intensity of the match as both teams vie for control.
+Following the foul, John Stones receives the ball from Walker's initial free kick and carries it further, moving from [23.3, 61.3] to [24.0, 60.6]. This sequence of events showcases England's strategic play as they attempt to advance their position on the field while navigating Spain's defensive pressure.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 56
+    description: |
+      In the second half of the match, specifically at the 56th minute, England is in possession and looking to build their play. 
+**00:11:01** - Jordan Pickford, the England keeper, initiates the action with a ground pass to John Stones, who is positioned at right center back. The pass covers a distance of approximately 24.5 meters, and Pickford is under pressure from Spain's Álvaro Morata.
+**00:11:05** - John Stones receives the ball successfully, maintaining possession for England. He then carries the ball forward, moving it to a more advantageous position.
+**00:11:10** - Stones continues his run, carrying the ball further up the pitch, demonstrating his ability to advance the play under pressure.
+**00:11:14** - Under pressure from Spain's Daniel Olmo, Stones makes a short pass to Phil Foden, who is in a better position to continue the attack.
+**00:11:14** - Stones passes the ball to Foden, who is now in a position to create a scoring opportunity. 
+**00:11:05** - Meanwhile, Marc Guehi, another England defender, also receives the ball from Pickford earlier in the sequence and carries it forward, showing the team's intent to maintain possession and push forward.
+Throughout this sequence, England's players are working cohesively, with Pickford, Stones, Guehi, and Foden all contributing to the build-up play. The pressure from Spain is palpable, but England's players are managing to navigate through it effectively. 
+As the play unfolds, the tension rises, with both teams vying for control and looking for an opportunity to score.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 56
+    description: |
+      In the second half of the match, at the 56th minute, the action intensified as Spain and England battled for control. 
+**56:32** - Robin Le Normand of Spain initiated a carry from the right center back position, moving the ball forward to a more advantageous location on the field.
+**56:37** - Le Normand then executed a high pass to Álvaro Morata, who was positioned as the center forward. Morata received the ball successfully, showcasing his ability to handle pressure from England's defense.
+**56:38** - However, under pressure from John Stones, Morata miscontrolled the ball, leading to a moment of uncertainty for Spain.
+**56:40** - Declan Rice of England seized the opportunity, recovering the ball and making a low pass to Marc Guehi, who was positioned left center back. This pass was crucial as it allowed England to regain possession and shift the momentum.
+**56:42** - Guehi then received the ball and carried it forward, demonstrating England's intent to push into Spain's territory.
+**56:43** - Guehi made a ground pass to John Stones, who was also under pressure but managed to receive the ball effectively.
+**56:43** - Stones then carried the ball further, indicating England's strategy to maintain possession and build an attack.
+Throughout this sequence, the players displayed a mix of pressure, ball recovery, and tactical passing, highlighting the competitive nature of the match as both teams sought to assert their dominance on the field.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 56
+    description: |
+      In the second half of the match, at the 56th minute, England's John Stones initiated a play with a high pass from the right center back position. The pass, measuring approximately 41 meters in length, was directed towards Luke Shaw, who was positioned as the left back. Unfortunately, the pass was deemed incomplete as Shaw was unable to successfully receive it, resulting in the ball going out of play.
+This sequence of events highlights the ongoing efforts of England to maintain possession and create opportunities, but it also underscores the challenges they faced in executing their plays effectively. The score remains unchanged as the match continues.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 56
+    description: |
+      In the 56th minute of the match, England is showcasing a series of coordinated plays. 
+**11:15** - Phil Foden receives the ball in the center attacking midfield position, maintaining possession as he looks to create an opportunity. 
+**11:15** - Foden then carries the ball forward, advancing it to a more threatening area on the pitch.
+**11:17** - Foden makes a precise ground pass to Kyle Walker, who is positioned on the right flank. Walker receives the ball cleanly, continuing England's attacking momentum.
+**11:19** - Walker carries the ball forward, looking to exploit the space on the right side.
+**11:20** - Walker delivers a high pass across the field to Luke Shaw, who is positioned on the left. This switch in play is crucial as it stretches the Spanish defense.
+**11:24** - Under pressure from Spain's Daniel Carvajal, Shaw receives the ball and carries it forward, demonstrating composure despite the defensive pressure.
+**11:29** - Shaw then makes a ground pass to Jude Bellingham, who is making a run on the left wing. Bellingham receives the ball effectively, keeping England's attack alive.
+**11:29** - Bellingham quickly passes to Harry Kane, who is positioned further up the pitch, looking to capitalize on the build-up play.
+This sequence of events highlights England's fluid attacking style, with players like Foden, Walker, Shaw, Bellingham, and Kane all contributing to the build-up, showcasing their teamwork and tactical awareness.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 57
+    description: |
+      In the second half of the match, specifically at the 57th minute, Spain showcased a series of coordinated plays that highlighted their possession and teamwork.
+Starting with Unai Simón Mendibil, the keeper, he received the ball from a throw-in at 12:58. He maintained possession and carried the ball forward for a brief moment before passing it to Marc Cucurella Saseta. This pass was executed as a low throw-in, aimed at Aymeric Laporte, who received it effectively at 12:48.
+Laporte then made a quick pass back to the keeper, Unai Simón, who was positioned at 12:52. Simón, demonstrating his skills, sent a ground pass to Robin Aime Robert Le Normand, who was advancing from the right center back position. Le Normand received the ball at 12:54 and carried it forward, showcasing Spain's fluid movement.
+As the play continued, Le Normand passed the ball back to Simón at 12:56, completing a series of short passes that kept Spain in control of the game. This sequence of events illustrated Spain's strategy of maintaining possession and building up their play from the back, with the keeper actively involved in the distribution of the ball.
+Overall, the actions in this minute reflected Spain's tactical approach, emphasizing teamwork and ball control, with key contributions from players like Unai Simón, Aymeric Laporte, and Robin Aime Robert Le Normand.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 57
+    description: |
+      In the second half of the match, at the 57th minute, the action began with Luke Shaw of England making a ground pass with his right foot to his teammate, Jordan Pickford, the keeper. The pass was precise, covering a distance of approximately 35 meters, and it was executed at 12:11 into the match.
+Shortly after, Spain's Daniel Carvajal Ramos took a throw-in, which was directed towards Lamine Yamal Nasraoui Ebana. This occurred at 12:07, and the play continued as Lamine received the ball successfully at 12:08.
+As the play progressed, Luke Shaw applied pressure on Lamine, who attempted to dribble past him. However, the dribble was incomplete, indicating that Shaw's defensive efforts were effective. This moment of pressure occurred at 12:09, where Shaw won the tackle against Lamine, showcasing his defensive prowess.
+Following this, Shaw carried the ball forward, maintaining possession and advancing towards the opposition's half. This carry lasted until 12:09, where he moved the ball to a location near the center of the pitch.
+At 12:13, Jordan Pickford received the ball again from Shaw, demonstrating the fluidity of England's play. Pickford then carried the ball forward, moving it to a new position on the field, indicating England's continued control of the game.
+Throughout this sequence, the players displayed a combination of teamwork and individual skill, with Shaw's defensive actions and Pickford's involvement in the play highlighting the dynamic nature of the match.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 57
+    description: |
+      In the 57th minute of the match, England's keeper, Jordan Pickford, initiated a series of plays that showcased both skill and pressure from the opposing team, Spain.
+At 12:19, Pickford received the ball from Kyle Walker, who had made a ground pass from the right back position. Under pressure from Spain's Daniel Olmo Carvajal, Pickford managed to maintain possession and executed a short pass to John Stones, who was positioned as a right center back. This pass occurred at 12:21, and Stones successfully received the ball, continuing England's possession.
+Stones then carried the ball forward, maintaining control as he moved into a more advanced position. He passed the ball to Declan Rice at 12:23, who was playing as a left defensive midfielder. Rice, under pressure from Spain's Fabián Ruiz Peña, managed to keep the play alive by carrying the ball further up the field.
+As the play progressed, Rice executed a pass to Kyle Walker, who had moved into a more central position. Walker received the ball at 12:25 and continued to advance, showcasing England's fluid movement and teamwork. He then passed to Kobbie Mainoo, who was positioned as a right defensive midfielder, at 12:27. Mainoo received the ball and carried it forward, demonstrating England's attacking intent.
+Throughout this sequence, Spain applied pressure, with players like Olmo and Aymeric Laporte attempting to disrupt England's rhythm. However, England's players displayed composure and skill, successfully navigating through the pressure and maintaining possession as they advanced the ball up the pitch. 
+This minute encapsulated the tactical battle between the two teams, with England demonstrating their ability to retain possession under pressure while Spain sought to regain control.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 57
+    description: |
+      In the second half of the match, specifically at the 57th minute, England's Kobbie Mainoo made a determined effort to advance the play. He executed a low pass with his right foot, aimed towards Bukayo Saka, who was positioned on the right wing. The pass, however, was under pressure and ultimately deemed incomplete, as Saka was unable to successfully receive it.
+This moment highlights the intensity of the match, with England trying to maintain possession and create opportunities, but facing challenges in executing their plays effectively. The score remains unchanged as the action unfolds, with both teams vying for control on the pitch.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 58
+    description: |
+      In the 58th minute of the match, Spain and England were engaged in a tense battle for possession. 
+At 13:16, Declan Rice of England applied pressure on Spain, attempting to disrupt their play. This led to a moment of vulnerability for Spain, as Daniel Olmo Carvajal was dispossessed by Rice just a second later, at 13:17. The pressure from Rice was effective, showcasing England's defensive tenacity.
+However, Spain quickly regained control. Álvaro Morata, the center forward, recovered the ball at 13:18, demonstrating Spain's resilience. He then carried the ball forward, moving it to a more advantageous position by 13:18, before passing it to Lamine Yamal Nasraoui Ebana at 13:20. 
+Yamal, now on the right wing, received the ball and continued the attack, carrying it further up the field. He executed a precise ground pass to Daniel Carvajal Ramos at 13:23, who was positioned as the right back. Carvajal received the ball cleanly and carried it forward, showcasing Spain's fluid attacking play.
+As the action unfolded, Spain maintained possession, with Carvajal passing back to Fabián Ruiz Peña at 13:26. Ruiz, positioned in left defensive midfield, received the ball and looked to orchestrate the next phase of Spain's attack.
+This sequence of events highlighted Spain's ability to recover from pressure and maintain their attacking momentum, while England's defensive efforts were commendable but ultimately led to Spain's continued possession and build-up play.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 58
+    description: |
+      In the second half of the match, at the 58th minute, Spain was actively pushing forward. The action began with **Martín Zubimendi Ibáñez** making a precise ground pass to **Daniel Olmo Carvajal** at 13:49, positioning the ball well for the next play.
+Just a second later, **Daniel Olmo Carvajal** carried the ball forward, moving it to a more advantageous position. He then attempted a pass to **Álvaro Borja Morata Martín** at 13:50, but unfortunately, the pass was incomplete, failing to reach its intended target.
+Despite the missed connection, **Álvaro Morata** managed to receive the ball shortly after, but again, the outcome was not favorable as he struggled under pressure from **Marc Guehi** and ultimately could not maintain possession.
+At 13:51, **Luke Shaw** of England intercepted the ball, successfully disrupting Spain's attack. Following this, **Jordan Pickford**, the England keeper, made a ball recovery at 13:53, ensuring that England regained control.
+Spain continued to press, with **Álvaro Morata** carrying the ball again, but he was under pressure and had to navigate carefully. He passed to **Martín Zubimendi Ibáñez**, who received the ball at 13:48, maintaining Spain's possession.
+The sequence of events highlighted Spain's attempts to break through England's defense, showcasing both the skill of their players and the resilience of the English side in thwarting their efforts.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 58
+    description: |
+      In the second half of the match, specifically at the 58th minute, the action unfolds with Spain in possession. 
+**00:13:04** - Unai Simón Mendibil, the keeper for Spain, initiates play with a ground pass to Robin Aime Robert Le Normand, who is positioned as a right center back. The pass covers a distance of approximately 14 meters, allowing Le Normand to receive the ball effectively.
+**00:13:05** - Le Normand then takes control of the ball and carries it forward, moving to a location near the center of the field. He maintains possession under pressure from England's Phil Foden, who is applying pressure as a center attacking midfielder.
+**00:13:09** - Le Normand makes a pass back to the keeper, Simón, who is now under pressure from Harry Kane, the center forward for England. The pass is a ground ball that reaches Simón, allowing him to regain control.
+**00:13:11** - Simón, still under pressure, carries the ball a short distance before looking for options. He then passes to Daniel Olmo Carvajal, a center attacking midfielder, who is positioned to receive the ball.
+**00:13:14** - Olmo receives the ball and immediately begins to carry it forward, navigating through the midfield. He is also under pressure, indicating the intensity of the match as both teams vie for control.
+Throughout this sequence, Spain demonstrates their ability to maintain possession despite the pressure from England, showcasing their tactical play and composure under challenging circumstances. The score remains unchanged as the match continues to unfold.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 58
+    description: |
+      In the 58th minute of the match, Spain showcased a series of coordinated plays that highlighted their attacking prowess.
+At **13:37**, Fabián Ruiz Peña initiated the action by carrying the ball from the left defensive midfield position, moving it to a location at [77.3, 8.9]. This was a strategic move as Spain maintained possession.
+Just moments later, at **13:39**, Fabián executed a ground pass to Nicholas Williams Arthuer, who was positioned on the left wing. The pass was precise, covering a distance of approximately 5.9 meters, and allowed Nicholas to continue the attack.
+Nicholas received the ball at **13:40** and carried it forward to [80.3, 3.8]. He then made another quick pass back to Fabián at **13:41**, who was now positioned at [71.2, 8.3]. This quick exchange demonstrated Spain's fluidity in their play.
+Fabián, now back in possession, received the ball and continued to orchestrate the play. He made another pass to Nicholas at **13:40**, who was still active on the left wing. Nicholas then carried the ball further to [89.2, 3.0] before passing it back to Fabián at **13:41**.
+The sequence of events showcased Spain's teamwork and tactical awareness, with Fabián Ruiz Peña and Nicholas Williams Arthuer playing pivotal roles in maintaining possession and advancing the ball. The crowd could feel the momentum building as Spain pressed forward, looking for an opportunity to score.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 59
+    description: |
+      In the second half of the match, specifically at the 59th minute, England was actively pushing forward. Phil Foden attempted a low pass to Harry Kane, but unfortunately, the pass was incomplete, failing to reach its intended target.
+Shortly after, Kyle Walker received the ball and carried it forward, showcasing his skill as a right back. He then executed a ground pass to Bukayo Saka, who successfully received the ball on the right wing. Saka, in turn, carried the ball further down the field, demonstrating his agility and control.
+As the play continued, Saka made a ground pass to Phil Foden, who was positioned in the center attacking midfield. However, Aymeric Laporte of Spain applied pressure, attempting to disrupt the play. Despite the pressure, Foden managed to receive the ball, but he was under significant duress.
+In a quick succession of events, Harry Kane also attempted to receive a pass but was unable to do so as the ball was blocked by Laporte. This defensive action by Laporte was crucial in maintaining Spain's defensive integrity.
+As the play progressed, Kyle Walker was involved again, this time making a recovery pass to Kobbie Mainoo, who was under pressure from Spain's Daniel Olmo. Mainoo managed to receive the ball and carried it forward, showcasing his determination and skill.
+The tension on the field was palpable as both teams fought for possession, with Spain's Nicholas Williams applying pressure on Mainoo. However, Mainoo's resilience shone through as he continued to carry the ball, moving it into a more advantageous position.
+The sequence of events highlighted the intensity of the match, with England's players demonstrating their skills while facing the relentless pressure from the Spanish side. The crowd could feel the excitement as the players battled for control, setting the stage for what could be a pivotal moment in the game.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 59
+    description: |
+      In the 59th minute of the match, England's Bukayo Saka initiated a series of dynamic plays. Starting at 14:25, Saka carried the ball forward from the right wing, showcasing his skill and determination. He maneuvered past defenders and made a precise ground pass to Kyle Walker, who was positioned to receive the ball.
+Just a few seconds later, at 14:29, Saka executed another pass, this time a high ball to Jude Bellingham on the left wing. Bellingham successfully received the ball, allowing Saka to continue his involvement in the play. 
+At 14:21, Saka received the ball back from Bellingham, demonstrating excellent teamwork. He then carried the ball further down the right wing before passing it again to Walker at 14:22. Walker, now in a good position, received the ball and quickly passed it back to Saka, who was ready to make another move.
+Saka's continuous involvement in the play highlighted his importance to the team's strategy. He received the ball once more from Walker, maintaining possession and looking for opportunities to advance. 
+This sequence of events showcased England's fluid attacking play, with Saka at the heart of the action, linking up effectively with his teammates and keeping the pressure on the Spanish defense.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 59
+    description: |
+      In the second half of the match, at the 59th minute, the action intensified as England and Spain battled for control. 
+**59:00** - Lamine Yamal Nasraoui Ebana from Spain initiated a pressure play, attempting to regain possession. The score remained unchanged as both teams were locked in a tactical struggle.
+**59:01** - Luke Shaw of England responded by carrying the ball forward, showcasing his skill as he maneuvered under pressure. He received the ball from Marc Guehi, who had just made a successful pass. 
+**59:02** - Shaw then received the ball again, demonstrating his ability to maintain possession despite the pressure from Spain's players.
+**59:03** - Kobbie Mainoo attempted a dribble but was met with resistance, resulting in an incomplete attempt. Marc Cucurella Saseta from Spain successfully tackled Mainoo, regaining control for his team.
+**59:04** - Bukayo Saka applied pressure on Spain, trying to disrupt their play. He was actively involved in the midfield, showcasing his defensive skills.
+**59:05** - Nicholas Williams Arthuer from Spain managed to recover the ball but was soon dispossessed by Saka, who won the duel and continued to press forward.
+**59:06** - Saka then carried the ball, moving it upfield effectively. He passed to Bukayo Saka, who continued to push the attack.
+**59:07** - Saka executed a precise pass to John Stones, who received it cleanly and maintained the flow of play.
+**59:08** - Stones carried the ball forward, looking for options as he approached the midfield.
+**59:09** - He then passed to Declan Rice, who received the ball and continued the build-up.
+**59:10** - Rice carried the ball, looking to create an opportunity for England.
+**59:11** - Finally, Rice made a pass back to Marc Guehi, who was positioned well to continue the attack.
+Throughout this minute, both teams displayed their tactical prowess, with England showing a strong offensive push while Spain focused on regaining control. The score remained unchanged as the match continued to unfold.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 59
+    description: |
+      In the 59th minute of the match, England is in possession and Jude Bellingham receives the ball on the left wing, under pressure from Spain's Daniel Carvajal Ramos. Bellingham skillfully manages to maintain control, showcasing his composure as he receives the ball at the location [55.3, 37.7].
+Just moments later, Declan Rice, positioned in left defensive midfield, also receives the ball, indicating a strong build-up play from England. He then carries the ball forward, moving from [42.2, 34.5] to [39.7, 35.1], demonstrating his ability to advance the play.
+Rice then makes a precise ground pass to Bellingham, who is now positioned at [47.6, 37.0]. Bellingham receives the ball cleanly and continues to carry it forward, moving to [60.9, 46.2]. His movement is fluid, and he is still under pressure, indicating the intensity of the match.
+As the play progresses, Bellingham passes the ball back to Rice, who is now in a better position to make a strategic move. Rice receives the ball and quickly passes it to John Stones, who is positioned at [40.1, 54.0]. Stones, in turn, makes a ground pass back to Bellingham, who is still actively involved in the play.
+Throughout this sequence, England's players are demonstrating excellent teamwork and ball control, with Bellingham at the center of the action, showcasing his skills under pressure. The match remains intense as both teams vie for control, with England looking to capitalize on their possession.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 60
+    description: |
+      In the 60th minute of the match, England is showcasing some impressive teamwork. 
+At 15:46, Kyle Walker, positioned as the right back, receives the ball from a throw-in. He quickly carries the ball forward, demonstrating his agility and control, before making a precise ground pass to Kobbie Mainoo at 15:49. The pass is well-executed, reaching Mainoo at the right defensive midfield position, and the score remains unchanged.
+Mainoo, now in possession, carries the ball forward to 15:50, moving into a more advanced position. However, he finds himself under pressure from Spain's Daniel Olmo Carvajal and Fabián Ruiz Peña, who are keen to regain possession. Despite the pressure, Mainoo attempts to maintain control but is dispossessed at 15:52, as he loses the duel against Martín Zubimendi Ibáñez.
+Spain's pressure intensifies as Olmo continues to apply pressure on England's players. However, Jude Bellingham steps in at 15:53, successfully recovering the ball for England. He then carries it forward, showcasing his skill and determination.
+At 15:55, Bellingham makes a strategic low pass to Bukayo Saka, who is positioned on the right wing. Saka receives the ball at 15:57 and carries it forward, looking to create an opportunity for England. The action is fluid, with England maintaining possession and looking to capitalize on the situation as they push forward in search of a goal. 
+The match remains tense, with both teams vying for control, but England is showing promising signs of attacking play.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 60
+    description: |
+      In the second half of the match, specifically at the 60th minute, England is making a tactical substitution. Harry Kane, the center forward, is being replaced by Ollie Watkins. This change occurs at 00:15:41, indicating a strategic shift by the England team.
+Just moments later, at 00:15:42, Luke Shaw, playing as the left back, takes a throw-in. He successfully passes the ball to Marc Guehi, the left center back, who receives it cleanly. This event is recorded as a ball receipt, marking the continuation of England's possession.
+Following this, Guehi carries the ball forward, maintaining possession and advancing the play. His carry ends at the same location where he received the ball, demonstrating his control and intent to progress the attack.
+At 00:15:44, Guehi executes a high pass to Kyle Walker, showcasing his ability to distribute the ball effectively. This pass is crucial as it keeps the momentum of the play alive for England, who are looking to capitalize on their possession.
+Throughout this sequence, England is clearly focused on maintaining control and creating opportunities, with Guehi playing a pivotal role in the build-up. The crowd can feel the anticipation as the team looks to break through the opposition's defense.
+
+  - table_name: events_details__quarter_minute
+    match_id: 3943043
+    period: 2
+    minute: 60
+    description: |
+      In the 60th minute of the match, the tension was palpable as Spain's Daniel Carvajal Ramos, playing as a right back, engaged in a crucial tackle against England's Luke Shaw, who was positioned as a left back. 
+As the play unfolded, Carvajal found himself under pressure and unfortunately lost the duel, marking a significant moment in the game. This action was recorded at the timestamp of 00:15:00.851, indicating the intensity of the match as both teams fought for possession. 
+Shaw, having been dispossessed during this encounter, was also feeling the heat of the moment. The possession remained with England, but the dynamics of the game were shifting as Spain sought to capitalize on this opportunity. 
+This minute encapsulated the fierce competition between the two teams, highlighting the skill and determination of both players involved.

@@ -1,0 +1,20 @@
+  - question_number: Q-24
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Which players received yellow cards, and for what reason?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      The players who received yellow cards were:
+      1. **Harry Kane (England)** - He committed a foul against Fabián Ruiz Peña of Spain.
+      2. **Daniel Olmo Carvajal (Spain)** - He committed a foul against Declan Rice of England.
+      3. **John Stones (England)** - He committed a foul against Martín Zubimendi Ibáñez of Spain.
+      4. **Ollie Watkins (England)** - He committed a foul against José Ignacio Fernández Iglesias of Spain. 
+      These yellow cards were issued during various moments of the match as players engaged in fouls against their opponents.
+    dataframe: |
+      Which players received yellow cards, and for what reason?

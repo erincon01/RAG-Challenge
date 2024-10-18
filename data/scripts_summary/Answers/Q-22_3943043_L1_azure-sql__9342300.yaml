@@ -1,0 +1,21 @@
+  - question_number: Q-22
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many yellow and red cards were given to each team, and at what times?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      During the match, the following cards were issued:
+      **Spain:**
+      - Daniel Olmo Carvajal received a yellow card at 29 minutes and 57 seconds for a foul against Declan Rice.
+      **England:**
+      - John Stones received a yellow card at the 52nd minute for a foul against Martín Zubimendi Ibáñez.
+      - Ollie Watkins received a yellow card at 90 minutes and 54 seconds for a foul against José Ignacio Fernández Iglesias.
+      There were no red cards issued to either team.
+    dataframe: |
+      How many yellow and red cards were given to each team, and at what times?

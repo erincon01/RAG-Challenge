@@ -1,0 +1,15 @@
+  - question_number: Q-07
+    search_type: InnerP
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many defensive actions, such as tackles, saves, and blocks, did each team execute, and show the top 3 players in these actions for each team?
+    error_category: None
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      NONE. I cannot find an answer. Please refine the question.
+    dataframe: |
+      How many defensive actions, such as tackles, saves, and blocks, did each team execute, and show the top 3 players in these actions for each team?

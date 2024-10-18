@@ -1,0 +1,16 @@
+  - question_number: Q-18
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many goal attempts did each team make during the match, and in which minutes were these attempts made?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      The events provided do not specify the exact number of goal attempts made by each team or the specific minutes in which these attempts occurred. Therefore, I cannot provide a detailed answer regarding the goal attempts for Spain and England.
+      NONE. I cannot find an answer. Please refine the question.
+    dataframe: |
+      How many goal attempts did each team make during the match, and in which minutes were these attempts made?

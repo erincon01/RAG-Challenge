@@ -1,0 +1,21 @@
+  - question_number: Q-23
+    search_type: L1
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: How many substitutions were made by each team during the match, and at what times?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      During the match, the following substitutions were made:
+      **Spain:**
+      1. **Robin Aime Robert Le Normand** was replaced by **José Ignacio Fernández Iglesias** in the **82nd minute**.
+      2. **Lamine Yamal Nasraoui Ebana** was replaced by **Mikel Merino Zazón** in the **88th minute**.
+      **England:**
+      1. **Phil Foden** was replaced by **Ivan Toney** in the **89th minute**.
+      So, Spain made 2 substitutions, and England made 1 substitution.
+    dataframe: |
+      How many substitutions were made by each team during the match, and at what times?

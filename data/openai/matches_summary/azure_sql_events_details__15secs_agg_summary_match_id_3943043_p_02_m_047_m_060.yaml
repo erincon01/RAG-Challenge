@@ -1,0 +1,547 @@
+events:
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 46
+    description: |
+      At 46 minutes and 1 second, Fabián Ruiz Peña received the ball and carried it forward, showcasing his skill in the left defensive midfield position. He then executed a precise pass to Daniel Carvajal Ramos, who was positioned on the right back, at 46 minutes and 3 seconds. Carvajal received the ball cleanly and quickly passed it to Lamine Yamal Nasraoui Ebana, who was making a run on the right wing.
+      Just moments later, at 46 minutes and 6 seconds, Lamine Yamal, under pressure from Luke Shaw, managed to carry the ball forward before passing it to Nicholas Williams Arthuer. Williams, positioned on the left wing, took a shot at goal at 46 minutes and 9 seconds. The shot was successful, finding the back of the net and putting Spain ahead with a score of 1-0.
+      Jordan Pickford, the keeper for England, was unable to make a save on this occasion, conceding the goal at 46 minutes and 10 seconds. 
+      Summary: Spain took the lead with a goal from Nicholas Williams Arthuer after a series of well-executed passes, leaving the score at 1-0.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 47
+    description: |
+      Kobbie Mainoo initiates the action for England with a pass to keeper Jordan Pickford at 47 minutes and 21 seconds. The pass is a ground ball, traveling 36.5 meters, and it reaches Pickford successfully.
+      Just a few seconds later, at 47 minutes and 24 seconds, Pickford receives the ball and carries it forward, moving to a better position before making his next play. He then attempts a high pass to Harry Kane at 47 minutes and 28 seconds. However, this pass is incomplete, failing to reach Kane.
+      Summary: England's Kobbie Mainoo starts the play with a pass to keeper Jordan Pickford, who then carries the ball before attempting a high pass to Harry Kane, which is unsuccessful.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 47
+    description: |
+      At 47 minutes and 31 seconds, Harry Kane of England received the ball but was unable to maintain possession, resulting in an incomplete ball receipt. Under pressure, Kane then engaged in an aerial duel but lost it, allowing Spain to regain control.
+      Aymeric Laporte of Spain quickly passed the ball to Nicholas Williams Arthuer, who was positioned on the left wing. Williams then carried the ball forward, evading pressure from Bukayo Saka of England, and advanced to a new location on the pitch.
+      As Williams continued his run, he made a ground pass to Fabián Ruiz Peña, who received the ball successfully. Ruiz Peña then carried the ball forward, navigating through the midfield while under pressure from Declan Rice of England.
+      Ruiz Peña executed another pass to Aymeric Laporte, who received it cleanly and carried it slightly before making a ground pass to Robin Aime Robert Le Normand, maintaining Spain's possession and advancing their play.
+      Summary: England struggled to maintain possession early in the second half, allowing Spain to control the ball and create opportunities through quick passes and carries.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 47
+    description: |
+      Unai Simón Mendibil, the keeper for Spain, initiated a carry at 47:58, moving the ball from his position. He then executed a precise ground pass to Robin Aime Robert Le Normand, who received the ball at 47:59. Le Normand carried the ball forward before passing it back to Simón at 47:50, allowing the keeper to maintain possession.
+      At 47:52, Simón received the ball again and carried it slightly before delivering another ground pass to Aymeric Laporte at 47:53. Laporte received the ball cleanly and carried it forward, then passed it back to Simón at 47:56, showcasing a strong build-up play from the back.
+      Simón's involvement was crucial as he kept the ball moving and maintained Spain's possession, demonstrating the team's strategy of playing out from the back.
+      Summary: Spain's keeper, Unai Simón, played a pivotal role in maintaining possession through a series of carries and passes, effectively linking the defense and midfield.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 48
+    description: |
+      At the 48th minute, Robin Aime Robert Le Normand of Spain received the ball and began a carry, moving it forward from the right center back position. He advanced the ball for approximately eight seconds before executing a high pass to Álvaro Borja Morata Martín, who was positioned as a center forward. Morata successfully received the ball at the 48:11 mark.
+      Morata then made a quick pass to Daniel Carvajal Ramos, the right back, who received it at 48:13. Carvajal carried the ball briefly before delivering another high pass to Daniel Olmo Carvajal, the center attacking midfielder, who received it at 48:14. Olmo then passed the ball with a low pass to Nicholas Williams Arthuer, aiming to maintain the attacking momentum.
+      Summary: Spain displayed a series of coordinated passes and carries, moving the ball effectively through their midfield and forward positions.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 48
+    description: |
+      Nicholas Williams Arthuer receives the ball on the left wing at 48 minutes and 17 seconds, showcasing his skill as he carries it forward. He then makes a precise ground pass to Daniel Olmo Carvajal, who is positioned in the center attacking midfield. The pass is well-executed, allowing Olmo to take control of the ball at 48 minutes and 18 seconds.
+      With the ball at his feet, Olmo carries it a short distance before unleashing a shot at 48 minutes and 19 seconds. He strikes the ball with his left foot, attempting a half-volley that looks promising. However, the shot goes off target, missing the goal entirely. 
+      Jordan Pickford, the keeper for England, is alert and ready as he faces the shot, but he does not need to make a save since the ball sails past the goal. The score remains unchanged.
+      Summary: Spain's Nicholas Williams Arthuer initiated a promising attack, leading to a shot by Daniel Olmo Carvajal that ultimately missed the target.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 48
+    description: |
+      At 48 minutes and 43 seconds, Jordan Pickford, the keeper for England, initiated a goal kick. He executed a precise ground pass with his left foot to John Stones, who was positioned as the right center back. The pass traveled approximately 14.87 meters, reaching Stones at 7.2 meters along the pitch.
+      Just a second later, at 48 minutes and 44 seconds, John Stones received the ball cleanly, maintaining possession for England. He then quickly followed up with a high pass, sending the ball towards Phil Foden. This pass covered a distance of about 35.67 meters, landing at 41.7 meters on the field.
+      Summary: England's keeper, Jordan Pickford, successfully passed the ball to John Stones, who then delivered a high pass to Phil Foden.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 48
+    description: |
+      At 48 minutes and 45 seconds, England's Phil Foden received the ball under pressure from Spain's Martín Zubimendi. Foden quickly passed to Kobbie Mainoo, who was positioned in the right defensive midfield. Mainoo, also under pressure, carried the ball forward for a brief moment before passing it to Declan Rice.
+      Rice, feeling the pressure from Spain's Álvaro Morata, managed to carry the ball a short distance before passing it back to Luke Shaw, who was positioned as left back. Shaw then made a ground pass to Jude Bellingham on the left wing, who received the ball and carried it forward while being closely marked by Spain's Fabián Ruiz Peña.
+      Bellingham, still under pressure, executed a pass to Marc Guehi, who was playing as a left center back. Guehi received the ball and carried it forward before passing it back to Bellingham, who continued to advance with the ball, maintaining possession despite the pressure from Spain.
+      Summary: England maintained possession and built up play through a series of passes and carries, showcasing their ability to maneuver under pressure from Spain.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 49
+    description: |
+      At the 49th minute, Jude Bellingham of England initiated a play with a precise ground pass to Marc Guehi, who was positioned as the left center back. Guehi received the ball cleanly and carried it forward for a couple of seconds before executing another pass to John Stones, the right center back. Stones then received the ball and carried it slightly before passing it back to keeper Jordan Pickford.
+      Under pressure from Spain's Daniel Olmo Carvajal, Pickford managed to maintain possession and attempted a high pass towards Harry Kane. However, the pass was incomplete, and Kane was unable to secure the ball, leading to a duel where he lost an aerial challenge against Robin Aime Robert Le Normand of Spain.
+      Spain's Le Normand quickly transitioned the play by passing to Martín Zubimendi, who was under pressure from England's Kobbie Mainoo. Zubimendi managed to carry the ball briefly before making a low pass to Fabián Ruiz Peña, continuing the attacking momentum for Spain.
+      Summary: England attempted to build an attack through a series of passes, but Spain's defense held firm, leading to a transition that saw Spain regain possession and push forward.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 49
+    description: |
+      At 49 minutes and 19 seconds, Kobbie Mainoo of England applied pressure on Spain's Daniel Carvajal Ramos, who was under pressure himself. Carvajal managed to pass the ball to Fabián Ruiz Peña, who received it successfully despite the pressure from Jude Bellingham.
+      Just moments later, at 49 minutes and 17 seconds, Carvajal carried the ball forward, dribbling past Bellingham, who attempted to apply pressure. Carvajal's dribble was successful, allowing him to maintain possession and advance the play.
+      As the action continued, at 49 minutes and 20 seconds, Fabián Ruiz Peña received the ball again and carried it forward, but he was dispossessed by Mainoo, who won the duel with a tackle. Mainoo then carried the ball forward, showcasing his skill and determination.
+      At 49 minutes and 23 seconds, Mainoo attempted a pass to Bellingham, but it was incomplete. Meanwhile, Carvajal blocked the pass attempt, demonstrating his defensive prowess.
+      Summary: The sequence highlighted intense pressure from England's players, particularly Kobbie Mainoo, leading to a successful dispossession and a blocked pass from Spain's Daniel Carvajal.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 49
+    description: |
+      At 49 minutes and 43 seconds, Phil Foden of England executed a precise ground pass to Declan Rice, who was positioned in the left defensive midfield area. The pass traveled approximately 22.9 meters, setting up the next play.
+      Just 10 seconds earlier, at 49 minutes and 33 seconds, Luke Shaw also passed to Declan Rice from a throw-in, allowing Rice to receive the ball cleanly at 49 minutes and 35 seconds. Rice then carried the ball forward for about 2.6 seconds before passing it to John Stones at 49 minutes and 38 seconds. This pass was a ground pass that covered a distance of nearly 36.9 meters.
+      Stones received the ball at 49 minutes and 40 seconds and carried it forward for a brief moment before passing it back to Phil Foden at 49 minutes and 41 seconds. This pass was also a ground pass, measuring around 12.2 meters.
+      Foden, now in possession, carried the ball forward again, moving it to a new location at 49 minutes and 42 seconds. 
+      Summary: England displayed a series of coordinated passes and carries, with Phil Foden, Declan Rice, and John Stones effectively moving the ball upfield.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 49
+    description: |
+      At 49 minutes and 45 seconds, Lamine Yamal Nasraoui Ebana from Spain applied pressure on England, who maintained possession. Shortly after, Declan Rice received the ball under pressure and quickly passed it to Jude Bellingham, who was positioned on the left wing. Bellingham skillfully carried the ball forward, moving it to Luke Shaw, who was waiting on the left flank.
+      As the play continued, Bellingham received the ball again and made a decisive carry, advancing it further up the field. Meanwhile, Luke Shaw, under pressure from Spain's Daniel Carvajal Ramos, attempted to receive a pass but was unable to complete it, resulting in an incomplete ball receipt.
+      Summary: England maintained possession with a series of passes and carries, but Luke Shaw's attempt to receive a pass was unsuccessful.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 50
+    description: |
+      At the 50th minute, Unai Simón Mendibil, the keeper for Spain, initiated a play from a goal kick. He executed a precise ground pass to Robin Aime Robert Le Normand, who was positioned as the right center back. The pass traveled approximately 19 meters, allowing Le Normand to receive the ball cleanly at the 5.9 mark on the field.
+      Le Normand then carried the ball forward, advancing it to a new location at 21.7 on the field. This sequence of events showcased Spain's possession and their strategic buildup from the back.
+      Summary: Spain maintained possession with a successful goal kick, leading to a carry by Robin Aime Robert Le Normand.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 50
+    description: |
+      At 50 minutes and 20 seconds, Robin Aime Robert Le Normand of Spain attempted a high pass from the right center back position, aiming for Lamine Yamal Nasraoui Ebana on the right wing. However, the pass was incomplete, failing to reach its target.
+      Just three seconds later, Lamine Yamal Nasraoui Ebana received the ball but was immediately under pressure, resulting in an aerial duel that he lost. This allowed Marc Guehi of England to regain possession with a short pass to Declan Rice, who was positioned in the left defensive midfield area.
+      At 50 minutes and 24 seconds, Álvaro Borja Morata Martín applied pressure on England's Declan Rice, who managed to receive the ball despite being under pressure. Declan then executed a high pass to Luke Shaw, who was positioned as the left back. 
+      Luke Shaw successfully received the ball and carried it forward, moving from his position at 56.5 to 61.4 on the field, maintaining England's possession.
+      Summary: Spain attempted a pass that failed, leading to England regaining possession and advancing the ball through Declan Rice and Luke Shaw.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 50
+    description: |
+      At 50 minutes and 31 seconds, Luke Shaw of England made a precise ground pass to Kobbie Mainoo, who received the ball cleanly just a second later. Mainoo, positioned as a right defensive midfielder, then carried the ball forward for a brief moment before passing it to Declan Rice at 50 minutes and 39 seconds. Rice, playing as a left defensive midfielder, executed a ground pass to Kyle Walker, who was positioned as a right back.
+      Walker received the ball at 50 minutes and 41 seconds and immediately carried it forward, showcasing his pace and control. He then delivered a high pass to Bukayo Saka, who was waiting on the right wing. Saka received the ball at 50 minutes and 44 seconds and, under pressure, carried it forward, maintaining possession as he maneuvered past defenders.
+      Summary: England displayed a series of coordinated passes and carries, with notable contributions from Luke Shaw, Kobbie Mainoo, Declan Rice, Kyle Walker, and Bukayo Saka, maintaining possession and building up play effectively.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 50
+    description: |
+      Luke Shaw initiated a carry for England at the 50th minute, moving the ball forward from the left back position. He advanced to a location near the edge of the penalty area before passing to Bukayo Saka, who was under pressure from Marc Cucurella Saseta of Spain. Saka managed to deliver a quick pass to Phil Foden, who received the ball effectively.
+      Foden then carried the ball forward, showcasing his dribbling skills, before passing it to Declan Rice. Rice received the ball and continued the play with a pass back to Shaw, who had made a run up the left flank. Shaw then executed a precise pass to Jude Bellingham, who was positioned on the left wing.
+      Bellingham received the ball and carried it forward, demonstrating his agility and control as he moved towards the center of the field. This sequence of plays highlighted England's fluid attacking movement and their ability to maintain possession under pressure.
+      Summary: England displayed a series of coordinated passes and carries, with notable contributions from Luke Shaw, Bukayo Saka, Phil Foden, Declan Rice, and Jude Bellingham, showcasing their attacking prowess.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 51
+    description: |
+      Declan Rice starts a promising move for England at 51 minutes and 12 seconds, carrying the ball from the left defensive midfield position. He advances the play, showcasing his dribbling skills as he moves the ball to a more attacking position.
+      At 51 minutes, Jude Bellingham receives a pass from Rice, maintaining possession for England. Bellingham quickly transitions the ball back to Rice, who continues to drive forward. Rice then passes to John Stones, who is positioned as a right center back. Stones takes control of the ball and carries it forward, looking for options.
+      Stones then delivers a precise pass to Bukayo Saka on the right wing. Saka, with his pace and agility, receives the ball and carries it further down the flank before sending a pass to Kobbie Mainoo. Mainoo receives the ball and continues the attack, moving it forward before passing back to Rice, who is now in a central position.
+      Finally, at 51 minutes and 14 seconds, Rice completes the sequence by passing to Bellingham, who is well-positioned to continue the offensive play.
+      Summary: England displayed a fluid attacking sequence with multiple players involved, culminating in a pass from Declan Rice to Jude Bellingham, maintaining their possession and pressing forward.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 51
+    description: |
+      Jude Bellingham receives the ball on the left wing at 51 minutes and 15 seconds, maintaining possession for England. Under pressure from Nicholas Williams Arthuer of Spain, he carries the ball forward before making a pass to Kyle Walker. The pass is precise, reaching Walker at 51 minutes and 17 seconds.
+      Walker, now in possession, carries the ball further down the right flank and then delivers a high cross at 51 minutes and 18 seconds. However, the cross goes out of play, resulting in a missed opportunity for England.
+      Summary: England's Jude Bellingham and Kyle Walker executed a series of plays, but Walker's cross ultimately went out of bounds, ending the attack.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 51
+    description: |
+      At 51 minutes and 51 seconds, Daniel Olmo Carvajal made a high pass from the center attacking midfield, aiming for Martín Zubimendi, who was positioned in the right defensive midfield. The pass was a recovery type, but it was incomplete as Zubimendi could not secure the ball.
+      Just moments earlier, at 51 minutes and 48 seconds, Daniel Carvajal Ramos attempted a high pass from the right back position to Álvaro Morata, but this pass also ended up incomplete, resulting in a throw-in for Spain.
+      At 51 minutes and 49 seconds, Marc Guehi of England attempted to pass to Jude Bellingham, but this pass was also incomplete. Bellingham, positioned on the left wing, was unable to receive the ball.
+      Following this, at 51 minutes and 52 seconds, Martín Zubimendi received the ball after a high pass, successfully connecting with it this time. He then made another pass to Robin Aime Robert Le Normand, who was positioned as a right center back. This pass was completed, allowing Spain to maintain possession.
+      At 51 minutes and 54 seconds, Le Normand engaged in a duel with Jude Bellingham, which he lost, but he quickly recovered and made a high pass to Fabián Ruiz Peña. Ruiz then received the ball successfully and continued the play.
+      Finally, at 51 minutes and 58 seconds, Nicholas Williams Arthur received a pass from Fabián Ruiz Peña and carried the ball forward, moving from the left wing to a more central position on the field.
+      Summary: Spain maintained possession through a series of passes and ball receipts, but several attempts to connect with teammates were initially incomplete before they successfully advanced the ball through Nicholas Williams Arthur.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 52
+    description: |
+      At 52 minutes and 3 seconds, Nicholas Williams Arthuer of Spain executed a precise ground pass to Marc Cucurella Saseta, who was positioned as the left back. The pass traveled approximately 15.9 meters, allowing Cucurella to receive the ball cleanly at 52 minutes and 5 seconds.
+      Cucurella then carried the ball forward for a brief moment before making another ground pass to Aymeric Laporte, who was stationed as the left center back. This pass, occurring at 52 minutes and 6 seconds, covered a distance of about 13.4 meters. Laporte received the ball at 52 minutes and 7 seconds and subsequently carried it forward for a couple of seconds.
+      At 52 minutes and 9 seconds, Laporte sent a left-footed ground pass to Robin Aime Robert Le Normand, who was positioned as the right center back. This pass spanned approximately 30 meters, and Le Normand received it at 52 minutes and 11 seconds. He then carried the ball for a significant distance, moving it forward to 38.9 meters by 52 minutes and 11 seconds.
+      Summary: Spain displayed a series of coordinated passes and carries, moving the ball effectively from the left wing through the defense, showcasing their possession and teamwork.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 52
+    description: |
+      At 52 minutes and 28 seconds, Álvaro Morata received a pass from Martín Zubimendi, allowing Spain to maintain possession. The ball was played on the ground, and Morata, positioned as a center forward, moved it forward.
+      Just 11 seconds earlier, at 52 minutes and 17 seconds, Robin Le Normand passed the ball to Daniel Carvajal, who was positioned as a right back. Carvajal then carried the ball for a moment before passing it to Unai Simón, the keeper, at 52 minutes and 20 seconds.
+      Simón, under pressure from Harry Kane, managed to receive the ball and carried it briefly before passing it back to Morata at 52 minutes and 24 seconds. Morata, now under pressure from John Stones, received the ball and carried it forward again.
+      At 52 minutes and 29 seconds, Zubimendi received the ball from Morata, continuing Spain's possession and movement up the field. 
+      Summary: Spain displayed a series of coordinated passes and carries, maintaining possession and advancing the ball through Morata and Zubimendi, despite pressure from England's players.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 52
+    description: |
+      At the 52nd minute, John Stones of England committed a foul against Martín Zubimendi Ibáñez of Spain. This foul occurred during a throw-in situation, with Spain maintaining possession at 90%. The foul led to a yellow card being issued to Stones, highlighting the intensity of the match as tensions rose on the field.
+      Summary: John Stones received a yellow card for a foul on Martín Zubimendi during a throw-in, with Spain holding possession.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 52
+    description: |
+      Fabián Ruiz Peña initiates a free kick for Spain at the 52nd minute, delivering a precise ground pass to Martín Zubimendi Ibáñez, who is positioned in the right defensive midfield. Zubimendi receives the ball cleanly and quickly follows up with another pass, this time to Robin Aime Robert Le Normand, who is stationed as a right center back. 
+      Le Normand, maintaining the momentum, then passes the ball to Aymeric Laporte, the left center back. Laporte skillfully carries the ball forward, advancing it from his position. 
+      Summary: Spain executed a series of precise passes following a free kick, transitioning the ball from Fabián Ruiz to Martín Zubimendi, then to Robin Le Normand, and finally to Aymeric Laporte, who carried it forward.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 53
+    description: |
+      At 53 minutes and 11 seconds, Fabián Ruiz Peña received the ball from a free kick, maintaining possession for Spain. Just moments earlier, at 53 minutes and 8 seconds, Aymeric Laporte carried the ball forward before executing a precise pass to Fabián, who was positioned in the left defensive midfield area.
+      Laporte's earlier actions included a pass at 53 minutes and 0 seconds, where he sent the ball to Marc Cucurella Saseta, who received it cleanly at 53 minutes and 1 second. Under pressure, Cucurella then carried the ball briefly before passing it to Nicholas Williams Arthuer at 53 minutes and 3 seconds. Williams, now on the left wing, carried the ball for a few moments before passing it back to Laporte at 53 minutes and 6 seconds.
+      Laporte, now back in possession, received the ball from Williams and was able to maintain the flow of play for Spain. The sequence of events highlighted Spain's control and tactical movement as they sought to build an attack.
+      Summary: Spain demonstrated effective ball movement and possession, with key contributions from Fabián Ruiz Peña, Aymeric Laporte, Marc Cucurella Saseta, and Nicholas Williams Arthuer during this segment of the match.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 53
+    description: |
+      At 53 minutes and 25 seconds, Nicholas Williams Arthuer of Spain received the ball on the left wing after a free kick, maintaining possession. He then carried the ball forward for a few moments before passing it to Álvaro Morata, who was positioned centrally. The pass was precise, covering a distance of approximately 13.7 meters.
+      Just before this, at 53 minutes and 18 seconds, Martín Zubimendi Ibáñez also received the ball and quickly passed it to Fabián Ruiz Peña, who was in a left defensive midfield position. Fabián then carried the ball under pressure, moving it forward to Marc Cucurella Saseta, who received it at the left back position.
+      Cucurella, after a brief carry, passed the ball back to Nicholas Williams Arthuer, who was now in a better position to advance. This sequence of plays showcased Spain's fluid passing and movement.
+      At 53 minutes and 29 seconds, Álvaro Morata, now under pressure from Declan Rice of England, received the ball and made a high pass towards Martín Zubimendi, demonstrating Spain's continued offensive efforts.
+      Summary: Spain displayed a series of coordinated passes and carries, with key contributions from Nicholas Williams Arthuer, Álvaro Morata, and Fabián Ruiz Peña, as they sought to maintain possession and create scoring opportunities.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 53
+    description: |
+      At 53 minutes and 31 seconds, Spain's Martín Zubimendi received the ball from a free kick, maintaining possession. He then carried the ball forward for approximately six seconds before passing it to Fabián Ruiz Peña at 53 minutes and 38 seconds. Ruiz Peña received the ball cleanly and immediately carried it a short distance before executing a pass back to Zubimendi.
+      Zubimendi, now positioned at 48.7, 29.9, received the ball again and carried it for a brief moment before passing it to Fabián Ruiz Peña once more at 53 minutes and 41 seconds. Ruiz Peña received the ball and quickly passed it to Aymeric Laporte, who was positioned at 42.0, 27.0. Laporte then carried the ball forward, moving it to a new location at 49.3, 24.7.
+      Summary: Spain displayed a series of coordinated passes and carries, with Zubimendi and Ruiz Peña playing key roles in maintaining possession and advancing the ball.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 53
+    description: |
+      At 53 minutes and 47 seconds, Aymeric Laporte of Spain executed a precise ground pass to Fabián Ruiz Peña, who received the ball effectively. Fabián, under pressure from Phil Foden of England, carried the ball forward for a moment before making another pass back to Laporte at 53 minutes and 49 seconds. 
+      Laporte then received the ball and carried it slightly before passing it to Robin Aime Robert Le Normand at 53 minutes and 51 seconds. Le Normand, now in possession, advanced the play with a pass to Daniel Carvajal Ramos at 53 minutes and 56 seconds. Carvajal received the ball and carried it forward, making a subsequent pass to Lamine Yamal Nasraoui Ebana at 53 minutes and 58 seconds. 
+      Lamine, now on the right wing, carried the ball further down the field, maintaining Spain's possession and looking to create an opportunity.
+      Summary: Spain maintained possession through a series of passes and carries, showcasing their teamwork and strategy in the second half.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 54
+    description: |
+      At 54 minutes and 1 second, Lamine Yamal Nasraoui Ebana of Spain executed a high pass from a free kick, reaching Daniel Carvajal Ramos, who was positioned as the right back. Carvajal received the ball at 54 minutes and 3 seconds and carried it forward under pressure, moving to a location of 72.0, 74.1.
+      Just two seconds later, Carvajal attempted another pass, this time a low one aimed at Álvaro Borja Morata Martín. However, the pass was incomplete, failing to reach its target. Morata, under pressure, then attempted to receive the ball but was unable to do so successfully.
+      At 54 minutes and 7 seconds, Marc Guehi of England made a ground pass to Declan Rice, who was positioned in left defensive midfield. Rice managed to receive the ball but was also under pressure from Spain's players. He then carried the ball forward, moving to a location of 34.8, 3.1.
+      As the play continued, Rice attempted a pass to Jude Bellingham, but it was incomplete. Spain's Daniel Carvajal recovered the ball shortly after, regaining possession for his team.
+      At 54 minutes and 11 seconds, Carvajal made another pass, this time successfully reaching Morata, who was now in a better position. Morata carried the ball forward, moving towards the goal, but the pressure from England's defenders was evident.
+      Summary: Spain's Daniel Carvajal made several attempts to advance the ball, including a successful pass to Álvaro Morata, while England's players applied pressure throughout the sequence.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 54
+    description: |
+      At 54 minutes and 15 seconds, Spain's Álvaro Morata took a shot from a free kick, aiming to break the deadlock. However, England's Marc Guehi was quick to react, blocking the attempt effectively. The ball was then played back to Spain's keeper, Jordan Pickford, who was positioned well to face any subsequent threats.
+      Just 12 seconds later, Spain's Marc Cucurella executed a throw-in, passing to Fabián Ruiz Peña. Fabián received the ball and carried it forward, showcasing his dribbling skills as he maneuvered past defenders. He advanced the ball to a more favorable position, setting up for a potential attack.
+      Summary: Spain attempted to score with a shot from Morata, but it was blocked by Guehi, followed by a throw-in and a carry by Fabián Ruiz Peña.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 54
+    description: |
+      At 54 minutes and 36 seconds, Fabián Ruiz Peña of Spain executed a precise ground pass to Aymeric Laporte, who received the ball effectively. Laporte, positioned as a left center back, then carried the ball forward under pressure from England's Harry Kane, who applied pressure at 54 minutes and 38 seconds. Despite the pressure, Laporte managed to pass the ball to Martín Zubimendi Ibáñez, who was in a right defensive midfield position, at 54 minutes and 39 seconds.
+      Zubimendi then carried the ball forward, moving it to a more advanced position before passing it back to Fabián Ruiz Peña at 54 minutes and 41 seconds. Ruiz Peña continued the play by carrying the ball and then passing it to Daniel Olmo Carvajal at 54 minutes and 44 seconds, maintaining Spain's possession and attacking momentum.
+      Summary: Spain displayed a series of coordinated passes and carries, maintaining possession and advancing the ball effectively through their midfield players.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 54
+    description: |
+      At 54 minutes and 45 seconds, Declan Rice of England applied pressure on Spain's Daniel Olmo Carvajal, who was under pressure himself. Olmo managed to receive the ball and carried it forward, evading Rice's challenge. He then executed a pass to Fabián Ruiz Peña, who received the ball cleanly and carried it a short distance before passing it to Robin Aime Robert Le Normand.
+      Le Normand continued the play by carrying the ball and then passing it to Lamine Yamal Nasraoui Ebana. Ebana received the ball and made a quick carry before passing it to Álvaro Borja Morata Martín with a through ball. Morata, now in a promising position, took a shot at goal, but it went wayward, missing the target.
+      Jordan Pickford, the keeper for England, was ready but did not need to intervene as the shot did not threaten the goal. Following the miss, John Stones cleared the ball under pressure, ensuring that England maintained their defensive shape.
+      Summary: Spain's attack culminated in a missed shot by Álvaro Morata after a series of passes, with England's keeper Jordan Pickford remaining unchallenged.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 55
+    description: |
+      Lamine Yamal Nasraoui Ebana of Spain carried the ball down the right wing at 55 minutes and 4 seconds, maneuvering under pressure from England's Jude Bellingham. He managed to advance the ball to a location near the edge of the penalty area.
+      Just two seconds later, Jude Bellingham applied pressure, attempting to regain possession but was ultimately unsuccessful. Spain maintained control as Daniel Carvajal Ramos, also under pressure, made a recovery and carried the ball forward at 55 minutes and 2 seconds.
+      Carvajal then executed a precise ground pass to Lamine Yamal, who received the ball cleanly at 55 minutes and 4 seconds, continuing the Spanish attack. 
+      At 55 minutes and 13 seconds, Lamine Yamal again faced pressure from England but managed to evade it, keeping Spain's possession intact.
+      Summary: Spain's Lamine Yamal showcased skillful ball control and evasion under pressure, maintaining possession and facilitating a continuous attack against England.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 55
+    description: |
+      At the 55th minute, Fabián Ruiz Peña of Spain recovers the ball after a throw-in, establishing possession for his team. Shortly after, Jude Bellingham from England attempts a pass to Declan Rice, but the pass is incomplete. Declan Rice then manages to receive the ball and carries it forward, before making a pass to Phil Foden, which also fails to connect.
+      Fabián Ruiz Peña regains control and carries the ball forward, before executing a pass to Nicholas Williams Arthuer. Williams Arthuer receives the ball and makes a run, carrying it further up the field. He then takes a shot at goal, but it goes off target, missing the goal.
+      Jordan Pickford, the England keeper, is positioned and ready, but he does not need to make a save as the shot does not threaten the goal.
+      Summary: Spain's Fabián Ruiz Peña initiates a series of plays leading to a shot by Nicholas Williams Arthuer, which misses the target, leaving the score unchanged.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 55
+    description: |
+      Jordan Pickford, the keeper for England, initiated a goal kick at the 55th minute. With precision, he delivered a high pass using his left foot, sending the ball 50.7 meters towards Bukayo Saka. The pass was executed smoothly, showcasing Pickford's ability to transition play from the back.
+      Summary: Jordan Pickford executed a goal kick, delivering a high pass to Bukayo Saka.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 55
+    description: |
+      At 55 minutes and 45 seconds, Marc Cucurella Saseta of Spain applied pressure on England's Bukayo Saka, who was under pressure himself. Saka managed to receive the ball and carried it forward, moving from a location near the right wing at [50.9, 68.4] to [44.6, 69.7]. However, Cucurella committed a foul against Saka, who won the free kick for his team at 55 minutes and 46 seconds.
+      Shortly after, at 55 minutes and 58 seconds, Kyle Walker of England took the free kick, passing to John Stones. Walker's ground pass traveled 21.3 meters, reaching Stones at [23.3, 61.3]. Stones then carried the ball slightly forward to [24.0, 60.6].
+      Summary: England's Bukayo Saka was fouled by Spain's Marc Cucurella, leading to a free kick taken by Kyle Walker, who passed to John Stones.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 56
+    description: |
+      At 56 minutes and 1 second, John Stones of England executed a ground pass to goalkeeper Jordan Pickford, who received the ball cleanly. The possession remained with England.
+      Just two seconds later, at 56 minutes and 3 seconds, Pickford carried the ball forward, moving it to a safer position. He then passed it to Marc Guehi, who was positioned on the left side of the field.
+      At 56 minutes and 5 seconds, Guehi received the ball and carried it a short distance before passing it back to Pickford. The keeper, under pressure, managed to maintain possession and quickly distributed the ball again.
+      By 56 minutes and 7 seconds, Pickford was again under pressure but successfully carried the ball forward before passing it to Stones, who was now in a better position.
+      At 56 minutes and 8 seconds, Álvaro Morata from Spain applied pressure on Pickford, but the keeper remained composed. He passed the ball to Stones, who was now advancing up the field.
+      Finally, at 56 minutes and 14 seconds, Stones, still under pressure from Daniel Olmo, made a quick pass to Phil Foden, maintaining England's possession and continuing their attack.
+      Summary: England maintained possession through a series of passes and carries, with Jordan Pickford and John Stones playing key roles in advancing the ball despite pressure from the Spanish players.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 56
+    description: |
+      Phil Foden receives the ball from a free kick at the 56th minute, showcasing his skill in the center attacking midfield position. He carries the ball forward, moving it from 52.2 to 55.8 on the field, maintaining possession for England.
+      Just two seconds later, Foden passes to Kyle Walker, who is positioned as the right back. Walker expertly receives the ball and carries it further, advancing from 51.2 to 55.9. He then delivers a high pass to Luke Shaw, switching the play across the field, which travels a significant distance of 73.1 meters.
+      As the play unfolds, Daniel Carvajal Ramos from Spain applies pressure on Shaw, who is now under duress but manages to receive the ball at 85.1. Shaw carries the ball forward, moving from 85.1 to 82.2, still under pressure from Carvajal.
+      Luke Shaw then passes to Jude Bellingham, who receives the ball at 91.7 and quickly follows up with another pass to Harry Kane, who is positioned to make a move. 
+      Summary: England displayed a series of coordinated plays, with Foden initiating the action, followed by Walker and Shaw, ultimately setting up Bellingham to pass to Kane.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 56
+    description: |
+      At 56 minutes and 30 seconds, Harry Kane of England received the ball from a free kick, positioning himself centrally. He quickly passed to Jude Bellingham, who was on the left wing, but the pass was incomplete, failing to reach him.
+      Just two seconds later, Robin Aime Robert Le Normand of Spain took possession, carrying the ball forward from his defensive position. He then executed a high pass to Álvaro Morata, who was positioned centrally, but faced pressure from John Stones of England.
+      As the play continued, Morata attempted to carry the ball under pressure but miscontrolled it, allowing England to regain possession. Declan Rice then made a pressured pass to Marc Guehi, who was also under pressure from Morata.
+      Guehi managed to receive the ball and carried it briefly before passing it to John Stones. Stones, now in a better position, carried the ball forward, looking to create an opportunity for England.
+      Summary: England attempted to build an attack through Kane and Bellingham, but Spain's Le Normand and Morata disrupted the play, leading to a series of passes and carries that kept the pressure on both teams.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 56
+    description: |
+      At 56 minutes and 47 seconds, John Stones of England executed a high pass from a free kick, aiming for Luke Shaw. The pass traveled approximately 41 meters but unfortunately went out of play, resulting in an incomplete ball receipt by Shaw just a second later at 56 minutes and 48 seconds. 
+      Summary: England attempted a free kick with a pass from John Stones to Luke Shaw, but the pass was unsuccessful and went out of play.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 57
+    description: |
+      Daniel Carvajal Ramos of Spain initiated a throw-in at the 57th minute, passing the ball to Lamine Yamal Nasraoui Ebana. The pass was precise, covering a distance of approximately 36 meters. Lamine received the ball cleanly, but immediately found himself under pressure from England's Luke Shaw, who was quick to apply defensive pressure.
+      As Lamine attempted to dribble past Shaw, he struggled to maintain possession, resulting in an incomplete dribble. Luke Shaw seized the opportunity, winning the tackle and regaining possession for England. He then carried the ball forward, moving it from his defensive area towards the midfield.
+      Shaw executed a ground pass to his goalkeeper, Jordan Pickford, who received the ball comfortably. Pickford then carried the ball a short distance, positioning himself for the next play.
+      Summary: Spain's Lamine Yamal Nasraoui Ebana attempted to advance the ball but was thwarted by England's Luke Shaw, who won the tackle and passed to goalkeeper Jordan Pickford, maintaining England's possession.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 57
+    description: |
+      At 57 minutes and 15 seconds, Jordan Pickford, the England keeper, initiated a pass to Kyle Walker, who was positioned at right back. The pass was precise, covering a distance of approximately 11 meters. Walker received the ball cleanly at 57 minutes and 16 seconds, maintaining possession for England.
+      Walker then carried the ball forward, moving it to a location closer to the center of the field. At 57 minutes and 18 seconds, he executed another pass, this time back to Pickford, who received it at 57 minutes and 19 seconds. Under pressure, Pickford managed to carry the ball slightly before passing it to John Stones at 57 minutes and 21 seconds. 
+      Stones received the ball and quickly carried it forward, before passing to Declan Rice at 57 minutes and 23 seconds. Rice, also under pressure, made a strategic pass back to Walker, who received it at 57 minutes and 25 seconds. Walker then carried the ball again, moving it further up the field.
+      At 57 minutes and 27 seconds, Walker made a pass to Kobbie Mainoo, who received it at 57 minutes and 28 seconds. Mainoo, under pressure from the Spanish defense, carried the ball forward, showcasing England's continued possession and build-up play.
+      Summary: England maintained possession through a series of passes and carries, with key contributions from Pickford, Walker, Stones, Rice, and Mainoo, demonstrating their tactical approach under pressure from Spain.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 57
+    description: |
+      At the 57th minute, Kobbie Mainoo of England, positioned in right defensive midfield, made a pass under pressure. He aimed for Bukayo Saka, who was positioned on the right wing. The pass was a low one, traveling approximately 7.18 meters, but unfortunately, it was deemed incomplete as Saka was unable to receive it cleanly.
+      Summary: England's Kobbie Mainoo attempted a pass to Bukayo Saka, but the pass was incomplete.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 57
+    description: |
+      At the 57th minute, Marc Cucurella Saseta of Spain executed a throw-in, passing the ball to Aymeric Laporte. Laporte, positioned as a left center back, received the ball cleanly and quickly followed up with a low pass to Unai Simón Mendibil, the keeper. Simón, now in possession, made a ground pass to Robin Aime Robert Le Normand, who was positioned as a right center back. 
+      Le Normand then carried the ball forward before passing it back to Simón. The keeper, maintaining control, carried the ball for a few moments before delivering another ground pass back to Le Normand. 
+      Summary: Spain maintained possession with a series of passes involving Cucurella, Laporte, and Simón, showcasing their fluid play from the back.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 58
+    description: |
+      At 58 minutes and 5 seconds, Robin Aime Robert Le Normand of Spain received the ball after a throw-in, showcasing his defensive skills as he positioned himself well on the right side of the field. Just a second earlier, Unai Simón Mendibil, the keeper, had passed the ball to Le Normand with a precise ground pass, covering a distance of approximately 14 meters.
+      Le Normand then carried the ball forward for about 4 seconds, moving under pressure from Phil Foden of England, who was applying pressure from a distance. At 58 minutes and 9 seconds, Le Normand executed a pass back to the keeper, Simón, who received it cleanly.
+      Simón, under pressure from Harry Kane, carried the ball briefly before making a high pass to Daniel Olmo Carvajal at 58 minutes and 12 seconds. This pass traveled over 42 meters, demonstrating Simón's ability to distribute the ball effectively despite the pressure.
+      Olmo received the ball at 58 minutes and 14 seconds and immediately began to carry it forward, navigating through the field while being closely marked.
+      Summary: Spain maintained possession with a series of passes and carries, showcasing their defensive and midfield coordination under pressure from England.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 58
+    description: |
+      At 58 minutes and 23 seconds, Lamine Yamal Nasraoui Ebana of Spain executed a precise ground pass to Daniel Carvajal Ramos, who was positioned as the right back. Carvajal received the ball cleanly at 58 minutes and 24 seconds, maintaining possession for Spain.
+      Under pressure from Jude Bellingham of England, Carvajal carried the ball forward for a brief moment before making another pass at 58 minutes and 26 seconds. This time, he sent a ground pass to Fabián Ruiz Peña, who was positioned in left defensive midfield. Ruiz received the ball successfully at 58 minutes and 28 seconds.
+      Meanwhile, Declan Rice of England applied pressure on Spain's Daniel Olmo Carvajal, leading to a duel where Olmo was dispossessed at 58 minutes and 17 seconds. However, Álvaro Borja Morata Martín quickly recovered the ball for Spain, showcasing his defensive awareness.
+      Morata then carried the ball forward and passed it back to Lamine Yamal Nasraoui Ebana at 58 minutes and 22 seconds, who continued to advance down the right wing. 
+      Fabián Ruiz Peña also made a significant carry, moving the ball from left defensive midfield to a more advanced position at 58 minutes and 28 seconds.
+      Summary: Spain maintained possession and executed a series of passes and carries, with notable contributions from Lamine Yamal, Daniel Carvajal, and Fabián Ruiz, while England's Declan Rice applied pressure but was unable to regain control.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 58
+    description: |
+      At 58 minutes and 40 seconds, Nicholas Williams Arthuer of Spain made a precise ground pass to Fabián Ruiz Peña, who was positioned in the left defensive midfield. The pass traveled approximately 10 meters, allowing Fabián to receive the ball cleanly.
+      Just a second later, at 58 minutes and 41 seconds, Fabián Ruiz Peña received the ball and immediately carried it forward, maintaining possession. He then executed another ground pass at 58 minutes and 42 seconds, this time sending the ball to Robin Aime Robert Le Normand, who was positioned as a right center back. This pass covered a distance of nearly 35 meters.
+      At 58 minutes and 44 seconds, Le Normand received the ball and continued the play, showcasing Spain's fluid movement and teamwork.
+      In the preceding moments, Fabián Ruiz Peña had also passed the ball to Nicholas Williams Arthuer, who had been actively involved in the play, demonstrating Spain's attacking strategy.
+      Summary: Spain displayed a series of coordinated passes and carries, with Nicholas Williams Arthuer and Fabián Ruiz Peña playing key roles in maintaining possession and advancing the ball.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 58
+    description: |
+      At 58 minutes and 46 seconds, Robin Aime Robert Le Normand of Spain executed a precise ground pass to Álvaro Borja Morata Martín, covering a distance of approximately 21.6 meters. The play was initiated from a throw-in, showcasing Spain's tactical approach.
+      Just a second later, Marc Guehi from England applied pressure on Morata, who was now under duress as he received the ball. Despite the pressure, Morata managed to carry the ball forward, moving it slightly closer to the goal.
+      At 58 minutes and 47 seconds, Morata completed a short pass to Martín Zubimendi Ibáñez, who was positioned in the right defensive midfield. Zubimendi then carried the ball forward, advancing it a few meters before making another pass.
+      Zubimendi's next pass, delivered at 58 minutes and 49 seconds, found Daniel Olmo Carvajal, who was in a more advanced position. Olmo received the ball cleanly and carried it further up the pitch.
+      Continuing the momentum, Olmo attempted to pass back to Morata at 58 minutes and 50 seconds, but the pass was incomplete. Morata, however, managed to get a touch on the ball, but Luke Shaw of England intercepted it successfully, halting Spain's advance.
+      Finally, at 58 minutes and 53 seconds, Jordan Pickford, the England keeper, recovered the ball, ensuring that England maintained possession after the flurry of activity.
+      Summary: Spain displayed a series of coordinated passes and carries, but England's defense, led by Luke Shaw, successfully intercepted a crucial pass, allowing their keeper, Jordan Pickford, to regain control.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 59
+    description: |
+      At 59 minutes and 8 seconds, John Stones of England made a precise ground pass to Jude Bellingham, who was positioned on the left wing. The pass traveled approximately 21.6 meters, allowing Bellingham to receive the ball under pressure from Spain's Daniel Carvajal Ramos, who was applying pressure just moments later.
+      As Bellingham received the ball at 59 minutes and 10 seconds, he was indeed under pressure but managed to maintain possession. He quickly passed the ball to Declan Rice, who was in a better position to advance the play. This pass was a low one, covering about 13.7 meters.
+      Declan Rice then carried the ball forward, moving it approximately 2.9 meters before passing it back to Bellingham at 59 minutes and 14 seconds. Bellingham, still under pressure, received the ball and carried it further, advancing to a location closer to the opposition's goal.
+      Summary: England's John Stones initiated a series of passes, with Jude Bellingham and Declan Rice effectively working together under pressure to maintain possession and advance the play.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 59
+    description: |
+      At the 59th minute, Jude Bellingham from England made a precise high pass to Bukayo Saka, who was positioned on the right wing. Saka received the ball and quickly carried it forward, showcasing his speed and control. He then passed to Kyle Walker, who was positioned as the right back. Walker received the ball and carried it briefly before sending a ground pass back to Saka.
+      Saka, maintaining possession, continued to advance the play, carrying the ball further down the right wing. He then executed another pass to Walker, who was ready to receive it. The interplay between Saka and Walker demonstrated England's fluid attacking style as they sought to create a scoring opportunity.
+      Summary: England displayed effective teamwork with quick passes and carries, particularly between Jude Bellingham, Bukayo Saka, and Kyle Walker, as they advanced the ball down the right wing.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 59
+    description: |
+      At 59 minutes and 32 seconds, Bukayo Saka of England carried the ball down the right wing, showcasing his speed and skill as he moved from [98.9, 73.1] to [103.7, 72.3]. Just a second later, he passed to Phil Foden, who was positioned centrally. Foden received the ball at [117.2, 59.3] with a well-placed ground pass, maintaining England's possession.
+      As the play continued, Aymeric Laporte from Spain applied pressure on Foden, attempting to disrupt England's flow. Despite the pressure, Foden managed to make a quick pass to Harry Kane, but the pass was incomplete, indicating a missed opportunity for England.
+      In the ensuing moments, Kyle Walker also contributed to the attack, carrying the ball and passing it to Saka, who was again involved in the play. Saka's involvement was crucial as he received the ball and looked to create further chances.
+      As the action unfolded, Foden received the ball again but was under pressure from Laporte, leading to a tense moment where he attempted to pass to Kane. However, the pass was intercepted, and the ball was cleared by Daniel Carvajal of Spain, who was under pressure himself.
+      Kobbie Mainoo then took control of the ball, dribbling past a defender and attempting to maintain possession. He faced pressure from Spain's players but managed to carry the ball forward, showcasing his determination.
+      Summary: England maintained pressure on Spain with multiple attacking plays, but several passes were incomplete, leading to missed opportunities and clearances by the Spanish defense.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 59
+    description: |
+      At 59 minutes and 47 seconds, Kobbie Mainoo of England attempted a dribble but was under pressure from Marc Cucurella Saseta of Spain, resulting in an incomplete dribble. The duel ended with Cucurella successfully tackling Mainoo, maintaining possession for Spain.
+      Just a second later, Bukayo Saka applied pressure on Spain's Nicholas Williams, who managed to recover the ball but was soon dispossessed by Saka. Saka won the duel against Williams, showcasing his defensive prowess.
+      At 59 minutes and 51 seconds, Saka carried the ball forward before passing to John Stones, who received it cleanly. Stones then carried the ball and passed it to Declan Rice, who also received it without issue.
+      Rice continued the play by carrying the ball and then passing it to Marc Guehi. Guehi received the ball and carried it forward under pressure, before passing to Luke Shaw, who was also under pressure from Daniel Carvajal Ramos of Spain.
+      Shaw managed to receive the ball and carried it forward, maintaining England's possession as they built up their attack.
+      Summary: England maintained pressure and possession through a series of successful passes and carries, showcasing their attacking intent while under pressure from Spain.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 60
+    description: |
+      At the 60th minute, Luke Shaw of England found himself under pressure and was dispossessed of the ball. The action unfolded as he attempted to maintain possession but was challenged by Daniel Carvajal Ramos from Spain. Carvajal executed a tackle, successfully winning the duel and regaining control for his team. 
+      Summary: Luke Shaw was dispossessed by Daniel Carvajal Ramos during a crucial moment in the match.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 60
+    description: |
+      At 60 minutes and 41 seconds, Harry Kane made way for Ollie Watkins in a tactical substitution for England. Shortly after, at 60 minutes and 42 seconds, Luke Shaw executed a throw-in, passing the ball to Marc Guehi, who was positioned as a left center back. 
+      Just a second later, Guehi received the ball and carried it forward, maintaining possession for England. At 60 minutes and 44 seconds, Guehi then delivered a high pass to Kyle Walker, advancing the play further up the field.
+      Summary: England made a substitution with Harry Kane off for Ollie Watkins, followed by a series of passes involving Luke Shaw, Marc Guehi, and Kyle Walker.
+
+  - table_name: events_details__15secs_agg
+    match_id: 3943043
+    period: 2
+    minute: 60
+    description: |
+      At 60 minutes and 46 seconds, Kyle Walker, positioned as England's right back, carried the ball forward after receiving it from a throw-in. He moved from the left side of the pitch, ending his run at coordinates [77.9, 51.8]. 
+      Just a few seconds later, at 60 minutes and 49 seconds, Walker executed a precise ground pass to Kobbie Mainoo, who was playing as a right defensive midfielder. The pass traveled approximately 9 meters, allowing Mainoo to receive the ball comfortably at [86.1, 48.1].
+      Mainoo then carried the ball forward for about 1.9 seconds, moving under pressure from Spain's Daniel Olmo Carvajal, who attempted to apply pressure at [30.7, 29.7]. However, at 60 minutes and 52 seconds, Mainoo was dispossessed by Martín Zubimendi, who won the duel, marking a significant moment as England lost possession.
+      In the ensuing moments, Jude Bellingham, playing on the left wing, recovered the ball at [89.4, 45.6] after the pressure from Olmo. He then carried the ball forward, navigating through the pressure and advancing to [90.1, 49.6]. 
+      Bellingham made a low pass to Bukayo Saka, who was positioned on the right wing. This pass was crucial as it allowed Saka to maintain possession and continue the attack for England.
+      Summary: England displayed strong ball movement with Walker and Mainoo initiating plays, but Mainoo was dispossessed by Zubimendi, only for Bellingham to recover and assist Saka in maintaining the attack.

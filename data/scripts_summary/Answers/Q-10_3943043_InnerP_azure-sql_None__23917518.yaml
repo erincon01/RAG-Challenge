@@ -1,0 +1,15 @@
+  - question_number: Q-10
+    search_type: InnerP
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: What shots on goal did each team take, in minutes between 60 and 90?
+    error_category: None
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      NONE. I cannot find an answer. Please refine the question.
+    dataframe: |
+      What shots on goal did each team take, in minutes between 60 and 90?

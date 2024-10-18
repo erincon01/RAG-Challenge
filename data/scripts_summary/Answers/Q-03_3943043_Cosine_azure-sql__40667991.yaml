@@ -1,0 +1,26 @@
+  - question_number: Q-03
+    search_type: Cosine
+    embeddings_model: text-embedding-3-small
+    add_match_info: yes
+    temperature: 0.1
+    top_n: 10
+    search_term: Which players recorded the highest number of carries and passes in both halves in minutes 15 to 30 and impact in the game performance?
+    error_category: 
+    system_message: Answer the users QUESTION using the EVENTS and GAME_RESULT listed above.
+        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. 
+    summary: |
+      Based on the events recorded between minutes 15 to 30, the following players had notable contributions in terms of carries and passes:
+      1. **Spain:**
+         - **Fabián Ruiz Peña**: He was involved in multiple sequences, receiving and passing the ball effectively while maintaining possession.
+         - **Aymeric Laporte**: He executed several passes and carried the ball forward, contributing to Spain's build-up play.
+         - **Daniel Carvajal Ramos**: He was active in advancing the ball and making key passes during this period.
+      2. **England:**
+         - **Declan Rice**: He was involved in several plays, applying pressure and making passes to maintain possession.
+         - **Kyle Walker**: He executed passes and carried the ball forward, contributing to England's attacking efforts.
+         - **Phil Foden**: He received and carried the ball under pressure, showcasing his ability to maintain possession.
+      In terms of impact on the game performance, Spain's players demonstrated effective ball movement and teamwork, which helped them maintain possession and create opportunities. England's players, while also active, faced challenges in maintaining possession against Spain's pressure.
+      Overall, Fabián Ruiz Peña and Aymeric Laporte from Spain, along with Declan Rice and Kyle Walker from England, were key players in this segment of the match. 
+      Summary: Fabián Ruiz Peña and Aymeric Laporte for Spain, and Declan Rice and Kyle Walker for England, recorded significant carries and passes, impacting their teams' performances during this period.
+    dataframe: |
+      Which players recorded the highest number of carries and passes in both halves in minutes 15 to 30 and impact in the game performance?
