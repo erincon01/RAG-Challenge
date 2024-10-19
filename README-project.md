@@ -10,7 +10,7 @@ Together, we believe that football isn’t just a game – it’s data waiting t
 
 With the support of Microsoft - special thanks to [Bruno Capuano](https://x.com/elbruno) and  [Davide Mauri](https://x.com/mauridb), who are supportive to our community - we have processed match data from various football games, thanks to Azure resources provided by [Verne Tech](https://www.vernegroup.com/). In the remote event that we'd win the challenge, we will donate the price to [PROA school](https://www.cba.gov.ar/escuelas-proa/) in [Mina Clavero](https://www.minaclavero.gov.ar/), a fabulous city in the province of Cordoba, in Argentina.
 
-We’d love to secure Azure credits to process the full set of matches from [StatsBomb](https://github.com/statsbomb/open-data) and develop a Version 2 of this project. Our goal is to make this initiative bigger, more consistent, and impactful processing ALL the open data exposed by Statsbomb.
+We’d love to secure Azure credits to process the full set of matches from [Hudl Statsbomb](https://github.com/statsbomb/open-data) and develop a Version 2 of this project. Our goal is to make this initiative bigger, more consistent, and impactful processing ALL the open data exposed by Hudl Statsbomb.
 
 Football is more than a game to us—it’s data, passion, and endless possibilities. WE LOVE FOOTBALL and with Azure and OpenAI, we’re ready to show the world just how powerful these technologies can be in transforming the way we analyze the sport we love!
 
@@ -27,7 +27,7 @@ Football is more than a game to us—it’s data, passion, and endless possibili
 
 ## What we have built
 
-- [ST: Statsbomb introduction](README-statsbomb-intro.md)
+- [ST: Hudl Statsbomb introduction](README-statsbomb-intro.md)
 - [ST: Application screenshots](README-app-screenshots.md)
 - [ST: Application usage](README-app-use-case.md)
 - [ST: Tables size](README-data-distribution.md)

@@ -3,7 +3,7 @@
 
 ### Data preparation and loadding to Azure database (SQL Server or Postgres)
 
-The data preparation process involves several key steps. First, download the data from `Statsbomb` to a local folder. Next, store this data in Azure SQL Server or Azure Postgres, then load it into an Azure PostgreSQL instance. For detailed instructions on setting up PostgreSQL both locally and on Azure, refer to the official documentation: [Azure PostgreSQL Quickstart](https://learn.microsoft.com/en-us/azure/postgresql/single-server/quickstart-create-server-database-portal) and [Postgres Docker Image](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/).
+The data preparation process involves several key steps. First, download the data from `Hudl Statsbomb` to a local folder. Next, store this data in Azure SQL Server or Azure Postgres, then load it into an Azure PostgreSQL instance. For detailed instructions on setting up PostgreSQL both locally and on Azure, refer to the official documentation: [Azure PostgreSQL Quickstart](https://learn.microsoft.com/en-us/azure/postgresql/single-server/quickstart-create-server-database-portal) and [Postgres Docker Image](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/).
 
 The data preparation includes downloading matches data from GitHub, storing it in a cloud database (Postgres or SQL Server), and retrieving additional data like lineups and events. This is managed by the script `01-download_to_local.py`, which utilizes methods from `module_github.py` to download the data and `module_data.py` to load it into the cloud database (SQL or Postgres).
 
@@ -145,7 +145,7 @@ The application implements various features such as displaying data visualizatio
 | **The Project**, **Readme**, **About Us**         | This section provides an overview of the project, explaining its goals, motivations, challenges, and the problem it addresses. It introduces the key features and objectives.|
 | **Chatbot**           | An interactive feature where users can ask questions to the chatbot. It assists in retrieving data and providing insights based on user queries.             |
 | **Chat History**      | Shows a log of past chatbot interactions we have implemented. Useful for reviewing previous queries and responses, helping users track their exploration of the data.             |
-| **Competitions**, **Matches**, **Teams**, **Players**, **Events**, **Tables Information**     | Displays information on the data exposed by statsbomb. It shows a few graphs, histograms, and charts to understand the football data domain.   |
+| **Competitions**, **Matches**, **Teams**, **Players**, **Events**, **Tables Information**     | Displays information on the data exposed by Hudl Statsbomb. It shows a few graphs, histograms, and charts to understand the football data domain.   |
 
 
 #### Chat History

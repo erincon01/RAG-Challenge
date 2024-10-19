@@ -13,7 +13,7 @@ pip install -r requirements.txt
 Fill in the .env file with your data. see .env.example file.
 
 ```bash
-# statsbomb
+# Hudl Statsbomb
 BASE_URL=https://github.com/statsbomb/open-data/raw/master/data
 REPO_OWNER=statsbomb
 REPO_NAME=open-data
@@ -46,9 +46,9 @@ If needed help on seting up progres in local and Azure read read the relevent pr
 - <https://learn.microsoft.com/en-us/azure/postgresql/single-server/quickstart-create-server-database-portal>
 - <https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/>
 
-### Download data from statsbomb to local
+### Download data from Hudl Statsbomb to local
 
-This process download the data from Statsbomb to local.
+This process download the data from Hudl Statsbomb to local.
 The process is this:
 
 - Download to local the data from all the `matches`.
@@ -277,7 +277,7 @@ Now, you can run the phyton script: 03-load_tables_from_local_to_postgres_azure.
 ## Start the application (streamlit)
 
 ```bash
-python -m streamlit run main.py
+python -m streamlit run app.py
 streamlit hello
 ```
 

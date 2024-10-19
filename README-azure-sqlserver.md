@@ -13,7 +13,7 @@ pip install -r requirements.txt
 Fill in the .env file with your data. see .env.example file.
 
 ```bash
-# statsbomb
+# Hudl Statsbomb
 BASE_URL=https://github.com/statsbomb/open-data/raw/master/data
 REPO_OWNER=statsbomb
 REPO_NAME=open-data
