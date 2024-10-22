@@ -3,7 +3,8 @@
 /data/lineups/
 /data/matches/
 /data/three-sixty/
-/data/openai/matches_summary/*.yaml
+/data/openai/*.yaml
+/data/openai/matches_summary/*
 *.pyc
 
 rag_challenge.db
