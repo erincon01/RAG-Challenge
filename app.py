@@ -452,7 +452,7 @@ def load_header():
         selected.lower() == "players" or selected.lower() == "teams" or \
         selected.lower() == "events" or selected.lower() == "tables information":
 
-        content = load_file("./README-statsbomb-intro.md")
+        content = load_file("./docs/statsbomb-intro.md")
         selected_section = extract_section(content, selected.capitalize())
         st.markdown(selected_section)
 
@@ -474,7 +474,7 @@ try:
     if menu == "the project":
 
 
-        filename = "./README-project.md"
+        filename = "./docs/project.md"
 
         # create the page TOC
         content = load_file(filename)
@@ -1073,7 +1073,7 @@ try:
 
     elif menu == "readme":
 
-        filename = "./README-project.md"
+        filename = "./docs/project.md"
 
         # create the page TOC
         content = load_file(filename)

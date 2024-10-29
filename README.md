@@ -6,7 +6,7 @@
 ![alt text](./images/app/image-24.png)
 
 
-[links to more screenshots](./README-app-screenshots.md).
+[links to more screenshots](./docs/app-screenshots.md).
 
 ## 8 minutes pitch
 
@@ -21,13 +21,13 @@
 
 ## What we have built (links to all the Readme)
 
-- [ST: Statsbomb introduction](README-statsbomb-intro.md)
-- [ST: Application screenshots](README-app-screenshots.md)
-- [ST: Application usage](README-app-use-case.md)
-- [ST: Tables size](README-data-distribution.md)
-- [ST: Azure SQL Server](README-azure-sqlserver.md)
-- [ST: Azure Postgres](README-azure-postgres.md)
-- [ST: Python code](README-python-code.md)
+- [ST: Statsbomb introduction](./docs/statsbomb-intro.md)
+- [ST: Application screenshots](./docs/app-screenshots.md)
+- [ST: Application usage](./docs/app-use-case.md)
+- [ST: Tables size](./docs/data-distribution.md)
+- [ST: Azure SQL Server](./docs/azure-sqlserver.md)
+- [ST: Azure Postgres](./docs/azure-postgres.md)
+- [ST: Python code](./docs/python-code.md)
 
 
 ## Overview of the Challenge and Team Members

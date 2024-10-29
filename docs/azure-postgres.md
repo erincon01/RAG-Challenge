@@ -295,7 +295,7 @@ The `module_github.py` module is designed to facilitate seamless interaction wit
 
 The `module_postgres.py` module is built to manage data stored in PostgreSQL databases, both locally and in Azure-hosted environments. It provides a range of functionalities including establishing database connections, loading data such as match results and player details, and synchronizing data between local and cloud databases. This module also supports the extraction and manipulation of large datasets, enabling efficient data analysis and integration for sports analytics or any application that relies on PostgreSQL for storage and processing of complex data.
 
-Full list of the methogs for each py file is in [README-python-code](./README-python-code.md).
+Full list of the methogs for each py file is in [README-python-code](./docs/python-code.md).
 
 ## Usage of vector databases in SQL PaaS
 

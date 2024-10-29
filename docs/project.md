@@ -27,10 +27,10 @@ Football is more than a game to us—it’s data, passion, and endless possibili
 
 ## What we have built
 
-- [ST: Hudl Statsbomb introduction](README-statsbomb-intro.md)
-- [ST: Application screenshots](README-app-screenshots.md)
-- [ST: Application usage](README-app-use-case.md)
-- [ST: Tables size](README-data-distribution.md)
-- [ST: Azure SQL Server](README-azure-sqlserver.md)
-- [ST: Azure Postgres](README-azure-postgres.md)
-- [ST: Python code](README-python-code.md)
+- [ST: Hudl Statsbomb introduction](./docs/statsbomb-intro.md)
+- [ST: Application screenshots](./docs/app-screenshots.md)
+- [ST: Application usage](./docs/app-use-case.md)
+- [ST: Tables size](./docs/data-distribution.md)
+- [ST: Azure SQL Server](./docs/azure-sqlserver.md)
+- [ST: Azure Postgres](./docs/azure-postgres.md)
+- [ST: Python code](./docs/python-code.md)
