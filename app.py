@@ -109,8 +109,13 @@ def process_markdown_with_images(markdown_content):
 
     # Procesar cada línea
     for line in lines:
+
+        ## si el path es ../image cambiarlo por ./image
+        line = line.replace("../images", "./images")
+
         # Buscar si la línea contiene un enlace a una imagen
         match_image = re.search(pattern_image, line, re.IGNORECASE)
+
 
         if match_image:
             # Extraer el texto alternativo y el enlace de la imagen
