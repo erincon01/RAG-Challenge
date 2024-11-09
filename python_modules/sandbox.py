@@ -12,4 +12,3 @@ from module_azure_openai import search_details_using_embeddings, get_chat_comple
 
 print ("Start")
 
-

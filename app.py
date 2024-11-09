@@ -17,7 +17,7 @@ sys.path.append(os.path.abspath('./python_modules'))
 # from module_github import download_data_from_github_repo, get_github_data_from_matches
 from module_data import get_competitions_summary_data, get_competitions_summary_with_teams_data, get_competitions_results_data,\
     get_all_matches_data, get_players_summary_data, get_teams_summary_data, get_events_summary_data, \
-    get_competitions_summary_with_teams_and_season_data, get_tables_info_data
+    get_competitions_summary_with_teams_and_season_data, get_tables_info_data, get_games_with_embeddings_Euro_Spain
 from module_azure_openai import search_details_using_embeddings
 
 
@@ -176,97 +176,133 @@ def load_and_process_hrefs(file_path, process_images=False):
 def normalize(value, min_value, max_value):
     return (value - min_value) / (max_value - min_value)
 
-def call_gpt(source):
+def call_gpt(source, mode):
 
-    with st.container(border=True):    
-        col1, col2 = st.columns(2)
-        col3, col4 = st.columns(2)
-        col5, col6 = st.columns(2)
-        col7, col8 = st.columns(2)
+    # Define default values
 
-    # Slider for input_tokens in the first column
-    with col1:
-        input_min = 10000  # 10K
-        input_max = 50000  # 50K
-        input_tokens = st.slider("Input Tokens", min_value=input_min, max_value=input_max, value=int(input_max * 1/2), step=1000)
+    input_tokens = int(50000 * 1/2)
+    output_tokens = int(5000 * 1/3)
 
-    # Slider for output_tokens in the second column
+    selected_model = "text-embedding-ada-002"
+    selected_search_type = "Cosine"
 
-    with col2:
-        output_min = 500  # 500
-        output_max = 2500  # 2500
-        output_tokens = st.slider("Output Tokens", min_value=output_min, max_value=output_max, value=int(output_max*1/3), step=100)
+    temperature = 0.25
+    top_n = 10
 
-    # Define the two options
-    selected_model=""
-    if (source.lower() == "azure-postgres"):
-        with col3:
-            model = ["text-embedding-3-large", "text-embedding-3-small", "multilingual-e5-small:v1", "text-embedding-ada-002"]
-            selected_model = st.radio("Choose a model", model)
-
-    if (source.lower() == "azure-sql"):
-        with col3:
-            model = ["text-embedding-3-small", "text-embedding-ada-002"]
-            selected_model = st.radio("Choose a model", model)
-
-    if (source.lower() == "sqlite-local"):
-        with col3:
-            model = ["text-embedding-3-large", "text-embedding-3-small", "multilingual-e5-small:v1", "text-embedding-ada-002"]
-            selected_model = st.radio("Choose a model", model)
-
-
-    selected_search_type=""
-    selected_add_match_info=""
-    if (source.lower() == "azure-postgres"):
-        with col4:
-            search_type = ["Cosine", "Negative Inner Product", "L1", "L2"]
-            selected_search_type = st.radio("Choose a search type", search_type)
-
-    if (source.lower() == "azure-sql"):
-        with col4:
-            search_type = ["Cosine", "Negative Inner Product", "L2"]
-            selected_search_type = st.radio("Choose a search type", search_type)
-
-    if (source.lower() == "sqlite-local"):
-        with col4:
-            search_type = ["Cosine", "Negative Inner Product", "L1", "L2"]
-            selected_search_type = st.radio("Choose a search type", search_type)
-
-    with col5:
-        temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.25, step=0.01)
-
-    with col6:
-        top_n = st.slider("Top n results", min_value=5, max_value=50, value=10, step=5)
-
-    with col7:
-        show_logs = ["Yes", "No"]
-        selected_show_logs = st.radio("Show logs", show_logs, index=1)   
-
-    with col8:
-        add_match_info = ["Yes", "No"]
-        selected_add_match_info = st.radio("Include match info in search:", add_match_info)    
+    selected_show_logs = "No"
+    selected_add_match_info = "Yes"
 
     ###### England - Spain match_id: 3943043  
     match_id = 3943043
-    add_match_info = selected_add_match_info.lower()
+    add_match_info = "Yes"
 
-    system_message = f"""\n\n\nAnswer the users QUESTION using the EVENTS or GAME_RESULT listed above.
-        Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
-        If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. """   
+    system_message = f"""Answer the users QUESTION using the EVENTS or GAME_RESULT listed above.
+Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. """   
 
-    questions_list = []
+    selected_question = ""
+    mode = st.session_state.mode
+
+    if mode == "developer mode":
+
+        with st.container(border=True):    
+            col1, col2 = st.columns(2)
+            col3, col4 = st.columns(2)
+            col5, col6 = st.columns(2)
+            col7, col8 = st.columns(2)
+
+        # Slider for input_tokens in the first column
+        with col1:
+            input_min = 10000  # 10K
+            input_max = 50000  # 50K
+            input_tokens = st.slider("Input Tokens", min_value=input_min, max_value=input_max, value=int(input_max * 1/2), step=1000)
+
+        # Slider for output_tokens in the second column
+
+        with col2:
+            output_min = 500  # 500
+            output_max = 2500  # 2500
+            output_tokens = st.slider("Output Tokens", min_value=output_min, max_value=output_max, value=int(output_max*1/3), step=100)
+
+        # Define the two options
+        selected_model=""
+        if (source.lower() == "azure-postgres"):
+            with col3:
+                model = ["text-embedding-ada-002", "text-embedding-3-large", "text-embedding-3-small", "multilingual-e5-small:v1"]
+                selected_model = st.radio("Choose a model", model)
+
+        if (source.lower() == "azure-sql"):
+            with col3:
+                model = ["text-embedding-ada-002", "text-embedding-3-small"]
+                selected_model = st.radio("Choose a model", model)
+
+        selected_search_type=""
+        selected_add_match_info=""
+        if (source.lower() == "azure-postgres"):
+            with col4:
+                search_type = ["Cosine", "Negative Inner Product", "L1", "L2"]
+                selected_search_type = st.radio("Choose a search type", search_type)
+
+        if (source.lower() == "azure-sql"):
+            with col4:
+                search_type = ["Cosine", "Negative Inner Product", "L2"]
+                selected_search_type = st.radio("Choose a search type", search_type)
+
+        if (source.lower() == "sqlite-local"):
+            with col4:
+                search_type = ["Cosine", "Negative Inner Product", "L1", "L2"]
+                selected_search_type = st.radio("Choose a search type", search_type)
+
+        with col5:
+            temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.25, step=0.01)
+
+        with col6:
+            top_n = st.slider("Top n results", min_value=5, max_value=50, value=10, step=5)
+
+        with col7:
+            show_logs = ["Yes", "No"]
+            selected_show_logs = st.radio("Show logs", show_logs, index=1)   
+
+        with col8:
+            add_match_info = ["Yes", "No"]
+            selected_add_match_info = st.radio("Include match info in search:", add_match_info)    
+
+    questions_list = ["make a summary of the game"]
     try:
         # Try to open and load the JSON file
         with open("./questions.json", "r") as file:
             questions_data = json.load(file)
-        questions_list = [item["question"] for item in questions_data]
+        questions_list += [item["question"] for item in questions_data]        
     except Exception as e2:
         questions_list = [e2.args]
 
+    add_match_info = selected_add_match_info.lower()
+    match_id = 3943043 ###### England - Spain match_id: 3943043  
+
+    system_message = f"""Answer the users QUESTION using the EVENTS or GAME_RESULT listed above.
+Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
+If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question. """   
+
     with st.container(border=True):
-        # Display the text box that allows editing the system message
-        system_message = st.text_area("Role.system / System Message:", value=system_message, height=125)
-        selected_question = st.selectbox("Select a sample question:     ** you can edit the question in the textbox below", questions_list)
+
+        games_df = get_games_with_embeddings_Euro_Spain(source, as_data_frame=True)
+        if not games_df.empty:
+            # Crear una lista de opciones para el selectbox usando los nombres de los equipos y el ID del partido
+            game_options = [f"{row['home_team_name']} ({row['home_score']}) - {row['away_team_name']} ({row['away_score']})" for _, row in games_df.iterrows()]
+            selected_game = st.selectbox("Select game to analyze:", game_options)
+
+            # get the match_id from the selected game
+            selected_game_id = next((row['match_id'] for _, row in games_df.iterrows() if f"{row['home_team_name']} ({row['home_score']}) - {row['away_team_name']} ({row['away_score']})" == selected_game), 3943043)
+            match_id = selected_game_id
+
+        if mode == "developer mode":
+            # Display the text box that allows editing the system message
+            system_message = st.text_area("Role.system / System Message:", value=system_message, height=125)
+        
+        selected_question = st.selectbox("Select a sample question:  [you can edit the question in the text area below]", questions_list)
+
+        if selected_question =="":
+            selected_question = "make a summary of the game"
         text_question = st.text_area("Edit your question here:", value=selected_question, height=125)
 
         if st.button("Search"):
@@ -363,22 +399,32 @@ def extract_section(content, section_title):
 
 def connection_button(menu):
 
-    if menu.lower()== "events" or menu.lower() == "tables information" or menu.lower() == "chatbot":
+    mode = "user mode"
+    data_source = "azure-sql"
 
-        data_source = st.radio(
-                "Data source:",
-                options=["Azure-Postgres", "Azure-SQL"],
-                index=1, horizontal=True
-            )
-
+    if menu.lower()== "chatbot":
+        mode = st.radio("Select mode:", ("User mode", "Developer mode"), horizontal=True)
+        if mode == "Developer mode":
+            data_source = st.radio(
+                    "Data source:",
+                    options=["Azure-Postgres", "Azure-SQL"],
+                    index=1, horizontal=True
+                )
     else:
+        if menu.lower()== "events" or menu.lower() == "tables information":
+            data_source = st.radio(
+                    "Data source:",
+                    options=["Azure-Postgres", "Azure-SQL"],
+                    index=1, horizontal=True
+                )
+        else:
+            data_source = st.radio(
+                    "Data source:",
+                    options=["Azure-Postgres", "Azure-SQL", "sqlite-Local"],
+                    index=1, horizontal=True
+                )
 
-        data_source = st.radio(
-                "Data source:",
-                options=["Azure-Postgres", "Azure-SQL", "sqlite-Local"],
-                index=1, horizontal=True
-            )
-
+    st.session_state.mode = mode.lower()
     st.session_state.data_source = data_source.lower()
 
 def load_header():
@@ -398,9 +444,9 @@ def load_header():
         selected = option_menu(
             menu_title="Menu",
             options=[
-                "The project",
                 "Chatbot",
                 "Chatbot logs",
+                "The project",
                 "Readme",
                 "Tables Information",
                 "Competitions",
@@ -411,7 +457,7 @@ def load_header():
                 "About Us"
             ],
             icons=[
-                "house", "chat-dots", "bar-chart", "book", "list-task", "database", "calendar", "people", "person",
+                "chat-dots", "bar-chart", "house", "book", "list-task", "database", "calendar", "people", "person",
                 "list", "book"
             ],  # Optional icons
             menu_icon="cast",  # Menu icon
@@ -426,9 +472,9 @@ def load_header():
         )
 
     icon_mapping = {
-        "The project": "house",
         "Chatbot": "chat-dots",
         "Chatbot logs": "bar-chart",
+        "The project": "house",
         "Readme": "book",
         "Competitions": "list-task",
         "Matches": "calendar",
@@ -1069,7 +1115,7 @@ try:
 
     elif menu == "chatbot":
 
-        call_gpt(source)
+        call_gpt(source, st.session_state.mode)
 
     elif menu == "readme":
 

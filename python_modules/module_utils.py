@@ -186,6 +186,8 @@ def export_to_Yaml_details_tables_from_azure_postgres():
 
 if __name__ == "__main__":
 
+    print ("Start")
+
     # 1) download data from the github repository
     # download_data_from_github_repo()
 
