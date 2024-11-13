@@ -8,9 +8,6 @@
 		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
 		"dockerfile": "dockerfile"
 	},
-	// "postCreateCommand": "pip install -r requirements.txt",
-
-	// streamlit run app.py
 
 	"mounts": [
 		"source=${localWorkspaceFolder},target=/app,type=bind"
@@ -31,8 +28,7 @@
 				"donjayamanne.githistory",
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
-				"ms-python.vscode-pylance",
-				"SynapseVSCode.synapse"
+				"ms-python.vscode-pylance"
 			]
 		}
 	},

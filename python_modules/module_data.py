@@ -824,7 +824,7 @@ def handle_exception(e):
     raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error occurred.") from e
 
 
-def get_games_with_embeddings_Euro_Spain(source, as_data_frame=False):
+def get_games_with_embeddings(source, as_data_frame=False):
     """
     Retrieves the games that have embeddings.
     Args:
@@ -840,9 +840,32 @@ def get_games_with_embeddings_Euro_Spain(source, as_data_frame=False):
 
         conn = get_connection(source)
 
+        details_table = "events_details__15secs_agg"
+
+        if source == "sqlite-local":
+            details_table = "events_details__15secs_agg"
+        if source == "azure-sql":
+            details_table = "events_details__15secs_agg"
+        if source == "azure-postgres":
+            details_table = "events_details__quarter_minute"
+
         query = f"""
             SELECT m.match_id, m.home_team_name, m.away_team_name, m.home_score, m.away_score
-            FROM matches m where m.competition_name = 'UEFA Euro' and m.season_name = '2024' and (m.home_team_name = 'Spain' or m.away_team_name = 'Spain')
+            FROM matches m where m.competition_name = 'UEFA Euro' and m.season_name = '2024'
+            AND (
+                    (home_team_name = 'Spain' or away_team_name = 'Spain') or
+                    (home_team_name = 'Spain' and away_team_name = 'England') or
+
+                    (home_team_name = 'Spain' and away_team_name = 'Germany') or
+                    (home_team_name = 'Netherlands' and away_team_name = 'England') or
+
+                    (home_team_name = 'Spain' and away_team_name = 'France') or
+                    (home_team_name = 'Netherlands' and away_team_name = 'Turkey') or
+                    (home_team_name = 'Portugal' and away_team_name = 'France') or
+                    (home_team_name = 'England' and away_team_name = 'Switzerland')
+                )
+            AND exists (select * from {details_table} where match_id = m.match_id and not summary is null)
+            order by m.match_id desc
         """
 
 #####       exists (select * from events_details__15secs_agg ed where ed.match_id = m.match_id and embedding_ada_002 is not null)

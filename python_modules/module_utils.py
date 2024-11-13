@@ -32,7 +32,7 @@ def sandbox_process_batch(source):
         questions = None
 
     if questions is not None: 
-        process_prompt_from_questions_batch (source, questions, match_id, embeddings_model, system_message, input_tokens, output_tokens, local_folder, True)
+        process_prompt_from_questions_batch (source, "english", questions, match_id, embeddings_model, system_message, input_tokens, output_tokens, local_folder, True)
 
 
 def sandbox_explore_auto_option_for_search():
@@ -169,6 +169,8 @@ def export_to_Yaml_details_tables_from_azure_sql():
     ###### FIFA World CUP 2022 : France - Argentina match_id: 3869685
     # download summary from match_id 3943043
 
+    local_folder = os.getenv('LOCAL_FOLDER')
+
     download_match_yaml("azure-sql", "events_details__15secs_agg", 3943043, "summary", local_folder + "/openai/matches_summary", 15)
     download_match_yaml("azure-sql", "events_details__15secs_agg_v1", 3943043, "summary", local_folder + "/openai/matches_summary", 15)
     download_match_yaml("azure-sql", "events_details__minute_agg", 3943043, "summary", local_folder + "/openai/matches_summary", 15)
@@ -179,6 +181,8 @@ def export_to_Yaml_details_tables_from_azure_postgres():
     ###### Euro Final 2024     : England - Spain match_id: 3943043
     ###### FIFA World CUP 2022 : France - Argentina match_id: 3869685
     # download summary from match_id 3943043
+
+    local_folder = os.getenv('LOCAL_FOLDER')
 
     download_match_yaml("azure-postgres", "events_details__minute_agg", 3943043, "summary", local_folder + "/openai/matches_summary", 15)
     download_match_yaml("azure-postgres", "events_details__minute_agg", 3869685, "summary", local_folder + "/openai/matches_summary", 15)

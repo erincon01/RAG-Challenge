@@ -38,7 +38,18 @@ DECLARE match_cursor CURSOR FOR
     LEFT JOIN events_details__15secs_agg ed ON matches.match_id = ed.match_id
     WHERE competition_name = 'UEFA Euro'
       AND season_name = '2024'
-      AND (home_team_name = 'Spain' OR away_team_name = 'Spain')
+      AND (
+            (home_team_name = 'Spain' OR away_team_name = 'Spain') or
+            (home_team_name = 'Spain' and away_team_name = 'England') or
+
+            (home_team_name = 'Spain' and away_team_name = 'Germany') or
+            (home_team_name = 'Netherlands' and away_team_name = 'England') or
+
+            (home_team_name = 'Spain' and away_team_name = 'France') or
+            (home_team_name = 'Netherlands' and away_team_name = 'Turkey') or
+            (home_team_name = 'Portugal' and away_team_name = 'France') or
+            (home_team_name = 'England' and away_team_name = 'Switzerland')
+        )
       AND ed.json_ IS NOT NULL
       AND ed.summary IS NULL;
 
