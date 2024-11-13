@@ -1,6 +1,10 @@
 [server]
 runOnSave = true
 fileWatcherType = "poll"
+headless = true
+
+[browser]
+gatherUsageStats = false
 
 [theme]
 base = "light"

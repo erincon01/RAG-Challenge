@@ -1,6 +1,13 @@
 # Football Analytics Copilot
 
 ## The Application
+
+simplified interface for user-friendly mode
+![alt text](./images/app/image-26.png)
+
+complete interface for developer-mode
+
+![alt text](./images/app/image-27.png)
 ![alt text](./images/app/image-24b.png)
 ![alt text](./images/app/image-23.png)
 ![alt text](./images/app/image-24.png)

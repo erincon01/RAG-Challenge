@@ -50,6 +50,10 @@ CREATE TABLE matches (
     embeddings VECTOR(1536) NULL  -- Embedding vector for semantic searches
 );
 
+CREATE NONCLUSTERED INDEX nci_competition_name_seasion_name
+ON [dbo].[matches] ([competition_name],[season_name])
+INCLUDE ([match_id],[home_team_name],[away_team_name],[home_score],[away_score]);
+
 -- Select all rows from the 'matches' table
 SELECT * FROM matches;
 

@@ -8,9 +8,6 @@
 		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
 		"dockerfile": "dockerfile"
 	},
-	"postCreateCommand": "pip install -r requirements.txt",
-
-	// streamlit run app.py
 
 	"mounts": [
 		"source=${localWorkspaceFolder},target=/app,type=bind"
@@ -21,11 +18,9 @@
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		8501,
-		4040,
-		6333,
-		8080
-	],
+	 	8501,
+	 	80
+	 ],
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -33,11 +28,12 @@
 				"donjayamanne.githistory",
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
-				"ms-python.vscode-pylance",
-				"SynapseVSCode.synapse"
+				"ms-python.vscode-pylance"
 			]
 		}
-	}
+	},
+
+	"postStartCommand": "streamlit run app.py --server.port=80 --server.headless=true"
 
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "cat /etc/os-release",

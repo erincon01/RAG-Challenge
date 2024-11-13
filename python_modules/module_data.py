@@ -84,6 +84,15 @@ def get_connection(source):
         )
         engine = create_engine(connection_string)
 
+        # tries to conect to the server to warm up [for sql azure serverless]
+        try:
+            df = pd.read_sql("SELECT @@servername", engine)
+        except Exception as e:
+            try:
+                df = pd.read_sql("SELECT @@servername", engine)
+            except Exception as e:
+                raise RuntimeError(f"Error connecting to the Azure SQL database.") from e
+
     elif source == "sqlite-local":
         # Para SQLite
         engine = create_engine('sqlite:///rag_challenge.db')
@@ -813,6 +822,69 @@ def handle_exception(e):
     line_number = frame.lineno
     file_name = os.path.basename(frame.filename)
     raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error occurred.") from e
+
+
+def get_games_with_embeddings(source, as_data_frame=False):
+    """
+    Retrieves the games that have embeddings.
+    Args:
+        source (str): The source of the database. Either "azure-sql", or "azure-postgres" or "sqlite-local".
+        match_id (int): The ID of the match.
+    Returns:
+        str: The game result data as a string.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+
+        details_table = "events_details__15secs_agg"
+
+        if source == "sqlite-local":
+            details_table = "events_details__15secs_agg"
+        if source == "azure-sql":
+            details_table = "events_details__15secs_agg"
+        if source == "azure-postgres":
+            details_table = "events_details__quarter_minute"
+
+        query = f"""
+            SELECT m.match_id, m.home_team_name, m.away_team_name, m.home_score, m.away_score
+            FROM matches m where m.competition_name = 'UEFA Euro' and m.season_name = '2024'
+            AND (
+                    (home_team_name = 'Spain' or away_team_name = 'Spain') or
+                    (home_team_name = 'Spain' and away_team_name = 'England') or
+
+                    (home_team_name = 'Spain' and away_team_name = 'Germany') or
+                    (home_team_name = 'Netherlands' and away_team_name = 'England') or
+
+                    (home_team_name = 'Spain' and away_team_name = 'France') or
+                    (home_team_name = 'Netherlands' and away_team_name = 'Turkey') or
+                    (home_team_name = 'Portugal' and away_team_name = 'France') or
+                    (home_team_name = 'England' and away_team_name = 'Switzerland')
+                )
+            AND exists (select * from {details_table} where match_id = m.match_id and not summary is null)
+            order by m.match_id desc
+        """
+
+#####       exists (select * from events_details__15secs_agg ed where ed.match_id = m.match_id and embedding_ada_002 is not null)
+        df = pd.read_sql(query, conn)
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
 
 def get_game_result_data(source, match_id, as_data_frame=False):

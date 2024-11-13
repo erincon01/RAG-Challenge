@@ -348,7 +348,7 @@ def create_match_summary(source, tablename, match_id, system_message, temperatur
 
 
 def search_details_using_embeddings(source, match_id, add_match_info, \
-                                    search_type, embeddings_model, \
+                                    language, search_type, embeddings_model, \
                                     system_message, search_term, \
                                     top_n, temperature, input_tokens, output_tokens):
     """
@@ -357,6 +357,7 @@ def search_details_using_embeddings(source, match_id, add_match_info, \
         source (str): The source of the data (e.g., "azuresql").
         match_id (int): The ID of the match to search for.
         add_match_info (str): Whether to include match information in the search (e.g., "yes").
+        language (str): language used for the search
         search_type (str): The type of search to perform (e.g., "cosine").
         embeddings_model (str): The model to use for embeddings (e.g., "text-embedding-3-small").
         system_message (str): The system message to include in the prompt.
@@ -371,10 +372,15 @@ def search_details_using_embeddings(source, match_id, add_match_info, \
 
     try:
 
+        if language != "english":
+            search_term = get_chat_completion_from_azure_open_ai(  \
+                "translate the following text to ENGLISH: ", search_term, 0.1, 5000)
+
         column_name_postgres = ""
         column_name_sql = ""
         model_name = ""
         extension = "azure_openai"
+        search_type = search_type.lower()
 
         if embeddings_model=="" or embeddings_model=="text-embedding-3-small":
             column_name_postgres = "summary_embedding_t3_small"
@@ -427,20 +433,21 @@ def search_details_using_embeddings(source, match_id, add_match_info, \
         k_search = "#"
         k_search_sqlazure = "cosine"
         order_by = " ASC"
-        if search_type.lower() == "cosine":
+        if search_type == "cosine":
             k_search = "="
             k_search_sqlazure = "cosine"
             order_by = " ASC"
-        if search_type.lower() == "innerp":
+        if search_type == "negative inner product":
             k_search = "#"
             k_search_sqlazure = "dot"
             order_by = " DESC"
-        if search_type.lower() == "l1":
+        if search_type == "l1":
             k_search = "+"
+            order_by = " ASC"
+        if search_type == "l2":
+            k_search = "-"
             k_search_sqlazure = "euclidean"
             order_by = " ASC"
-        if search_type.lower() == "l2":
-            k_search = "-"
 
         summary = "summary"
         if include_json.lower() == "yes":
@@ -616,12 +623,13 @@ def get_dataframe_from_ids(source, table_name, summary, ids):
         raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
 
-def process_prompt_from_questions_batch (source, questions, match_id, embeddings_model, system_message, input_tokens, output_tokens, local_folder, export_results = True):
+def process_prompt_from_questions_batch (source, language, questions, match_id, embeddings_model, system_message, input_tokens, output_tokens, local_folder, export_results = True):
     """
     process each question in the array with the appropiate parameters.
     the questions array includes properties that influence in the search process like temperature, top_n, search_type, model, add_match_info
     Args:
         source (str): The source of the data (e.g., "azure-sql").
+        language (str): language from the prompt
         questions (arraylist): List of dictionaries containing questions to be processed.
         match_id (str): ID of the match.
         embeddings_model (str): The model to use for embeddings (e.g., "text-embedding-3-small").
@@ -644,6 +652,10 @@ def process_prompt_from_questions_batch (source, questions, match_id, embeddings
         search_type = question["search_type"]
         search_term = question["question"]
 
+        if language != "english":
+            search_term = get_chat_completion_from_azure_open_ai(  \
+                "translate the following text to ENGLISH: ", search_term, 0.1, 5000)
+
         if add_match_info.lower() != "no":
             add_match_info = "yes"
 
@@ -659,7 +671,7 @@ def process_prompt_from_questions_batch (source, questions, match_id, embeddings
         error=""
         try:
             dataset, summary = search_details_using_embeddings (source, match_id, add_match_info, 
-                                                            search_type, embeddings_model, 
+                                                            language, search_type, embeddings_model, 
                                                             system_message, search_term, 
                                                             top_n, temperature, input_tokens, output_tokens)
 

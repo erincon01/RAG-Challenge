@@ -14,7 +14,7 @@ group by competition_country
 order by seasons DESC;
 ```
 
-![alt text](images/image.png)
+![alt text](../images/image.png)
 
 ### competitions count by country/region
 
@@ -25,7 +25,7 @@ group by competition_country
 order by competitions DESC;
 ```
 
-![alt text](images/image-1.png)
+![alt text](../images/image-1.png)
 
 ### seasons by country/region
 
@@ -35,7 +35,7 @@ from matches m
 order by competition_country;
 ```
 
-![alt text](images/image-2.png)
+![alt text](../images/image-2.png)
 
 ### seasons2 by country/region
 
@@ -45,7 +45,7 @@ from matches m
 order by season_name;
 ```
 
-![alt text](images/image-3.png)
+![alt text](../images/image-3.png)
 
 ### recent season by country/region
 
@@ -55,4 +55,4 @@ group by competition_country, competition_name, season_name
 order by season_name DESC;
 ```
 
-![alt text](./images/image-4.png)
+![alt text](../images/image-4.png)
