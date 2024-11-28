@@ -967,6 +967,100 @@ def get_game_players_data(source, match_id, as_data_frame=False):
         raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
 
 
+def get_database_schema(source, as_data_frame=False):
+    """
+    Retrieves the database schema.
+    Args:
+        source (str): The source of the database. Either "azure-sql", or "azure-postgres" or "sqlite-local".
+    Returns:
+        str: The schema as a string.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+
+        if source == "azure-sql" or source == "azure-postgres":
+
+            query = f"""
+                SELECT 
+                    t.TABLE_NAME AS table_name,
+                    STRING_AGG('| ' + c.COLUMN_NAME + ' ' + c.DATA_TYPE + ' |', ', ') AS columns_with_types
+                FROM 
+                    INFORMATION_SCHEMA.TABLES t
+                JOIN 
+                    INFORMATION_SCHEMA.COLUMNS c
+                ON 
+                    t.TABLE_NAME = c.TABLE_NAME
+                -- WHERE 
+                --    t.TABLE_TYPE = 'BASE TABLE'  -- Opcional: Filtrar solo tablas, no vistas
+                GROUP BY 
+                    t.TABLE_NAME
+                ORDER BY 
+                    t.TABLE_NAME;
+            """
+
+        elif source =="sqlite-local":
+
+            query = f"""
+                SELECT sql FROM sqlite_master WHERE type='table';
+            """
+
+        df = pd.read_sql(query, conn)
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
+
+
+def get_dynamic_sql(source, sql_query, as_data_frame=False):
+    """
+    Retrieves the database schema.
+    Args:
+        source (str): The source of the database. Either "azure-sql", or "azure-postgres" or "sqlite-local".
+        sql_query (str): The SQL query to execute.
+        as_data_frame (bool): If True, the result is returned as a pandas DataFrame.
+    Returns:
+        str: The result as a string.
+    Raises:
+        Exception: If there is an error connecting to or executing the query in the database.
+    """
+
+    try:
+
+        conn = get_connection(source)
+        df = pd.read_sql(sql_query, conn)
+
+        if as_data_frame:
+            return df
+        else:
+            result = df.to_string(index=False)
+            return result
+
+    except Exception as e:
+        raise e
+    #     # raise exception
+    #     tb = traceback.extract_tb(e.__traceback__)
+    #     frame = tb[0]
+    #     method_name = frame.name
+    #     line_number = frame.lineno
+    #     file_name = os.path.basename(frame.filename)
+    #     raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
+
+
 def get_players_summary_data(source, as_data_frame=False):
     """
     Retrieves game player data from the database.

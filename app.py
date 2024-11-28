@@ -1,25 +1,48 @@
 import os
 import sys
-import re
-from datetime import datetime
 from dotenv import load_dotenv
 from streamlit_option_menu import option_menu
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import altair as alt
 import json as json
-import yaml
 
 sys.path.append(os.path.abspath('./python_modules'))
 
-from module_data import get_games_with_embeddings
-from module_azure_openai import search_details_using_embeddings
+from module_data import get_games_with_embeddings, get_database_schema
+from module_azure_openai import search_details_using_embeddings, search_dynamic_query
 from module_streamlit_frontend import load_file, extract_section, \
     menu_about_us, menu_competitions, menu_matches, menu_teams, menu_tables_information, menu_project, \
     menu_players, menu_events, menu_chatbot_logs, menu_readme
 
+def call_db(source):
+
+    # Define default values
+
+    output_tokens = 10000
+    temperature = 0
+
+    df_schema = get_database_schema(source, as_data_frame=True)
+
+    selected_question = ""
+
+    with st.container(border=True):    
+        language = ["English", "Spanish", "German"]
+        selected_language = st.radio("Choose a language", language, horizontal=True).lower()
+
+    selected_question = "list the games from last World Cup"
+    text_question = st.text_area("Edit your question here:", value=selected_question, height=125)
+
+    st.write(df_schema)
+    
+    if st.button("Search"):
+
+        query, result = search_dynamic_query (source, df_schema, selected_language, text_question, temperature, output_tokens)
+
+        with st.container(border=True):
+
+            if selected_language != "english":
+                st.write(f"Question [{text_question}] translated to English.")
+            st.write(query)
+            st.markdown(result)
 
 def call_gpt(source):
 
@@ -88,12 +111,12 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
         selected_add_match_info=""
         if (source.lower() == "azure-postgres"):
             with col4:
-                search_type = ["Cosine", "Negative Inner Product", "L1", "L2"]
+                search_type = ["Cosine", "Negative Inner Product - dot", "L1 - Manhattan", "L2 - Euclidean"]
                 selected_search_type = st.radio("Choose a search type", search_type).lower()
 
         if (source.lower() == "azure-sql"):
             with col4:
-                search_type = ["Cosine", "Negative Inner Product", "L2"]
+                search_type = ["Cosine", "Negative Inner Product - dot", "L2 - Euclidean"]
                 selected_search_type = st.radio("Choose a search type", search_type).lower()
 
         with col5:
@@ -148,11 +171,11 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
     language = ["English", "Spanish", "German"]
     selected_language = st.radio("Choose a language", language, horizontal=True).lower()
 
-    selected_parody = "none"
-    parody = ["none", "Andrés Montes", "Chiquito de la Calzada"]
-    selected_parody = st.radio("Choose a parody", parody, horizontal=True)
-    if selected_parody == "Chiquito de la Calzada":
-        selected_parody = "Chiquito"
+    selected_character = "none"
+    character = ["none", "Andrés Montes", "Chiquito de la Calzada"]
+    selected_character = st.radio("Choose a character", character, horizontal=True)
+    if selected_character == "Chiquito de la Calzada":
+        selected_character = "Chiquito"
 
     if mode == "developer mode":
 
@@ -163,13 +186,13 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
         question = text_question
         system_message += " Please, make sure that the ANSWER is in " + selected_language.upper() + "."
 
-        if selected_parody == "Chiquito" or selected_parody == "Andrés Montes":
-            system_message += f"Emulate the style of a well-known humorous character, such as [" + selected_parody + f"].\n"
+        if selected_character == "Chiquito" or selected_character == "Andrés Montes":
+            system_message += f"Emulate the style of a well-known humorous character, such as [" + selected_character + f"].\n"
             system_message += f"Incorporate the humor, expressions, and well-known catchphrases of the character in your answer.\n"
             system_message += f"Below is a list of five of his most popular phrases and the context in which he would use them.\n"
             system_message += f"DO NOT start the RESPONSE with ANY OF THESE phrases. The phrase is in Spanish, and the explanation is in English in this format [ ### phrase ### - explanation ]. Use it ONLY TWO TIMES in IMPORTANT game actions.\n"
 
-            if selected_parody == "Chiquito":
+            if selected_character == "Chiquito":
                 system_message += f"[### ¡Fistro! ### - This word was often used by Chiquito as an exclamation, similar to 'Wow!' in English. He would use it to express surprise or amazement]\n"
                 system_message += f"[###  ¿Te da cuen? ### - This phrase translates loosely to 'You get it?']\n"
                 system_message += f"[###  Jarl! ### - Used to show a sudden reaction of shock, confusion, or mild fear, similar to saying 'Oh my!' or 'Goodness!' in English]\n"
@@ -177,7 +200,7 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
                 system_message += f"[###  Hasta luego, Lucas ### - This playful farewell translates to 'See you later'. Often at the end of a joke or scene, giving a comedic endnote to his skits]\n"
                 system_message += f"Keep these expressions and tones in mind to emulate Chiquito de la Calzada's signature humor and unique style in responses.\n"
 
-            if selected_parody == "Andrés Montes":
+            if selected_character == "Andrés Montes":
                 system_message += f"[###  '¡La vida puede ser maravillosa!' ### - This phrase, meaning 'Life can be wonderful!' in English, used by Montes to celebrate moments of joy or impressive plays]\n"
                 system_message += f"[###  '¡Tiki-taka!' ### - Describe the quick, short passing style in football, to highlight the beauty of coordinated teamwork and skillful ball movement]\n"
                 system_message += f"[###  '¡Jugón!' ### - Describe players with exceptional skill and flair. It loosely translates to 'superstar' or 'player with great flair']\n"
@@ -189,13 +212,14 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
             system_message += f"If the answer is NONE it is IMPORTANT to start the response with NONE.\n"
             temperature = 0.40
 
+        source_question = question
         if selected_mini_tune == "yes" or mode == "user mode":
 
             search_algorithms = ""
             if source == "azure-postgres":
-                search_algorithms = ["Cosine", "Negative Inner Product", "L1", "L2"]
+                search_algorithms = ["Cosine", "Negative Inner Product - dot", "L1 - Manhattan", "L2 - Euclidean"]
             if source == "azure-sql":
-                search_algorithms = ["Cosine", "Negative Inner Product", "L2"]
+                search_algorithms = ["Cosine", "Negative Inner Product - dot", "L2 - Euclidean"]
 
             # for each search algorithm
             for algorithm in search_algorithms:
@@ -204,7 +228,7 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
                     st.write("Searching with algorithm #" + str(search_algorithms.index(algorithm)+1) +  "...")
                 else:
                     st.write("Searching with " + selected_search_type + " algorithm...")
-                dataset, result = search_details_using_embeddings (source, match_id, add_match_info, \
+                normalized_search_term, result = search_details_using_embeddings (source, match_id, add_match_info, \
                                     selected_language, selected_search_type, selected_embeddings_model, \
                                     system_message, question, top_n, temperature, input_tokens, output_tokens)
 
@@ -213,13 +237,14 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
                     break
                 
         else:
-            result = search_details_using_embeddings (source, match_id, add_match_info, \
+            normalized_search_term, result = search_details_using_embeddings (source, match_id, add_match_info, \
                                     selected_language, selected_search_type, selected_embeddings_model, \
                                     system_message, question, top_n, temperature, input_tokens, output_tokens)
         
         with st.container(border=True):
+                st.write (f"Question: [{question}]")
                 if language != "english":
-                    st.write(f"Question [{question}] translated to English.")
+                    st.write(f"Translated question: [{normalized_search_term}]")
                 st.markdown(result)
 
         # # Cargar y reproducir el audio
@@ -279,6 +304,7 @@ def load_menu():
             menu_title="Menu",
             options=[
                 "Chatbot",
+                "Test Query Database",
                 "Chatbot logs",
                 "The project",
                 "Readme",
@@ -291,7 +317,7 @@ def load_menu():
                 "About Us"
             ],
             icons=[
-                "chat-dots", "bar-chart", "house", "book", "list-task", "database", "calendar", "people", "person",
+                "chat-dots", "list", "bar-chart", "house", "book", "list-task", "database", "calendar", "people", "person",
                 "list", "book"
             ],  # Optional icons
             menu_icon="cast",  # Menu icon
@@ -307,6 +333,7 @@ def load_menu():
 
     icon_mapping = {
         "Chatbot": "chat-dots",
+        "Test Query Database": "database",
         "Chatbot logs": "bar-chart",
         "The project": "house",
         "Readme": "book",
@@ -393,6 +420,11 @@ try:
     elif menu == "chatbot":
         with st.container(border=True):
             call_gpt(source)
+
+    elif menu == "test query database":
+        with st.container(border=True):
+            st.write("### In development")
+            # call_db(source)
 
     elif menu == "readme":
         with st.container(border=True):

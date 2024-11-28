@@ -38,6 +38,7 @@ $LOCAL_FOLDER="./data"
 # login to azure
 az login 
 Set-AzContext -SubscriptionId $subscriptionId
+az account set --subscription $subscriptionId
 
 # create the container registry and push the image
 New-AzContainerRegistry -ResourceGroupName $resourceGroupName -Name $registryName -Sku $sku -Location $location

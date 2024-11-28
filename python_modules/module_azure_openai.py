@@ -11,7 +11,7 @@ import traceback
 import pyodbc
 import psycopg2
 from sqlalchemy import create_engine
-from module_data import get_game_result_data, get_game_players_data, get_json_events_details_from_match_id
+from module_data import get_game_result_data, get_game_players_data, get_json_events_details_from_match_id, get_dynamic_sql
 
 def decode_source(source):
 
@@ -367,6 +367,7 @@ def search_details_using_embeddings(source, match_id, add_match_info, \
         input_tokens (int): The maximum number of input tokens allowed.
         output_tokens (int): The maximum number of output tokens allowed.
     Returns:
+        search_term: The search term used in the search (translated to english).
         tuple: A tuple containing the prompt and the summary of the search results.
     """
 
@@ -374,8 +375,8 @@ def search_details_using_embeddings(source, match_id, add_match_info, \
 
         if language != "english":
             search_term = get_chat_completion_from_azure_open_ai(  \
-                "translate the following text to ENGLISH: ", search_term, 0.1, 5000)
-
+                f"TRANSLATE the text below from [{language}] to [english]: ", search_term, 0.1, 5000)
+        
         column_name_postgres = ""
         column_name_sql = ""
         model_name = ""
@@ -437,14 +438,14 @@ def search_details_using_embeddings(source, match_id, add_match_info, \
             k_search = "="
             k_search_sqlazure = "cosine"
             order_by = " ASC"
-        if search_type == "negative inner product":
+        if search_type == "negative inner product - dot":
             k_search = "#"
             k_search_sqlazure = "dot"
             order_by = " DESC"
-        if search_type == "l1":
+        if search_type == "l1 - manhattan":
             k_search = "+"
             order_by = " ASC"
-        if search_type == "l2":
+        if search_type == "l2 - euclidean":
             k_search = "-"
             k_search_sqlazure = "euclidean"
             order_by = " ASC"
@@ -545,6 +546,82 @@ def search_details_using_embeddings(source, match_id, add_match_info, \
         line_number = frame.lineno
         file_name = os.path.basename(frame.filename)
         raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database.") from e
+
+
+def search_dynamic_query(source, db_schema, language, search_term, \
+                temperature, output_tokens):
+    """
+    Searches for details using embeddings in the specified source and table.
+    Args:
+        source (str): The source of the data (e.g., "azuresql").
+        language (str): language used for the search
+        search_term (str): The search term to use.
+        temperature (float): The temperature for generating completions.
+        output_tokens (int): The maximum number of output tokens allowed.
+    Returns:
+        string: the SQL query.
+        tuple2: the resultset.
+    """
+
+    sql_query = ""
+    try:
+
+        system_message = f"""
+        Given the following database schema:
+        #####
+         {str(db_schema)}
+        #####
+        Provide a SQL query to execute in a database to answer the USER QUESTION.
+        TAG the query between ###. For example: ###SELECT column1, column2 FROM schema.table_name;###
+        Do not use indentation in the query.
+        Use only the column names and table names from the schema provided at the top between #####.
+        Never invent column names or table names.
+        """
+
+        if language != "english":
+            search_term = get_chat_completion_from_azure_open_ai(  \
+                "translate the following text to ENGLISH: ", search_term, 0.1, 5000)
+
+        if isinstance(output_tokens, str):
+            if not output_tokens.isdigit():
+                output_tokens = 5000
+            output_tokens = int(output_tokens)
+
+        sql_query = get_chat_completion_from_azure_open_ai(system_message, search_term, temperature, output_tokens)
+
+        # extract the query from the response
+        sql_query = sql_query.split("###")[1]
+
+        # if sql_query is empty, return an error
+        if sql_query == "":
+            return "NONE: I cannot build a SQL query.", "SQL Query is empty. Please refine the question."
+        
+        result = get_dynamic_sql (source, sql_query, as_data_frame=True)
+
+        return sql_query, result
+    
+        #### removed post-formating
+
+        system_message = f"""
+        Given the following result set:
+        ###
+         {str(result)}
+        ###
+        """        
+
+        result = get_chat_completion_from_azure_open_ai(system_message, "format the result set in markdown", temperature, output_tokens)
+        return sql_query, result
+
+    except Exception as e:
+        raise e
+        # raise exception
+        tb = traceback.extract_tb(e.__traceback__)
+        frame = tb[0]
+        method_name = frame.name
+        line_number = frame.lineno
+        file_name = os.path.basename(frame.filename)
+        raise RuntimeError(f"[{file_name}].[{method_name}].[line-{line_number}] Error connecting or executing the query in the database. query [{sql_query}]") from e
+
 
 
 def get_random_dataframe_from_match_id(source, table_name, summary, match_id, num_rows):
