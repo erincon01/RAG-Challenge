@@ -66,7 +66,7 @@ go
 
     IMPLEMENTATION DETAILS:
     - The procedure constructs a URL for the REST endpoint using the provided model.
-    - It prepares a JSON payload containing the input text and the dimension of the embedding.
+    - It prepares a JSON payload containing the input text and the dimensions of the embedding.
     - The procedure invokes an external REST endpoint using the constructed URL and payload.
     - The response from the REST endpoint is parsed to extract the embedding array.
     - The extracted embedding array is cast to VECTOR(1536) and assigned to the output parameter @embedding.
@@ -93,7 +93,7 @@ BEGIN
 
     DECLARE @retval INT, @response NVARCHAR(MAX);
     DECLARE @url VARCHAR(MAX);
-    DECLARE @payload NVARCHAR(MAX) = JSON_OBJECT('input': @text, 'dimension': 1536);
+    DECLARE @payload NVARCHAR(MAX) = JSON_OBJECT('input': @text, 'dimensions': 1536);
 
     -- Set the @url variable with proper concatenation before the EXEC statement
     SET @url = 'https://<endpoint>.openai.azure.com/openai/deployments/' + @model + '/embeddings?api-version=2023-03-15-preview';
