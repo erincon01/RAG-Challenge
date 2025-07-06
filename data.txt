@@ -1,0 +1,5 @@
+- data uploaded to google drive
+
+- statsbomb json files
+- rag-challenge-sabados-tech.mp4
+- rag_challenge.db - duckdb
