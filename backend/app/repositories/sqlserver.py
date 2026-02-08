@@ -7,9 +7,8 @@ SQL Server's VECTOR type for similarity search.
 
 import pyodbc
 from contextlib import contextmanager
-from typing import List, Optional, Dict, Any
+from typing import List, Optional
 import logging
-import urllib.parse
 
 from app.core.config import get_settings
 from app.domain.entities import (
@@ -25,10 +24,7 @@ from app.domain.entities import (
     SearchAlgorithm,
     EmbeddingModel,
 )
-from app.domain.exceptions import (
-    DatabaseConnectionError,
-    EntityNotFoundError,
-)
+from app.domain.exceptions import DatabaseConnectionError
 from app.repositories.base import MatchRepository, EventRepository
 
 logger = logging.getLogger(__name__)
@@ -50,7 +46,6 @@ class SQLServerMatchRepository(MatchRepository):
         """Get a SQL Server database connection."""
         conn = None
         try:
-            password_encoded = urllib.parse.quote_plus(self.password)
             connection_string = (
                 f"DRIVER={{ODBC Driver 18 for SQL Server}};"
                 f"SERVER={self.server};"
@@ -266,7 +261,6 @@ class SQLServerEventRepository(EventRepository):
         """Get a SQL Server database connection."""
         conn = None
         try:
-            password_encoded = urllib.parse.quote_plus(self.password)
             connection_string = (
                 f"DRIVER={{ODBC Driver 18 for SQL Server}};"
                 f"SERVER={self.server};"
@@ -306,21 +300,21 @@ class SQLServerEventRepository(EventRepository):
         if limit:
             query = """
                 SELECT TOP (?)
-                    id, match_id, period, minute, quarter_sec,
+                    id, match_id, period, minute, [_15secs] AS quarter_minute,
                     count, json_ as json_data, summary
-                FROM event_details_15secs_agg
+                FROM events_details__15secs_agg
                 WHERE match_id = ?
-                ORDER BY period, minute, quarter_sec
+                ORDER BY period, minute, [_15secs]
             """
             params = (limit, match_id)
         else:
             query = """
                 SELECT
-                    id, match_id, period, minute, quarter_sec,
+                    id, match_id, period, minute, [_15secs] AS quarter_minute,
                     count, json_ as json_data, summary
-                FROM event_details_15secs_agg
+                FROM events_details__15secs_agg
                 WHERE match_id = ?
-                ORDER BY period, minute, quarter_sec
+                ORDER BY period, minute, [_15secs]
             """
             params = (match_id,)
 
@@ -338,9 +332,9 @@ class SQLServerEventRepository(EventRepository):
         """Get a single event by ID."""
         query = """
             SELECT
-                id, match_id, period, minute, quarter_sec,
+                id, match_id, period, minute, [_15secs] AS quarter_minute,
                 count, json_ as json_data, summary
-            FROM event_details_15secs_agg
+            FROM events_details__15secs_agg
             WHERE id = ?
         """
 
@@ -366,39 +360,37 @@ class SQLServerEventRepository(EventRepository):
 
         Note: SQL Server uses VECTOR_DISTANCE function for similarity search.
         """
-        # Map embedding model to column name
         embedding_column_map = {
             EmbeddingModel.ADA_002: "embedding_ada_002",
             EmbeddingModel.T3_SMALL: "embedding_3_small",
-            EmbeddingModel.T3_LARGE: "embedding_3_large",
         }
 
-        # Map search algorithm to SQL Server distance type
         distance_type_map = {
             SearchAlgorithm.COSINE: "cosine",
-            SearchAlgorithm.INNER_PRODUCT: "dot",  # Not directly supported, use cosine
+            SearchAlgorithm.INNER_PRODUCT: "dot",
             SearchAlgorithm.L2_EUCLIDEAN: "euclidean",
         }
 
         embedding_column = embedding_column_map.get(search_request.embedding_model)
-        distance_type = distance_type_map.get(
-            search_request.search_algorithm, "cosine"
-        )
+        distance_type = distance_type_map.get(search_request.search_algorithm)
 
         if not embedding_column:
             raise ValueError(
                 f"Unsupported embedding model for SQL Server: {search_request.embedding_model}"
             )
+        if not distance_type:
+            raise ValueError(
+                f"Unsupported search algorithm for SQL Server: {search_request.search_algorithm}"
+            )
 
-        # Convert embedding to SQL Server format (comma-separated string in brackets)
         embedding_str = "[" + ",".join(map(str, query_embedding)) + "]"
 
         query = f"""
             SELECT TOP (?)
-                id, match_id, period, minute, quarter_sec,
+                id, match_id, period, minute, [_15secs] AS quarter_minute,
                 count, json_ as json_data, summary,
                 VECTOR_DISTANCE('{distance_type}', {embedding_column}, CAST(? AS VECTOR(1536))) AS similarity_score
-            FROM event_details_15secs_agg
+            FROM events_details__15secs_agg
             WHERE match_id = ?
               AND {embedding_column} IS NOT NULL
             ORDER BY similarity_score
@@ -436,7 +428,7 @@ class SQLServerEventRepository(EventRepository):
             match_id=row.match_id,
             period=row.period,
             minute=row.minute,
-            quarter_minute=row.quarter_sec,  # SQL Server uses quarter_sec
+            quarter_minute=row.quarter_minute,
             count=row.count,
             json_data=row.json_data if hasattr(row, "json_data") else None,
             summary=row.summary if hasattr(row, "summary") else None,

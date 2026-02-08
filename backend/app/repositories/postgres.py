@@ -357,13 +357,17 @@ class PostgresEventRepository(EventRepository):
             SearchAlgorithm.COSINE: "<=>",  # Cosine distance
             SearchAlgorithm.INNER_PRODUCT: "<#>",  # Negative inner product
             SearchAlgorithm.L2_EUCLIDEAN: "<->",  # L2 distance
+            SearchAlgorithm.L1_MANHATTAN: "<+>",  # L1 distance
         }
 
         embedding_column = embedding_column_map.get(search_request.embedding_model)
-        operator = operator_map.get(search_request.search_algorithm, "<=>")
+        operator = operator_map.get(search_request.search_algorithm)
 
         if not embedding_column:
             raise ValueError(f"Unsupported embedding model: {search_request.embedding_model}")
+
+        if not operator:
+            raise ValueError(f"Unsupported search algorithm: {search_request.search_algorithm}")
 
         # Convert embedding to PostgreSQL array format
         embedding_str = "[" + ",".join(map(str, query_embedding)) + "]"
@@ -429,3 +433,4 @@ class PostgresRepositoryFactory:
     def create_event_repository(self) -> EventRepository:
         """Create a PostgreSQL event repository instance."""
         return PostgresEventRepository()
+

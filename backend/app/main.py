@@ -9,7 +9,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.api.v1 import health, matches, events, chat
+from app.api.v1 import health, matches, events, chat, capabilities
 from app.core.config import get_settings
 
 settings = get_settings()
@@ -52,6 +52,7 @@ app.include_router(health.router, prefix="/api/v1", tags=["health"])
 app.include_router(matches.router, prefix="/api/v1", tags=["matches"])
 app.include_router(events.router, prefix="/api/v1", tags=["events"])
 app.include_router(chat.router, prefix="/api/v1", tags=["chat"])
+app.include_router(capabilities.router, prefix="/api/v1", tags=["capabilities"])
 
 
 # Global exception handler
@@ -88,3 +89,4 @@ if __name__ == "__main__":
         reload=True,
         log_level="info",
     )
+

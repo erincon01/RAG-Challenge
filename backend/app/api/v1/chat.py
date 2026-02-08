@@ -16,6 +16,7 @@ from app.repositories.base import MatchRepository, EventRepository
 from app.adapters.openai_client import OpenAIAdapter, get_openai_adapter
 from app.services.search_service import SearchService, get_search_service
 from app.core.dependencies import get_match_repository, get_event_repository
+from app.core.capabilities import validate_search_capabilities
 
 router = APIRouter()
 
@@ -56,6 +57,13 @@ async def search_and_chat(
         SearchResponse with answer and search results
     """
     try:
+        # Validate requested model/algorithm against source capabilities
+        validate_search_capabilities(
+            source=source,
+            embedding_model=request.embedding_model,
+            search_algorithm=request.search_algorithm,
+        )
+
         # Convert API request to domain request
         domain_request = DomainSearchRequest(
             match_id=request.match_id,
@@ -148,3 +156,4 @@ async def search_and_chat(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Search failed: {str(e)}",
         )
+

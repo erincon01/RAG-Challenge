@@ -11,6 +11,8 @@ from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel
 
 from app.core.config import get_settings, Settings
+from app.repositories.postgres import PostgresEventRepository
+from app.repositories.sqlserver import SQLServerEventRepository
 
 router = APIRouter()
 
@@ -86,12 +88,14 @@ async def readiness_check(
     Returns:
         ReadinessResponse: Service readiness information
     """
+    postgres_ok = PostgresEventRepository().test_connection()
+    sqlserver_ok = SQLServerEventRepository().test_connection()
+
     checks = {
         "api": True,
         "config": True,
-        # TODO: Add database connection checks
-        # "postgres": await check_postgres_connection(),
-        # "sqlserver": await check_sqlserver_connection(),
+        "postgres": postgres_ok,
+        "sqlserver": sqlserver_ok,
     }
 
     all_ready = all(checks.values())
