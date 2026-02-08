@@ -1,6 +1,6 @@
 python-dotenv
 requests
-pandas 
+pandas
 tiktoken
 streamlit
 streamlit-option-menu
@@ -13,3 +13,5 @@ pyodbc
 psycopg2
 sqlalchemy
 pyyaml
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
