@@ -86,19 +86,21 @@ services:
     restart: unless-stopped
 
   # ---------------------------------------------------------------------------
-  # Frontend (Streamlit)
+  # Frontend (React + TypeScript + Tailwind)
   # ---------------------------------------------------------------------------
   frontend:
     build:
-      context: ./frontend
+      context: ./frontend/webapp
       dockerfile: Dockerfile
     container_name: rag-frontend
     environment:
-      BACKEND_URL: http://backend:8000
+      VITE_BACKEND_ORIGIN: http://backend:8000
+      VITE_API_BASE_URL: /api/v1
     ports:
-      - "${FRONTEND_PORT:-8501}:8501"
+      - "${FRONTEND_PORT:-5173}:5173"
     volumes:
-      - ./frontend:/app
+      - ./frontend/webapp:/app
+      - /app/node_modules
     depends_on:
       backend:
         condition: service_healthy
@@ -109,3 +111,4 @@ volumes:
     driver: local
   sqlserver_data:
     driver: local
+
