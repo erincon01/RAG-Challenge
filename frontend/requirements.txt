@@ -1,0 +1,14 @@
+# Streamlit and UI
+streamlit>=1.30.0
+streamlit-option-menu>=0.3.6
+
+# HTTP client
+requests>=2.31.0
+
+# Utilities
+python-dotenv>=1.0.0
+
+# Optional for enhanced visualizations
+matplotlib>=3.7.0
+seaborn>=0.12.0
+pandas>=2.0.0
