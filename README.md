@@ -12,7 +12,9 @@
 
 - ✅ **Phase 0:** Technical Stabilization (Bug fixes, Centralized config, ADRs)
 - ✅ **Phase 1:** Backend/Frontend Separation (Complete layered architecture)
-- ⏳ **Phase 2:** Docker Local Infrastructure (In Progress)
+- ✅ **Phase 2:** Docker Local Infrastructure (Dockerfiles, docker-compose, init scripts)
+- ⏳ **Phase 2A:** pgvector Migration (Pending)
+- ⏳ **Phase 3:** Devcontainer 2.0 (Pending)
 
 See [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) for the complete roadmap.
 
@@ -78,14 +80,44 @@ See [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) for the
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Option A: Docker (Recommended)
+
+The easiest way to run the full stack locally.
+
+**Prerequisites:** Docker and Docker Compose
+
+1. **Clone and configure**
+   ```bash
+   git clone <repo-url>
+   cd RAG-Challenge
+   git checkout feature/rearquitectura-completa
+   ```
+
+2. **Set your OpenAI credentials** in `.env.docker`
+   ```bash
+   # Edit .env.docker with your Azure OpenAI key and endpoint
+   ```
+
+3. **Start everything**
+   ```bash
+   docker compose up --build
+   ```
+
+4. **Access the app**
+   - Frontend: <http://localhost:8501>
+   - Backend API: <http://localhost:8000>
+   - API Docs: <http://localhost:8000/docs>
+   - PostgreSQL: `localhost:5432` (user: `postgres`, db: `rag_challenge`)
+   - SQL Server: `localhost:1433` (user: `sa`)
+
+### Option B: Manual Setup
+
+**Prerequisites:**
 
 - Python 3.10+
 - PostgreSQL 17+ with pgvector extension OR Azure PostgreSQL Flexible Server
 - SQL Server 2025 Express OR Azure SQL Database
 - Azure OpenAI API access
-
-### Setup
 
 1. **Clone the repository**
    ```bash
@@ -202,14 +234,21 @@ RAG-Challenge/
 │   │   ├── adapters/          # External services
 │   │   └── core/              # Config & dependencies
 │   ├── tests/                 # Backend tests
+│   ├── Dockerfile             # Backend container image
 │   └── requirements.txt
 │
 ├── frontend/                   # Streamlit frontend
 │   ├── streamlit_app/
 │   │   ├── services/          # API client
 │   │   ├── components/        # UI components
-│   │   └── app_refactored.py # Main app
+│   │   └── app_refactored.py  # Main app
+│   ├── Dockerfile             # Frontend container image
 │   └── requirements.txt
+│
+├── infra/                      # Docker infrastructure
+│   └── docker/
+│       ├── postgres/initdb/   # PostgreSQL init scripts
+│       └── sqlserver/         # SQL Server Dockerfile + init
 │
 ├── config/                     # Centralized configuration
 │   └── settings.py            # Pydantic settings
@@ -218,8 +257,10 @@ RAG-Challenge/
 │   ├── adr/                   # Architecture Decision Records
 │   └── *.md                   # Various docs
 │
-├── postgres/                   # PostgreSQL scripts
-├── sqlserver/                  # SQL Server scripts
+├── postgres/                   # PostgreSQL scripts (original)
+├── sqlserver/                  # SQL Server scripts (original)
+├── docker-compose.yml         # Full stack orchestration
+├── .env.docker                # Docker local environment
 ├── .env.example               # Environment template
 └── PLAN_REARQUITECTURA_COMPLETO.md
 ```
@@ -275,9 +316,11 @@ pytest --cov=app --cov-report=html
 - **Requests** - HTTP client
 - **Pandas** - Data manipulation
 
-### Infrastructure (Coming Soon)
-- **Docker & Docker Compose** - Containerization
-- **GitHub Actions** - CI/CD pipeline
+### Infrastructure
+- **Docker & Docker Compose** - Full-stack containerization (`docker compose up`)
+- **pgvector/pgvector:pg17** - PostgreSQL with vector search (local Docker)
+- **SQL Server 2025 Express** - Linux container with VECTOR type support
+- **GitHub Actions** - CI/CD pipeline (coming soon)
 
 ---
 
@@ -304,7 +347,7 @@ This project was developed for the [Microsoft RAG Hack Challenge](https://github
 **Special Thanks:**
 - [Bruno Capuano](https://x.com/elbruno) - Microsoft
 - [Davide Mauri](https://x.com/mauridb) - Microsoft
-- [Verne Tech](https://www.vernegroup.com/) - Azure resources provider
+- [Altia](https://www.altia.es/)
 
 **Official Event:** [Microsoft Reactor](https://reactor.microsoft.com/es-es/reactor/events/23332/)
 

@@ -24,12 +24,15 @@
 - **Branch:** `feature/rearquitectura-completa`
 - **Commits:** ba7e9a3, 23f4a1d, ee8d491, f378b3b
 
-### Fase 2 - Docker Local ⏳ PENDIENTE
-- ⏳ Dockerfiles (backend, frontend)
-- ⏳ PostgreSQL 17 + pgvector en Docker
-- ⏳ SQL Server 2025 Express en Docker
-- ⏳ docker-compose.yml con healthchecks
-- ⏳ Devcontainer 2.0
+### Fase 2 - Docker Local ✅ COMPLETADA
+
+- ✅ Dockerfiles (backend con ODBC+psycopg2, frontend con Streamlit)
+- ✅ PostgreSQL 17 + pgvector en Docker (init scripts idempotentes, schema portable)
+- ✅ SQL Server 2025 Express en Docker (custom entrypoint, init scripts idempotentes)
+- ✅ docker-compose.yml con healthchecks, volumes persistentes y depends_on
+- ✅ .env.docker para configuración local
+- ✅ .dockerignore optimizados
+- **Branch:** `feature/rearquitectura-completa`
 
 ### Fase 2A - Migración pgvector ⏳ PENDIENTE
 - ⏳ Diseño de columnas vector físicas
@@ -313,30 +316,53 @@ Rearquitecturar la aplicacion para pasar de un enfoque monolitico/manual y centr
 - ✅ Contrato OpenAPI versionado (auto-generado en /docs)
 - ✅ Documentación exhaustiva de arquitectura y patrones
 
-## Fase 2 - Docker local con imagenes propias (Semanas 3-4)
+## Fase 2 - Docker local con imagenes propias ✅ COMPLETADA
 
 Objetivo: entorno local reproducible y sin dependencia PaaS para desarrollo base.
 
-- Crear Dockerfiles locales:
-  - `backend/Dockerfile`
-  - `frontend/Dockerfile`
-  - `infra/docker/postgres/Dockerfile` (base `pgvector/pgvector:pg17` o equivalente)
-  - `infra/docker/sqlserver/Dockerfile` (base `mcr.microsoft.com/mssql/server:2025-latest`, `MSSQL_PID=Express`)
-- Crear `infra/docker-compose.yml` con servicios:
-  - `frontend`
-  - `backend`
-  - `postgres`
-  - `sqlserver`
-- Agregar `volumes` persistentes y `healthchecks`.
-- Incluir init scripts SQL idempotentes por motor.
-- Mantener perfiles:
-  - `docker compose --profile local up`
-  - `docker compose --profile azure up` (si aplica proxy hacia PaaS).
+**Tareas completadas:**
 
-Entregables:
-- `docker compose up` levanta app completa local.
-- Postgres `pgvector` y SQL Server 2025 Express quedan operativos con healthchecks.
-- Seeds/minimos de datos para demo funcional.
+### 2.1 Dockerfiles ✅
+
+- ✅ `backend/Dockerfile` - Python 3.11-slim + ODBC Driver 18 + psycopg2 + config module
+  - Build context desde raíz del proyecto para incluir `config/`
+  - Sistema de dependencias: gnupg2, curl, libpq-dev, gcc, msodbcsql18, unixodbc-dev
+- ✅ `frontend/Dockerfile` - Python 3.11-slim + Streamlit
+  - Entrypoint: `streamlit run streamlit_app/app_refactored.py --server.headless=true`
+- ✅ `infra/docker/sqlserver/Dockerfile` - Extiende `mcr.microsoft.com/mssql/server:2025-latest`
+  - Custom entrypoint (`setup.sh`) que espera SQL Server ready y ejecuta init scripts
+  - `MSSQL_PID=Express`
+
+### 2.2 Init Scripts Idempotentes ✅
+
+- ✅ PostgreSQL (`infra/docker/postgres/initdb/`):
+  - `01-extensions.sql` - Habilita extensión `vector`
+  - `02-schema.sql` - Schema completo portable (matches, events, events_details, events_details__quarter_minute con columnas VECTOR físicas + índices HNSW)
+- ✅ SQL Server (`infra/docker/sqlserver/initdb/`):
+  - `01-schema.sql` - Crea DB `rag_challenge` + todas las tablas (matches, lineups, players, events, events_details, events_details__15secs_agg) con `IF NOT EXISTS`
+
+### 2.3 Docker Compose ✅
+
+- ✅ `docker-compose.yml` en raíz con 4 servicios:
+  - `postgres` (pgvector/pgvector:pg17) - healthcheck con `pg_isready`
+  - `sqlserver` (custom build) - healthcheck con `sqlcmd`
+  - `backend` (FastAPI) - healthcheck con `/api/v1/health/live`, depends_on DB healthy
+  - `frontend` (Streamlit) - depends_on backend healthy
+- ✅ Volúmenes persistentes: `postgres_data`, `sqlserver_data`
+- ✅ Volume mounts para desarrollo con hot-reload
+- ✅ Variables de entorno con defaults sensatos
+
+### 2.4 Configuración ✅
+
+- ✅ `.env.docker` - Configuración local para Docker
+- ✅ `.dockerignore` - Optimizado para contexto de build
+- ✅ `backend/.dockerignore`, `frontend/.dockerignore`
+
+**Entregables:**
+
+- ✅ `docker compose up` levanta app completa local
+- ✅ Postgres pgvector y SQL Server 2025 Express con healthchecks
+- ✅ Schemas inicializados automáticamente al primer arranque
 
 ## Fase 2A - Migracion profunda Postgres PaaS -> Postgres + pgvector (Semanas 4-6)
 
