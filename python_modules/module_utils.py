@@ -239,7 +239,7 @@ if __name__ == "__main__":
 
 #     input_tokens = 2000
 #     output_tokens = 5000
-#     embeddings_model="multilingual-e5-small:v1"
+#     embeddings_model="text-embedding-3-small"
 #     search_type="Cosine"
 #     temperature = 0.1
 #     top_n = 10

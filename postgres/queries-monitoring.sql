@@ -2,12 +2,12 @@
 
 -- sample query
 
-WITH vars AS ( -- local embeddings
+WITH vars AS ( -- remote embeddings
     SELECT 'WHich players recorded the highest number of carries and passes in both halves, 
     and how did their performances influence the overall strategies of the teams?' AS search_string
 )
 SELECT match_id, period, minute, summary, summary_script
-    , summary_embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', search_string)::vector AS cos_summary
+    , summary_embedding_t3_small <=> azure_openai.create_embeddings('text-embedding-3-small', search_string)::vector AS cos_summary
 FROM events_details__quarter_minute, vars
 where match_id = 3943043
 ORDER BY 6 desc

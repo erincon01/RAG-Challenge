@@ -82,16 +82,6 @@ group by minute, period;
 
 
 ALTER TABLE events_details__quarter_minute
-ADD COLUMN summary_embedding vector(384)
-GENERATED ALWAYS AS (
-    CASE 
-        WHEN summary IS NOT NULL THEN azure_local_ai.create_embeddings('multilingual-e5-small:v1', summary)::vector
-        ELSE NULL
-    END
-) STORED;
-
-
-ALTER TABLE events_details__quarter_minute
 ADD COLUMN summary_embedding_ada_002 VECTOR(1536) 
 GENERATED ALWAYS AS (
     CASE 
@@ -133,15 +123,11 @@ limit 10;
 
 -- re-create indexes
 --
-DROP INDEX IF EXISTS events_details__qm__se_vIP;
-DROP INDEX IF EXISTS events_details__qm__se_cos;
 DROP INDEX IF EXISTS events_details__qm__ada_002_vIP;
 DROP INDEX IF EXISTS events_details__qm__ada_002_cos;
 DROP INDEX IF EXISTS events_details__qm__t3_small_vIP;
 DROP INDEX IF EXISTS events_details__qm__t3_small_cos;
 
-CREATE INDEX events_details__qm__se_vIP        ON events_details__quarter_minute USING hnsw (summary_embedding             vector_ip_ops); 
-CREATE INDEX events_details__qm__se_cos        ON events_details__quarter_minute USING hnsw (summary_embedding             vector_cosine_ops); 
 CREATE INDEX events_details__qm__ada_002_vIP   ON events_details__quarter_minute USING hnsw (summary_embedding_ada_002     vector_ip_ops); 
 CREATE INDEX events_details__qm__ada_002_cos   ON events_details__quarter_minute USING hnsw (summary_embedding_ada_002     vector_cosine_ops); 
 CREATE INDEX events_details__qm__t3_small_vIP  ON events_details__quarter_minute USING hnsw (summary_embedding_t3_small    vector_ip_ops); 

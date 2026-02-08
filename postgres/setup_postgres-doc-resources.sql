@@ -170,10 +170,10 @@ DROP TABLE IF EXISTS conference_sessions;
 
 
 
--- modelo azure_local_ai: https://huggingface.co/intfloat/multilingual-e5-small
-
--- azure_local_ai.create_embeddings(model_uri text, input text, batch_size bigint DEFAULT 128, timeout_ms integer DEFAULT 3600000);
--- azure_local_ai.create_embeddings(model_uri text, array[inputs [text]], batch_size bigint DEFAULT 128, timeout_ms integer DEFAULT 3600000);
+-- Modelos de embedding soportados:
+-- - text-embedding-ada-002 (OpenAI)
+-- - text-embedding-3-small (OpenAI)
+-- - text-embedding-3-large (OpenAI)
 
 
 -- Create tables and populate data
@@ -191,7 +191,7 @@ CREATE TABLE conference_sessions(
 -- Create a table to store embeddings with a vector column.
 CREATE TABLE conference_session_embeddings(
   session_id integer NOT NULL REFERENCES conference_sessions(session_id),
-  session_embedding vector(384)
+  session_embedding vector(1536)  -- text-embedding-3-small generates 1536 dimensions
 );
 
 -- Insert a row into the sessions table
@@ -208,8 +208,8 @@ VALUES
 
 -- Get an embedding for the Session Abstract
 SELECT
-     pg_typeof(azure_local_ai.create_embeddings('multilingual-e5-small:v1', c.session_abstract)) as embedding_data_type
-    ,azure_local_ai.create_embeddings('multilingual-e5-small:v1', c.session_abstract)
+     pg_typeof(azure_openai.create_embeddings('text-embedding-3-small', c.session_abstract)) as embedding_data_type
+    ,azure_openai.create_embeddings('text-embedding-3-small', c.session_abstract)
   FROM
     conference_sessions c LIMIT 10;
 
@@ -217,7 +217,7 @@ SELECT
 INSERT INTO conference_session_embeddings
     (session_id, session_embedding)
 SELECT
-    c.session_id, (azure_local_ai.create_embeddings('multilingual-e5-small:v1', c.session_abstract))
+    c.session_id, (azure_openai.create_embeddings('text-embedding-3-small', c.session_abstract))
 FROM
     conference_sessions as c  
 LEFT OUTER JOIN
@@ -237,7 +237,7 @@ FROM
 INNER JOIN
     conference_sessions c ON c.session_id = e.session_id
 ORDER BY
-    e.session_embedding <#> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Session to learn about building chatbots')::vector
+    e.session_embedding <#> azure_openai.create_embeddings('text-embedding-3-small', 'Session to learn about building chatbots')::vector
 LIMIT 1;
 
 
@@ -254,10 +254,10 @@ DROP TABLE IF EXISTS conference_sessions;
 
 WITH v AS (
   SELECT 
-    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Oyarzabal scores Goal at 75. Marquez scores Goal al 94')::vector vm,
-    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'goalkeaper')::vector v1,
-    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'goal')::vector v2,
-    azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal')::vector v3
+    azure_openai.create_embeddings('text-embedding-3-small', 'Oyarzabal scores Goal at 75. Marquez scores Goal al 94')::vector vm,
+    azure_openai.create_embeddings('text-embedding-3-small', 'goalkeaper')::vector v1,
+    azure_openai.create_embeddings('text-embedding-3-small', 'goal')::vector v2,
+    azure_openai.create_embeddings('text-embedding-3-small', 'Goal')::vector v3
 )
 SELECT 
 1 -(v.vm <=> v.v1) cv1, 1-(v.vm <=> v.v2) cv2, 1-(v.vm <=> v.v3) cv3, 

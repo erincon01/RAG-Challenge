@@ -125,7 +125,7 @@ export function ChatPage() {
             <textarea
               value={question}
               onChange={(event) => setQuestion(event.target.value)}
-              placeholder="Ejemplo: ¿Quién dominó la segunda parte?"
+              placeholder="Ejemplo: Â¿QuiÃ©n dominÃ³ la segunda parte?"
               className="mt-1 min-h-28 w-full rounded-xl border border-white/10 bg-canvas/80 px-3 py-2 text-ink"
             />
           </label>
@@ -194,7 +194,7 @@ export function ChatPage() {
             disabled={searchMutation.isPending || !selectedMatchId || !question.trim()}
             className="rounded-xl border border-accent/50 bg-accent/15 px-4 py-2 text-sm font-semibold text-accent disabled:opacity-60"
           >
-            Ejecutar búsqueda semántica
+            Ejecutar bÃºsqueda semÃ¡ntica
           </button>
 
           {searchMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(searchMutation.error)}</p> : null}
@@ -234,7 +234,7 @@ export function ChatPage() {
             ) : null}
           </>
         ) : (
-          <p className="text-mute">Lanza una consulta para ver la respuesta aquí.</p>
+          <p className="text-mute">Lanza una consulta para ver la respuesta aquÃ­.</p>
         )}
       </article>
     </section>

@@ -349,7 +349,6 @@ class PostgresEventRepository(EventRepository):
             EmbeddingModel.ADA_002: "summary_embedding_ada_002",
             EmbeddingModel.T3_SMALL: "summary_embedding_t3_small",
             EmbeddingModel.T3_LARGE: "summary_embedding_t3_large",
-            EmbeddingModel.E5_SMALL: "summary_embedding",
         }
 
         # Map search algorithm to pgvector operator

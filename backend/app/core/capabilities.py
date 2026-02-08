@@ -9,7 +9,6 @@ SOURCE_CAPABILITIES: Dict[str, Dict[str, List[str]]] = {
             "text-embedding-ada-002",
             "text-embedding-3-small",
             "text-embedding-3-large",
-            "multilingual-e5-small:v1",
         ],
         "search_algorithms": [
             "cosine",

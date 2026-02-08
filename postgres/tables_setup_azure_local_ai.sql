@@ -42,7 +42,7 @@ CREATE TABLE matches (
     referee_country VARCHAR(255),
     
     json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    embeddings VECTOR(1536) NULL  -- Embedding vector for semantic searches (text-embedding-3-small)
 );
 
 -- Select all rows from the matches table
@@ -62,7 +62,7 @@ CREATE TABLE lineups (
 
     -- data
     json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    embeddings VECTOR(1536) NULL  -- Embedding vector for semantic searches (text-embedding-3-small)
 );
 
 -- Select all rows from the lineups table
@@ -102,7 +102,7 @@ CREATE TABLE events (
     id SERIAL PRIMARY KEY,         
     match_id INTEGER,              
     json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    embeddings VECTOR(1536) NULL  -- Embedding vector for semantic searches (text-embedding-3-small)
 );
 
 -- Select all rows from the events table
@@ -128,9 +128,9 @@ CREATE TABLE events_details (
     play_pattern_id INT NULL,               
     play_pattern VARCHAR(255) NOT NULL, 
 
-    -- data          
+    -- data
     json_ TEXT NULL,
-    embeddings VECTOR(384) NULL  -- Embedding vector for semantic searches
+    embeddings VECTOR(1536) NULL  -- Embedding vector for semantic searches (text-embedding-3-small)
 );
 
 -- Select all rows from the events_details table

@@ -99,7 +99,7 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
         selected_embeddings_model=""
         if (source.lower() == "azure-postgres"):
             with col3:
-                model = ["text-embedding-ada-002", "text-embedding-3-small", "text-embedding-3-large", "multilingual-e5-small:v1"]
+                model = ["text-embedding-ada-002", "text-embedding-3-small", "text-embedding-3-large"]
                 selected_embeddings_model = st.radio("Choose a model", model)
 
         if (source.lower() == "azure-sql"):

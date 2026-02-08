@@ -22,8 +22,8 @@ insert into texts values ('16 | gkeeper | 40:57 | Jordan Pickford | Goal concede
 
 
 ALTER TABLE texts
-ADD COLUMN e1 vector(384) -- multilingual-e5 embeddings are 384 dimensions
-GENERATED ALWAYS AS (azure_local_ai.create_embeddings('multilingual-e5-small:v1', doc)::vector) STORED; 
+ADD COLUMN e1 vector(1536) -- text-embedding-3-small embeddings are 1536 dimensions
+GENERATED ALWAYS AS (azure_openai.create_embeddings('text-embedding-3-small', doc)::vector) STORED; 
 
 --ALTER TABLE texts
 --ADD COLUMN e2 VECTOR(1536) --ADAD embeddings are 1536 dimensions
@@ -34,7 +34,7 @@ GENERATED ALWAYS AS (azure_local_ai.create_embeddings('multilingual-e5-small:v1'
 
 -- Retrieve similarities. NIP
 SELECT doc
-    , e1 <#> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal scored')::vector AS nip_1
+    , e1 <#> azure_openai.create_embeddings('text-embedding-3-small', 'Goal scored')::vector AS nip_1
 --    , e2 <#> azure_openai.create_embeddings('text-embedding-ada-002', 'Goal scored')::vector AS nip_2
 FROM texts
 ORDER BY nip_1

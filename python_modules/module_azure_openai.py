@@ -395,11 +395,6 @@ def search_details_using_embeddings(source, match_id, add_match_info, \
             column_name_postgres = "summary_embedding_t3_large"
             column_name_sql = ""
             model_name = "text-embedding-3-large"
-        if embeddings_model=="multilingual-e5-small:v1":
-            column_name_postgres = "summary_embedding"
-            column_name_sql = ""
-            model_name = "multilingual-e5-small:v1"
-            extension = "azure_local_ai"
 
         if isinstance(input_tokens, str):
             if not input_tokens.isdigit():

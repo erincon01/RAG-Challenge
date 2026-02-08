@@ -69,7 +69,6 @@ CREATE TABLE events (
     summary_embedding_ada_002 vector(1536) NULL,      -- App-managed
     summary_embedding_t3_small vector(1536) NULL,      -- App-managed
     summary_embedding_t3_large vector(3072) NULL,      -- App-managed
-    summary_embedding_e5 vector(384) NULL,             -- App-managed
 
     -- Metadata for tracking
     embedding_status TEXT DEFAULT 'pending',           -- pending, done, error

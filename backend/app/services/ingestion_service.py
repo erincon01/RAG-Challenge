@@ -184,7 +184,6 @@ class IngestionService:
                         "text-embedding-ada-002": int(row[1] or 0),
                         "text-embedding-3-small": int(row[2] or 0),
                         "text-embedding-3-large": int(row[3] or 0),
-                        "multilingual-e5-small:v1": int(row[4] or 0),
                     },
                 }
 

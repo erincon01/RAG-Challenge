@@ -99,7 +99,6 @@ CREATE TABLE IF NOT EXISTS events_details__quarter_minute (
     summary_script TEXT,
 
     -- Embedding columns (populated by application, not DB-generated)
-    summary_embedding               VECTOR(384),   -- multilingual-e5-small
     summary_embedding_ada_002       VECTOR(1536),  -- text-embedding-ada-002
     summary_embedding_t3_small      VECTOR(1536),  -- text-embedding-3-small
     summary_embedding_t3_large      VECTOR(3072)   -- text-embedding-3-large

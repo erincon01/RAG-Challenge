@@ -17,16 +17,6 @@ insert into t1 (match_id, summary) values (8, 'goal was conceeded, however refer
 
 
 ALTER TABLE t1
-ADD COLUMN summary_embedding vector(384)
-GENERATED ALWAYS AS (
-    CASE 
-        WHEN summary IS NOT NULL THEN azure_local_ai.create_embeddings('multilingual-e5-small:v1', summary)::vector
-        ELSE NULL
-    END
-) STORED;
-
-
-ALTER TABLE t1
 ADD COLUMN summary_embedding_ada_002 VECTOR(1536) 
 GENERATED ALWAYS AS (
     CASE 
@@ -56,8 +46,7 @@ GENERATED ALWAYS AS (
 
 -- Retrieve similarities. NIP
 SELECT match_id, summary, id
---    , summary_script_embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal conceded')::vector AS cos_script
-    , summary_embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal conceded')::vector AS nip_summary
+--    , summary_script_embedding <=> azure_openai.create_embeddings('text-embedding-ada-002', 'Goal conceded')::vector AS cos_script
     , summary_embedding_ada_002 <=> azure_openai.create_embeddings('text-embedding-ada-002', 'Goal scored')::vector AS nip_summary_script_ada_002
     , summary_embedding_t3_small <=> azure_openai.create_embeddings('text-embedding-3-small', 'Goal scored')::vector AS nip_summary_script_t3_small
     , summary_embedding_t3_large <=> azure_openai.create_embeddings('text-embedding-3-large', 'Goal scored')::vector AS nip_summary_script_t3_large
@@ -67,8 +56,7 @@ ORDER BY 4;
 
 -- Retrieve similarities. COSINE
 SELECT match_id, summary, id
---    , summary_script_embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal conceded')::vector AS cos_script
-    , summary_embedding <=> azure_local_ai.create_embeddings('multilingual-e5-small:v1', 'Goal conceded')::vector AS cos_summary
+--    , summary_script_embedding <=> azure_openai.create_embeddings('text-embedding-ada-002', 'Goal conceded')::vector AS cos_script
     , summary_embedding_ada_002 <=> azure_openai.create_embeddings('text-embedding-ada-002', 'Goal scored')::vector AS cos_summary_script_ada_002
     , summary_embedding_t3_small <=> azure_openai.create_embeddings('text-embedding-3-small', 'Goal scored')::vector AS cos_summary_script_t3_small
     , summary_embedding_t3_large <=> azure_openai.create_embeddings('text-embedding-3-large', 'Goal scored')::vector AS cos_summary_script_t3_large

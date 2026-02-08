@@ -150,8 +150,7 @@ class SearchRequest(BaseModel):
         allowed = [
             "text-embedding-ada-002",
             "text-embedding-3-small",
-            "text-embedding-3-large",
-            "multilingual-e5-small:v1",
+            "text-embedding-3-large"
         ]
         if v not in allowed:
             raise ValueError(f"Model must be one of: {', '.join(allowed)}")

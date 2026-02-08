@@ -26,7 +26,6 @@ class EmbeddingModel(str, Enum):
     ADA_002 = "text-embedding-ada-002"
     T3_SMALL = "text-embedding-3-small"
     T3_LARGE = "text-embedding-3-large"
-    E5_SMALL = "multilingual-e5-small:v1"
 
 
 @dataclass
