@@ -64,7 +64,7 @@ def get_connection(source):
         db_password = os.getenv('DB_PASSWORD_AZURE_POSTGRES')
         db_host = os.getenv('DB_SERVER_AZURE_POSTGRES')
         db_name = os.getenv('DB_NAME_AZURE_POSTGRES')
-        password = urllib.parse.quote_plus(password)
+        db_password = urllib.parse.quote_plus(db_password)
         
         connection_string = f"postgresql://{db_user}:{db_password}@{db_host}/{db_name}"
         engine = create_engine(connection_string)
@@ -239,8 +239,8 @@ def download_data_from_github_repo(repo_owner, repo_name, dataset_name, local_fo
     json_urls = get_json_list_from_repo(repo_owner, repo_name, dataset_name)
 
     # Save the list of the Json_urls to a CSV file, and print the path where the Csv file is stored
-    json_urls.to_csv(f"{local_folder}/{dataset}_urls.csv", index=False)
-    print(f"File {dataset}_urls.csv saved in {local_folder}")
+    json_urls.to_csv(f"{local_folder}/{dataset_name}_urls.csv", index=False)
+    print(f"File {dataset_name}_urls.csv saved in {local_folder}")
 
     # Assign the result of group by dataset, counting the number of records per dataset, to variable c
     c = json_urls.groupby(['dataset']).size().reset_index(name='counts')

@@ -411,13 +411,13 @@ def search_details_using_embeddings(source, match_id, add_match_info, \
                 output_tokens = 5000
             output_tokens = int(output_tokens)
 
-        # if top_s is string convert to int
-        top_n = 10
+        # if top_n is string convert to int
         if isinstance(top_n, str):
             # if top_n is not a number set to 10
             if not top_n.isdigit():
                 top_n = 10
-            top_n = int(top_n)
+            else:
+                top_n = int(top_n)
 
         if isinstance(top_n, float):
             top_n = int(top_n)

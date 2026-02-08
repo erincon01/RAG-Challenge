@@ -243,7 +243,7 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
         
         with st.container(border=True):
                 st.write (f"Question: [{question}]")
-                if language != "english":
+                if selected_language != "english":
                     st.write(f"Translated question: [{normalized_search_term}]")
                 st.markdown(result)
 
@@ -253,7 +253,7 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
 
         if selected_show_logs == "Yes":
             with st.container(border=True, height=250):
-                    st.markdown(dataset)
+                    st.markdown(f"**Debug Info:**\n\n**Question:** {question}\n\n**Normalized Search Term:** {normalized_search_term}\n\n**Result:** {result}")
 
 
 def connection_button(menu):
