@@ -1,0 +1,154 @@
+"""
+Base repository interfaces.
+
+These define the contract that all repository implementations must follow.
+This enables us to swap implementations (e.g., PostgreSQL vs SQL Server) without
+changing business logic.
+"""
+
+from abc import ABC, abstractmethod
+from typing import List, Optional, Dict, Any
+from contextlib import contextmanager
+
+from app.domain.entities import (
+    Match,
+    EventDetail,
+    SearchRequest,
+    SearchResult,
+    Competition,
+)
+
+
+class BaseRepository(ABC):
+    """Base repository with common database operations."""
+
+    @abstractmethod
+    @contextmanager
+    def get_connection(self):
+        """
+        Get a database connection.
+
+        Yields:
+            Connection object (implementation-specific)
+        """
+        pass
+
+    @abstractmethod
+    def test_connection(self) -> bool:
+        """
+        Test if database connection is working.
+
+        Returns:
+            bool: True if connection is successful
+        """
+        pass
+
+
+class MatchRepository(BaseRepository):
+    """Repository for Match entities."""
+
+    @abstractmethod
+    def get_by_id(self, match_id: int) -> Optional[Match]:
+        """
+        Get a match by ID.
+
+        Args:
+            match_id: The match ID
+
+        Returns:
+            Match if found, None otherwise
+        """
+        pass
+
+    @abstractmethod
+    def get_all(
+        self,
+        competition_name: Optional[str] = None,
+        season_name: Optional[str] = None,
+        limit: int = 100,
+    ) -> List[Match]:
+        """
+        Get all matches with optional filters.
+
+        Args:
+            competition_name: Filter by competition name
+            season_name: Filter by season name
+            limit: Maximum number of results
+
+        Returns:
+            List of matches
+        """
+        pass
+
+    @abstractmethod
+    def get_competitions(self) -> List[Competition]:
+        """
+        Get all unique competitions.
+
+        Returns:
+            List of competitions
+        """
+        pass
+
+
+class EventRepository(BaseRepository):
+    """Repository for Event entities."""
+
+    @abstractmethod
+    def get_events_by_match(
+        self, match_id: int, limit: Optional[int] = None
+    ) -> List[EventDetail]:
+        """
+        Get all events for a match.
+
+        Args:
+            match_id: The match ID
+            limit: Maximum number of results
+
+        Returns:
+            List of event details
+        """
+        pass
+
+    @abstractmethod
+    def search_by_embedding(
+        self, search_request: SearchRequest, query_embedding: List[float]
+    ) -> List[SearchResult]:
+        """
+        Search events using vector similarity.
+
+        Args:
+            search_request: Search parameters
+            query_embedding: The embedding vector for the search query
+
+        Returns:
+            List of search results ordered by similarity
+        """
+        pass
+
+    @abstractmethod
+    def get_event_by_id(self, event_id: int) -> Optional[EventDetail]:
+        """
+        Get a single event by ID.
+
+        Args:
+            event_id: The event ID
+
+        Returns:
+            EventDetail if found, None otherwise
+        """
+        pass
+
+
+class RepositoryFactory(ABC):
+    """Factory for creating repository instances."""
+
+    @abstractmethod
+    def create_match_repository(self) -> MatchRepository:
+        """Create a match repository instance."""
+        pass
+
+    @abstractmethod
+    def create_event_repository(self) -> EventRepository:
+        """Create an event repository instance."""
+        pass
