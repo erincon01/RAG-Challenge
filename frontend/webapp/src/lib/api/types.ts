@@ -84,6 +84,12 @@ export interface EmbeddingsStatusResponse {
   coverage: Record<string, number>
 }
 
+export interface CompetitionSummary {
+  competition_id: number
+  country: string
+  name: string
+}
+
 export interface MatchSummary {
   match_id: number
   match_date: string
@@ -95,6 +101,28 @@ export interface MatchSummary {
   away_score: number
   result: string
   display_name: string
+}
+
+export interface TeamSummary {
+  team_id: number
+  name: string
+  gender: string | null
+  country: string | null
+}
+
+export interface PlayerSummary {
+  player_id: number
+  player_name: string
+  jersey_number: number | null
+  country_name: string | null
+  position_name: string | null
+  team_name: string | null
+}
+
+export interface TableInfoSummary {
+  table: string
+  row_count: number
+  embedding_columns: string[]
 }
 
 export interface EventDetail {

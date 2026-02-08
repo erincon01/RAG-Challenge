@@ -1,6 +1,7 @@
 import type {
   AggregateRequestPayload,
   CapabilitiesResponse,
+  CompetitionSummary,
   DownloadRequestPayload,
   EmbeddingsRebuildRequestPayload,
   EmbeddingsStatusResponse,
@@ -11,6 +12,7 @@ import type {
   JobRecord,
   LoadRequestPayload,
   MatchSummary,
+  PlayerSummary,
   ReadinessResponse,
   SearchRequestPayload,
   SearchResponse,
@@ -18,6 +20,8 @@ import type {
   SourceStatusResponse,
   StatsBombCompetition,
   StatsBombMatch,
+  TableInfoSummary,
+  TeamSummary,
 } from './types'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api/v1'
@@ -54,7 +58,14 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   })
 
   const text = await response.text()
-  const data = text ? JSON.parse(text) : null
+  let data: unknown = null
+  if (text) {
+    try {
+      data = JSON.parse(text)
+    } catch {
+      data = text
+    }
+  }
 
   if (!response.ok) {
     throw new ApiError(response.status, data)
@@ -108,8 +119,18 @@ export const api = {
   getEmbeddingsStatus: (source: Source) =>
     request<EmbeddingsStatusResponse>(withQuery('/embeddings/status', { source })),
 
+  listCompetitions: (source: Source) => request<CompetitionSummary[]>(withQuery('/competitions', { source })),
+
   listMatches: (source: Source, limit = 200) =>
     request<MatchSummary[]>(withQuery('/matches', { source, limit })),
+
+  listTeams: (source: Source, matchId?: number) =>
+    request<TeamSummary[]>(withQuery('/teams', { source, match_id: matchId })),
+
+  listPlayers: (source: Source, matchId?: number) =>
+    request<PlayerSummary[]>(withQuery('/players', { source, match_id: matchId })),
+
+  listTablesInfo: (source: Source) => request<TableInfoSummary[]>(withQuery('/tables-info', { source })),
 
   listEvents: (source: Source, matchId: number, limit = 300) =>
     request<EventDetail[]>(withQuery('/events', { source, match_id: matchId, limit })),

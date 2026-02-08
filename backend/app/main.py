@@ -18,6 +18,7 @@ from app.api.v1 import (
     statsbomb,
     ingestion,
     embeddings,
+    explorer,
 )
 from app.core.config import get_settings
 
@@ -65,6 +66,7 @@ app.include_router(capabilities.router, prefix="/api/v1", tags=["capabilities"])
 app.include_router(statsbomb.router, prefix="/api/v1", tags=["statsbomb"])
 app.include_router(ingestion.router, prefix="/api/v1", tags=["ingestion"])
 app.include_router(embeddings.router, prefix="/api/v1", tags=["embeddings"])
+app.include_router(explorer.router, prefix="/api/v1", tags=["explorer"])
 
 
 # Global exception handler
@@ -101,3 +103,4 @@ if __name__ == "__main__":
         reload=True,
         log_level="info",
     )
+
