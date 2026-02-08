@@ -63,7 +63,7 @@ export function DashboardPage() {
                 <li key={capability.source} className="rounded-xl bg-canvas/60 p-3">
                   <p className="font-medium capitalize text-ink">{capability.source}</p>
                   <p className="mt-1 text-xs text-mute">
-                    {capability.embedding_models.length} modelos · {capability.search_algorithms.length} algoritmos
+                    {capability.embedding_models.length} modelos - {capability.search_algorithms.length} algoritmos
                   </p>
                 </li>
               ))}

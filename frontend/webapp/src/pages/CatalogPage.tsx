@@ -60,7 +60,7 @@ export function CatalogPage() {
       <header className="rounded-2xl border border-white/10 bg-panel/70 p-5">
         <h2 className="text-2xl font-semibold text-ink">Catalogo StatsBomb</h2>
         <p className="mt-1 text-sm text-mute">
-          Selecciona competici髇 y temporada para preparar descarga/carga. La selecci髇 queda guardada para la pantalla
+          Selecciona competici贸n y temporada para preparar descarga/carga. La selecci贸n queda guardada para la pantalla
           de operaciones.
         </p>
 
@@ -81,7 +81,7 @@ export function CatalogPage() {
             }}
             className="rounded-xl border border-white/10 bg-canvas/80 px-3 py-3 text-sm text-ink outline-none"
           >
-            <option value="">Selecciona competici髇 + temporada...</option>
+            <option value="">Selecciona competici贸n + temporada...</option>
             {catalogOptions.map((item) => (
               <option key={`${item.competition_id}-${item.season_id}`} value={`${item.competition_id}:${item.season_id}`}>
                 {item.country_name ?? 'Unknown'} | {item.competition_name} | {item.season_name}
@@ -117,18 +117,18 @@ export function CatalogPage() {
           </div>
         </div>
 
-        {competitionsQuery.isLoading && <p className="text-mute">Cargando cat醠ogo de competiciones...</p>}
+        {competitionsQuery.isLoading && <p className="text-mute">Cargando cat谩logo de competiciones...</p>}
         {competitionsQuery.isError && (
-          <p className="text-rose-300">No se pudo leer el cat醠ogo de competiciones de StatsBomb.</p>
+          <p className="text-rose-300">No se pudo leer el cat谩logo de competiciones de StatsBomb.</p>
         )}
 
         {!competitionId || !seasonId ? (
-          <p className="text-mute">Selecciona competici髇 y temporada para ver los partidos.</p>
+          <p className="text-mute">Selecciona competici贸n y temporada para ver los partidos.</p>
         ) : null}
 
         {competitionId && seasonId && matchesQuery.isLoading ? <p className="text-mute">Cargando partidos...</p> : null}
         {competitionId && seasonId && matchesQuery.isError ? (
-          <p className="text-rose-300">No se pudieron cargar los partidos para esta competici髇.</p>
+          <p className="text-rose-300">No se pudieron cargar los partidos para esta competici贸n.</p>
         ) : null}
 
         {matchesQuery.data && matchesQuery.data.length > 0 ? (

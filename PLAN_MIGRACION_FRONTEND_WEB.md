@@ -98,7 +98,7 @@ Brecha funcional para el objetivo solicitado:
   - `app/api/v1/ingestion.py`
   - `app/services/capabilities_service.py`
   - `app/api/v1/capabilities.py`
-- A�adir ejecucion de jobs con seguimiento de estado.
+- Añadir ejecucion de jobs con seguimiento de estado.
 
 ### 5.3 Contrato minimo nuevo de API
 - `GET /api/v1/capabilities`
