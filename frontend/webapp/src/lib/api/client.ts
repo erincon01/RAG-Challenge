@@ -1,7 +1,10 @@
 import type {
   AggregateRequestPayload,
   CapabilitiesResponse,
+  ClearJobsResponse,
   CompetitionSummary,
+  DownloadCleanupRequestPayload,
+  DownloadCleanupResponse,
   DownloadRequestPayload,
   EmbeddingsRebuildRequestPayload,
   EmbeddingsStatusResponse,
@@ -95,6 +98,12 @@ export const api = {
       body: JSON.stringify(payload),
     }),
 
+  cleanupDownloadFiles: (payload: DownloadCleanupRequestPayload) =>
+    request<DownloadCleanupResponse>('/ingestion/download/cleanup', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
   startLoad: (payload: LoadRequestPayload) =>
     request<JobCreateResponse>('/ingestion/load', {
       method: 'POST',
@@ -115,17 +124,16 @@ export const api = {
 
   listJobs: (limit = 100) => request<JobListResponse>(withQuery('/ingestion/jobs', { limit })),
   getJob: (jobId: string) => request<JobRecord>(`/ingestion/jobs/${jobId}`),
+  clearJobs: () => request<ClearJobsResponse>('/ingestion/jobs', { method: 'DELETE' }),
 
   getEmbeddingsStatus: (source: Source) =>
     request<EmbeddingsStatusResponse>(withQuery('/embeddings/status', { source })),
 
   listCompetitions: (source: Source) => request<CompetitionSummary[]>(withQuery('/competitions', { source })),
 
-  listMatches: (source: Source, limit = 200) =>
-    request<MatchSummary[]>(withQuery('/matches', { source, limit })),
+  listMatches: (source: Source, limit = 200) => request<MatchSummary[]>(withQuery('/matches', { source, limit })),
 
-  listTeams: (source: Source, matchId?: number) =>
-    request<TeamSummary[]>(withQuery('/teams', { source, match_id: matchId })),
+  listTeams: (source: Source, matchId?: number) => request<TeamSummary[]>(withQuery('/teams', { source, match_id: matchId })),
 
   listPlayers: (source: Source, matchId?: number) =>
     request<PlayerSummary[]>(withQuery('/players', { source, match_id: matchId })),

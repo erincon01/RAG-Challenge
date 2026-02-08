@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -24,6 +25,130 @@ class IngestionService:
         self.settings = get_settings()
         self.statsbomb = StatsBombService()
         self.local_folder = Path(self.settings.repository.local_folder)
+
+    @staticmethod
+    def _safe_unlink(path: Path) -> bool:
+        try:
+            if path.exists() and path.is_file():
+                path.unlink()
+                return True
+        except Exception:
+            return False
+        return False
+
+    @staticmethod
+    def _prune_empty_dirs(path: Path, stop_at: Path) -> None:
+        current = path
+        while current != stop_at and current.exists() and current.is_dir():
+            if any(current.iterdir()):
+                break
+            current.rmdir()
+            current = current.parent
+
+    @staticmethod
+    def _parse_match_ids(match_ids: List[int] | None) -> List[int]:
+        if not match_ids:
+            return []
+        return sorted({int(v) for v in match_ids})
+
+    def clear_downloaded_files(
+        self,
+        *,
+        datasets: List[str],
+        match_ids: Optional[List[int]] = None,
+        competition_id: Optional[int] = None,
+        season_id: Optional[int] = None,
+        delete_all: bool = False,
+    ) -> Dict[str, Any]:
+        selected = [d.lower() for d in (datasets or ["matches", "lineups", "events"])]
+        allowed = {"matches", "lineups", "events"}
+        normalized = [d for d in selected if d in allowed]
+        if not normalized:
+            raise ValueError("At least one valid dataset is required")
+
+        target_match_ids = self._parse_match_ids(match_ids)
+        if competition_id is not None and season_id is not None:
+            resolved = self.statsbomb.resolve_match_ids(
+                match_ids=None,
+                competition_id=competition_id,
+                season_id=season_id,
+            )
+            target_match_ids = sorted(set(target_match_ids).union(set(resolved)))
+
+        deleted_files: List[str] = []
+        deleted_dirs: List[str] = []
+
+        if delete_all:
+            for dataset in normalized:
+                root = self.local_folder / dataset
+                if root.exists() and root.is_dir():
+                    shutil.rmtree(root)
+                    deleted_dirs.append(str(root))
+            competitions_file = self.local_folder / "competitions.json"
+            if competitions_file.exists() and self._safe_unlink(competitions_file):
+                deleted_files.append(str(competitions_file))
+            return {
+                "deleted_count": len(deleted_files) + len(deleted_dirs),
+                "deleted_files": deleted_files,
+                "deleted_dirs": deleted_dirs,
+                "filters": {
+                    "datasets": normalized,
+                    "match_ids": target_match_ids,
+                    "competition_id": competition_id,
+                    "season_id": season_id,
+                    "delete_all": True,
+                },
+            }
+
+        for dataset in normalized:
+            if dataset in {"events", "lineups"}:
+                root = self.local_folder / dataset
+                if not root.exists():
+                    continue
+
+                if target_match_ids:
+                    for match_id in target_match_ids:
+                        file_path = root / f"{match_id}.json"
+                        if self._safe_unlink(file_path):
+                            deleted_files.append(str(file_path))
+                else:
+                    for file_path in root.glob("*.json"):
+                        if self._safe_unlink(file_path):
+                            deleted_files.append(str(file_path))
+
+            if dataset == "matches":
+                root = self.local_folder / "matches"
+                if not root.exists():
+                    continue
+
+                if competition_id is not None and season_id is not None:
+                    file_path = root / str(competition_id) / f"{season_id}.json"
+                    if self._safe_unlink(file_path):
+                        deleted_files.append(str(file_path))
+                        self._prune_empty_dirs(file_path.parent, root)
+                else:
+                    for file_path in root.glob("**/*.json"):
+                        if self._safe_unlink(file_path):
+                            deleted_files.append(str(file_path))
+
+        for dataset in normalized:
+            root = self.local_folder / dataset
+            if root.exists() and root.is_dir() and not any(root.iterdir()):
+                root.rmdir()
+                deleted_dirs.append(str(root))
+
+        return {
+            "deleted_count": len(deleted_files) + len(deleted_dirs),
+            "deleted_files": deleted_files,
+            "deleted_dirs": deleted_dirs,
+            "filters": {
+                "datasets": normalized,
+                "match_ids": target_match_ids,
+                "competition_id": competition_id,
+                "season_id": season_id,
+                "delete_all": False,
+            },
+        }
 
     @contextmanager
     def _get_connection(self, source: str):
@@ -104,18 +229,26 @@ class IngestionService:
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
         try:
             JobService.update(job_id, status="running", total=len(datasets), message=f"Loading into {source}")
+            JobService.log(job_id, f"$ connect --source {source}")
+            JobService.log(job_id, "$ load --datasets " + ",".join(datasets))
+            if match_ids:
+                JobService.log(job_id, "$ filter --match-ids " + ",".join(map(str, match_ids)))
+
             result: Dict[str, Any] = {}
             progress = 0
             with self._get_connection(source) as conn:
                 if "matches" in datasets:
+                    JobService.log(job_id, "$ execute load_matches")
                     result["matches"] = self._load_matches(conn, source, match_ids)
                     progress += 1
                     JobService.update(job_id, progress=progress, message="Loaded matches")
                 if "events" in datasets:
+                    JobService.log(job_id, "$ execute load_events")
                     result["events"] = self._load_events(conn, source, match_ids)
                     progress += 1
                     JobService.update(job_id, progress=progress, message="Loaded events")
                 if "lineups" in datasets:
+                    JobService.log(job_id, "$ execute load_lineups (pending implementation)")
                     result["lineups"] = {"skipped": True, "reason": "lineups load pending"}
                     progress += 1
                     JobService.update(job_id, progress=progress, message="Skipped lineups (pending)")
@@ -128,9 +261,14 @@ class IngestionService:
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
         try:
             JobService.update(job_id, status="running", total=1, message=f"Building aggregations in {source}")
+            JobService.log(job_id, f"$ connect --source {source}")
+            if match_ids:
+                JobService.log(job_id, "$ aggregate --match-ids " + ",".join(map(str, match_ids)))
+            else:
+                JobService.log(job_id, "$ aggregate --all-matches")
             with self._get_connection(source) as conn:
                 rows = self._build_aggregations(conn, source, match_ids)
-            JobService.update(job_id, progress=1)
+            JobService.update(job_id, progress=1, message="Aggregation build completed")
             JobService.complete(job_id, {"aggregated_rows": rows, "source": source})
         except Exception as e:
             JobService.fail(job_id, str(e))
@@ -145,16 +283,23 @@ class IngestionService:
         models = payload.get("embedding_models") or defaults[source]
         try:
             JobService.update(job_id, status="running", message=f"Rebuilding embeddings in {source}")
+            JobService.log(job_id, f"$ connect --source {source}")
+            JobService.log(job_id, "$ embeddings --models " + ",".join(models))
+            if match_ids:
+                JobService.log(job_id, "$ embeddings --match-ids " + ",".join(map(str, match_ids)))
+
             adapter = OpenAIAdapter()
             with self._get_connection(source) as conn:
                 rows = self._fetch_summary_rows(conn, source, match_ids)
-                JobService.update(job_id, total=len(rows))
+                JobService.update(job_id, total=len(rows), message=f"Preparing {len(rows)} rows for embeddings")
                 updated = 0
                 for idx, (row_id, summary) in enumerate(rows, start=1):
                     if not summary:
                         continue
                     self._update_embeddings_for_row(conn, source, row_id, summary, models, adapter)
                     updated += 1
+                    if idx % 25 == 0 or idx == len(rows):
+                        JobService.log(job_id, f"$ embeddings progress {idx}/{len(rows)}")
                     JobService.update(job_id, progress=idx, message=f"Embedded row {idx}/{len(rows)}")
             JobService.complete(job_id, {"updated_rows": updated, "source": source, "embedding_models": models})
         except Exception as e:
@@ -459,3 +604,9 @@ class IngestionService:
             emb = adapter.create_embedding(text=summary, model=model)
             emb_str = "[" + ",".join(map(str, emb)) + "]"
             cur.execute(f"UPDATE events_details__15secs_agg SET {col} = CAST(? AS VECTOR(1536)) WHERE id = ?", (emb_str, row_id))
+
+
+
+
+
+

@@ -13,6 +13,20 @@ router = APIRouter()
 _service = IngestionService()
 
 
+def _normalize_datasets(values: List[str]) -> List[str]:
+    allowed = {"matches", "lineups", "events"}
+    normalized = [v.lower().strip() for v in values]
+    invalid = [v for v in normalized if v not in allowed]
+    if invalid:
+        raise ValueError(f"Unsupported dataset(s): {', '.join(invalid)}")
+    # Preserve order while de-duplicating
+    unique: List[str] = []
+    for item in normalized:
+        if item not in unique:
+            unique.append(item)
+    return unique
+
+
 class JobCreateResponse(BaseModel):
     job_id: str
     status: str
@@ -21,6 +35,10 @@ class JobCreateResponse(BaseModel):
 
 class JobListResponse(BaseModel):
     items: List[Dict[str, Any]]
+
+
+class ClearJobsResponse(BaseModel):
+    removed_jobs: int
 
 
 class DownloadRequest(BaseModel):
@@ -33,12 +51,27 @@ class DownloadRequest(BaseModel):
     @field_validator("datasets")
     @classmethod
     def validate_datasets(cls, values: List[str]) -> List[str]:
-        allowed = {"matches", "lineups", "events"}
-        normalized = [v.lower().strip() for v in values]
-        invalid = [v for v in normalized if v not in allowed]
-        if invalid:
-            raise ValueError(f"Unsupported dataset(s): {', '.join(invalid)}")
-        return normalized
+        return _normalize_datasets(values)
+
+
+class DownloadCleanupRequest(BaseModel):
+    datasets: List[str] = Field(default_factory=lambda: ["matches", "lineups", "events"])
+    match_ids: List[int] = Field(default_factory=list)
+    competition_id: Optional[int] = None
+    season_id: Optional[int] = None
+    delete_all: bool = False
+
+    @field_validator("datasets")
+    @classmethod
+    def validate_datasets(cls, values: List[str]) -> List[str]:
+        return _normalize_datasets(values)
+
+
+class DownloadCleanupResponse(BaseModel):
+    deleted_count: int
+    deleted_files: List[str]
+    deleted_dirs: List[str]
+    filters: Dict[str, Any]
 
 
 class LoadRequest(BaseModel):
@@ -113,6 +146,31 @@ async def start_download_job(
 
 
 @router.post(
+    "/ingestion/download/cleanup",
+    response_model=DownloadCleanupResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Delete downloaded files by filters or entirely",
+)
+async def cleanup_downloaded_files(
+    request: DownloadCleanupRequest,
+) -> DownloadCleanupResponse:
+    try:
+        result = _service.clear_downloaded_files(
+            datasets=request.datasets,
+            match_ids=request.match_ids,
+            competition_id=request.competition_id,
+            season_id=request.season_id,
+            delete_all=request.delete_all,
+        )
+        return DownloadCleanupResponse(**result)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to cleanup downloaded files: {e}",
+        )
+
+
+@router.post(
     "/ingestion/load",
     response_model=JobCreateResponse,
     status_code=status.HTTP_202_ACCEPTED,
@@ -182,6 +240,17 @@ async def list_jobs(
     limit: int = Query(default=100, ge=1, le=500),
 ) -> JobListResponse:
     return JobListResponse(items=JobService.list(limit=limit))
+
+
+@router.delete(
+    "/ingestion/jobs",
+    response_model=ClearJobsResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Clear ingestion jobs",
+)
+async def clear_jobs() -> ClearJobsResponse:
+    removed = JobService.clear()
+    return ClearJobsResponse(removed_jobs=removed)
 
 
 @router.get(

@@ -71,10 +71,15 @@ export interface JobRecord {
   message: string
   error: string | null
   result: Record<string, unknown>
+  logs: string[]
 }
 
 export interface JobListResponse {
   items: JobRecord[]
+}
+
+export interface ClearJobsResponse {
+  removed_jobs: number
 }
 
 export interface EmbeddingsStatusResponse {
@@ -168,6 +173,21 @@ export interface DownloadRequestPayload {
   competition_id?: number
   season_id?: number
   overwrite?: boolean
+}
+
+export interface DownloadCleanupRequestPayload {
+  datasets: string[]
+  match_ids: number[]
+  competition_id?: number
+  season_id?: number
+  delete_all?: boolean
+}
+
+export interface DownloadCleanupResponse {
+  deleted_count: number
+  deleted_files: string[]
+  deleted_dirs: string[]
+  filters: Record<string, unknown>
 }
 
 export interface LoadRequestPayload {

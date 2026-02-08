@@ -25,6 +25,7 @@ class JobRecord:
     message: str
     error: Optional[str]
     result: Dict[str, Any]
+    logs: List[str]
 
 
 class JobService:
@@ -32,6 +33,18 @@ class JobService:
 
     _jobs: Dict[str, JobRecord] = {}
     _lock = Lock()
+    _max_logs = 1000
+
+    @staticmethod
+    def _timestamp() -> str:
+        return datetime.utcnow().isoformat()
+
+    @classmethod
+    def _append_log(cls, job: JobRecord, line: str) -> None:
+        ts = cls._timestamp()
+        job.logs.append(f"[{ts}] {line}")
+        if len(job.logs) > cls._max_logs:
+            job.logs = job.logs[-cls._max_logs :]
 
     @classmethod
     def create_job(
@@ -41,7 +54,7 @@ class JobService:
         source: Optional[str] = None,
     ) -> JobRecord:
         """Create a new job and return its record."""
-        now = datetime.utcnow().isoformat()
+        now = cls._timestamp()
         job = JobRecord(
             id=str(uuid4()),
             type=job_type,
@@ -55,7 +68,9 @@ class JobService:
             message="Job created",
             error=None,
             result={},
+            logs=[],
         )
+        cls._append_log(job, f"Job created ({job_type})")
         with cls._lock:
             cls._jobs[job.id] = job
         return job
@@ -76,17 +91,29 @@ class JobService:
             job = cls._jobs.get(job_id)
             if not job:
                 return
-            if status is not None:
+            if status is not None and status != job.status:
                 job.status = status
+                cls._append_log(job, f"Status changed to {status}")
             if progress is not None:
                 job.progress = progress
             if total is not None:
                 job.total = total
             if message is not None:
                 job.message = message
+                cls._append_log(job, message)
             if result is not None:
                 job.result = result
-            job.updated_at = datetime.utcnow().isoformat()
+            job.updated_at = cls._timestamp()
+
+    @classmethod
+    def log(cls, job_id: str, message: str) -> None:
+        """Append one execution log line to a job."""
+        with cls._lock:
+            job = cls._jobs.get(job_id)
+            if not job:
+                return
+            cls._append_log(job, message)
+            job.updated_at = cls._timestamp()
 
     @classmethod
     def fail(cls, job_id: str, error: str) -> None:
@@ -98,7 +125,8 @@ class JobService:
             job.status = "error"
             job.error = error
             job.message = "Job failed"
-            job.updated_at = datetime.utcnow().isoformat()
+            cls._append_log(job, f"ERROR: {error}")
+            job.updated_at = cls._timestamp()
 
     @classmethod
     def complete(cls, job_id: str, result: Optional[Dict[str, Any]] = None) -> None:
@@ -112,7 +140,8 @@ class JobService:
             job.progress = job.total if job.total > 0 else job.progress
             if result is not None:
                 job.result = result
-            job.updated_at = datetime.utcnow().isoformat()
+            cls._append_log(job, "Job completed successfully")
+            job.updated_at = cls._timestamp()
 
     @classmethod
     def get(cls, job_id: str) -> Optional[Dict[str, Any]]:
@@ -128,3 +157,11 @@ class JobService:
             jobs = list(cls._jobs.values())
         jobs.sort(key=lambda j: j.created_at, reverse=True)
         return [asdict(job) for job in jobs[:limit]]
+
+    @classmethod
+    def clear(cls) -> int:
+        """Clear all jobs and return number of removed records."""
+        with cls._lock:
+            count = len(cls._jobs)
+            cls._jobs.clear()
+        return count
