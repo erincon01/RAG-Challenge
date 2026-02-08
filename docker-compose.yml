@@ -34,6 +34,7 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-SqlServer_Local_Pwd123!}
       MSSQL_PID: "Express"
+      MSSQL_MEMORY_LIMIT_MB: ${MSSQL_MEMORY_LIMIT_MB:-2048}
     ports:
       - "${SQLSERVER_PORT:-1433}:1433"
     volumes:

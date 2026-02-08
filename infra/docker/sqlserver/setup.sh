@@ -3,21 +3,29 @@
 # Starts SQL Server in the background, waits until it is ready,
 # runs init scripts, and then keeps the process running.
 
-set -e
+set -euo pipefail
 
 # Start SQL Server in the background
 /opt/mssql/bin/sqlservr &
 SQLPID=$!
 
 echo "Waiting for SQL Server to start..."
-for i in $(seq 1 60); do
-    /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -Q "SELECT 1" > /dev/null 2>&1
-    if [ $? -eq 0 ]; then
+ready=0
+for i in $(seq 1 90); do
+    if /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -Q "SELECT 1" > /dev/null 2>&1; then
         echo "SQL Server is ready."
+        ready=1
         break
     fi
     sleep 1
 done
+
+if [ "$ready" -ne 1 ]; then
+    echo "SQL Server did not become ready in time." >&2
+    kill "$SQLPID" >/dev/null 2>&1 || true
+    wait "$SQLPID" || true
+    exit 1
+fi
 
 # Run init scripts in order
 for f in /docker-entrypoint-initdb.d/*.sql; do
@@ -30,4 +38,4 @@ done
 echo "Init scripts completed."
 
 # Wait for SQL Server process
-wait $SQLPID
+wait "$SQLPID"

@@ -10,7 +10,12 @@ RUN apt-get update \
 # Copy init scripts and entrypoint
 COPY initdb/ /docker-entrypoint-initdb.d/
 COPY setup.sh /setup.sh
-RUN chmod +x /setup.sh
+
+# Ensure Unix line endings (avoid \r issues from Windows checkouts)
+RUN tr -d '\r' < /setup.sh > /setup.sh.lf \
+    && mv /setup.sh.lf /setup.sh \
+    && for f in /docker-entrypoint-initdb.d/*.sql; do tr -d '\r' < "$f" > "$f.lf" && mv "$f.lf" "$f"; done \
+    && chmod +x /setup.sh
 
 USER mssql
 

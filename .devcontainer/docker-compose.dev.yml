@@ -1,0 +1,45 @@
+# Docker Compose overrides for development container
+# This file extends docker-compose.yml with dev-specific settings
+
+services:
+  backend:
+    # Run backend in dev mode with auto-reload
+    working_dir: /app/backend
+    command: >
+      bash -lc "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+
+    # Mount full repository for multi-service development in one workspace
+    volumes:
+      - .:/app:cached
+
+    # Dev runtime environment
+    environment:
+      - PYTHONPATH=/app:/app/backend
+      - DEVELOPMENT=true
+
+    # Keep stdin open and allocate a pseudo-TTY for interactive debugging
+    stdin_open: true
+    tty: true
+
+  frontend:
+    # Run frontend in dev mode and point it to backend service
+    working_dir: /app/frontend
+    command: >
+      bash -lc "streamlit run streamlit_app/app_refactored.py --server.port=8501 --server.address=0.0.0.0 --server.headless=true"
+
+    volumes:
+      - .:/app:cached
+
+    environment:
+      - DEVELOPMENT=true
+      - BACKEND_URL=http://backend:8000
+
+  postgres:
+    # Expose ports for direct DB access from host tools
+    ports:
+      - "5432:5432"
+
+  sqlserver:
+    # Expose ports for direct DB access from host tools
+    ports:
+      - "1433:1433"
