@@ -27,15 +27,24 @@ if [ "$ready" -ne 1 ]; then
     exit 1
 fi
 
-# Run init scripts in order
-for f in /docker-entrypoint-initdb.d/*.sql; do
-    if [ -f "$f" ]; then
-        echo "Running $f ..."
-        /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -i "$f"
-    fi
-done
+# Check if database already exists to avoid re-running init scripts
+DB_EXISTS=$(/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -Q "SELECT COUNT(*) FROM sys.databases WHERE name = 'rag_challenge'" -h -1 2>/dev/null | xargs)
 
-echo "Init scripts completed."
+if [ "$DB_EXISTS" -eq 0 ]; then
+    echo "Database not found. Running init scripts..."
+    
+    # Run init scripts in order
+    for f in /docker-entrypoint-initdb.d/*.sql; do
+        if [ -f "$f" ]; then
+            echo "Running $f ..."
+            /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -i "$f"
+        fi
+    done
+    
+    echo "Init scripts completed."
+else
+    echo "Database 'rag_challenge' already initialized. Skipping init scripts."
+fi
 
 # Wait for SQL Server process
 wait "$SQLPID"
