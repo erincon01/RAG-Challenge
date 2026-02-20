@@ -1,0 +1,167 @@
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL 17 + pgvector
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: pgvector/pgvector:pg17
+    container_name: rag-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-rag_challenge}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_local_pwd}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/docker/postgres/initdb:/docker-entrypoint-initdb.d:ro
+    networks:
+      - internal
+      - external
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-rag_challenge}"]
+      interval: 3s
+      timeout: 2s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+    profiles:
+      - postgres  # Inicia solo con: docker-compose --profile postgres up
+
+  # ---------------------------------------------------------------------------
+  # SQL Server 2025 Express (Linux)
+  # ---------------------------------------------------------------------------
+  sqlserver:
+    build:
+      context: ./infra/docker/sqlserver
+      dockerfile: Dockerfile
+    container_name: rag-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-SqlServer_Local_Pwd123!}
+      MSSQL_PID: "Express"
+      MSSQL_MEMORY_LIMIT_MB: ${MSSQL_MEMORY_LIMIT_MB:-512}
+    ports:
+      - "${SQLSERVER_PORT:-1433}:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - internal
+      - external
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P ${MSSQL_SA_PASSWORD:-SqlServer_Local_Pwd123!} -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Backend (FastAPI)
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: rag-backend
+    working_dir: /app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app
+    env_file:
+      - .env.docker
+    environment:
+      ENVIRONMENT: local
+      PYTHONPATH: /app:/
+      DEVELOPMENT: "true"
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: ${POSTGRES_DB:-rag_challenge}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_local_pwd}
+      SQLSERVER_HOST: sqlserver
+      SQLSERVER_DB: rag_challenge
+      SQLSERVER_USER: sa
+      SQLSERVER_PASSWORD: ${MSSQL_SA_PASSWORD:-SqlServer_Local_Pwd123!}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - .:/workspace:cached
+      - ./backend:/app:cached
+      - ./config:/config:ro
+    networks:
+      - internal
+      - external
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/live')\""]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Frontend (React + TypeScript + Tailwind)
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend/webapp
+      dockerfile: Dockerfile
+      target: development
+      args:
+        VITE_API_BASE_URL: http://localhost:8000/api/v1
+        VITE_BACKEND_ORIGIN: http://localhost:8000
+    container_name: rag-frontend
+    working_dir: /app
+    command: npm run dev -- --host 0.0.0.0
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    volumes:
+      - ./frontend/webapp:/app:cached
+      - frontend_node_modules:/app/node_modules
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000/api/v1
+      - VITE_BACKEND_ORIGIN=http://localhost:8000
+    networks:
+      - internal
+      - external
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+    restart: unless-stopped
+
+networks:
+  internal:
+    driver: bridge
+    internal: true  # BD: sin acceso a redes externas/host
+  external:
+    driver: bridge   # Backend/Frontend: acceso a internet (APIs externas)
+
+volumes:
+  postgres_data:
+    driver: local
+  sqlserver_data:
+    driver: local
+  frontend_node_modules:
+    driver: local
+

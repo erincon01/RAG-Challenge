@@ -1,9 +1,15 @@
 .env
+.env.docker
 /data/events/
 /data/lineups/
 /data/matches/
 /data/three-sixty/
 /data/openai/matches_summary/*.yaml
+/backend/data/events/
+/backend/data/lineups/
+/backend/data/matches/
+/app/data/scripts_summary/Answers/
+
 *.pyc
 ~
 rag_challenge.db

@@ -1,0 +1,17 @@
+.git
+.devcontainer
+.claude
+.env
+.env.docker
+*.mp4
+images/
+docs/
+zArticle/
+deploy/
+data/
+node_modules/
+__pycache__
+*.pyc
+.pytest_cache
+.venv
+venv

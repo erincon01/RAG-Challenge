@@ -1,46 +1,86 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
 {
-	"name": "RAG Challenge",
-	"build": {
-		// Sets the run context to one level up instead of the .devcontainer folder.
-		"context": "..",
-		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-		"dockerfile": "dockerfile"
-	},
-
-	"mounts": [
-		"source=${localWorkspaceFolder},target=/app,type=bind"
-	  ],
-	  
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"name": "RAG Challenge - Full Stack",
+	"dockerComposeFile": [
+		"../docker-compose.yml"
+	],
+	"service": "backend",
+	"workspaceFolder": "/workspace",
+	// Run as non-root user inside the dev container
+	"remoteUser": "appuser",
+	"containerUser": "appuser",
+	"updateRemoteUserUID": true,
+	// Shutdown all services when the dev container stops
+	"shutdownAction": "stopCompose",
+	// Forward ports for all services
 	"forwardPorts": [
-	 	8501,
-	 	80
-	 ],
+		8000, // Backend API
+		5173, // Frontend React
+		5432, // PostgreSQL
+		1433 // SQL Server
+	],
+	// Port attributes for better UX
+	"portsAttributes": {
+		"8000": {
+			"label": "Backend API",
+			"onAutoForward": "notify"
+		},
+		"5173": {
+			"label": "Frontend React",
+			"onAutoForward": "openBrowser"
+		},
+		"5432": {
+			"label": "PostgreSQL"
+		},
+		"1433": {
+			"label": "SQL Server"
+		}
+	},
+	// Install dependencies and run migrations after container is created
+	"postCreateCommand": "bash /workspace/.devcontainer/post-create.sh",
+	// Validate services health on startup
+	"postStartCommand": "bash /workspace/.devcontainer/post-start.sh",
+	// VS Code extensions to install
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"ms-python.python",
-				"donjayamanne.githistory",
+				"ms-python.vscode-pylance",
+				"ms-python.black-formatter",
+				"charliermarsh.ruff",
+				"tamasfe.even-better-toml",
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
-				"ms-python.vscode-pylance"
-			]
+				"donjayamanne.githistory",
+				"eamodio.gitlens",
+				"ms-azuretools.vscode-docker",
+				"Anthropic.claude-code"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.linting.enabled": true,
+				"python.linting.ruffEnabled": true,
+				"python.formatting.provider": "black",
+				"editor.formatOnSave": true,
+				"editor.codeActionsOnSave": {
+					"source.organizeImports": "explicit"
+				}
+			}
 		}
 	},
-
-	"postStartCommand": "streamlit run app.py --server.port=80 --server.headless=true"
-
-	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "cat /etc/os-release",
-
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "devcontainer"
+	// Environment variables
+	"remoteEnv": {
+		"PYTHONUNBUFFERED": "1",
+		"PYTHONDONTWRITEBYTECODE": "1"
+	},
+	// Features to add
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+			"moby": false,
+			"installDockerBuildx": true,
+			"version": "latest",
+			"dockerDashComposeVersion": "v2"
+		}
+	}
 }
