@@ -102,8 +102,8 @@ services:
       - "8000:8000"
     environment:
       ENVIRONMENT: local
-      DB_SERVER_AZURE_POSTGRES: postgres
-      DB_SERVER_AZURE: sqlserver
+      POSTGRES_HOST: postgres
+      SQLSERVER_HOST: sqlserver
     depends_on:
       postgres:
         condition: service_healthy

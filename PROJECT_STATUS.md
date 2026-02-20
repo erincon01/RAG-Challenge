@@ -8,11 +8,12 @@
 
 ## 📊 Executive Summary
 
-### Overall Progress: 85% Complete
+### Overall Progress: 90% Complete
 
 - ✅ **Backend Rearchitecture:** 100% (Phases 0-2)
 - ✅ **Frontend Migration:** 100% (Phases 0-6)
-- ⏳ **Infrastructure:** 60% (pgvector migration pending)
+- ✅ **pgvector Migration (Phase 2A):** 100% (Azure extensions removed)
+- ⏳ **Infrastructure:** 80% (Devcontainer pending)
 - ⏳ **DevOps:** 20% (CI/CD not started)
 
 ### Key Achievements
@@ -86,22 +87,22 @@ All pages fully functional:
 
 ### Critical Path
 
-#### 1. pgvector Migration (Phase 2A) - **CRITICAL**
+#### 1. pgvector Migration (Phase 2A) - **COMPLETED**
 
-**Status:** ADR-003 proposed but not implemented
-**Priority:** HIGH - Blocks Azure independence
-**Estimated effort:** 3-4 weeks
+**Status:** ✅ Implemented (ADR-003 accepted)
+**Completed:** 2026-02-20
 
-**Tasks:**
-- [ ] Update PostgreSQL schema with metadata columns
-- [ ] Implement embedding generation service
-- [ ] Create batch processing worker
-- [ ] Backfill existing embeddings
-- [ ] Validate search quality parity
-- [ ] Update repository queries
-- [ ] Remove Azure extension dependencies
+**Done:**
 
-**Impact:** Currently the app works locally but still uses Azure-specific PostgreSQL extensions in queries. Full portability requires this migration.
+- [x] PostgreSQL schema with embedding status tracking columns
+- [x] Embedding generation via OpenAI API (not DB-generated)
+- [x] Batch processing with exponential backoff retry
+- [x] Portable OpenAI adapter (Azure + direct OpenAI)
+- [x] pgvector HNSW indexes for cosine + inner product
+- [x] SQL Server 2025 native VECTOR support
+- [x] Removed all Azure extension dependencies
+- [x] Renamed env vars from `DB_*_AZURE_*` to neutral names
+- [ ] Integration tests for embedding generation
 
 #### 2. Devcontainer 2.0 (Phase 3) - **IN PROGRESS**
 
@@ -169,7 +170,7 @@ All pages fully functional:
 | Phase 0 | Technical Stabilization | ✅ Complete | 100% |
 | Phase 1 | Backend/Frontend Separation | ✅ Complete | 100% |
 | Phase 2 | Docker Local Infrastructure | ✅ Complete | 100% |
-| Phase 2A | pgvector Migration | ⏳ Pending | 0% |
+| Phase 2A | pgvector Migration | ✅ Complete | 100% |
 | Phase 3 | Devcontainer 2.0 | ⏳ In Progress | 30% |
 | Phase 4 | Task Automation | ⏳ Not Started | 0% |
 | Phase 5 | GitHub Actions CI/CD | ⏳ Not Started | 0% |

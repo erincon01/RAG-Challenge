@@ -79,14 +79,14 @@ services:
       ENVIRONMENT: local
       PYTHONPATH: /app:/
       DEVELOPMENT: "true"
-      DB_SERVER_AZURE_POSTGRES: postgres
-      DB_NAME_AZURE_POSTGRES: ${POSTGRES_DB:-rag_challenge}
-      DB_USER_AZURE_POSTGRES: ${POSTGRES_USER:-postgres}
-      DB_PASSWORD_AZURE_POSTGRES: ${POSTGRES_PASSWORD:-postgres_local_pwd}
-      DB_SERVER_AZURE: sqlserver
-      DB_NAME_AZURE: rag_challenge
-      DB_USER_AZURE: sa
-      DB_PASSWORD_AZURE: ${MSSQL_SA_PASSWORD:-SqlServer_Local_Pwd123!}
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: ${POSTGRES_DB:-rag_challenge}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_local_pwd}
+      SQLSERVER_HOST: sqlserver
+      SQLSERVER_DB: rag_challenge
+      SQLSERVER_USER: sa
+      SQLSERVER_PASSWORD: ${MSSQL_SA_PASSWORD:-SqlServer_Local_Pwd123!}
     ports:
       - "${BACKEND_PORT:-8000}:8000"
     volumes:

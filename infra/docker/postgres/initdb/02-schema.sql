@@ -98,10 +98,15 @@ CREATE TABLE IF NOT EXISTS events_details__quarter_minute (
     summary TEXT,
     summary_script TEXT,
 
-    -- Embedding columns (populated by application, not DB-generated)
+    -- Embedding columns (populated by application via OpenAI API, not DB-generated)
     summary_embedding_ada_002       VECTOR(1536),  -- text-embedding-ada-002
     summary_embedding_t3_small      VECTOR(1536),  -- text-embedding-3-small
-    summary_embedding_t3_large      VECTOR(3072)   -- text-embedding-3-large
+    summary_embedding_t3_large      VECTOR(3072),  -- text-embedding-3-large
+
+    -- Embedding lifecycle tracking
+    embedding_status                VARCHAR(20) DEFAULT 'pending',  -- pending | done | error
+    embedding_updated_at            TIMESTAMP,
+    embedding_error                 TEXT
 );
 
 CREATE INDEX IF NOT EXISTS idx_edqm_match_id ON events_details__quarter_minute(match_id);

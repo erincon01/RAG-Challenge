@@ -316,7 +316,9 @@ class IngestionService:
                            SUM(CASE WHEN summary_embedding_ada_002 IS NOT NULL THEN 1 ELSE 0 END),
                            SUM(CASE WHEN summary_embedding_t3_small IS NOT NULL THEN 1 ELSE 0 END),
                            SUM(CASE WHEN summary_embedding_t3_large IS NOT NULL THEN 1 ELSE 0 END),
-                           SUM(CASE WHEN summary_embedding IS NOT NULL THEN 1 ELSE 0 END)
+                           SUM(CASE WHEN embedding_status = 'done' THEN 1 ELSE 0 END),
+                           SUM(CASE WHEN embedding_status = 'error' THEN 1 ELSE 0 END),
+                           SUM(CASE WHEN embedding_status = 'pending' OR embedding_status IS NULL THEN 1 ELSE 0 END)
                     FROM events_details__quarter_minute
                     """
                 )
@@ -330,13 +332,21 @@ class IngestionService:
                         "text-embedding-3-small": int(row[2] or 0),
                         "text-embedding-3-large": int(row[3] or 0),
                     },
+                    "status": {
+                        "done": int(row[4] or 0),
+                        "error": int(row[5] or 0),
+                        "pending": int(row[6] or 0),
+                    },
                 }
 
             cur.execute(
                 """
                 SELECT COUNT(*),
                        SUM(CASE WHEN embedding_ada_002 IS NOT NULL THEN 1 ELSE 0 END),
-                       SUM(CASE WHEN embedding_3_small IS NOT NULL THEN 1 ELSE 0 END)
+                       SUM(CASE WHEN embedding_3_small IS NOT NULL THEN 1 ELSE 0 END),
+                       SUM(CASE WHEN embedding_status = 'done' THEN 1 ELSE 0 END),
+                       SUM(CASE WHEN embedding_status = 'error' THEN 1 ELSE 0 END),
+                       SUM(CASE WHEN embedding_status = 'pending' OR embedding_status IS NULL THEN 1 ELSE 0 END)
                 FROM events_details__15secs_agg
                 """
             )
@@ -348,6 +358,11 @@ class IngestionService:
                 "coverage": {
                     "text-embedding-ada-002": int(row[1] or 0),
                     "text-embedding-3-small": int(row[2] or 0),
+                },
+                "status": {
+                    "done": int(row[3] or 0),
+                    "error": int(row[4] or 0),
+                    "pending": int(row[5] or 0),
                 },
             }
 
@@ -578,11 +593,29 @@ class IngestionService:
 
     def _update_embeddings_for_row(self, conn, source: str, row_id: int, summary: str, models: List[str], adapter: OpenAIAdapter) -> None:
         cur = conn.cursor()
-        if source == "postgres":
+        try:
+            if source == "postgres":
+                model_cols = {
+                    "text-embedding-ada-002": "summary_embedding_ada_002",
+                    "text-embedding-3-small": "summary_embedding_t3_small",
+                    "text-embedding-3-large": "summary_embedding_t3_large",
+                }
+                for model in models:
+                    col = model_cols.get(model)
+                    if not col:
+                        continue
+                    emb = adapter.create_embedding(text=summary, model=model)
+                    emb_str = "[" + ",".join(map(str, emb)) + "]"
+                    cur.execute(f"UPDATE events_details__quarter_minute SET {col} = %s::vector WHERE id = %s", (emb_str, row_id))
+                cur.execute(
+                    "UPDATE events_details__quarter_minute SET embedding_status = 'done', embedding_updated_at = NOW(), embedding_error = NULL WHERE id = %s",
+                    (row_id,),
+                )
+                return
+
             model_cols = {
-                "text-embedding-ada-002": "summary_embedding_ada_002",
-                "text-embedding-3-small": "summary_embedding_t3_small",
-                "text-embedding-3-large": "summary_embedding_t3_large",
+                "text-embedding-ada-002": "embedding_ada_002",
+                "text-embedding-3-small": "embedding_3_small",
             }
             for model in models:
                 col = model_cols.get(model)
@@ -590,23 +623,26 @@ class IngestionService:
                     continue
                 emb = adapter.create_embedding(text=summary, model=model)
                 emb_str = "[" + ",".join(map(str, emb)) + "]"
-                cur.execute(f"UPDATE events_details__quarter_minute SET {col} = %s::vector WHERE id = %s", (emb_str, row_id))
-            return
-
-        model_cols = {
-            "text-embedding-ada-002": "embedding_ada_002",
-            "text-embedding-3-small": "embedding_3_small",
-        }
-        for model in models:
-            col = model_cols.get(model)
-            if not col:
-                continue
-            emb = adapter.create_embedding(text=summary, model=model)
-            emb_str = "[" + ",".join(map(str, emb)) + "]"
-            cur.execute(f"UPDATE events_details__15secs_agg SET {col} = CAST(? AS VECTOR(1536)) WHERE id = ?", (emb_str, row_id))
-
-
-
-
+                cur.execute(f"UPDATE events_details__15secs_agg SET {col} = CAST(? AS VECTOR(1536)) WHERE id = ?", (emb_str, row_id))
+            cur.execute(
+                "UPDATE events_details__15secs_agg SET embedding_status = 'done', embedding_updated_at = GETDATE(), embedding_error = NULL WHERE id = ?",
+                (row_id,),
+            )
+        except Exception as e:
+            # Mark the row as errored but don't stop the whole batch
+            try:
+                if source == "postgres":
+                    cur.execute(
+                        "UPDATE events_details__quarter_minute SET embedding_status = 'error', embedding_error = %s WHERE id = %s",
+                        (str(e)[:500], row_id),
+                    )
+                else:
+                    cur.execute(
+                        "UPDATE events_details__15secs_agg SET embedding_status = 'error', embedding_error = ? WHERE id = ?",
+                        (str(e)[:500], row_id),
+                    )
+            except Exception:
+                pass
+            raise
 
 

@@ -30,12 +30,12 @@ repo_owner = settings.repository.repo_owner
 local_folder = settings.repository.local_folder
 
 # Check environment
-if settings.is_azure():
-    # Azure-specific logic
-    settings.validate_required_for_azure()
-elif settings.is_local():
-    # Local-specific logic
+if settings.is_local():
+    # Local Docker development
     pass
+elif settings.is_azure():
+    # Azure-hosted deployment
+    settings.validate_required()
 ```
 
 ### Dependency Injection (FastAPI)
@@ -82,21 +82,22 @@ Template file with all available configuration options. Keep this file updated w
 
 ### Database (PostgreSQL)
 
-- `DB_SERVER_AZURE_POSTGRES`: PostgreSQL host
-- `DB_NAME_AZURE_POSTGRES`: PostgreSQL database name
-- `DB_USER_AZURE_POSTGRES`: PostgreSQL username
-- `DB_PASSWORD_AZURE_POSTGRES`: PostgreSQL password
+- `POSTGRES_HOST`: PostgreSQL host (Docker: `postgres`, local: `localhost`)
+- `POSTGRES_DB`: PostgreSQL database name
+- `POSTGRES_USER`: PostgreSQL username
+- `POSTGRES_PASSWORD`: PostgreSQL password
 
 ### Database (SQL Server)
 
-- `DB_SERVER_AZURE`: SQL Server host
-- `DB_NAME_AZURE`: SQL Server database name
-- `DB_USER_AZURE`: SQL Server username
-- `DB_PASSWORD_AZURE`: SQL Server password
+- `SQLSERVER_HOST`: SQL Server host (Docker: `sqlserver`, local: `localhost`)
+- `SQLSERVER_DB`: SQL Server database name
+- `SQLSERVER_USER`: SQL Server username
+- `SQLSERVER_PASSWORD`: SQL Server password
 
-### OpenAI/Azure OpenAI
+### OpenAI / Azure OpenAI
 
-- `OPENAI_ENDPOINT`: Azure OpenAI endpoint URL
+- `OPENAI_PROVIDER`: Provider to use (`azure` or `openai`) - default: `azure`
+- `OPENAI_ENDPOINT`: Azure OpenAI endpoint URL (required for Azure provider)
 - `OPENAI_KEY`: API key
 - `OPENAI_MODEL`: Primary model name - default: `gpt-4`
 - `OPENAI_MODEL2`: Secondary model name - default: `gpt-4`
@@ -109,7 +110,7 @@ Template file with all available configuration options. Keep this file updated w
 
 ## Migration Guide
 
-### Before (old pattern)
+### Before (old Azure-specific pattern)
 
 ```python
 import os
@@ -119,14 +120,14 @@ db_name = os.getenv('DB_NAME_AZURE_POSTGRES')
 api_key = os.getenv('OPENAI_KEY')
 ```
 
-### After (new pattern)
+### After (new portable pattern)
 
 ```python
 from config import settings
 
-db_host = settings.database.postgres_host
-db_name = settings.database.postgres_database
-api_key = settings.openai.api_key
+db_host = settings.database.postgres_host   # env: POSTGRES_HOST
+db_name = settings.database.postgres_database  # env: POSTGRES_DB
+api_key = settings.openai.api_key           # env: OPENAI_KEY
 ```
 
 ## Validation
@@ -135,14 +136,14 @@ The configuration module validates settings at startup:
 
 1. **Type validation**: Ensures all values match their expected types
 2. **Environment validation**: Ensures `ENVIRONMENT` is one of: `local`, `azure`, `test`
-3. **Required fields (Azure mode)**: When `ENVIRONMENT=azure`, validates all Azure-specific configuration is present
+3. **Required fields**: When not in test mode, validates all required configuration is present
 
-To manually validate Azure requirements:
+To manually validate:
 
 ```python
 from config import settings
 
-settings.validate_required_for_azure()
+settings.validate_required()
 ```
 
 ## Best Practices
