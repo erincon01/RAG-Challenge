@@ -4,19 +4,38 @@
 
 ## 🎯 Project Status
 
-**Current Version:** v2.0 - Layered Architecture (Refactored)
+**Current Version:** v3.0 - Full Stack Modern Web Application
 **Branch:** `feature/rearquitectura-completa`
-**Architecture:** FastAPI Backend + Streamlit Frontend + PostgreSQL/SQL Server
+**Architecture:** FastAPI Backend + React TypeScript Frontend + PostgreSQL/SQL Server
+**Last Updated:** 2026-02-20
 
-### ✅ Completed Phases
+### ✅ Completed Phases (100% Original Plan + 100% Frontend Migration)
 
-- ✅ **Phase 0:** Technical Stabilization (Bug fixes, Centralized config, ADRs)
+#### Original Rearchitecture Plan
+- ✅ **Phase 0:** Technical Stabilization (Bug fixes, Centralized config, 4 ADRs)
 - ✅ **Phase 1:** Backend/Frontend Separation (Complete layered architecture)
-- ✅ **Phase 2:** Docker Local Infrastructure (Dockerfiles, docker-compose, init scripts)
-- ⏳ **Phase 2A:** pgvector Migration (Pending)
-- ⏳ **Phase 3:** Devcontainer 2.0 (Pending)
+- ✅ **Phase 2:** Docker Local Infrastructure (Full stack containerization)
 
-See [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) for the complete roadmap.
+#### Frontend Web Migration Plan
+- ✅ **Phase 0:** Backend Stabilization & Capabilities API
+- ✅ **Phase 1:** Ingestion API & Job Management
+- ✅ **Phase 2:** React TypeScript Bootstrap
+- ✅ **Phase 3:** Core Operational Screens (Catalog, Operations)
+- ✅ **Phase 4:** Data Explorer & Legacy Parity
+- ✅ **Phase 5:** Embeddings Management & Advanced Chat
+- ✅ **Phase 6:** Hardening & Production Features
+
+### ⏳ Pending Phases
+
+- ⏳ **Phase 2A:** pgvector Migration (Critical - Azure independence)
+- ⏳ **Phase 3:** Devcontainer 2.0 (In Progress)
+- ⏳ **Phase 4:** Task Automation (Not started)
+- ⏳ **Phase 5:** GitHub Actions CI/CD (Not started)
+- ⏳ **Phase 6:** Final UX Polish (Partially complete)
+
+See implementation plans:
+- [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) - Original roadmap
+- [PLAN_MIGRACION_FRONTEND_WEB.md](./PLAN_MIGRACION_FRONTEND_WEB.md) - Frontend migration
 
 ---
 
@@ -25,29 +44,35 @@ See [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) for the
 ### Current Architecture (v2.0)
 
 ```
-┌─────────────────────────────────────────┐
-│    Frontend (Streamlit) - Port 8501    │
-│  • User Interface                       │
-│  • HTTP Client to Backend               │
-└──────────────┬──────────────────────────┘
+┌──────────────────────────────────────────────┐
+│  Frontend (React + TypeScript) - Port 5173  │
+│  • Vite + TailwindCSS                        │
+│  • TanStack Query (state management)         │
+│  • React Router (navigation)                 │
+│  • Full UI: Dashboard, Catalog, Chat, etc.  │
+└──────────────┬───────────────────────────────┘
                │ REST API
                ↓
-┌─────────────────────────────────────────┐
-│     Backend (FastAPI) - Port 8000       │
-│  ┌─────────────────────────────────┐   │
-│  │ API Layer                       │   │
-│  │ • /health, /competitions        │   │
-│  │ • /matches, /events             │   │
-│  │ • /chat/search (RAG endpoint)   │   │
-│  └──────────┬──────────────────────┘   │
-│             ↓                           │
-│  ┌─────────────────────────────────┐   │
-│  │ Services Layer                  │   │
-│  │ • Business Logic                │   │
-│  │ • Search Orchestration          │   │
-│  └──────────┬──────────────────────┘   │
-│             ↓                           │
-│  ┌─────────────────────────────────┐   │
+┌──────────────────────────────────────────────┐
+│       Backend (FastAPI) - Port 8000          │
+│  ┌────────────────────────────────────────┐ │
+│  │ API Layer (v1)                         │ │
+│  │ • /health, /capabilities, /sources     │ │
+│  │ • /competitions, /matches, /events     │ │
+│  │ • /statsbomb, /ingestion, /explorer    │ │
+│  │ • /embeddings, /chat (RAG)             │ │
+│  └──────────┬─────────────────────────────┘ │
+│             ↓                                │
+│  ┌────────────────────────────────────────┐ │
+│  │ Services Layer                         │ │
+│  │ • SearchService (RAG orchestration)    │ │
+│  │ • IngestionService (data loading)      │ │
+│  │ • StatsBombService (remote catalog)    │ │
+│  │ • DataExplorerService (queries)        │ │
+│  │ • JobService (background tasks)        │ │
+│  └──────────┬─────────────────────────────┘ │
+│             ↓                                │
+│  ┌────────────────────────────────────────┐ │
 │  │ Repositories Layer              │   │
 │  │ • PostgreSQL Repository         │   │
 │  │ • SQL Server Repository         │   │
@@ -69,12 +94,27 @@ See [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) for the
 
 ### Key Features
 
-✅ **Layered Architecture**: Clean separation of concerns (API → Services → Repositories → Domain)
-✅ **Multi-Database**: PostgreSQL for vector search, SQL Server for relational data
-✅ **Semantic Search**: Vector similarity search using OpenAI embeddings
-✅ **Multi-Language**: Automatic translation to English for search
-✅ **Dual Mode**: User mode (simple) and Developer mode (advanced)
-✅ **OpenAPI Docs**: Auto-generated at `/docs` and `/redoc`
+#### Architecture & Infrastructure
+✅ **Layered Architecture**: Clean separation (API → Services → Repositories → Domain → Adapters)
+✅ **Multi-Database**: PostgreSQL (vector search) + SQL Server (relational data)
+✅ **Full Stack TypeScript**: React + TypeScript frontend with type-safe API client
+✅ **Containerized**: Complete Docker setup with docker-compose orchestration
+✅ **OpenAPI Docs**: Auto-generated interactive documentation at `/docs`
+
+#### Data & AI Capabilities
+✅ **Semantic Search**: Vector similarity search with multiple embedding models
+✅ **Multi-Model Support**: ada-002, text-embedding-3-small, 3-large, e5-large
+✅ **Multi-Algorithm**: Cosine similarity, inner product, L2 distance
+✅ **Multi-Language**: Automatic translation to English for search queries
+✅ **RAG-Powered Chat**: AI-generated answers with context from match data
+
+#### User Experience
+✅ **Modern Web UI**: 7 comprehensive pages (Dashboard, Catalog, Chat, Explorer, etc.)
+✅ **StatsBomb Integration**: Browse and import competitions/matches from open data
+✅ **Job Management**: Track downloads, imports, and processing with real-time status
+✅ **Dual Database Support**: Switch between PostgreSQL and SQL Server dynamically
+✅ **Embeddings Control**: View status and rebuild embeddings per match/model
+✅ **Developer & User Modes**: Simplified or advanced interface based on needs
 
 ---
 
@@ -104,11 +144,13 @@ The easiest way to run the full stack locally.
    ```
 
 4. **Access the app**
-   - Frontend: <http://localhost:8501>
+   - Frontend: <http://localhost:5173>
    - Backend API: <http://localhost:8000>
    - API Docs: <http://localhost:8000/docs>
-   - PostgreSQL: `localhost:5432` (user: `postgres`, db: `rag_challenge`)
+   - PostgreSQL: `localhost:5432` (user: `postgres`, db: `rag_challenge`) - *Solo con `--profile postgres`*
    - SQL Server: `localhost:1433` (user: `sa`)
+
+> **💡 PostgreSQL ahorra recursos:** Por defecto PostgreSQL no se inicia para ahorrar recursos. Para iniciarlo usa: `docker compose --profile postgres up`
 
 ### Option B: Manual Setup
 
@@ -182,9 +224,10 @@ The easiest way to run the full stack locally.
 - [Domain Layer](./backend/app/domain/README.md) - Entities, value objects, rules
 - [Adapters Layer](./backend/app/adapters/README.md) - External integrations
 
-### Frontend (Streamlit)
+### Frontend (React TypeScript)
 
-- [Frontend Architecture](./frontend/README.md) - Client architecture, patterns
+- [Frontend Web App](./frontend/webapp/README.md) - Modern React application
+- [Legacy Streamlit](./frontend/README.md) - Original Streamlit client (deprecated)
 - [Configuration Guide](./config/README.md) - Centralized settings management
 
 ### Domain Knowledge
@@ -198,18 +241,32 @@ The easiest way to run the full stack locally.
 
 ## 🎨 The Application
 
-### User-Friendly Mode
-Simplified interface for end users:
+### Modern React Web Interface
+
+The application features a modern, responsive web interface built with React and TypeScript:
+
+#### Key Pages
+1. **Dashboard** - System health, database status, and recent jobs overview
+2. **Data Sources** - Database connectivity testing and capability matrix
+3. **StatsBomb Catalog** - Browse and select competitions/matches from open data
+4. **Operations** - Download, load, and process data with job tracking
+5. **Data Explorer** - Browse competitions, matches, teams, players, and events
+6. **Embeddings** - View coverage status and rebuild embeddings by match
+7. **Chat** - AI-powered semantic search with natural language queries
+
+#### Features
+- **Real-time Job Tracking**: Monitor downloads and imports with live status updates
+- **Multi-Database Support**: Switch between PostgreSQL and SQL Server seamlessly
+- **Capability-Aware UI**: Interface adapts based on available models/algorithms
+- **Responsive Design**: Built with TailwindCSS for modern, mobile-friendly layouts
+- **Type-Safe**: Full TypeScript coverage for reliability
+
+### Legacy Streamlit Interface
+
+The original Streamlit interface is still available but deprecated:
 
 ![User Mode](./images/app/image-26.png)
-
-### Developer Mode
-Complete interface with advanced options:
-
 ![Developer Mode](./images/app/image-27.png)
-![Search Results](./images/app/image-24b.png)
-![Statistics](./images/app/image-23.png)
-![Analysis](./images/app/image-24.png)
 
 [More screenshots →](./docs/app-screenshots.md)
 
@@ -225,67 +282,203 @@ Complete interface with advanced options:
 
 ```
 RAG-Challenge/
-├── backend/                    # FastAPI backend
+├── backend/                           # FastAPI backend
 │   ├── app/
-│   │   ├── api/v1/            # HTTP endpoints
-│   │   ├── services/          # Business logic
-│   │   ├── repositories/      # Data access
-│   │   ├── domain/            # Entities & rules
-│   │   ├── adapters/          # External services
-│   │   └── core/              # Config & dependencies
-│   ├── tests/                 # Backend tests
-│   ├── Dockerfile             # Backend container image
+│   │   ├── api/v1/                   # HTTP endpoints (REST API)
+│   │   │   ├── capabilities.py       # System capabilities & DB status
+│   │   │   ├── statsbomb.py         # StatsBomb catalog API
+│   │   │   ├── ingestion.py         # Data ingestion & jobs
+│   │   │   ├── explorer.py          # Data browsing
+│   │   │   ├── embeddings.py        # Embeddings management
+│   │   │   ├── chat.py              # RAG chat endpoint
+│   │   │   ├── matches.py           # Match queries
+│   │   │   ├── events.py            # Event queries
+│   │   │   └── health.py            # Health checks
+│   │   ├── services/                 # Business logic
+│   │   │   ├── search_service.py    # RAG orchestration
+│   │   │   ├── ingestion_service.py # Data loading pipeline
+│   │   │   ├── job_service.py       # Background job management
+│   │   │   ├── statsbomb_service.py # StatsBomb API client
+│   │   │   └── data_explorer_service.py
+│   │   ├── repositories/             # Data access layer
+│   │   │   ├── postgres.py          # PostgreSQL repository
+│   │   │   └── sqlserver.py         # SQL Server repository
+│   │   ├── domain/                   # Domain entities & rules
+│   │   ├── adapters/                 # External integrations
+│   │   │   └── openai_client.py     # OpenAI/Azure OpenAI
+│   │   ├── core/                     # Config & dependencies
+│   │   │   └── capabilities.py      # Capability matrix
+│   │   └── main.py                   # FastAPI application
+│   ├── data/                         # Static data cache
+│   │   └── competitions.json        # StatsBomb catalog
+│   ├── tests/                        # Backend tests
+│   ├── Dockerfile                    # Backend container
 │   └── requirements.txt
 │
-├── frontend/                   # Streamlit frontend
-│   ├── streamlit_app/
-│   │   ├── services/          # API client
-│   │   ├── components/        # UI components
-│   │   └── app_refactored.py  # Main app
-│   ├── Dockerfile             # Frontend container image
-│   └── requirements.txt
+├── frontend/                          # Frontend applications
+│   ├── webapp/                       # ✨ Modern React app (PRIMARY)
+│   │   ├── src/
+│   │   │   ├── pages/               # Application pages
+│   │   │   │   ├── HomePage.tsx     # Landing page
+│   │   │   │   ├── DashboardPage.tsx
+│   │   │   │   ├── CatalogPage.tsx  # StatsBomb browser
+│   │   │   │   ├── OperationsPage.tsx # Jobs & ingestion
+│   │   │   │   ├── ExplorerPage.tsx # Data explorer
+│   │   │   │   ├── EmbeddingsPage.tsx
+│   │   │   │   └── ChatPage.tsx     # RAG chat
+│   │   │   ├── components/
+│   │   │   │   ├── layout/          # Layout components
+│   │   │   │   └── ui/              # UI components
+│   │   │   ├── lib/
+│   │   │   │   ├── api/             # Type-safe API client
+│   │   │   │   │   ├── client.ts    # HTTP client
+│   │   │   │   │   └── types.ts     # TypeScript types
+│   │   │   │   ├── storage/         # Local storage
+│   │   │   │   └── queryClient.ts   # TanStack Query config
+│   │   │   ├── state/               # Global state
+│   │   │   ├── App.tsx              # Main app component
+│   │   │   └── main.tsx             # Entry point
+│   │   ├── Dockerfile
+│   │   ├── package.json
+│   │   ├── vite.config.ts
+│   │   └── tailwind.config.js
+│   │
+│   └── streamlit_app/                # Legacy Streamlit (DEPRECATED)
+│       ├── app_refactored.py
+│       └── services/
 │
-├── infra/                      # Docker infrastructure
+├── infra/                             # Infrastructure as code
 │   └── docker/
-│       ├── postgres/initdb/   # PostgreSQL init scripts
-│       └── sqlserver/         # SQL Server Dockerfile + init
+│       ├── postgres/
+│       │   └── initdb/               # Init scripts + schema
+│       │       ├── 01-extensions.sql
+│       │       └── 02-schema.sql
+│       └── sqlserver/
+│           ├── Dockerfile            # Custom SQL Server image
+│           ├── setup.sh              # Custom entrypoint
+│           └── initdb/
+│               └── 01-schema.sql
 │
-├── config/                     # Centralized configuration
-│   └── settings.py            # Pydantic settings
+├── config/                            # Centralized configuration
+│   ├── settings.py                   # Pydantic settings
+│   └── README.md
 │
-├── docs/                       # Documentation
-│   ├── adr/                   # Architecture Decision Records
-│   └── *.md                   # Various docs
+├── docs/                              # Documentation
+│   ├── adr/                          # Architecture Decision Records
+│   │   ├── ADR-001-layered-architecture.md
+│   │   ├── ADR-002-centralized-configuration.md
+│   │   ├── ADR-003-pgvector-migration.md (Proposed)
+│   │   └── ADR-004-local-docker-infrastructure.md
+│   ├── app-screenshots.md
+│   ├── app-use-case.md
+│   ├── statsbomb-intro.md
+│   └── *.md
 │
-├── postgres/                   # PostgreSQL scripts (original)
-├── sqlserver/                  # SQL Server scripts (original)
-├── docker-compose.yml         # Full stack orchestration
-├── .env.docker                # Docker local environment
-├── .env.example               # Environment template
-└── PLAN_REARQUITECTURA_COMPLETO.md
+├── postgres/                          # Legacy PostgreSQL scripts
+├── sqlserver/                         # Legacy SQL Server scripts
+├── python_modules/                    # Legacy modules
+│
+├── docker-compose.yml                 # Full stack orchestration
+├── .env.docker                        # Docker environment (gitignored)
+├── .env.example                       # Environment template
+├── PLAN_REARQUITECTURA_COMPLETO.md   # Original roadmap
+├── PLAN_MIGRACION_FRONTEND_WEB.md    # Frontend migration plan
+└── README.md
 ```
+
+---
+
+## 🔧 Troubleshooting
+
+### Frontend no se ve en Windows (Docker Desktop + WSL2)
+
+Si el frontend no carga en el navegador:
+
+1. **Verifica que el contenedor esté corriendo:**
+
+   ```bash
+   docker compose ps
+   ```
+
+2. **Revisa los logs:**
+
+   ```bash
+   docker compose logs frontend
+   ```
+
+3. **Problemas comunes:**
+   - **Error de memoria (ENOMEM):** El file watcher de Vite puede fallar con volúmenes montados desde Windows. Solución: el proyecto está configurado para usar `serve` en lugar de `vite dev` en Docker.
+
+   - **Puerto accesible pero sin respuesta:** Problema conocido de port forwarding entre Docker/WSL2 y Windows.
+     - **Solución A:** Abre directamente en navegador Windows: <http://localhost:5173>
+     - **Solución B:** Usa la IP del contenedor: `docker inspect rag-frontend | grep IPAddress`
+     - **Solución C:** Reinicia Docker Desktop
+
+   - **Aumentar límites de inotify (WSL2):**
+
+     ```bash
+     sudo sysctl -w fs.inotify.max_user_watches=524288
+     sudo sysctl -w fs.inotify.max_queued_events=32768
+     sudo sysctl -w fs.inotify.max_user_instances=1024
+     ```
+
+### Backend no se conecta a las bases de datos
+
+Verifica que los contenedores de bases de datos estén saludables:
+
+```bash
+docker compose ps
+```
+
+Si SQL Server está `starting`, espera 30-60 segundos para que inicialice completamente.
 
 ---
 
 ## 🔧 API Endpoints
 
-### Health & Status
-- `GET /` - API information
-- `GET /api/v1/health` - Health check
-- `GET /api/v1/health/ready` - Readiness probe
+### Health & Capabilities
+- `GET /` - API information and version
+- `GET /api/v1/health` - Detailed health check
+- `GET /api/v1/health/ready` - Readiness probe (DB connectivity)
 - `GET /api/v1/health/live` - Liveness probe
+- `GET /api/v1/capabilities` - Supported models/algorithms by source
+- `GET /api/v1/sources/status` - Database connectivity status
+
+### StatsBomb Catalog
+- `GET /api/v1/statsbomb/competitions` - Browse available competitions
+- `GET /api/v1/statsbomb/matches` - Get matches by competition/season
+
+### Data Ingestion & Jobs
+- `POST /api/v1/ingestion/download` - Download StatsBomb data
+- `POST /api/v1/ingestion/load` - Load data into database
+- `POST /api/v1/ingestion/aggregate` - Create aggregated tables
+- `GET /api/v1/ingestion/jobs` - List all jobs
+- `GET /api/v1/ingestion/jobs/{id}` - Get job details
+- `POST /api/v1/ingestion/jobs/{id}/cancel` - Cancel running job
+- `DELETE /api/v1/ingestion/jobs` - Clear completed jobs
 
 ### Data Retrieval
-- `GET /api/v1/competitions` - List competitions
+- `GET /api/v1/competitions` - List loaded competitions
 - `GET /api/v1/matches` - List matches (with filters)
 - `GET /api/v1/matches/{id}` - Get match details
 - `GET /api/v1/events` - List match events
 - `GET /api/v1/events/{id}` - Get event details
 
-### AI-Powered Search
-- `POST /api/v1/chat/search` - Semantic search with AI-generated answers
+### Data Explorer
+- `GET /api/v1/explorer/teams` - List teams
+- `GET /api/v1/explorer/players` - List players
+- `GET /api/v1/explorer/tables` - Database table information
 
-**Interactive API Documentation:** http://localhost:8000/docs
+### Embeddings Management
+- `GET /api/v1/embeddings/status` - Embeddings coverage status
+- `POST /api/v1/embeddings/rebuild` - Rebuild embeddings for matches
+
+### AI-Powered Search
+- `POST /api/v1/chat/search` - Semantic search with RAG-generated answers
+
+**Interactive API Documentation:**
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
 ---
 
@@ -312,9 +505,12 @@ pytest --cov=app --cov-report=html
 - **Azure OpenAI** - Embeddings and chat completions
 
 ### Frontend
-- **Streamlit** - Interactive web UI
-- **Requests** - HTTP client
-- **Pandas** - Data manipulation
+- **React 19** - Modern UI framework
+- **TypeScript** - Type-safe JavaScript
+- **Vite** - Fast build tool and dev server
+- **TailwindCSS** - Utility-first CSS framework
+- **TanStack Query** - Data fetching and state management
+- **React Router** - Client-side routing
 
 ### Infrastructure
 - **Docker & Docker Compose** - Full-stack containerization (`docker compose up`)

@@ -2,8 +2,6 @@ python-dotenv
 requests
 pandas
 tiktoken
-streamlit
-streamlit-option-menu
 matplotlib
 seaborn
 beautifulsoup4

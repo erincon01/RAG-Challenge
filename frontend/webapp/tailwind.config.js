@@ -4,18 +4,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        canvas: '#0f1722',
-        panel: '#182437',
-        accent: '#2dd4bf',
-        accentWarm: '#fb923c',
-        ink: '#e2e8f0',
-        mute: '#94a3b8',
+        canvas: 'rgb(var(--c-canvas) / <alpha-value>)',
+        panel: 'rgb(var(--c-panel) / <alpha-value>)',
+        accent: 'rgb(var(--c-accent) / <alpha-value>)',
+        accentWarm: 'rgb(var(--c-accent-warm) / <alpha-value>)',
+        ink: 'rgb(var(--c-ink) / <alpha-value>)',
+        mute: 'rgb(var(--c-mute) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['"Space Grotesk"', '"IBM Plex Sans"', 'sans-serif'],
       },
       boxShadow: {
-        glow: '0 0 40px rgba(45, 212, 191, 0.25)',
+        glow: '0 0 40px rgb(var(--c-accent) / 0.25)',
       },
     },
   },

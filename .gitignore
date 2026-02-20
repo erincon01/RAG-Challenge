@@ -8,6 +8,8 @@
 /backend/data/events/
 /backend/data/lineups/
 /backend/data/matches/
+/app/data/scripts_summary/Answers/
+
 *.pyc
 ~
 rag_challenge.db

@@ -1,31 +1,31 @@
 {
 	"name": "RAG Challenge - Full Stack",
 	"dockerComposeFile": [
-		"../docker-compose.yml",
-		"docker-compose.dev.yml"
+		"../docker-compose.yml"
 	],
 	"service": "backend",
-	"workspaceFolder": "/app",
-
+	"workspaceFolder": "/workspace",
+	// Run as non-root user inside the dev container
+	"remoteUser": "appuser",
+	"containerUser": "appuser",
+	"updateRemoteUserUID": true,
 	// Shutdown all services when the dev container stops
 	"shutdownAction": "stopCompose",
-
 	// Forward ports for all services
 	"forwardPorts": [
-		8000,  // Backend API
-		8501,  // Frontend Streamlit
-		5432,  // PostgreSQL
-		1433   // SQL Server
+		8000, // Backend API
+		5173, // Frontend React
+		5432, // PostgreSQL
+		1433 // SQL Server
 	],
-
 	// Port attributes for better UX
 	"portsAttributes": {
 		"8000": {
 			"label": "Backend API",
 			"onAutoForward": "notify"
 		},
-		"8501": {
-			"label": "Frontend UI",
+		"5173": {
+			"label": "Frontend React",
 			"onAutoForward": "openBrowser"
 		},
 		"5432": {
@@ -35,13 +35,10 @@
 			"label": "SQL Server"
 		}
 	},
-
 	// Install dependencies and run migrations after container is created
-	"postCreateCommand": "bash .devcontainer/post-create.sh",
-
+	"postCreateCommand": "bash /workspace/.devcontainer/post-create.sh",
 	// Validate services health on startup
-	"postStartCommand": "bash .devcontainer/post-start.sh",
-
+	"postStartCommand": "bash /workspace/.devcontainer/post-start.sh",
 	// VS Code extensions to install
 	"customizations": {
 		"vscode": {
@@ -55,7 +52,8 @@
 				"GitHub.copilot-chat",
 				"donjayamanne.githistory",
 				"eamodio.gitlens",
-				"ms-azuretools.vscode-docker"
+				"ms-azuretools.vscode-docker",
+				"Anthropic.claude-code"
 			],
 			"settings": {
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
@@ -69,19 +67,20 @@
 			}
 		}
 	},
-
-	// Run as non-root user for security
-	"remoteUser": "root",
-
 	// Environment variables
 	"remoteEnv": {
 		"PYTHONUNBUFFERED": "1",
 		"PYTHONDONTWRITEBYTECODE": "1"
 	},
-
 	// Features to add
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {},
-		"ghcr.io/devcontainers/features/github-cli:1": {}
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+			"moby": false,
+			"installDockerBuildx": true,
+			"version": "latest",
+			"dockerDashComposeVersion": "v2"
+		}
 	}
 }

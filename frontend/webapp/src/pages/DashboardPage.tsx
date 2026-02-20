@@ -70,6 +70,34 @@ export function DashboardPage() {
           </ul>
         </article>
       </div>
+
+      <div>
+        <h2 className="text-2xl font-semibold text-ink mb-4">Data Sources</h2>
+        <div className="grid gap-4 lg:grid-cols-2">
+          {sourcesQuery.data?.sources.map((sourceStatus) => {
+            const capability = capabilities?.[sourceStatus.source]
+            if (!capability) return null
+            return (
+              <article key={sourceStatus.source} className="rounded-2xl border border-white/10 bg-panel/70 p-5">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-semibold capitalize text-ink">{sourceStatus.source}</h3>
+                  <StatusBadge ok={sourceStatus.connected} />
+                </div>
+                <div className="mt-4 grid gap-3 text-sm">
+                  <div>
+                    <p className="text-mute">Embedding models</p>
+                    <p className="text-ink">{capability.embedding_models.join(', ')}</p>
+                  </div>
+                  <div>
+                    <p className="text-mute">Search algorithms</p>
+                    <p className="text-ink">{capability.search_algorithms.join(', ')}</p>
+                  </div>
+                </div>
+              </article>
+            )
+          })}
+        </div>
+      </div>
     </section>
   )
 }

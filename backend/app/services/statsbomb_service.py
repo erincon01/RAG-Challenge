@@ -23,19 +23,11 @@ class StatsBombService:
         self.timeout = 60
 
     def list_competitions(self) -> List[Dict[str, Any]]:
-        """List competitions from local cache or remote file."""
-        local_file = self.local_folder / "competitions.json"
-        if local_file.exists():
-            with local_file.open("r", encoding="utf-8") as f:
-                return json.load(f)
-
+        """List competitions from remote StatsBomb repository."""
         url = f"{self.base_raw}/competitions.json"
         response = requests.get(url, timeout=self.timeout)
         response.raise_for_status()
-        data = response.json()
-        self.local_folder.mkdir(parents=True, exist_ok=True)
-        local_file.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-        return data
+        return response.json()
 
     def list_matches(self, competition_id: int, season_id: int) -> List[Dict[str, Any]]:
         """List matches for a competition/season pair from remote catalog."""

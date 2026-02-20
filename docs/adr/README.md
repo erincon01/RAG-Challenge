@@ -18,12 +18,12 @@ Each ADR follows this structure:
 
 ## Index
 
-| ADR | Title | Status | Date |
-|-----|-------|--------|------|
-| [001](ADR-001-layered-architecture.md) | Adoption of Layered Architecture | Accepted | 2026-02-08 |
-| [002](ADR-002-centralized-configuration.md) | Centralized Configuration with Pydantic Settings | Accepted | 2026-02-08 |
-| [003](ADR-003-pgvector-migration.md) | Migration from Azure AI Extensions to pgvector | Proposed | 2026-02-08 |
-| [004](ADR-004-local-docker-infrastructure.md) | Local Docker Infrastructure with SQL Server 2025 Express and PostgreSQL | Accepted | 2026-02-08 |
+| ADR | Title | Status | Date | Implementation |
+|-----|-------|--------|------|----------------|
+| [001](ADR-001-layered-architecture.md) | Adoption of Layered Architecture | ✅ Accepted | 2026-02-08 | ✅ Implemented |
+| [002](ADR-002-centralized-configuration.md) | Centralized Configuration with Pydantic Settings | ✅ Accepted | 2026-02-08 | ✅ Implemented |
+| [003](ADR-003-pgvector-migration.md) | Migration from Azure AI Extensions to pgvector | ⏳ Proposed | 2026-02-08 | ⏳ Pending |
+| [004](ADR-004-local-docker-infrastructure.md) | Local Docker Infrastructure with SQL Server 2025 Express and PostgreSQL | ✅ Accepted | 2026-02-08 | ✅ Implemented |
 
 ## Naming Convention
 

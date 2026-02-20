@@ -1,6 +1,12 @@
 ﻿# Plan Completo de Rearquitectura - RAG Challenge
 
-## ✅ Estado de Implementación (Actualizado: 2026-02-08)
+## ✅ Estado de Implementación (Actualizado: 2026-02-20)
+
+> **Resumen Ejecutivo:** ~85% del plan total completado. Todas las fases del plan original (0-2) y del plan de migración frontend (0-6) están implementadas. Pendiente: migración pgvector, devcontainer, automatización y CI/CD.
+
+---
+
+## Plan Original: Backend/Frontend Separation
 
 ### Fase 0 - Estabilización Técnica ✅ COMPLETADA
 - ✅ Bugs críticos corregidos (module_github, module_azure_openai, app)
@@ -8,6 +14,7 @@
 - ✅ ADRs documentados (4 ADRs completos)
 - **Branch:** `feature/rearquitectura-completa`
 - **Commits:** d536e87, e40f393, 8c04a65
+- **Fecha completada:** 2026-02-08
 
 ### Fase 1 - Separación en Capas Backend/Frontend ✅ COMPLETADA
 - ✅ Backend FastAPI con arquitectura por capas completa
@@ -23,27 +30,171 @@
 - ✅ Documentación completa de todas las capas (READMEs)
 - **Branch:** `feature/rearquitectura-completa`
 - **Commits:** ba7e9a3, 23f4a1d, ee8d491, f378b3b
+- **Fecha completada:** 2026-02-08
 
 ### Fase 2 - Docker Local ✅ COMPLETADA
 
-- ✅ Dockerfiles (backend con ODBC+psycopg2, frontend con Streamlit)
+- ✅ Dockerfiles (backend con ODBC+psycopg2, frontend React TypeScript con Vite)
 - ✅ PostgreSQL 17 + pgvector en Docker (init scripts idempotentes, schema portable)
 - ✅ SQL Server 2025 Express en Docker (custom entrypoint, init scripts idempotentes)
 - ✅ docker-compose.yml con healthchecks, volumes persistentes y depends_on
 - ✅ .env.docker para configuración local
 - ✅ .dockerignore optimizados
 - **Branch:** `feature/rearquitectura-completa`
+- **Commits:** 9a956b0, 75284be
+- **Fecha completada:** 2026-02-08
 
-### Fase 2A - Migración pgvector ⏳ PENDIENTE
-- ⏳ Diseño de columnas vector físicas
-- ⏳ Pipeline de embeddings gestionado por aplicación
-- ⏳ Migración de Azure AI extensions a pgvector puro
+---
 
-### Fases 3-6 ⏳ PENDIENTES
-- Fase 3: Devcontainer 2.0
-- Fase 4: Automatización de tareas
-- Fase 5: GitHub Actions CI/CD
-- Fase 6: Usabilidad y experiencia
+## Plan Frontend Web Migration: React TypeScript
+
+### Fase 0 - Correcciones Bloqueantes Backend ✅ COMPLETADA
+- ✅ Endpoint `/api/v1/capabilities` implementado
+- ✅ Endpoint `/api/v1/sources/status` con test real de conectividad
+- ✅ Validación de DB en `/health/ready`
+- ✅ Capacidades por motor documentadas
+- **Commits:** 8e6b4cb
+- **Fecha completada:** 2026-02-08
+
+### Fase 1 - API de Ingestion y Jobs ✅ COMPLETADA
+- ✅ `IngestionService` completo (612 líneas de código)
+- ✅ `JobService` con estados (pending/running/success/error/canceled)
+- ✅ `StatsBombService` para catálogo remoto
+- ✅ Endpoints: `/api/v1/statsbomb/*`, `/api/v1/ingestion/*`
+- ✅ Sistema de jobs con tracking y logs
+- **Commits:** a16b791
+- **Archivos:** `backend/app/services/ingestion_service.py`, `backend/app/services/job_service.py`, `backend/app/services/statsbomb_service.py`
+- **Fecha completada:** 2026-02-08
+
+### Fase 2 - Bootstrap Frontend TypeScript ✅ COMPLETADA
+- ✅ React 19 + TypeScript + Vite
+- ✅ TailwindCSS para estilos
+- ✅ TanStack Query para estado y caché
+- ✅ React Router para navegación
+- ✅ Cliente API tipado completo (151 líneas)
+- ✅ Types completos (208 tipos TypeScript)
+- ✅ AppShell con navegación
+- ✅ UI Settings management
+- **Commits:** 5f8ee88
+- **Archivos:** `frontend/webapp/` (proyecto completo, 3867 líneas añadidas)
+- **Fecha completada:** 2026-02-08
+
+### Fase 3 - Pantallas Operativas Core ✅ COMPLETADA
+- ✅ DashboardPage: estado backend, DBs, jobs recientes
+- ✅ SourcesPage: selector de motor, test conectividad
+- ✅ CatalogPage: catálogo StatsBomb con selección (182 líneas)
+- ✅ OperationsPage: descarga/carga con tracking (480 líneas)
+- ✅ Local storage para selección de catálogo
+- ✅ Polling de estado de jobs
+- **Commits:** 3e4b0e4
+- **Archivos:** `frontend/webapp/src/pages/*.tsx`, `frontend/webapp/src/lib/storage/catalogSelection.ts`
+- **Fecha completada:** 2026-02-08
+
+### Fase 4 - Visores Funcionales y Paridad ✅ COMPLETADA
+- ✅ `DataExplorerService` implementado (276 líneas)
+- ✅ Endpoint `/api/v1/explorer/*`
+- ✅ ExplorerPage con vistas: Competitions, Matches, Teams, Players, Events, Tables Info (272 líneas)
+- ✅ Paridad funcional con menus del `app.py` legacy
+- **Commits:** 38db8d5
+- **Archivos:** `backend/app/services/data_explorer_service.py`, `backend/app/api/v1/explorer.py`, `frontend/webapp/src/pages/ExplorerPage.tsx`
+- **Fecha completada:** 2026-02-08
+
+### Fase 5 - Embeddings y Chat Avanzado ✅ COMPLETADA
+- ✅ EmbeddingsPage: estado de cobertura, rebuild por match (193 líneas)
+- ✅ ChatPage: RAG con restricciones dinámicas según capacidades (242 líneas)
+- ✅ Endpoint `/api/v1/embeddings/*`
+- ✅ UI capability-aware (adapta según motor seleccionado)
+- **Commits:** e25b511
+- **Archivos:** `frontend/webapp/src/pages/EmbeddingsPage.tsx`, `frontend/webapp/src/pages/ChatPage.tsx`
+- **Fecha completada:** 2026-02-08
+
+### Fase 6 - Hardening, Testing y Cutover ✅ PARCIALMENTE COMPLETADA
+- ✅ Filtros de limpieza en descargas
+- ✅ Limpieza de jobs completados
+- ✅ Terminal de ejecución
+- ✅ Frontend web en docker-compose
+- ⏳ Tests backend (pendiente)
+- ⏳ Tests frontend (pendiente)
+- ⏳ Logging estructurado (pendiente)
+- ✅ Streamlit marcado como deprecated en docs
+- **Commits:** db0cb73, b1be41a, 4849d53, 1204ca1
+- **Fecha:** 2026-02-08 a 2026-02-20
+
+---
+
+## Fases Pendientes
+
+### Fase 2A - Migración pgvector ⏳ CRÍTICA - NO INICIADA
+**Objetivo:** Eliminar dependencias Azure PaaS para PostgreSQL
+
+**Estado:** ADR-003 en "Proposed", checklist sin completar
+
+**Tareas pendientes:**
+- ⏳ Actualizar schema con columnas metadata (embedding_status, embedding_updated_at, embedding_error)
+- ⏳ Implementar embedding generation service en backend
+- ⏳ Crear batch processing worker
+- ⏳ Backfill de embeddings existentes
+- ⏳ Validar paridad funcional y de performance
+- ⏳ Actualizar queries del repositorio
+- ⏳ Eliminar dependencias `azure_ai` y `azure_local_ai`
+
+**Impacto:** Bloqueante para independencia total de Azure PaaS
+
+**Estimación:** 3-4 semanas
+
+### Fase 3 - Devcontainer 2.0 ⏳ EN PROGRESO
+**Objetivo:** Devcontainer funcional y reproducible
+
+**Estado:** Iniciado (commit 75284be), no finalizado
+
+**Tareas pendientes:**
+- ⏳ Corregir `devcontainer.json` para usar docker-compose
+- ⏳ Implementar `postCreateCommand` (deps, migraciones, seed)
+- ⏳ Implementar `postStartCommand` (health checks)
+- ⏳ Configurar port forwarding completo
+- ⏳ Validar "Reopen in Container" funciona en entorno limpio
+
+**Estimación:** 1 semana
+
+### Fase 4 - Automatización de Tareas ⏳ NO INICIADA
+**Objetivo:** CLI de tareas para operaciones comunes
+
+**Tareas pendientes:**
+- ⏳ Crear task runner (`task.ps1` / `task.sh` / `Taskfile.yml` / `justfile`)
+- ⏳ Comandos: `bootstrap`, `db-up`, `db-migrate`, `db-seed`, `test`, `lint`, `run-local`
+- ⏳ Estandarizar migraciones Postgres (Alembic/Flyway)
+- ⏳ Estandarizar migraciones SQL Server
+- ⏳ Idempotencia total
+
+**Estimación:** 1-2 semanas
+
+### Fase 5 - GitHub Actions CI/CD ⏳ NO INICIADA
+**Objetivo:** Pipeline de calidad automatizada
+
+**Tareas pendientes:**
+- ⏳ Workflow `ci.yml` (lint, tests, integration tests)
+- ⏳ Workflow `docker.yml` (build, vulnerability scan, push GHCR)
+- ⏳ Workflow `release.yml` (semver, changelog)
+- ⏳ Branch protection + required checks
+- ⏳ Codeowners (opcional)
+
+**Estimación:** 1-2 semanas
+
+### Fase 6 - Usabilidad Final ⏳ PARCIALMENTE COMPLETADA
+**Objetivo:** Polish UX y observabilidad
+
+**Completado:**
+- ✅ Modo usuario vs desarrollador
+- ✅ Validaciones en UI
+
+**Pendiente:**
+- ⏳ Logging estructurado con `request_id`, `match_id`
+- ⏳ Métricas: latencia, errores, tokens, coste
+- ⏳ Caching de consultas frecuentes
+- ⏳ Paginación optimizada en tablas grandes
+- ⏳ Timeout/retry configurables en LLM/DB
+
+**Estimación:** 2-3 semanas
 
 ---
 

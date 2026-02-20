@@ -28,9 +28,9 @@ if [ "$ready" -ne 1 ]; then
 fi
 
 # Check if database already exists to avoid re-running init scripts
-DB_EXISTS=$(/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -Q "SELECT COUNT(*) FROM sys.databases WHERE name = 'rag_challenge'" -h -1 2>/dev/null | xargs)
+DB_EXISTS=$(/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -Q "SET NOCOUNT ON; SELECT COUNT(*) FROM sys.databases WHERE name = 'rag_challenge'" -h -1 2>/dev/null | tr -dc '0-9')
 
-if [ "$DB_EXISTS" -eq 0 ]; then
+if [ "${DB_EXISTS:-0}" -eq 0 ]; then
     echo "Database not found. Running init scripts..."
     
     # Run init scripts in order

@@ -9,7 +9,7 @@ import requests
 checks = [
     ("backend-liveness", "http://localhost:8000/api/v1/health/live", lambda r: r.status_code == 200),
     ("backend-readiness", "http://localhost:8000/api/v1/health/ready", lambda r: r.status_code == 200 and r.json().get("ready") is True),
-    ("frontend-health", "http://frontend:8501/_stcore/health", lambda r: r.status_code == 200),
+    ("frontend-health", "http://frontend:5173/", lambda r: r.status_code == 200),
     ("postgres-smoke", "http://localhost:8000/api/v1/competitions?source=postgres", lambda r: r.status_code == 200),
 ]
 

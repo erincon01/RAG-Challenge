@@ -14,13 +14,20 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./infra/docker/postgres/initdb:/docker-entrypoint-initdb.d:ro
+    networks:
+      - internal
+      - external
+    security_opt:
+      - no-new-privileges:true
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-rag_challenge}"]
-      interval: 10s
-      timeout: 5s
+      interval: 3s
+      timeout: 2s
       retries: 5
-      start_period: 10s
+      start_period: 5s
     restart: unless-stopped
+    profiles:
+      - postgres  # Inicia solo con: docker-compose --profile postgres up
 
   # ---------------------------------------------------------------------------
   # SQL Server 2025 Express (Linux)
@@ -34,17 +41,26 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-SqlServer_Local_Pwd123!}
       MSSQL_PID: "Express"
-      MSSQL_MEMORY_LIMIT_MB: ${MSSQL_MEMORY_LIMIT_MB:-2048}
+      MSSQL_MEMORY_LIMIT_MB: ${MSSQL_MEMORY_LIMIT_MB:-512}
     ports:
       - "${SQLSERVER_PORT:-1433}:1433"
     volumes:
       - sqlserver_data:/var/opt/mssql
+    networks:
+      - internal
+      - external
+    security_opt:
+      - no-new-privileges:true
     healthcheck:
       test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P ${MSSQL_SA_PASSWORD:-SqlServer_Local_Pwd123!} -C -Q 'SELECT 1' || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 12
       start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 1g
     restart: unless-stopped
 
   # ---------------------------------------------------------------------------
@@ -55,10 +71,14 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     container_name: rag-backend
+    working_dir: /app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app
     env_file:
       - .env.docker
     environment:
       ENVIRONMENT: local
+      PYTHONPATH: /app:/
+      DEVELOPMENT: "true"
       DB_SERVER_AZURE_POSTGRES: postgres
       DB_NAME_AZURE_POSTGRES: ${POSTGRES_DB:-rag_challenge}
       DB_USER_AZURE_POSTGRES: ${POSTGRES_USER:-postgres}
@@ -70,19 +90,29 @@ services:
     ports:
       - "${BACKEND_PORT:-8000}:8000"
     volumes:
-      - ./backend:/app
+      - .:/workspace:cached
+      - ./backend:/app:cached
       - ./config:/config:ro
+    networks:
+      - internal
+      - external
+    security_opt:
+      - no-new-privileges:true
     depends_on:
-      postgres:
-        condition: service_healthy
       sqlserver:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/live')\""]
-      interval: 15s
-      timeout: 5s
+      interval: 5s
+      timeout: 3s
       retries: 3
-      start_period: 15s
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    stdin_open: true
+    tty: true
     restart: unless-stopped
 
   # ---------------------------------------------------------------------------
@@ -92,23 +122,46 @@ services:
     build:
       context: ./frontend/webapp
       dockerfile: Dockerfile
+      target: development
+      args:
+        VITE_API_BASE_URL: http://localhost:8000/api/v1
+        VITE_BACKEND_ORIGIN: http://localhost:8000
     container_name: rag-frontend
-    environment:
-      VITE_BACKEND_ORIGIN: http://backend:8000
-      VITE_API_BASE_URL: /api/v1
+    working_dir: /app
+    command: npm run dev -- --host 0.0.0.0
     ports:
       - "${FRONTEND_PORT:-5173}:5173"
     volumes:
-      - ./frontend/webapp:/app
-      - /app/node_modules
+      - ./frontend/webapp:/app:cached
+      - frontend_node_modules:/app/node_modules
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000/api/v1
+      - VITE_BACKEND_ORIGIN=http://localhost:8000
+    networks:
+      - internal
+      - external
+    security_opt:
+      - no-new-privileges:true
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
+    deploy:
+      resources:
+        limits:
+          memory: 256m
     restart: unless-stopped
+
+networks:
+  internal:
+    driver: bridge
+    internal: true  # BD: sin acceso a redes externas/host
+  external:
+    driver: bridge   # Backend/Frontend: acceso a internet (APIs externas)
 
 volumes:
   postgres_data:
     driver: local
   sqlserver_data:
+    driver: local
+  frontend_node_modules:
     driver: local
 

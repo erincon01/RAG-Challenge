@@ -3,12 +3,15 @@ import { createContext, useContext, useEffect, useMemo, useState, type PropsWith
 import type { Source } from '../lib/api/types'
 
 type UIMode = 'user' | 'developer'
+type Theme = 'light' | 'dark'
 
 interface UISettingsState {
   source: Source
   mode: UIMode
+  theme: Theme
   setSource: (source: Source) => void
   setMode: (mode: UIMode) => void
+  setTheme: (theme: Theme) => void
 }
 
 const STORAGE_KEY = 'rag-webapp-ui-settings'
@@ -18,6 +21,7 @@ const UISettingsContext = createContext<UISettingsState | null>(null)
 export function UISettingsProvider({ children }: PropsWithChildren) {
   const [source, setSource] = useState<Source>('postgres')
   const [mode, setMode] = useState<UIMode>('user')
+  const [theme, setTheme] = useState<Theme>('dark')
 
   useEffect(() => {
     const raw = window.localStorage.getItem(STORAGE_KEY)
@@ -26,23 +30,36 @@ export function UISettingsProvider({ children }: PropsWithChildren) {
     }
 
     try {
-      const parsed = JSON.parse(raw) as { source?: Source; mode?: UIMode }
+      const parsed = JSON.parse(raw) as { source?: Source; mode?: UIMode; theme?: Theme }
       if (parsed.source === 'postgres' || parsed.source === 'sqlserver') {
         setSource(parsed.source)
       }
       if (parsed.mode === 'user' || parsed.mode === 'developer') {
         setMode(parsed.mode)
       }
+      if (parsed.theme === 'light' || parsed.theme === 'dark') {
+        setTheme(parsed.theme)
+      }
     } catch {
       window.localStorage.removeItem(STORAGE_KEY)
     }
   }, [])
 
+  // Apply theme class to <html>
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ source, mode }))
-  }, [source, mode])
+    const root = document.documentElement
+    if (theme === 'light') {
+      root.classList.add('light')
+    } else {
+      root.classList.remove('light')
+    }
+  }, [theme])
 
-  const value = useMemo(() => ({ source, mode, setSource, setMode }), [source, mode])
+  useEffect(() => {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ source, mode, theme }))
+  }, [source, mode, theme])
+
+  const value = useMemo(() => ({ source, mode, theme, setSource, setMode, setTheme }), [source, mode, theme])
 
   return <UISettingsContext.Provider value={value}>{children}</UISettingsContext.Provider>
 }
