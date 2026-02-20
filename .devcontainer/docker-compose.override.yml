@@ -1,0 +1,13 @@
+# Override for VS Code Dev Containers
+# Activates postgres profile and adjusts backend for interactive development
+services:
+  # Activate postgres (normally behind a profile)
+  postgres:
+    profiles: []
+
+  # Backend: override command so VS Code manages the process
+  backend:
+    command: sleep infinity
+    environment:
+      POSTGRES_HOST: postgres
+      SQLSERVER_HOST: sqlserver

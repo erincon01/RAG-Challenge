@@ -1,24 +1,21 @@
 {
 	"name": "RAG Challenge - Full Stack",
 	"dockerComposeFile": [
-		"../docker-compose.yml"
+		"../docker-compose.yml",
+		"docker-compose.override.yml"
 	],
 	"service": "backend",
 	"workspaceFolder": "/workspace",
-	// Run as non-root user inside the dev container
 	"remoteUser": "appuser",
 	"containerUser": "appuser",
 	"updateRemoteUserUID": true,
-	// Shutdown all services when the dev container stops
 	"shutdownAction": "stopCompose",
-	// Forward ports for all services
 	"forwardPorts": [
-		8000, // Backend API
-		5173, // Frontend React
-		5432, // PostgreSQL
-		1433 // SQL Server
+		8000,
+		5173,
+		5432,
+		1433
 	],
-	// Port attributes for better UX
 	"portsAttributes": {
 		"8000": {
 			"label": "Backend API",
@@ -29,17 +26,16 @@
 			"onAutoForward": "openBrowser"
 		},
 		"5432": {
-			"label": "PostgreSQL"
+			"label": "PostgreSQL",
+			"onAutoForward": "silent"
 		},
 		"1433": {
-			"label": "SQL Server"
+			"label": "SQL Server",
+			"onAutoForward": "silent"
 		}
 	},
-	// Install dependencies and run migrations after container is created
 	"postCreateCommand": "bash /workspace/.devcontainer/post-create.sh",
-	// Validate services health on startup
 	"postStartCommand": "bash /workspace/.devcontainer/post-start.sh",
-	// VS Code extensions to install
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -53,34 +49,33 @@
 				"donjayamanne.githistory",
 				"eamodio.gitlens",
 				"ms-azuretools.vscode-docker",
-				"Anthropic.claude-code"
+				"Anthropic.claude-code",
+				"mtxr.sqltools",
+				"mtxr.sqltools-driver-pg"
 			],
 			"settings": {
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
-				"python.linting.enabled": true,
-				"python.linting.ruffEnabled": true,
-				"python.formatting.provider": "black",
 				"editor.formatOnSave": true,
 				"editor.codeActionsOnSave": {
 					"source.organizeImports": "explicit"
+				},
+				"python.analysis.typeCheckingMode": "basic",
+				"[python]": {
+					"editor.defaultFormatter": "charliermarsh.ruff"
 				}
 			}
 		}
 	},
-	// Environment variables
 	"remoteEnv": {
 		"PYTHONUNBUFFERED": "1",
-		"PYTHONDONTWRITEBYTECODE": "1"
+		"PYTHONDONTWRITEBYTECODE": "1",
+		"PYTHONPATH": "/app:/config"
 	},
-	// Features to add
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {},
 		"ghcr.io/devcontainers/features/github-cli:1": {},
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
-			"moby": false,
-			"installDockerBuildx": true,
-			"version": "latest",
-			"dockerDashComposeVersion": "v2"
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "lts"
 		}
 	}
 }
