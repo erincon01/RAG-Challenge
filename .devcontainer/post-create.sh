@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
+set -eu
 
 echo "============================================"
 echo "[post-create] RAG Challenge - Dev Container"

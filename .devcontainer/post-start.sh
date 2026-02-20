@@ -1,16 +1,12 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
+set -eu
 
 echo "============================================"
 echo "[post-start] Starting services..."
 echo "============================================"
 
-# Start the backend (devcontainer override uses "sleep infinity")
 echo "[post-start] Starting uvicorn in background..."
-nohup uvicorn app.main:app \
-    --host 0.0.0.0 --port 8000 \
-    --reload --reload-dir /app \
-    > /tmp/uvicorn.log 2>&1 &
+cd /app && nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app > /tmp/uvicorn.log 2>&1 &
 
 echo "[post-start] Running health checks..."
 python - <<'PY'
@@ -21,7 +17,6 @@ import requests
 
 
 def check(name, url, validator, max_attempts=30, sleep_s=2):
-    """Run a health check with retries. Returns True on success, False on failure."""
     last_error = None
     for attempt in range(1, max_attempts + 1):
         try:
@@ -46,7 +41,6 @@ def is_host_reachable(host, port):
         return False
 
 
-# Required checks
 ok = check("backend-liveness", "http://localhost:8000/api/v1/health/live",
            lambda r: r.status_code == 200)
 if not ok:
@@ -55,7 +49,6 @@ if not ok:
 check("backend-readiness", "http://localhost:8000/api/v1/health/ready",
       lambda r: r.status_code == 200)
 
-# Optional checks (don't fail if service is not running)
 if is_host_reachable("frontend", 5173):
     check("frontend", "http://frontend:5173/", lambda r: r.status_code == 200, max_attempts=10)
 else:

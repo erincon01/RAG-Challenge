@@ -112,11 +112,6 @@ CREATE TABLE IF NOT EXISTS events_details__quarter_minute (
 CREATE INDEX IF NOT EXISTS idx_edqm_match_id ON events_details__quarter_minute(match_id);
 
 -- HNSW indexes for vector similarity search
-CREATE INDEX IF NOT EXISTS idx_edqm_e5_cosine
-    ON events_details__quarter_minute USING hnsw (summary_embedding vector_cosine_ops);
-CREATE INDEX IF NOT EXISTS idx_edqm_e5_ip
-    ON events_details__quarter_minute USING hnsw (summary_embedding vector_ip_ops);
-
 CREATE INDEX IF NOT EXISTS idx_edqm_ada002_cosine
     ON events_details__quarter_minute USING hnsw (summary_embedding_ada_002 vector_cosine_ops);
 CREATE INDEX IF NOT EXISTS idx_edqm_ada002_ip
