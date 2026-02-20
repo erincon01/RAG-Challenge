@@ -70,7 +70,7 @@ Below is a table summarizing the vector size, column names, calculated columns, 
 ### Questions to ask in the football domain
 
 We have built a dataset of question to test the model.
-These questions are locate in [questions](questions.json).
+These questions are located in [data/questions.json](../data/questions.json).
 
 | Top-N Value | Search Type | Count of Occurrences |
 |-------------|-------------|----------------------|

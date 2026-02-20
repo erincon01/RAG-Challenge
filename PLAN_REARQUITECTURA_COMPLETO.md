@@ -2,7 +2,7 @@
 
 ## ✅ Estado de Implementación (Actualizado: 2026-02-20)
 
-> **Resumen Ejecutivo:** ~85% del plan total completado. Todas las fases del plan original (0-2) y del plan de migración frontend (0-6) están implementadas. Pendiente: migración pgvector, devcontainer, automatización y CI/CD.
+> **Resumen Ejecutivo:** ~90% del plan total completado. Todas las fases del plan original (0-2), la migración pgvector (2A) y el plan de migración frontend (0-6) están implementadas. Pendiente: devcontainer estable, automatización de tareas y CI/CD.
 
 ---
 
@@ -124,37 +124,41 @@
 
 ## Fases Pendientes
 
-### Fase 2A - Migración pgvector ⏳ CRÍTICA - NO INICIADA
+### Fase 2A - Migración pgvector ✅ COMPLETADA
 **Objetivo:** Eliminar dependencias Azure PaaS para PostgreSQL
 
-**Estado:** ADR-003 en "Proposed", checklist sin completar
+**Estado:** ADR-003 aceptado, implementación completa (PR #5, commit `9943bff`)
 
-**Tareas pendientes:**
-- ⏳ Actualizar schema con columnas metadata (embedding_status, embedding_updated_at, embedding_error)
-- ⏳ Implementar embedding generation service en backend
-- ⏳ Crear batch processing worker
-- ⏳ Backfill de embeddings existentes
-- ⏳ Validar paridad funcional y de performance
-- ⏳ Actualizar queries del repositorio
-- ⏳ Eliminar dependencias `azure_ai` y `azure_local_ai`
+**Completado:**
+- ✅ Schema PostgreSQL con columnas de tracking (`embedding_status`, `embedding_updated_at`, `embedding_error`)
+- ✅ Generación de embeddings via OpenAI API en la capa de aplicación (no por extensiones Azure DB)
+- ✅ Worker de procesamiento batch con retry exponencial
+- ✅ Adaptador OpenAI portable (Azure + OpenAI directo)
+- ✅ Índices HNSW pgvector para cosine (`<=>`) e inner product (`<#>`)
+- ✅ Soporte nativo VECTOR en SQL Server 2025
+- ✅ Eliminadas todas las dependencias `azure_ai` y `azure_local_ai`
+- ✅ Variables de entorno renombradas a nombres neutrales
+- ⏳ Tests de integración para pipeline de embeddings (pendiente)
 
-**Impacto:** Bloqueante para independencia total de Azure PaaS
+**Fecha completada:** 2026-02-20
 
-**Estimación:** 3-4 semanas
-
-### Fase 3 - Devcontainer 2.0 ⏳ EN PROGRESO
+### Fase 3 - Devcontainer 2.0 ✅ COMPLETADA
 **Objetivo:** Devcontainer funcional y reproducible
 
-**Estado:** Iniciado (commit 75284be), no finalizado
+**Estado:** Implementación completa (PR #7, commits `27d40ae`, `7a311db`)
 
-**Tareas pendientes:**
-- ⏳ Corregir `devcontainer.json` para usar docker-compose
-- ⏳ Implementar `postCreateCommand` (deps, migraciones, seed)
-- ⏳ Implementar `postStartCommand` (health checks)
-- ⏳ Configurar port forwarding completo
-- ⏳ Validar "Reopen in Container" funciona en entorno limpio
+**Completado:**
+- ✅ `docker-compose.override.yml` para devcontainer (activa postgres + sleep infinity en devcontainer)
+- ✅ `post-create.sh` — pip install deps, bootstrap PostgreSQL + SQL Server (idempotente), seed row para smoke tests
+- ✅ `post-start.sh` — arranca uvicorn en background, health checks liveness + readiness + frontend
+- ✅ Health checks resilientes en todos los servicios; frontend check es opcional
+- ✅ Hardening de seguridad (usuario no-root, `env_file required: false`)
+- ✅ CRLF/LF normalizado en `.gitattributes` (LF forzado en `*.sh`)
+- ✅ Port forwarding: 5173 (frontend), 8000 (backend), 5432 (postgres), 1433 (sqlserver)
+- ✅ `.env.docker.example` — sin credenciales hardcodeadas
+- ✅ Extensions SQLTools para acceso a DBs desde VS Code
 
-**Estimación:** 1 semana
+**Fecha completada:** 2026-02-20
 
 ### Fase 4 - Automatización de Tareas ⏳ NO INICIADA
 **Objetivo:** CLI de tareas para operaciones comunes

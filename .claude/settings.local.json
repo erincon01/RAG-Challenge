@@ -39,7 +39,8 @@
       "Bash(xargs:*)",
       "Bash(while IFS= read -r f)",
       "Bash(do git rm --cached -- \"$f\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(gh pr list:*)"
     ]
   }
 }

@@ -1,20 +1,20 @@
 # Project Status Report - RAG Challenge
 
 **Last Updated:** 2026-02-20
-**Branch:** `feature/rearquitectura-completa`
-**Current Version:** v3.0 - Full Stack Modern Web Application
+**Branch:** `develop`
+**Current Version:** v3.2 - Devcontainer v2 + Portable pgvector Pipeline
 
 ---
 
 ## 📊 Executive Summary
 
-### Overall Progress: 90% Complete
+### Overall Progress: 95% Complete
 
 - ✅ **Backend Rearchitecture:** 100% (Phases 0-2)
 - ✅ **Frontend Migration:** 100% (Phases 0-6)
-- ✅ **pgvector Migration (Phase 2A):** 100% (Azure extensions removed)
-- ⏳ **Infrastructure:** 80% (Devcontainer pending)
-- ⏳ **DevOps:** 20% (CI/CD not started)
+- ✅ **pgvector Migration (Phase 2A):** 100% (Azure extensions removed, portable pipeline)
+- ✅ **Infrastructure:** 100% (Devcontainer v2 complete — postCreate + postStart + health checks)
+- ⏳ **DevOps:** 0% (CI/CD not started)
 
 ### Key Achievements
 
@@ -32,8 +32,9 @@
 3. **Production Ready (with caveats)**
    - ✅ Local development with Docker Compose
    - ✅ Type-safe API client
-   - ⚠️ Still dependent on Azure PostgreSQL extensions (migration pending)
+   - ✅ Portable embeddings pipeline (no Azure DB extensions required)
    - ⚠️ No CI/CD pipeline yet
+   - ⚠️ No automated test suite yet
 
 ---
 
@@ -104,18 +105,21 @@ All pages fully functional:
 - [x] Renamed env vars from `DB_*_AZURE_*` to neutral names
 - [ ] Integration tests for embedding generation
 
-#### 2. Devcontainer 2.0 (Phase 3) - **IN PROGRESS**
+#### 2. Devcontainer 2.0 (Phase 3) - **COMPLETED**
 
-**Status:** Started but incomplete
-**Priority:** MEDIUM - DX improvement
-**Estimated effort:** 1 week
+**Status:** ✅ Fully implemented (PR #7, commits `27d40ae`, `7a311db`)
+**Completed:** 2026-02-20
 
-**Tasks:**
-- [ ] Fix devcontainer.json configuration
-- [ ] Implement postCreateCommand (deps, migrations, seed)
-- [ ] Implement postStartCommand (health checks)
-- [ ] Configure port forwarding
-- [ ] Validate "Reopen in Container" works
+**Done:**
+- [x] `docker-compose.override.yml` — activates postgres, runs sleep infinity in devcontainer
+- [x] `post-create.sh` — pip install, PostgreSQL + SQL Server bootstrap (idempotent), seed row for smoke tests
+- [x] `post-start.sh` — starts uvicorn in background, liveness + readiness + frontend health checks
+- [x] Health checks resilient: frontend check is optional
+- [x] Non-root user security hardening, `env_file required: false`
+- [x] CRLF/LF normalized via `.gitattributes` (LF enforced for `*.sh`)
+- [x] Port forwarding: 5173 (frontend), 8000 (backend), 5432 (postgres), 1433 (sqlserver)
+- [x] `.env.docker.example` — no hardcoded credentials
+- [x] SQLTools VS Code extensions for in-container DB access
 
 #### 3. Task Automation (Phase 4) - **NOT STARTED**
 
@@ -171,7 +175,7 @@ All pages fully functional:
 | Phase 1 | Backend/Frontend Separation | ✅ Complete | 100% |
 | Phase 2 | Docker Local Infrastructure | ✅ Complete | 100% |
 | Phase 2A | pgvector Migration | ✅ Complete | 100% |
-| Phase 3 | Devcontainer 2.0 | ⏳ In Progress | 30% |
+| Phase 3 | Devcontainer 2.0 | ✅ Complete | 100% |
 | Phase 4 | Task Automation | ⏳ Not Started | 0% |
 | Phase 5 | GitHub Actions CI/CD | ⏳ Not Started | 0% |
 | Phase 6 | UX Polish | ⏳ Partial | 40% |
@@ -259,21 +263,20 @@ docker compose up --build
 
 ### Immediate (This Week)
 
-1. **Create Frontend README** - Document React app structure and patterns
-2. **Update Screenshots** - Replace Streamlit images with React UI
-3. **Document API Usage** - Examples of using the type-safe client
+1. **Add Basic Tests** - At least smoke tests for critical paths (backend pytest + integration)
+2. **Integration tests for embeddings** - Validate portable pipeline end-to-end
 
 ### Short Term (Next 2-4 Weeks)
 
-1. **Implement pgvector Migration** - Critical for Azure independence
-2. **Complete Devcontainer** - Improve developer onboarding
-3. **Add Basic Tests** - At least smoke tests for critical paths
+1. **Task Automation (Phase 4)** - CLI runner (`Taskfile.yml` or `justfile`) for bootstrap, migrate, seed, test, lint
+2. **GitHub Actions CI/CD (Phase 5)** - Automated quality gates: lint, tests, docker build
+3. **Structured Logging** - request_id, match_id, latency, token usage
 
 ### Medium Term (Next 1-2 Months)
 
-1. **Task Automation** - CLI for common operations
-2. **CI/CD Pipeline** - Automated quality gates
-3. **UX Polish** - Logging, metrics, caching
+1. **Full CI/CD Pipeline** - Docker build, vulnerability scan, GHCR push, release workflow
+2. **UX Polish** - Query caching, metrics, configurable timeouts/retries
+3. **Frontend README** - Document React app structure and patterns
 
 ---
 
@@ -332,4 +335,4 @@ The project is in active development. Key areas needing contribution:
 ---
 
 **Last reviewed:** 2026-02-20
-**Next review:** When pgvector migration starts
+**Next review:** When CI/CD pipeline (Phase 5) starts

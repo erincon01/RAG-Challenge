@@ -27,15 +27,21 @@
 
 ### ⏳ Pending Phases
 
-- ⏳ **Phase 2A:** pgvector Migration (Critical - Azure independence)
-- ⏳ **Phase 3:** Devcontainer 2.0 (In Progress)
+- ✅ **Phase 2A:** pgvector Migration — **completed 2026-02-20**
+- ✅ **Phase 3:** Devcontainer 2.0 — **completed 2026-02-20** (postCreate + postStart + health checks)
 - ⏳ **Phase 4:** Task Automation (Not started)
 - ⏳ **Phase 5:** GitHub Actions CI/CD (Not started)
 - ⏳ **Phase 6:** Final UX Polish (Partially complete)
 
-See implementation plans:
-- [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) - Original roadmap
-- [PLAN_MIGRACION_FRONTEND_WEB.md](./PLAN_MIGRACION_FRONTEND_WEB.md) - Frontend migration
+### Documentation Hub
+
+| Document | Purpose |
+|---|---|
+| [CHANGELOG.md](./CHANGELOG.md) | Version history and release notes |
+| [PROJECT_STATUS.md](./PROJECT_STATUS.md) | Current status, progress, and next steps |
+| [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) | Full architecture roadmap |
+| [PLAN_MIGRACION_FRONTEND_WEB.md](./PLAN_MIGRACION_FRONTEND_WEB.md) | Frontend migration plan (completed) |
+| [docs/adr/](./docs/adr/) | Architecture Decision Records |
 
 ---
 
@@ -45,44 +51,44 @@ See implementation plans:
 
 ```
 ┌──────────────────────────────────────────────┐
-│  Frontend (React + TypeScript) - Port 5173  │
+│  Frontend (React + TypeScript) - Port 5173   │
 │  • Vite + TailwindCSS                        │
 │  • TanStack Query (state management)         │
 │  • React Router (navigation)                 │
-│  • Full UI: Dashboard, Catalog, Chat, etc.  │
+│  • Full UI: Dashboard, Catalog, Chat, etc.   │
 └──────────────┬───────────────────────────────┘
                │ REST API
                ↓
 ┌──────────────────────────────────────────────┐
 │       Backend (FastAPI) - Port 8000          │
-│  ┌────────────────────────────────────────┐ │
-│  │ API Layer (v1)                         │ │
-│  │ • /health, /capabilities, /sources     │ │
-│  │ • /competitions, /matches, /events     │ │
-│  │ • /statsbomb, /ingestion, /explorer    │ │
-│  │ • /embeddings, /chat (RAG)             │ │
-│  └──────────┬─────────────────────────────┘ │
+│  ┌────────────────────────────────────────┐  │
+│  │ API Layer (v1)                         │  │
+│  │ • /health, /capabilities, /sources     │  │
+│  │ • /competitions, /matches, /events     │  │
+│  │ • /statsbomb, /ingestion, /explorer    │  │
+│  │ • /embeddings, /chat (RAG)             │  │
+│  └──────────┬─────────────────────────────┘  │
 │             ↓                                │
-│  ┌────────────────────────────────────────┐ │
-│  │ Services Layer                         │ │
-│  │ • SearchService (RAG orchestration)    │ │
-│  │ • IngestionService (data loading)      │ │
-│  │ • StatsBombService (remote catalog)    │ │
-│  │ • DataExplorerService (queries)        │ │
-│  │ • JobService (background tasks)        │ │
-│  └──────────┬─────────────────────────────┘ │
+│  ┌────────────────────────────────────────┐  │
+│  │ Services Layer                         │  │
+│  │ • SearchService (RAG orchestration)    │  │
+│  │ • IngestionService (data loading)      │  │
+│  │ • StatsBombService (remote catalog)    │  │
+│  │ • DataExplorerService (queries)        │  │
+│  │ • JobService (background tasks)        │  │
+│  └──────────┬─────────────────────────────┘  │
 │             ↓                                │
-│  ┌────────────────────────────────────────┐ │
-│  │ Repositories Layer              │   │
-│  │ • PostgreSQL Repository         │   │
-│  │ • SQL Server Repository         │   │
-│  └──────────┬──────────────────────┘   │
-│             ↓                           │
-│  ┌─────────────────────────────────┐   │
-│  │ Adapters Layer                  │   │
-│  │ • OpenAI/Azure OpenAI           │   │
-│  └─────────────────────────────────┘   │
-└─────────────────────────────────────────┘
+│  ┌────────────────────────────────────────┐  │
+│  │ Repositories Layer                     │  │
+│  │ • PostgreSQL Repository                │  │
+│  │ • SQL Server Repository                │  │
+│  └──────────┬─────────────────────────────┘  │
+│             ↓                                │
+│  ┌─────────────────────────────────┐         │
+│  │ Adapters Layer                  │         │
+│  │ • OpenAI/Azure OpenAI           │         │
+│  └─────────────────────────────────┘         │
+└──────────────────────────────────────────────┘
                │
                ↓
 ┌──────────────────────────────────────────┐
@@ -156,86 +162,78 @@ The easiest way to run the full stack locally.
 
 **Prerequisites:**
 
-- Python 3.10+
-- PostgreSQL 17+ with pgvector extension OR Azure PostgreSQL Flexible Server
+- Python 3.11+, Node 20+
+- PostgreSQL 17 with pgvector OR Azure PostgreSQL Flexible Server
 - SQL Server 2025 Express OR Azure SQL Database
-- Azure OpenAI API access
+- Azure OpenAI or OpenAI API access
 
-1. **Clone the repository**
+1. **Clone and configure**
    ```bash
    git clone <repo-url>
    cd RAG-Challenge
-   git checkout feature/rearquitectura-completa
-   ```
-
-2. **Configure environment**
-   ```bash
    cp .env.example .env
    # Edit .env with your database and OpenAI credentials
    ```
 
-3. **Install backend dependencies**
+2. **Run the backend**
    ```bash
    cd backend
    pip install -r requirements.txt
-   ```
-
-4. **Install frontend dependencies**
-   ```bash
-   cd frontend
-   pip install -r requirements.txt
-   ```
-
-5. **Run the backend**
-   ```bash
-   cd backend
    python -m app.main
-   # Backend runs at http://localhost:8000
-   # API docs at http://localhost:8000/docs
+   # API: http://localhost:8000 | Docs: http://localhost:8000/docs
    ```
 
-6. **Run the frontend**
+3. **Run the frontend**
    ```bash
-   cd frontend
-   export BACKEND_URL=http://localhost:8000  # or set in .env
-   streamlit run streamlit_app/app_refactored.py
-   # Frontend runs at http://localhost:8501
+   cd frontend/webapp
+   npm install
+   npm run dev
+   # Frontend: http://localhost:5173
    ```
 
 ---
 
 ## 📖 Documentation
 
-### Architecture & Design
+### Project & Architecture
 
-- [Complete Rearchitecture Plan](./PLAN_REARQUITECTURA_COMPLETO.md) - Full roadmap and implementation status
-- [Architecture Decision Records (ADRs)](./docs/adr/README.md) - Key architectural decisions
-  - [ADR-001: Layered Architecture](./docs/adr/ADR-001-layered-architecture.md)
-  - [ADR-002: Centralized Configuration](./docs/adr/ADR-002-centralized-configuration.md)
-  - [ADR-003: pgvector Migration](./docs/adr/ADR-003-pgvector-migration.md)
-  - [ADR-004: Local Docker Infrastructure](./docs/adr/ADR-004-local-docker-infrastructure.md)
+| Document | Description |
+|---|---|
+| [CHANGELOG.md](./CHANGELOG.md) | Full version history |
+| [PROJECT_STATUS.md](./PROJECT_STATUS.md) | Current status and next steps |
+| [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) | Full architecture roadmap |
+| [PLAN_MIGRACION_FRONTEND_WEB.md](./PLAN_MIGRACION_FRONTEND_WEB.md) | Frontend migration plan |
+| [docs/adr/README.md](./docs/adr/README.md) | Architecture Decision Records index |
+| [docs/adr/ADR-001](./docs/adr/ADR-001-layered-architecture.md) | Layered Architecture decision |
+| [docs/adr/ADR-002](./docs/adr/ADR-002-centralized-configuration.md) | Centralized Configuration decision |
+| [docs/adr/ADR-003](./docs/adr/ADR-003-pgvector-migration.md) | pgvector Migration decision |
+| [docs/adr/ADR-004](./docs/adr/ADR-004-local-docker-infrastructure.md) | Local Docker Infrastructure decision |
 
 ### Backend (FastAPI)
 
-- [Backend Overview](./backend/README.md) - Setup, testing, deployment
-- [API Layer](./backend/app/api/README.md) - HTTP endpoints, DTOs, validation
-- [Services Layer](./backend/app/services/README.md) - Business logic, orchestration
-- [Repositories Layer](./backend/app/repositories/README.md) - Data access patterns
-- [Domain Layer](./backend/app/domain/README.md) - Entities, value objects, rules
-- [Adapters Layer](./backend/app/adapters/README.md) - External integrations
+| Document | Description |
+|---|---|
+| [backend/README.md](./backend/README.md) | Backend overview, setup, deployment |
+| [backend/app/api/README.md](./backend/app/api/README.md) | HTTP endpoints, DTOs, validation |
+| [backend/app/services/README.md](./backend/app/services/README.md) | Business logic, orchestration |
+| [backend/app/repositories/README.md](./backend/app/repositories/README.md) | Data access patterns |
+| [backend/app/domain/README.md](./backend/app/domain/README.md) | Entities, value objects, rules |
+| [backend/app/adapters/README.md](./backend/app/adapters/README.md) | External integrations (OpenAI) |
 
 ### Frontend (React TypeScript)
 
-- [Frontend Web App](./frontend/webapp/README.md) - Modern React application
-- [Legacy Streamlit](./frontend/README.md) - Original Streamlit client (deprecated)
-- [Configuration Guide](./config/README.md) - Centralized settings management
+| Document | Description |
+|---|---|
+| [frontend/webapp/README.md](./frontend/webapp/README.md) | React app setup and structure |
+| [config/README.md](./config/README.md) | Centralized configuration guide |
 
 ### Domain Knowledge
 
-- [StatsBomb Introduction](./docs/statsbomb-intro.md) - Football data structure
-- [Application Screenshots](./docs/app-screenshots.md) - UI examples
-- [Application Use Cases](./docs/app-use-case.md) - How to use the app
-- [Data Distribution](./docs/data-distribution.md) - Database statistics
+| Document | Description |
+|---|---|
+| [docs/statsbomb-intro.md](./docs/statsbomb-intro.md) | StatsBomb data structure explained |
+| [docs/app-use-case.md](./docs/app-use-case.md) | Application use cases and demo questions |
+| [docs/data-distribution.md](./docs/data-distribution.md) | Database statistics and data layout |
 
 ---
 
@@ -367,7 +365,7 @@ RAG-Challenge/
 │   ├── adr/                          # Architecture Decision Records
 │   │   ├── ADR-001-layered-architecture.md
 │   │   ├── ADR-002-centralized-configuration.md
-│   │   ├── ADR-003-pgvector-migration.md (Proposed)
+│   │   ├── ADR-003-pgvector-migration.md (Accepted)
 │   │   └── ADR-004-local-docker-infrastructure.md
 │   ├── app-screenshots.md
 │   ├── app-use-case.md
