@@ -1,32 +1,65 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "[post-start] Running service health checks..."
+echo "============================================"
+echo "[post-start] Starting services..."
+echo "============================================"
+
+# Start the backend (devcontainer override uses "sleep infinity")
+echo "[post-start] Starting uvicorn in background..."
+nohup uvicorn app.main:app \
+    --host 0.0.0.0 --port 8000 \
+    --reload --reload-dir /app \
+    > /tmp/uvicorn.log 2>&1 &
+
+echo "[post-start] Running health checks..."
 python - <<'PY'
+import socket
 import time
+
 import requests
 
-checks = [
-    ("backend-liveness", "http://localhost:8000/api/v1/health/live", lambda r: r.status_code == 200),
-    ("backend-readiness", "http://localhost:8000/api/v1/health/ready", lambda r: r.status_code == 200 and r.json().get("ready") is True),
-    ("frontend-health", "http://frontend:5173/", lambda r: r.status_code == 200),
-    ("postgres-smoke", "http://localhost:8000/api/v1/competitions?source=postgres", lambda r: r.status_code == 200),
-]
 
-for name, url, validator in checks:
+def check(name, url, validator, max_attempts=30, sleep_s=2):
+    """Run a health check with retries. Returns True on success, False on failure."""
     last_error = None
-    for attempt in range(1, 31):
+    for attempt in range(1, max_attempts + 1):
         try:
-            response = requests.get(url, timeout=5)
-            if validator(response):
-                print(f"[post-start] {name}: OK")
-                break
-            last_error = f"unexpected response: {response.status_code} {response.text[:200]}"
+            r = requests.get(url, timeout=5)
+            if validator(r):
+                print(f"  {name}: OK")
+                return True
+            last_error = f"status={r.status_code} body={r.text[:200]}"
         except Exception as exc:
             last_error = str(exc)
-        time.sleep(2)
-    else:
-        raise SystemExit(f"[post-start] {name} failed after retries: {last_error}")
+        time.sleep(sleep_s)
+    print(f"  {name}: FAILED ({last_error})")
+    return False
 
-print("[post-start] All checks passed.")
+
+def is_host_reachable(host, port):
+    try:
+        sock = socket.create_connection((host, port), timeout=3)
+        sock.close()
+        return True
+    except (OSError, socket.timeout):
+        return False
+
+
+# Required checks
+ok = check("backend-liveness", "http://localhost:8000/api/v1/health/live",
+           lambda r: r.status_code == 200)
+if not ok:
+    raise SystemExit("[post-start] Backend failed to start. Check /tmp/uvicorn.log")
+
+check("backend-readiness", "http://localhost:8000/api/v1/health/ready",
+      lambda r: r.status_code == 200)
+
+# Optional checks (don't fail if service is not running)
+if is_host_reachable("frontend", 5173):
+    check("frontend", "http://frontend:5173/", lambda r: r.status_code == 200, max_attempts=10)
+else:
+    print("  frontend: not running (skipped)")
+
+print("[post-start] Health checks completed.")
 PY

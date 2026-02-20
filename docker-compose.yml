@@ -16,7 +16,6 @@ services:
       - ./infra/docker/postgres/initdb:/docker-entrypoint-initdb.d:ro
     networks:
       - internal
-      - external
     security_opt:
       - no-new-privileges:true
     healthcheck:
@@ -27,7 +26,8 @@ services:
       start_period: 5s
     restart: unless-stopped
     profiles:
-      - postgres  # Inicia solo con: docker-compose --profile postgres up
+      - postgres
+      - full
 
   # ---------------------------------------------------------------------------
   # SQL Server 2025 Express (Linux)
@@ -48,7 +48,6 @@ services:
       - sqlserver_data:/var/opt/mssql
     networks:
       - internal
-      - external
     security_opt:
       - no-new-privileges:true
     healthcheck:
@@ -74,11 +73,11 @@ services:
     working_dir: /app
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app
     env_file:
-      - .env.docker
+      - path: .env.docker
+        required: false
     environment:
       ENVIRONMENT: local
-      PYTHONPATH: /app:/
-      DEVELOPMENT: "true"
+      PYTHONPATH: /app:/config
       POSTGRES_HOST: postgres
       POSTGRES_DB: ${POSTGRES_DB:-rag_challenge}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
@@ -105,8 +104,8 @@ services:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/live')\""]
       interval: 5s
       timeout: 3s
-      retries: 3
-      start_period: 5s
+      retries: 5
+      start_period: 10s
     deploy:
       resources:
         limits:
@@ -123,9 +122,6 @@ services:
       context: ./frontend/webapp
       dockerfile: Dockerfile
       target: development
-      args:
-        VITE_API_BASE_URL: http://localhost:8000/api/v1
-        VITE_BACKEND_ORIGIN: http://localhost:8000
     container_name: rag-frontend
     working_dir: /app
     command: npm run dev -- --host 0.0.0.0
@@ -135,8 +131,8 @@ services:
       - ./frontend/webapp:/app:cached
       - frontend_node_modules:/app/node_modules
     environment:
-      - VITE_API_BASE_URL=http://localhost:8000/api/v1
-      - VITE_BACKEND_ORIGIN=http://localhost:8000
+      VITE_API_BASE_URL: /api/v1
+      VITE_BACKEND_ORIGIN: http://localhost:8000
     networks:
       - internal
       - external
@@ -153,9 +149,9 @@ services:
 networks:
   internal:
     driver: bridge
-    internal: true  # BD: sin acceso a redes externas/host
+    internal: true
   external:
-    driver: bridge   # Backend/Frontend: acceso a internet (APIs externas)
+    driver: bridge
 
 volumes:
   postgres_data:
@@ -164,4 +160,3 @@ volumes:
     driver: local
   frontend_node_modules:
     driver: local
-
