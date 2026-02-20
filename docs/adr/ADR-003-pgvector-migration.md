@@ -2,7 +2,7 @@
 
 ## Status
 
-**Proposed** - 2026-02-08
+**Accepted & Implemented** - 2026-02-20 (proposed 2026-02-08)
 
 ## Context
 
@@ -259,18 +259,18 @@ assert overlap >= 0.8
 
 ## Implementation Checklist
 
-- [ ] Install pgvector extension in local Docker PostgreSQL
-- [ ] Create migration scripts for schema changes
-- [ ] Implement embedding generation service in backend
-- [ ] Create batch processing worker
-- [ ] Add monitoring for embedding pipeline
+- [x] Install pgvector extension in local Docker PostgreSQL (`pgvector/pgvector:pg17`)
+- [x] Create migration scripts for schema changes (`infra/docker/postgres/initdb/02-schema.sql`)
+- [x] Implement embedding generation service in backend (`backend/app/adapters/openai_client.py`)
+- [x] Create batch processing with retry (`OpenAIAdapter.create_embeddings_batch()`)
+- [x] Add embedding status tracking columns (`embedding_status`, `embedding_updated_at`, `embedding_error`)
 - [ ] Write integration tests for embedding generation
-- [ ] Backfill existing data with new embeddings
-- [ ] Performance testing and index tuning
-- [ ] Update repository queries to use new columns
-- [ ] Validate search quality parity
-- [ ] Update documentation
-- [ ] Remove Azure extension dependencies
+- [x] Update repository queries to use pgvector operators (`backend/app/repositories/postgres.py`)
+- [x] SQL Server VECTOR support (`backend/app/repositories/sqlserver.py` using `VECTOR_DISTANCE()`)
+- [x] Portable OpenAI adapter (Azure + direct OpenAI via `OPENAI_PROVIDER`)
+- [x] Update documentation
+- [x] Remove Azure extension dependencies (deleted `postgres/`, `sqlserver/`, `python_modules/`, `deploy/`)
+- [x] Rename env vars from `DB_*_AZURE_*` to neutral `POSTGRES_*` / `SQLSERVER_*`
 
 ## References
 

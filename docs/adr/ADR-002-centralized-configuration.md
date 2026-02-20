@@ -20,13 +20,13 @@ The current codebase has configuration management issues:
 **Examples of problems:**
 ```python
 # Repeated across multiple files
-db_host = os.getenv('DB_SERVER_AZURE_POSTGRES')  # Could be None
+db_host = os.getenv('POSTGRES_HOST')  # Could be None
 db_port = int(os.getenv('DB_PORT', '5432'))       # Manual type conversion
 
 # No way to know if required until runtime
 if not db_host:
     # Fails deep in execution, not at startup
-    raise ValueError("Missing DB_SERVER_AZURE_POSTGRES")
+    raise ValueError("Missing POSTGRES_HOST")
 ```
 
 ## Decision
@@ -74,7 +74,7 @@ settings = Settings()  # Load once at startup
 **Before:**
 ```python
 import os
-db_host = os.getenv('DB_SERVER_AZURE_POSTGRES')
+db_host = os.getenv('POSTGRES_HOST')
 api_key = os.getenv('OPENAI_KEY')
 ```
 

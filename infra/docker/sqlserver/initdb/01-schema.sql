@@ -175,6 +175,10 @@ BEGIN
         summary NVARCHAR(MAX),
         embedding_3_small VECTOR(1536),
         embedding_ada_002 VECTOR(1536),
+        -- Embedding lifecycle tracking
+        embedding_status VARCHAR(20) DEFAULT 'pending',  -- pending | done | error
+        embedding_updated_at DATETIME2,
+        embedding_error NVARCHAR(MAX),
         PRIMARY KEY (match_id, period, minute, _15secs)
     );
 END;

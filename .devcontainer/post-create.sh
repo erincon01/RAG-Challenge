@@ -20,15 +20,15 @@ import pyodbc
 
 REPO_ROOT = Path("/workspace")
 
-PG_HOST = os.getenv("DB_SERVER_AZURE_POSTGRES", "postgres")
-PG_DB = os.getenv("DB_NAME_AZURE_POSTGRES", "rag_challenge")
-PG_USER = os.getenv("DB_USER_AZURE_POSTGRES", "postgres")
-PG_PASSWORD = os.getenv("DB_PASSWORD_AZURE_POSTGRES", "postgres_local_pwd")
+PG_HOST = os.getenv("POSTGRES_HOST", "postgres")
+PG_DB = os.getenv("POSTGRES_DB", "rag_challenge")
+PG_USER = os.getenv("POSTGRES_USER", "postgres")
+PG_PASSWORD = os.getenv("POSTGRES_PASSWORD", "postgres_local_pwd")
 
-SQL_HOST = os.getenv("DB_SERVER_AZURE", "sqlserver")
-SQL_DB = os.getenv("DB_NAME_AZURE", "rag_challenge")
-SQL_USER = os.getenv("DB_USER_AZURE", "sa")
-SQL_PASSWORD = os.getenv("DB_PASSWORD_AZURE", "SqlServer_Local_Pwd123!")
+SQL_HOST = os.getenv("SQLSERVER_HOST", "sqlserver")
+SQL_DB = os.getenv("SQLSERVER_DB", "rag_challenge")
+SQL_USER = os.getenv("SQLSERVER_USER", "sa")
+SQL_PASSWORD = os.getenv("SQLSERVER_PASSWORD", "SqlServer_Local_Pwd123!")
 
 
 def is_host_reachable(host: str, port: int) -> bool:
