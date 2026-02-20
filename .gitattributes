@@ -1,2 +1,16 @@
+# Normalize all text files to LF on checkout
+* text=auto eol=lf
+
 # Force LF line endings for shell scripts (required for Linux containers)
 *.sh text eol=lf
+
+# Binary files - no line ending conversion
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.pyc binary
+*.pptx binary

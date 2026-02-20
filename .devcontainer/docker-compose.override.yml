@@ -3,3 +3,4 @@
 services:
   backend:
     command: sleep infinity
+    working_dir: /workspace

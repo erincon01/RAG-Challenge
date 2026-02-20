@@ -23,7 +23,7 @@
 		},
 		"5173": {
 			"label": "Frontend React",
-			"onAutoForward": "openBrowser"
+			"onAutoForward": "notify"
 		},
 		"5432": {
 			"label": "PostgreSQL",
@@ -33,6 +33,9 @@
 			"label": "SQL Server",
 			"onAutoForward": "silent"
 		}
+	},
+	"otherPortsAttributes": {
+		"onAutoForward": "ignore"
 	},
 	"postCreateCommand": "bash /workspace/.devcontainer/post-create.sh",
 	"postStartCommand": "bash /workspace/.devcontainer/post-start.sh",
