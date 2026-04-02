@@ -83,3 +83,60 @@ crear `CLAUDE.md` para soporte multi-agente, y configurar `openspec/config.yaml`
 - Habilitar perfil expandido si se necesitan: `/opsx:verify`, `/opsx:sync`, `/opsx:onboard`
 - Crear specs iniciales del sistema actual con `/opsx:explore`
 - Ejecutar primer cambio real con `/opsx:propose fix-dependency-injection`
+
+---
+
+## 2026-04-02 — Documentación del sistema actual como specs (sesión 3)
+
+**Participantes:** Eladio Rincon + GitHub Copilot (Claude Opus 4.6)  
+**Rama:** `feature/openspec-governance`
+
+### Objetivo
+Completar los pasos pendientes de la sesión anterior (commit + push de Phase 1), y ejecutar
+Phase 2 del plan de adopción: documentar el comportamiento actual del sistema como specs en
+`openspec/specs/`.
+
+### Acciones realizadas
+1. Actualizar `docs/conversation_log.md` con la sesión anterior de instalación de OpenSpec.
+2. Commit y push de todos los ficheros de Phase 1 (20 ficheros: CLAUDE.md, openspec/config.yaml,
+   .github/prompts/, .github/skills/, .claude/commands/, .claude/skills/).
+3. Exploración completa del codebase (API, services, repos, domain, adapters, DI, config, infra,
+   frontend) usando un subagente de exploración.
+4. Creación de 4 specs iniciales del sistema:
+   - `openspec/specs/api/spec.md` — 10 routers, ~25 endpoints, contratos, cross-cutting concerns
+   - `openspec/specs/rag/spec.md` — Pipeline RAG de 5 pasos, token management, retry, response contract
+   - `openspec/specs/data/spec.md` — 14 entities, 5 exceptions, repository pattern, dual-repo, esquema BD
+   - `openspec/specs/infra/spec.md` — Docker Compose (4 servicios), config Pydantic, DI, CI/CD, testing
+5. Actualización del diario en `docs/PLAN_OPENSPEC_ADOPTION.md` (Paso 5 completado).
+6. Commit y push de Phase 2.
+
+### Decisiones tomadas
+1. No crear `frontend/spec.md` (baja prioridad): el frontend es consumidor de la API y no
+   contiene lógica de negocio crítica que necesite spec formal.
+2. Documentar "Known Deviations" en cada spec para señalar deuda técnica respecto a las reglas
+   del proyecto (DI, Repository Pattern, CORS).
+3. Usar formato mixto en specs: tablas para contratos, Given/When/Then para comportamiento,
+   ASCII diagrams para flujos.
+
+### Artefactos creados / modificados
+- `openspec/specs/api/spec.md` (nuevo)
+- `openspec/specs/rag/spec.md` (nuevo)
+- `openspec/specs/data/spec.md` (nuevo)
+- `openspec/specs/infra/spec.md` (nuevo)
+- `docs/PLAN_OPENSPEC_ADOPTION.md` (actualizado: Paso 5 completado)
+- `docs/conversation_log.md` (actualizado: sesiones 2 y 3)
+
+### Estado del plan de adopción
+| Fase | Estado |
+|------|--------|
+| Fase 0 — Preparación | ✅ Completada |
+| Fase 1 — Instalar OpenSpec | ✅ Completada |
+| Fase 2 — Specs iniciales | ✅ Completada |
+| Fase 3 — Primer cambio real | ⬜ Pendiente (`/opsx:propose fix-dependency-injection`) |
+| Fase 4 — Reglas multi-dev | ⬜ Pendiente |
+| Fase 5 — Mejora continua | ⬜ Pendiente |
+
+### Próximos pasos
+- Ejecutar `/opsx:propose fix-dependency-injection` para validar el workflow OpenSpec end-to-end
+- Implementar el cambio con `/opsx:apply`
+- Verificar con `/opsx:verify` y archivar con `/opsx:archive`
