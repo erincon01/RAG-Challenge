@@ -7,10 +7,10 @@ They are database-agnostic and contain only business logic.
 
 from dataclasses import dataclass, field
 from datetime import date
-from enum import Enum
+from enum import StrEnum
 
 
-class SearchAlgorithm(str, Enum):
+class SearchAlgorithm(StrEnum):
     """Supported similarity search algorithms."""
 
     COSINE = "cosine"
@@ -19,7 +19,7 @@ class SearchAlgorithm(str, Enum):
     L2_EUCLIDEAN = "l2_euclidean"
 
 
-class EmbeddingModel(str, Enum):
+class EmbeddingModel(StrEnum):
     """Supported embedding models."""
 
     ADA_002 = "text-embedding-ada-002"
