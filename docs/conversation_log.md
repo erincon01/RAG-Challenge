@@ -140,3 +140,89 @@ Phase 2 del plan de adopción: documentar el comportamiento actual del sistema c
 - Ejecutar `/opsx:propose fix-dependency-injection` para validar el workflow OpenSpec end-to-end
 - Implementar el cambio con `/opsx:apply`
 - Verificar con `/opsx:verify` y archivar con `/opsx:archive`
+
+---
+
+## 2026-04-02 — Fase 3: primer cambio real con OpenSpec (fix-dependency-injection)
+
+**Participantes:** Eladio Rincon + GitHub Copilot (Claude Sonnet 4.6)  
+**Rama:** `feature/openspec-governance`
+
+### Objetivo
+Ejecutar el primer cambio real siguiendo el workflow OpenSpec completo:
+`/opsx:propose → /opsx:apply → /opsx:archive`. El cambio: eliminar el anti-patrón
+`_service = XxxService()` a nivel de módulo en 4 ficheros de rutas, reemplazando
+con inyección de dependencias vía `FastAPI Depends()`.
+
+### Secuencia seguida (TDD estricto)
+
+1. **Propuesta** — creados 4 artefactos para `fix-dependency-injection`:
+   - `proposal.md`: Por qué (rompe DI, testabilidad, anti-patrón AGENTS.md)
+   - `design.md`: Cómo (3 providers en `core/dependencies.py`, tipo aliases, param `statsbomb`)
+   - `specs/infra/spec.md`: Delta spec con MODIFIED + ADDED requirements
+   - `tasks.md`: 14 tareas en 4 grupos
+
+2. **Violación detectada y corregida**: se implementó código antes que tests. Usuario
+   detectó la violación de AGENTS.md regla 2 ("Test before implementation"). Se revirtió
+   con `git checkout HEAD -- backend/app/core/dependencies.py backend/app/services/ingestion_service.py`.
+
+3. **Recuperación de tests** desde `develop`:
+   `git checkout develop -- backend/tests/`
+
+4. **Fase RED** — tests escritos antes de implementación:
+   - `test_dependencies_and_explorer_service.py`: 9 tests RED (providers + DI constructor)
+   - `test_statsbomb.py`: 3 tests RED (clase `TestStatsBombDependencyInjection`)
+   - `test_ingestion.py`: 2 tests RED (clase `TestIngestionDependencyInjection`)
+   - `test_explorer_embeddings.py`: 4 tests RED (clases `TestExplorerDependencyInjection` + `TestEmbeddingsDependencyInjection`)
+   - Confirmado RED: errores `ImportError: cannot import name 'get_xxx_service'`
+
+5. **Fase GREEN** — implementación:
+   - `app/core/dependencies.py`: añadidos `get_statsbomb_service`, `get_ingestion_service`,
+     `get_data_explorer_service` + aliases `StatsBombSvc`, `IngestionSvc`, `ExplorerSvc`
+   - `app/services/ingestion_service.py`: `__init__(self, statsbomb=None)` con DI opcional
+   - `app/api/v1/statsbomb.py`: eliminado `_service`, inyectado `StatsBombSvc`
+   - `app/api/v1/ingestion.py`: eliminado `_service`, inyectado `IngestionSvc`
+   - `app/api/v1/embeddings.py`: eliminado `_service`, inyectado `IngestionSvc`
+   - `app/api/v1/explorer.py`: eliminado `_service`, inyectado `ExplorerSvc`
+   - Tests legacy actualizados: `patch("..._service")` → `dependency_overrides[get_xxx_service]`
+   - Resultado: **433 tests passing**, 1 failure pre-existente en `test_sqlserver_repo.py`
+
+6. **Archivo**: `openspec archive fix-dependency-injection` → archivado en
+   `openspec/changes/archive/2026-04-02-fix-dependency-injection/`
+
+### Decisiones tomadas
+1. El parámetro `service: IngestionSvc = None` en handlers: con `Annotated[..., Depends(...)]`,
+   FastAPI ignora el `= None` y siempre inyecta. El `= None` es solo para type-checker parity.
+2. Los tests existentes (legacy) que usaban `patch("..._service")` se migraron a
+   `dependency_overrides` como parte del mismo cambio.
+3. El fallo pre-existente de `test_sqlserver_repo.py::test_event_json_data_empty_when_none`
+   (`assert None == ""`) es deuda técnica separada, no relacionada con este cambio.
+
+### Archivos modificados
+- `backend/app/core/dependencies.py`
+- `backend/app/services/ingestion_service.py`
+- `backend/app/api/v1/statsbomb.py`
+- `backend/app/api/v1/ingestion.py`
+- `backend/app/api/v1/embeddings.py`
+- `backend/app/api/v1/explorer.py`
+- `backend/tests/api/test_statsbomb.py`
+- `backend/tests/api/test_ingestion.py`
+- `backend/tests/api/test_explorer_embeddings.py`
+- `backend/tests/unit/test_dependencies_and_explorer_service.py`
+- `openspec/changes/archive/2026-04-02-fix-dependency-injection/tasks.md` (completado)
+- `docs/conversation_log.md` (este archivo)
+
+### Estado del plan de adopción
+| Fase | Estado |
+|------|--------|
+| Fase 0 — Preparación | ✅ Completada |
+| Fase 1 — Instalar OpenSpec | ✅ Completada |
+| Fase 2 — Specs iniciales | ✅ Completada |
+| Fase 3 — Primer cambio real | ✅ Completada (fix-dependency-injection, archivado) |
+| Fase 4 — Reglas multi-dev | ⬜ Pendiente |
+| Fase 5 — Mejora continua | ⬜ Pendiente |
+
+### Próximos pasos
+- Hacer PR de `feature/openspec-governance` → `develop`
+- Corregir deuda técnica: `test_sqlserver_repo.py::test_event_json_data_empty_when_none`
+- Explorar siguiente cambio candidato con `/opsx:propose`

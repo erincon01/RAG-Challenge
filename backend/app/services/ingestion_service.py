@@ -21,9 +21,9 @@ from app.services.statsbomb_service import StatsBombService
 class IngestionService:
     """Service implementing end-to-end ingestion tasks."""
 
-    def __init__(self):
+    def __init__(self, statsbomb: Optional[StatsBombService] = None):
         self.settings = get_settings()
-        self.statsbomb = StatsBombService()
+        self.statsbomb = statsbomb if statsbomb is not None else StatsBombService()
         self.local_folder = Path(self.settings.repository.local_folder)
 
     @staticmethod

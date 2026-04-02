@@ -5,10 +5,9 @@ from typing import Any, Dict, List
 from fastapi import APIRouter, HTTPException, Query, status
 from pydantic import BaseModel
 
-from app.services.statsbomb_service import StatsBombService
+from app.core.dependencies import StatsBombSvc
 
 router = APIRouter()
-_service = StatsBombService()
 
 
 class StatsBombCompetitionResponse(BaseModel):
@@ -36,10 +35,10 @@ class StatsBombMatchResponse(BaseModel):
     status_code=status.HTTP_200_OK,
     summary="List StatsBomb competitions",
 )
-async def list_statsbomb_competitions() -> List[StatsBombCompetitionResponse]:
+async def list_statsbomb_competitions(service: StatsBombSvc = None) -> List[StatsBombCompetitionResponse]:
     """Return competitions catalog from local cache or remote StatsBomb open-data."""
     try:
-        raw = _service.list_competitions()
+        raw = service.list_competitions()
         items: List[StatsBombCompetitionResponse] = []
         for row in raw:
             if row.get("competition_id") is None or row.get("season_id") is None:
@@ -71,10 +70,11 @@ async def list_statsbomb_competitions() -> List[StatsBombCompetitionResponse]:
 async def list_statsbomb_matches(
     competition_id: int = Query(..., description="StatsBomb competition_id"),
     season_id: int = Query(..., description="StatsBomb season_id"),
+    service: StatsBombSvc = None,
 ) -> List[StatsBombMatchResponse]:
     """Return match catalog for a competition-season pair."""
     try:
-        matches = _service.list_matches(competition_id=competition_id, season_id=season_id)
+        matches = service.list_matches(competition_id=competition_id, season_id=season_id)
         return [
             StatsBombMatchResponse(
                 match_id=int(m["match_id"]),

@@ -11,6 +11,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 - `.gitattributes` — global `* text=auto eol=lf` rule to prevent CRLF/LF drift when switching between Windows and Linux/devcontainer environments
 
+### Changed
+- `fix(di): replace module-level service singletons with Depends()` — removed `_service = XxxService()` from 4 API route files (`statsbomb.py`, `ingestion.py`, `embeddings.py`, `explorer.py`); added `get_statsbomb_service`, `get_ingestion_service`, `get_data_explorer_service` providers + type aliases to `core/dependencies.py`; updated `IngestionService.__init__` to accept optional `statsbomb` param; migrated all affected tests from `patch("..._service")` to `dependency_overrides`
+
 ---
 
 ## [3.2.0] - 2026-02-20 — Devcontainer v2 + pgvector portable
