@@ -20,10 +20,11 @@ Closes #<!-- issue number -->
 ## PR Checklist
 
 ### Code quality
-- [ ] Tests pass: `pytest tests/ -v`
-- [ ] Coverage ≥ 80%: `pytest tests/ --cov=python_modules --cov-report=term-missing`
-- [ ] Linter passes: `ruff check python_modules/ app.py`
-- [ ] Formatter applied: `ruff format python_modules/ app.py`
+- [ ] Tests pass: `cd backend && pytest tests/ -v`
+- [ ] Coverage ≥ 80%: `cd backend && pytest tests/ --cov=app --cov-report=term-missing`
+- [ ] Linter passes: `ruff check backend/app`
+- [ ] Formatter applied: `ruff format backend/app`
+- [ ] Type check passes: `mypy backend/app --ignore-missing-imports`
 - [ ] Type hints on all new public functions
 
 ### Security
