@@ -1,6 +1,6 @@
 """Embeddings status endpoints."""
 
-from typing import Any, Dict
+from typing import Any
 
 from fastapi import APIRouter, HTTPException, Query, status
 
@@ -13,13 +13,13 @@ _service = IngestionService()
 
 @router.get(
     "/embeddings/status",
-    response_model=Dict[str, Any],
+    response_model=dict[str, Any],
     status_code=status.HTTP_200_OK,
     summary="Get embeddings coverage status",
 )
 async def get_embeddings_status(
     source: str = Query(default="postgres", description="Database source: postgres or sqlserver"),
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     try:
         return _service.get_embeddings_status(normalize_source(source))
     except Exception as e:

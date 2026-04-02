@@ -5,7 +5,7 @@ from typing import Annotated
 from fastapi import Depends
 
 from app.core.capabilities import normalize_source
-from app.repositories.base import MatchRepository, EventRepository
+from app.repositories.base import EventRepository, MatchRepository
 from app.repositories.postgres import PostgresRepositoryFactory
 from app.repositories.sqlserver import SQLServerRepositoryFactory
 

@@ -12,7 +12,8 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-from config import Settings, settings as global_settings
+from config import Settings  # noqa: E402
+from config import settings as global_settings  # noqa: E402
 
 
 def get_settings() -> Settings:

@@ -4,20 +4,18 @@ Event endpoints.
 Provides API endpoints for querying match events.
 """
 
-from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
+from fastapi import APIRouter, Depends, HTTPException, Path, Query, status
 
 from app.api.v1.models import EventDetailResponse
-from app.domain.exceptions import EntityNotFoundError
-from app.repositories.base import EventRepository
 from app.core.dependencies import get_event_repository
+from app.repositories.base import EventRepository
 
 router = APIRouter()
 
 
 @router.get(
     "/events",
-    response_model=List[EventDetailResponse],
+    response_model=list[EventDetailResponse],
     summary="List events",
     description="Get events for a specific match",
 )
@@ -27,11 +25,9 @@ async def list_events(
         default="postgres",
         description="Database source: postgres or sqlserver",
     ),
-    limit: Optional[int] = Query(
-        default=None, ge=1, le=1000, description="Maximum results"
-    ),
+    limit: int | None = Query(default=None, ge=1, le=1000, description="Maximum results"),
     repo: EventRepository = Depends(get_event_repository),
-) -> List[EventDetailResponse]:
+) -> list[EventDetailResponse]:
     """
     List events for a specific match.
 

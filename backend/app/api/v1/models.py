@@ -6,8 +6,9 @@ They are separate from domain entities to allow API versioning and
 transformation without affecting the domain layer.
 """
 
-from datetime import date, datetime
-from typing import Any, List, Optional
+from datetime import date
+from typing import Any
+
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -31,8 +32,8 @@ class TeamResponse(BaseModel):
     name: str
     gender: str
     country: str
-    manager: Optional[str] = None
-    manager_country: Optional[str] = None
+    manager: str | None = None
+    manager_country: str | None = None
 
     class Config:
         from_attributes = True
@@ -69,9 +70,9 @@ class MatchDetailResponse(BaseModel):
     home_score: int
     away_score: int
     result: str
-    match_week: Optional[int] = None
-    stadium_name: Optional[str] = None
-    referee_name: Optional[str] = None
+    match_week: int | None = None
+    stadium_name: str | None = None
+    referee_name: str | None = None
     display_name: str
 
     class Config:
@@ -88,7 +89,7 @@ class EventDetailResponse(BaseModel):
     minute: int
     quarter_minute: int
     count: int
-    summary: Optional[str] = None
+    summary: str | None = None
     time_description: str
 
     class Config:
@@ -122,17 +123,11 @@ class SearchRequest(BaseModel):
         description="Embedding model: text-embedding-ada-002, text-embedding-3-small, text-embedding-3-large",
     )
     top_n: int = Field(default=10, ge=1, le=100, description="Number of results")
-    temperature: float = Field(
-        default=0.1, ge=0, le=2, description="LLM temperature"
-    )
+    temperature: float = Field(default=0.1, ge=0, le=2, description="LLM temperature")
     max_input_tokens: int = Field(default=10000, description="Max input tokens")
     max_output_tokens: int = Field(default=5000, description="Max output tokens")
-    include_match_info: bool = Field(
-        default=True, description="Include match information in response"
-    )
-    system_message: Optional[str] = Field(
-        default=None, description="Custom system message for LLM"
-    )
+    include_match_info: bool = Field(default=True, description="Include match information in response")
+    system_message: str | None = Field(default=None, description="Custom system message for LLM")
 
     @field_validator("search_algorithm")
     @classmethod
@@ -147,11 +142,7 @@ class SearchRequest(BaseModel):
     @classmethod
     def validate_model(cls, v: str) -> str:
         """Validate embedding model."""
-        allowed = [
-            "text-embedding-ada-002",
-            "text-embedding-3-small",
-            "text-embedding-3-large"
-        ]
+        allowed = ["text-embedding-ada-002", "text-embedding-3-small", "text-embedding-3-large"]
         if v not in allowed:
             raise ValueError(f"Model must be one of: {', '.join(allowed)}")
         return v
@@ -163,8 +154,8 @@ class SearchResponse(BaseModel):
     question: str
     normalized_question: str
     answer: str
-    search_results: List[SearchResultResponse]
-    match_info: Optional[MatchDetailResponse] = None
+    search_results: list[SearchResultResponse]
+    match_info: MatchDetailResponse | None = None
     metadata: dict = Field(default_factory=dict)
 
     class Config:
@@ -178,4 +169,4 @@ class PaginatedResponse(BaseModel):
     total: int
     page: int
     page_size: int
-    items: List[Any]
+    items: list[Any]

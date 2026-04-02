@@ -5,31 +5,31 @@ These implementations use psycopg2 for database access and support pgvector
 for similarity search.
 """
 
+import logging
+from contextlib import contextmanager
+from typing import Any
+
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from contextlib import contextmanager
-from typing import List, Optional, Dict, Any
-import logging
 
 from app.core.config import get_settings
 from app.domain.entities import (
-    Match,
-    EventDetail,
-    SearchRequest,
-    SearchResult,
     Competition,
-    Season,
-    Team,
-    Stadium,
+    EmbeddingModel,
+    EventDetail,
+    Match,
     Referee,
     SearchAlgorithm,
-    EmbeddingModel,
+    SearchRequest,
+    SearchResult,
+    Season,
+    Stadium,
+    Team,
 )
 from app.domain.exceptions import (
     DatabaseConnectionError,
-    EntityNotFoundError,
 )
-from app.repositories.base import MatchRepository, EventRepository
+from app.repositories.base import EventRepository, MatchRepository
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -75,7 +75,7 @@ class PostgresMatchRepository(MatchRepository):
             logger.error(f"Connection test failed: {e}")
             return False
 
-    def get_by_id(self, match_id: int) -> Optional[Match]:
+    def get_by_id(self, match_id: int) -> Match | None:
         """Get a match by ID."""
         query = """
             SELECT
@@ -110,10 +110,10 @@ class PostgresMatchRepository(MatchRepository):
 
     def get_all(
         self,
-        competition_name: Optional[str] = None,
-        season_name: Optional[str] = None,
+        competition_name: str | None = None,
+        season_name: str | None = None,
         limit: int = 100,
-    ) -> List[Match]:
+    ) -> list[Match]:
         """Get all matches with optional filters."""
         query = """
             SELECT
@@ -132,7 +132,7 @@ class PostgresMatchRepository(MatchRepository):
             WHERE 1=1
         """
 
-        params = []
+        params: list = []
 
         if competition_name:
             query += " AND competition_name = %s"
@@ -155,7 +155,7 @@ class PostgresMatchRepository(MatchRepository):
             logger.error(f"Error fetching matches: {e}")
             raise
 
-    def get_competitions(self) -> List[Competition]:
+    def get_competitions(self) -> list[Competition]:
         """Get all unique competitions."""
         query = """
             SELECT DISTINCT
@@ -183,7 +183,7 @@ class PostgresMatchRepository(MatchRepository):
             logger.error(f"Error fetching competitions: {e}")
             raise
 
-    def _row_to_match(self, row: Dict[str, Any]) -> Match:
+    def _row_to_match(self, row: dict[str, Any]) -> Match:
         """Convert database row to Match entity."""
         competition = Competition(
             competition_id=row["competition_id"],
@@ -284,9 +284,7 @@ class PostgresEventRepository(EventRepository):
             logger.error(f"Connection test failed: {e}")
             return False
 
-    def get_events_by_match(
-        self, match_id: int, limit: Optional[int] = None
-    ) -> List[EventDetail]:
+    def get_events_by_match(self, match_id: int, limit: int | None = None) -> list[EventDetail]:
         """Get all events for a match."""
         query = """
             SELECT
@@ -312,7 +310,7 @@ class PostgresEventRepository(EventRepository):
             logger.error(f"Error fetching events for match {match_id}: {e}")
             raise
 
-    def get_event_by_id(self, event_id: int) -> Optional[EventDetail]:
+    def get_event_by_id(self, event_id: int) -> EventDetail | None:
         """Get a single event by ID."""
         query = """
             SELECT
@@ -336,9 +334,7 @@ class PostgresEventRepository(EventRepository):
             logger.error(f"Error fetching event {event_id}: {e}")
             raise
 
-    def search_by_embedding(
-        self, search_request: SearchRequest, query_embedding: List[float]
-    ) -> List[SearchResult]:
+    def search_by_embedding(self, search_request: SearchRequest, query_embedding: list[float]) -> list[SearchResult]:
         """
         Search events using vector similarity.
 
@@ -408,7 +404,7 @@ class PostgresEventRepository(EventRepository):
             logger.error(f"Error searching events: {e}")
             raise
 
-    def _row_to_event(self, row: Dict[str, Any]) -> EventDetail:
+    def _row_to_event(self, row: dict[str, Any]) -> EventDetail:
         """Convert database row to EventDetail entity."""
         return EventDetail(
             id=row["id"],
@@ -432,4 +428,3 @@ class PostgresRepositoryFactory:
     def create_event_repository(self) -> EventRepository:
         """Create a PostgreSQL event repository instance."""
         return PostgresEventRepository()
-

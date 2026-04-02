@@ -5,12 +5,12 @@ Provides endpoints for monitoring service health and readiness.
 """
 
 from datetime import datetime
-from typing import Dict, Any
+from typing import Any
 
 from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel
 
-from app.core.config import get_settings, Settings
+from app.core.config import Settings, get_settings
 from app.repositories.postgres import PostgresEventRepository
 from app.repositories.sqlserver import SQLServerEventRepository
 
@@ -24,14 +24,14 @@ class HealthResponse(BaseModel):
     timestamp: datetime
     environment: str
     version: str
-    checks: Dict[str, Any]
+    checks: dict[str, Any]
 
 
 class ReadinessResponse(BaseModel):
     """Readiness check response model."""
 
     ready: bool
-    checks: Dict[str, bool]
+    checks: dict[str, bool]
 
 
 @router.get(
@@ -112,7 +112,7 @@ async def readiness_check(
     summary="Liveness check",
     description="Check if the service is alive (for Kubernetes liveness probes)",
 )
-async def liveness_check() -> Dict[str, str]:
+async def liveness_check() -> dict[str, str]:
     """
     Liveness check endpoint.
 

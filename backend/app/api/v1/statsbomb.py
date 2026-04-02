@@ -1,6 +1,6 @@
 """StatsBomb catalog discovery endpoints."""
 
-from typing import Any, Dict, List
+from typing import Any
 
 from fastapi import APIRouter, HTTPException, Query, status
 from pydantic import BaseModel
@@ -22,25 +22,25 @@ class StatsBombCompetitionResponse(BaseModel):
 class StatsBombMatchResponse(BaseModel):
     match_id: int
     match_date: str | None = None
-    competition: Dict[str, Any] | None = None
-    season: Dict[str, Any] | None = None
-    home_team: Dict[str, Any] | None = None
-    away_team: Dict[str, Any] | None = None
+    competition: dict[str, Any] | None = None
+    season: dict[str, Any] | None = None
+    home_team: dict[str, Any] | None = None
+    away_team: dict[str, Any] | None = None
     home_score: int | None = None
     away_score: int | None = None
 
 
 @router.get(
     "/statsbomb/competitions",
-    response_model=List[StatsBombCompetitionResponse],
+    response_model=list[StatsBombCompetitionResponse],
     status_code=status.HTTP_200_OK,
     summary="List StatsBomb competitions",
 )
-async def list_statsbomb_competitions() -> List[StatsBombCompetitionResponse]:
+async def list_statsbomb_competitions() -> list[StatsBombCompetitionResponse]:
     """Return competitions catalog from local cache or remote StatsBomb open-data."""
     try:
         raw = _service.list_competitions()
-        items: List[StatsBombCompetitionResponse] = []
+        items: list[StatsBombCompetitionResponse] = []
         for row in raw:
             if row.get("competition_id") is None or row.get("season_id") is None:
                 continue
@@ -64,14 +64,14 @@ async def list_statsbomb_competitions() -> List[StatsBombCompetitionResponse]:
 
 @router.get(
     "/statsbomb/matches",
-    response_model=List[StatsBombMatchResponse],
+    response_model=list[StatsBombMatchResponse],
     status_code=status.HTTP_200_OK,
     summary="List StatsBomb matches for competition and season",
 )
 async def list_statsbomb_matches(
     competition_id: int = Query(..., description="StatsBomb competition_id"),
     season_id: int = Query(..., description="StatsBomb season_id"),
-) -> List[StatsBombMatchResponse]:
+) -> list[StatsBombMatchResponse]:
     """Return match catalog for a competition-season pair."""
     try:
         matches = _service.list_matches(competition_id=competition_id, season_id=season_id)
