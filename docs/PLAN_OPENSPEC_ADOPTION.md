@@ -87,24 +87,25 @@
 | 0.2 | Añadir `.github/workflows/` (CI/CD) | ✅ |
 | 0.3 | Añadir `.coverage` y artefactos pytest a `.gitignore` | ✅ |
 | 0.4 | Crear este documento (`docs/PLAN_OPENSPEC_ADOPTION.md`) | ✅ |
-| 0.5 | Crear `docs/conversation_log.md` para auditoría | ⬜ |
-| 0.6 | Crear `.github/copilot-instructions.md` con reglas del proyecto | ⬜ |
-| 0.7 | Crear `.github/instructions/git-workflow.instructions.md` | ⬜ |
-| 0.8 | Crear `.github/instructions/tdd.instructions.md` | ⬜ |
-| 0.9 | Crear `AGENTS.md` o `.github/agents/dev.agent.md` | ⬜ |
-| 0.10 | Commit y push de todos los artefactos de Fase 0 | ⬜ |
+| 0.5 | Crear `docs/conversation_log.md` para auditoría | ✅ |
+| 0.6 | Crear `.github/copilot-instructions.md` con reglas del proyecto | ✅ |
+| 0.7 | Crear `.github/instructions/git-workflow.instructions.md` | ✅ |
+| 0.8 | Crear `.github/instructions/tdd.instructions.md` | ✅ |
+| 0.9 | Crear `AGENTS.md` o `.github/agents/dev.agent.md` | ✅ |
+| 0.10 | Commit y push de todos los artefactos de Fase 0 | ✅ |
 
 ### Fase 1 — Instalar OpenSpec
 **Esfuerzo:** 30 minutos | **Beneficio:** Slash commands + estructura de specs
 
 | Paso | Acción | Comando |
 |------|--------|---------|
-| 1.1 | Instalar OpenSpec CLI | `npm install -g @fission-ai/openspec@latest` |
-| 1.2 | Inicializar en el proyecto | `cd RAG-Challenge && openspec init --tools github-copilot` |
-| 1.3 | Seleccionar perfil expandido | `openspec config profile` → seleccionar `workflows` |
-| 1.4 | Aplicar configuración | `openspec update` |
-| 1.5 | Personalizar `openspec/config.yaml` | Ver sección 5 de este documento |
-| 1.6 | Commit de la inicialización | `chore: initialize OpenSpec with expanded workflows` |
+| 1.1 | Instalar OpenSpec CLI | `npm install -g @fission-ai/openspec@latest` | ✅ |
+| 1.2 | Inicializar para GitHub Copilot | `openspec init --tools "github-copilot"` | ✅ |
+| 1.2b | Inicializar para Claude Code | `openspec init --tools "claude"` | ✅ |
+| 1.3 | Seleccionar perfil expandido (opcional) | `openspec config profile` → `expanded` | ⬜ (core por ahora) |
+| 1.4 | Crear `CLAUDE.md` referenciando AGENTS.md | Manual | ✅ |
+| 1.5 | Personalizar `openspec/config.yaml` | Ver sección 5 de este documento | ✅ |
+| 1.6 | Commit de la inicialización | `feat: initialize OpenSpec v1.2.0 ...` | ✅ |
 
 **Resultado esperado tras Fase 1:**
 ```
@@ -344,9 +345,57 @@ git push origin feature/openspec-governance
 
 **Lección aprendida:** La gobernanza tiene dos capas: (1) la que el framework proporciona (OpenSpec → specs, changes, slash commands) y (2) la que el equipo define (instrucciones de agente, workflow git, TDD). Ambas son necesarias.
 
-### Paso 4 — Instalar OpenSpec (pendiente)
+### Paso 4 — Instalar e inicializar OpenSpec (2026-04-02)
 
-*Se completará cuando se ejecute `openspec init`.*
+**Problema:** Se necesitaba un framework de spec-driven development que soporte tanto GitHub Copilot como Claude Code.
+
+**Acciones realizadas:**
+1. Instalar OpenSpec CLI v1.2.0 globalmente: `npm install -g @fission-ai/openspec@latest`
+2. Inicializar para Claude Code: `openspec init --tools "claude"` → genera `.claude/commands/opsx/` + `.claude/skills/openspec-*/`
+3. Inicializar para GitHub Copilot: `openspec init --tools "github-copilot"` → genera `.github/prompts/opsx-*.prompt.md` + `.github/skills/openspec-*/`
+4. Crear `CLAUDE.md` como fichero fino que referencia `AGENTS.md` (fuente de verdad única compartida Copilot/Claude).
+5. Crear `openspec/config.yaml` manualmente con contexto del proyecto, esquema `spec-driven`, y reglas por artefacto.
+6. Actualizar `docs/conversation_log.md` con los detalles de esta sesión.
+7. Commit y push: `feat: initialize OpenSpec v1.2.0 with GitHub Copilot and Claude Code support`
+
+**Artefactos generados automáticamente por OpenSpec (perfil `core`):**
+
+| Tool | Slash Commands (4) | Skills (4) |
+|------|-------------------|------------|
+| GitHub Copilot | `.github/prompts/opsx-{propose,apply,archive,explore}.prompt.md` | `.github/skills/openspec-{propose,apply-change,archive-change,explore}/SKILL.md` |
+| Claude Code | `.claude/commands/opsx/{propose,apply,archive,explore}.md` | `.claude/skills/openspec-{propose,apply-change,archive-change,explore}/SKILL.md` |
+
+**Lecciones aprendidas:**
+- `openspec init --tools "github-copilot,claude"` no funciona: el flag `--tools` solo acepta un valor. Hay que ejecutar `init` una vez por tool.
+- `openspec/config.yaml` no se genera en modo no-interactivo. Hay que crearlo manualmente.
+- Tener dos entrypoints (`AGENTS.md` para Copilot/Codex, `CLAUDE.md` para Claude Code) con una sola fuente de verdad evita duplicación de reglas.
+- OpenSpec genera exactamente 4 skills + 4 commands por herramienta en perfil `core` (propose, apply, archive, explore).
+
+### Paso 5 — Documentar el sistema actual como specs (2026-04-02)
+
+**Problema:** No existían specs formales del sistema. El código era la única fuente de verdad. Para gobernar cambios futuros, necesitamos documentar el comportamiento actual como baseline.
+
+**Acciones realizadas:**
+1. Explorar el codebase completo usando un subagente (API, services, repos, domain, adapters, DI, config, infra, frontend).
+2. Crear 4 specs iniciales en `openspec/specs/`:
+   - `api/spec.md` — 10 routers, ~25 endpoints, contratos request/response, cross-cutting concerns
+   - `rag/spec.md` — Pipeline de 5 pasos, token management, retry strategy, response contract
+   - `data/spec.md` — Domain entities (14), exceptions (5), repository pattern, dual-repo, DB schema
+   - `infra/spec.md` — Docker Compose (4 services), config (Pydantic), DI providers, CI/CD, testing
+
+**Decisión:** No crear `frontend/spec.md` (baja prioridad; el frontend consume la API pero no tiene lógica de negocio crítica).
+
+**Formato de specs:**
+- Tablas para contratos y comparativas.
+- Given/When/Then para comportamiento clave.
+- ASCII diagrams para flujos.
+- Sección "Known Deviations" para documentar deuda técnica respecto a las reglas del proyecto.
+
+**Lección aprendida:** En un brownfield, las specs iniciales sirven como "fotografía" del sistema, no como verdad aspiracional. Las desviaciones se documentan explícitamente para que futuros `/opsx:propose` las puedan corregir.
+
+### Paso 6 — Primer cambio real con OpenSpec (pendiente)
+
+*Se ejecutará con `/opsx:propose fix-dependency-injection` para validar el workflow completo.* 
 
 ### Paso 5 — Documentar specs del sistema actual (pendiente)
 
