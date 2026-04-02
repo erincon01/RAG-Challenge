@@ -120,94 +120,68 @@ def test_search_service_calls_repo(mock_match_repo):
 @pytest.fixture
 def mock_openai_adapter():
     adapter = MagicMock(spec=OpenAIAdapter)
-    adapter.get_embedding.return_value = [0.1] * 1536
-    adapter.get_chat_completion.return_value = "Spain won 2-1"
+    adapter.create_embedding.return_value = [0.1] * 1536
+    adapter.create_chat_completion.return_value = "Spain won 2-1"
     return adapter
 ```
+
+## TDD Workflow per Feature (step-by-step)
+
+```
+1. Understand the acceptance criteria for the feature
+2. Write a failing API test (test_<feature>.py in api/)
+3. Write a failing unit test for the service logic (test_<feature>_service.py in unit/)
+4. Implement the domain entity / exception if new types are needed
+5. Implement the service method
+6. Implement the route handler in api/v1/
+7. All tests green → check coverage (pytest --cov=app)
+8. Refactor if needed, tests must stay green
+9. Open PR — CI enforces coverage ≥ 80%
+```
+
+**Never skip step 2 and 3.** Implementation first = tech debt.
 
 ## Test Naming Conventions
 
 ```python
 # Pattern: test_<unit>_<scenario>_<expected_outcome>
 def test_list_matches_empty_db_returns_empty_list():
-def test_search_service_over_token_budget_returns_sentinel():
+def test_search_service_over_token_budget_truncates_context():
 def test_postgres_repo_connection_failure_raises_database_error():
 def test_chat_endpoint_missing_question_returns_422():
+def test_search_service_calls_openai_adapter_once_per_request():
 ```
 
 ## What to Test per Layer
 
 | Layer | Key test scenarios |
 |-------|-------------------|
-| `api/v1/` | HTTP status codes, request validation (422), response schema |
-| `services/` | business logic, edge cases, error propagation |
-| `repositories/` | parameterized queries, error mapping (integration only) |
-| `adapters/` | SDK call shape, response parsing, retry/error handling |
-| `domain/` | entity validation, exception messages |
+| `api/v1/` | HTTP status codes, request validation (422), response schema shape |
+| `services/` | Business logic, edge cases, exception propagation, token budget logic |
+| `repositories/` | Parameterized queries, entity mapping, error conversion (integration only) |
+| `adapters/` | SDK call shape, response parsing, retry/backoff on 429/500 |
+| `domain/` | Entity validation (`__post_init__`), exception messages, enum values |
 
 ## Pytest Markers (defined in `backend/pytest.ini`)
 
 - `@pytest.mark.unit` — pure unit; no external deps
 - `@pytest.mark.api` — API endpoint tests with TestClient; mocked dependencies
-- `@pytest.mark.integration` — requires live DB
+- `@pytest.mark.integration` — requires live DB; NOT run in CI by default
 
-### Mock Environment Variables
+## Mock Environment (if settings are loaded outside DI)
+
+Settings are injected via `Depends(get_settings)` in most routes — override via `dependency_overrides`.
+For code that loads settings at module level (e.g. adapters), use `monkeypatch`:
 
 ```python
 @pytest.fixture(autouse=True)
 def mock_env(monkeypatch):
-    monkeypatch.setenv("DB_SERVER_AZURE_POSTGRES", "localhost")
-    monkeypatch.setenv("DB_NAME_AZURE_POSTGRES", "test_db")
-    monkeypatch.setenv("AZURE_OPENAI_ENDPOINT", "https://test.openai.azure.com/")
-    monkeypatch.setenv("AZURE_OPENAI_KEY", "test-key-000")
-```
-
-## Test Naming Conventions
-
-```python
-# Pattern: test_<function>_<scenario>_<expected_outcome>
-def test_decode_source_postgres_returns_azure_postgres():
-def test_decode_source_invalid_raises_value_error():
-def test_get_connection_azure_sql_calls_pyodbc():
-def test_search_embeddings_returns_top_k_results():
-```
-
-## What to Test per Module
-
-| Module | Key test scenarios |
-|--------|-------------------|
-| `module_data.py` | `decode_source()` normalization, connection routing per source, SQL query execution |
-| `module_azure_openai.py` | Embedding generation, chat completion parsing, token counting |
-| `module_utils.py` | Batch processing logic, data transformation, file I/O |
-| `module_github.py` | URL construction, JSON parsing, error handling on 404 |
-| `module_streamlit_frontend.py` | Data formatting functions (avoid testing Streamlit UI calls directly) |
-
-## Integration Tests
-
-Integration tests that require real DB/API connections:
-- Live in `tests/integration/`
-- Skipped by default: `@pytest.mark.skipif(not os.getenv("INTEGRATION_TESTS"), reason="requires live DB")`
-- Never run in CI unless explicitly enabled
-
-## conftest.py Template
-
-```python
-import pytest
-import os
-
-@pytest.fixture(autouse=True)
-def mock_env(monkeypatch):
-    """Inject safe env vars for all unit tests."""
-    monkeypatch.setenv("DB_SERVER_AZURE_POSTGRES", "localhost")
-    monkeypatch.setenv("DB_NAME_AZURE_POSTGRES", "ragtest")
-    monkeypatch.setenv("DB_USER_AZURE_POSTGRES", "testuser")
-    monkeypatch.setenv("DB_PASSWORD_AZURE_POSTGRES", "testpass")
-    monkeypatch.setenv("DB_SERVER_AZURE", "localhost")
-    monkeypatch.setenv("DB_NAME_AZURE", "ragtest")
-    monkeypatch.setenv("DB_USER_AZURE", "testuser")
-    monkeypatch.setenv("DB_PASSWORD_AZURE", "testpass")
-    monkeypatch.setenv("AZURE_OPENAI_ENDPOINT", "https://test.openai.azure.com/")
-    monkeypatch.setenv("AZURE_OPENAI_KEY", "test-key-000")
-    monkeypatch.setenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o")
-    monkeypatch.setenv("AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT", "text-embedding-3-small")
+    """Inject safe env vars — used when settings are loaded at import time."""
+    monkeypatch.setenv("POSTGRES_HOST", "localhost")
+    monkeypatch.setenv("POSTGRES_DB", "ragtest")
+    monkeypatch.setenv("POSTGRES_USER", "testuser")
+    monkeypatch.setenv("POSTGRES_PASSWORD", "testpass")
+    monkeypatch.setenv("OPENAI_ENDPOINT", "https://test.openai.azure.com/")
+    monkeypatch.setenv("OPENAI_KEY", "test-key-000")
+    monkeypatch.setenv("OPENAI_MODEL", "gpt-4o")
 ```
