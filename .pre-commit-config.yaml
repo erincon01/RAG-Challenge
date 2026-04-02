@@ -1,0 +1,52 @@
+# Pre-commit hooks — run locally before every commit.
+# Install: pip install pre-commit && pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # --------------------------------------------------------------------------
+  # Ruff — fast Python linter + formatter (replaces flake8, isort, black)
+  # --------------------------------------------------------------------------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        name: ruff lint
+        args: [--fix, --exit-non-zero-on-fix]
+        files: ^backend/app/
+      - id: ruff-format
+        name: ruff format
+        files: ^backend/app/
+
+  # --------------------------------------------------------------------------
+  # Mypy — static type checking
+  # --------------------------------------------------------------------------
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.9.0
+    hooks:
+      - id: mypy
+        name: mypy type check
+        args: [--ignore-missing-imports, --no-error-summary]
+        files: ^backend/app/
+        additional_dependencies:
+          - pydantic>=2.0.0
+          - pydantic-settings>=2.0.0
+          - fastapi>=0.109.0
+
+  # --------------------------------------------------------------------------
+  # General hygiene
+  # --------------------------------------------------------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^(data/|backup/)
+      - id: end-of-file-fixer
+        exclude: ^(data/|backup/)
+      - id: check-yaml
+      - id: check-json
+        exclude: ^(data/|backup/)
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: no-commit-to-branch
+        args: [--branch, main, --branch, develop]

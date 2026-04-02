@@ -176,3 +176,34 @@ PRs cannot be merged until all CI checks are green.
 - Write commit message bodies to explain the *why*, not the *what*
 - On merge to `develop`: use **squash merge** (clean history)
 - On merge to `main`: use **merge commit** with version tag
+
+---
+
+## Local Pre-commit Hooks
+
+All devs must install pre-commit hooks after cloning the repo:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+Hooks run automatically on every `git commit`. To run manually on all files:
+
+```bash
+pre-commit run --all-files
+```
+
+Hooks configured in `.pre-commit-config.yaml`:
+
+| Hook | What it checks |
+|------|---------------|
+| `ruff lint` | Python linting with auto-fix (`backend/app/`) |
+| `ruff format` | Code formatting (`backend/app/`) |
+| `mypy` | Static type checking (`backend/app/`) |
+| `trailing-whitespace` | Trailing whitespace in all files |
+| `end-of-file-fixer` | Ensure files end with a newline |
+| `check-yaml` / `check-json` | Valid YAML and JSON syntax |
+| `check-merge-conflict` | No unresolved merge conflicts |
+| `check-added-large-files` | No files > 500 KB |
+| `no-commit-to-branch` | Blocks direct commits to `main` or `develop` |

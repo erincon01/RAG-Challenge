@@ -19,7 +19,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install ruff
-        run: pip install ruff
+        run: pip install -r backend/requirements.txt
 
       - name: Check formatting
         run: ruff format --check backend/app
@@ -39,10 +39,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r backend/requirements.txt mypy
+        run: pip install -r backend/requirements.txt
 
       - name: Run mypy
-        run: mypy backend/app --ignore-missing-imports
+        run: mypy backend/app
 
   unit-tests:
     name: Unit & API Tests
@@ -74,7 +74,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r backend/requirements.txt pytest pytest-cov pytest-asyncio
+        run: pip install -r backend/requirements.txt
 
       - name: Run unit and API tests with coverage
         working-directory: backend
@@ -112,7 +112,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r backend/requirements.txt pytest pytest-asyncio
+        run: pip install -r backend/requirements.txt
 
       - name: Run integration tests
         working-directory: backend
