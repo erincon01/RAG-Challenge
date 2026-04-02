@@ -95,12 +95,36 @@ Once running, visit:
 - `GET /api/v1/health/ready` - Readiness probe (checks dependencies)
 - `GET /api/v1/health/live` - Liveness probe (minimal check)
 
-### Coming Soon
+### Data Retrieval
 
 - `GET /api/v1/competitions` - List competitions
 - `GET /api/v1/matches` - List matches
-- `GET /api/v1/events` - Query match events
-- `POST /api/v1/chat/search` - Semantic search with LLM
+- `GET /api/v1/matches/{match_id}` - Get match detail
+- `GET /api/v1/events` - Query match events by match
+- `GET /api/v1/events/{event_id}` - Get event detail
+
+### StatsBomb & Operations
+
+- `GET /api/v1/statsbomb/competitions` - Browse StatsBomb competitions
+- `GET /api/v1/statsbomb/matches` - Browse StatsBomb matches by competition/season
+- `POST /api/v1/ingestion/download` - Download StatsBomb data
+- `POST /api/v1/ingestion/load` - Load data into a selected database
+- `POST /api/v1/ingestion/aggregate` - Create aggregate tables
+- `GET /api/v1/ingestion/jobs` - List jobs
+- `GET /api/v1/ingestion/jobs/{job_id}` - Get job detail
+- `POST /api/v1/ingestion/jobs/{job_id}/cancel` - Cancel a running job
+- `DELETE /api/v1/ingestion/jobs` - Clear completed jobs
+
+### Search & Embeddings
+
+- `GET /api/v1/capabilities` - Capability matrix by source
+- `GET /api/v1/sources/status` - Connectivity status by source
+- `GET /api/v1/explorer/teams` - Team explorer data
+- `GET /api/v1/explorer/players` - Player explorer data
+- `GET /api/v1/explorer/tables` - Database table metadata
+- `GET /api/v1/embeddings/status` - Embedding coverage by match
+- `POST /api/v1/embeddings/rebuild` - Rebuild embeddings for selected matches
+- `POST /api/v1/chat/search` - Semantic search with RAG-generated answer
 
 ## Testing
 
@@ -112,11 +136,13 @@ pytest
 pytest --cov=app --cov-report=html
 
 # Run specific test file
-pytest tests/test_health.py
+pytest tests/api/test_health.py
 
 # Run with verbose output
 pytest -v
 ```
+
+Local validation on 2026-04-02: `259 passed` on Python 3.12.
 
 ## Development
 
@@ -201,17 +227,18 @@ Current implementation status:
 - [x] FastAPI application setup
 - [x] Health check endpoints
 - [x] Configuration integration
-- [ ] Repository layer (PostgreSQL)
-- [ ] Repository layer (SQL Server)
-- [ ] Service layer (embeddings, search)
-- [ ] OpenAI adapter
-- [ ] Competition endpoints
-- [ ] Match endpoints
-- [ ] Event endpoints
-- [ ] Chat/search endpoint
+- [x] Repository layer (PostgreSQL)
+- [x] Repository layer (SQL Server)
+- [x] Service layer (ingestion, explorer, embeddings, search)
+- [x] OpenAI adapter
+- [x] Competition endpoints
+- [x] Match endpoints
+- [x] Event endpoints
+- [x] Chat/search endpoint
+- [x] Backend pytest suite (local branch state)
 - [ ] Authentication
 - [ ] Rate limiting
-- [ ] Comprehensive tests
+- [ ] CI-backed coverage enforcement
 
 ## License
 

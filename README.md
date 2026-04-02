@@ -4,10 +4,10 @@
 
 ## 🎯 Project Status
 
-**Current Version:** v3.0 - Full Stack Modern Web Application
-**Branch:** `feature/rearquitectura-completa`
+**Current Version:** v3.2 - Devcontainer v2 + portable pgvector pipeline
+**Primary Branch:** `develop`
 **Architecture:** FastAPI Backend + React TypeScript Frontend + PostgreSQL/SQL Server
-**Last Updated:** 2026-02-20
+**Last Updated:** 2026-04-02
 
 ### ✅ Completed Phases (100% Original Plan + 100% Frontend Migration)
 
@@ -32,6 +32,12 @@
 - ⏳ **Phase 4:** Task Automation (Not started)
 - ⏳ **Phase 5:** GitHub Actions CI/CD (Not started)
 - ⏳ **Phase 6:** Final UX Polish (Partially complete)
+
+### 🧪 Backend Tests
+
+- Local backend pytest suite prepared on `feature/tests-suite`
+- Current local result: `259 passed` on Python 3.12
+- Remaining promotion step: commit, push branch, and open PR into `develop`
 
 ### Documentation Hub
 
@@ -136,7 +142,7 @@ The easiest way to run the full stack locally.
    ```bash
    git clone <repo-url>
    cd RAG-Challenge
-   git checkout feature/rearquitectura-completa
+   git checkout develop
    ```
 
 2. **Set your OpenAI credentials** in `.env.docker`
@@ -171,6 +177,7 @@ The easiest way to run the full stack locally.
    ```bash
    git clone <repo-url>
    cd RAG-Challenge
+   git checkout develop
    cp .env.example .env
    # Edit .env with your database and OpenAI credentials
    ```
@@ -259,9 +266,9 @@ The application features a modern, responsive web interface built with React and
 - **Responsive Design**: Built with TailwindCSS for modern, mobile-friendly layouts
 - **Type-Safe**: Full TypeScript coverage for reliability
 
-### Legacy Streamlit Interface
+### Historical Streamlit Screenshots
 
-The original Streamlit interface is still available but deprecated:
+The repository still keeps screenshots from the original Streamlit prototype for historical reference only. The actively maintained product is the React frontend under `frontend/webapp/`.
 
 ![User Mode](./images/app/image-26.png)
 ![Developer Mode](./images/app/image-27.png)
@@ -314,7 +321,7 @@ RAG-Challenge/
 │   └── requirements.txt
 │
 ├── frontend/                          # Frontend applications
-│   ├── webapp/                       # ✨ Modern React app (PRIMARY)
+│   └── webapp/                       # Primary React app
 │   │   ├── src/
 │   │   │   ├── pages/               # Application pages
 │   │   │   │   ├── HomePage.tsx     # Landing page
@@ -340,10 +347,6 @@ RAG-Challenge/
 │   │   ├── package.json
 │   │   ├── vite.config.ts
 │   │   └── tailwind.config.js
-│   │
-│   └── streamlit_app/                # Legacy Streamlit (DEPRECATED)
-│       ├── app_refactored.py
-│       └── services/
 │
 ├── infra/                             # Infrastructure as code
 │   └── docker/
@@ -371,10 +374,6 @@ RAG-Challenge/
 │   ├── app-use-case.md
 │   ├── statsbomb-intro.md
 │   └── *.md
-│
-├── postgres/                          # Legacy PostgreSQL scripts
-├── sqlserver/                         # Legacy SQL Server scripts
-├── python_modules/                    # Legacy modules
 │
 ├── docker-compose.yml                 # Full stack orchestration
 ├── .env.docker                        # Docker environment (gitignored)
@@ -490,6 +489,8 @@ pytest
 # With coverage
 pytest --cov=app --cov-report=html
 ```
+
+Current local status on `feature/tests-suite`: `259 passed`.
 
 ---
 
