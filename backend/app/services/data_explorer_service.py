@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import psycopg2
 import pyodbc
@@ -32,14 +32,12 @@ class DataExplorerService:
                 )
             elif src == "sqlserver":
                 conn = pyodbc.connect(
-                    (
-                        "DRIVER={ODBC Driver 18 for SQL Server};"
-                        f"SERVER={self.settings.database.sqlserver_host};"
-                        f"DATABASE={self.settings.database.sqlserver_database};"
-                        f"UID={self.settings.database.sqlserver_user};"
-                        f"PWD={self.settings.database.sqlserver_password};"
-                        "TrustServerCertificate=yes;"
-                    )
+                    "DRIVER={ODBC Driver 18 for SQL Server};"
+                    f"SERVER={self.settings.database.sqlserver_host};"
+                    f"DATABASE={self.settings.database.sqlserver_database};"
+                    f"UID={self.settings.database.sqlserver_user};"
+                    f"PWD={self.settings.database.sqlserver_password};"
+                    "TrustServerCertificate=yes;"
                 )
             else:
                 raise ValueError(f"Unsupported source: {source}")
@@ -48,13 +46,13 @@ class DataExplorerService:
             if conn:
                 conn.close()
 
-    def get_teams(self, source: str, match_id: Optional[int] = None, limit: int = 500) -> List[Dict[str, Any]]:
+    def get_teams(self, source: str, match_id: int | None = None, limit: int = 500) -> list[dict[str, Any]]:
         src = normalize_source(source)
         with self._get_connection(src) as conn:
             cur = conn.cursor()
 
             if src == "postgres":
-                params: List[Any] = []
+                params: list[Any] = []
                 where_clause = ""
                 if match_id is not None:
                     where_clause = "WHERE match_id = %s"
@@ -98,7 +96,7 @@ class DataExplorerService:
                     ) t
                     ORDER BY name
                 """
-                args: List[Any] = [limit]
+                args: list[Any] = [limit]
                 args.extend(params)
                 if match_id is not None:
                     args.extend([match_id])
@@ -139,7 +137,7 @@ class DataExplorerService:
             )
         return cur.fetchone() is not None
 
-    def get_players(self, source: str, match_id: Optional[int] = None, limit: int = 500) -> List[Dict[str, Any]]:
+    def get_players(self, source: str, match_id: int | None = None, limit: int = 500) -> list[dict[str, Any]]:
         src = normalize_source(source)
         with self._get_connection(src) as conn:
             if not self._table_exists(conn, src, "players"):
@@ -203,7 +201,7 @@ class DataExplorerService:
                 if row[0] is not None
             ]
 
-    def get_tables_info(self, source: str) -> List[Dict[str, Any]]:
+    def get_tables_info(self, source: str) -> list[dict[str, Any]]:
         src = normalize_source(source)
         with self._get_connection(src) as conn:
             cur = conn.cursor()
@@ -252,11 +250,11 @@ class DataExplorerService:
                     """
                 )
 
-            embedding_map: Dict[str, List[str]] = {}
+            embedding_map: dict[str, list[str]] = {}
             for table_name, column_name in cur.fetchall():
                 embedding_map.setdefault(table_name, []).append(column_name)
 
-            info: List[Dict[str, Any]] = []
+            info: list[dict[str, Any]] = []
             for table_name in table_names:
                 count_cursor = conn.cursor()
                 if src == "postgres":

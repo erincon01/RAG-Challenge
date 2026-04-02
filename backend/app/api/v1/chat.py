@@ -6,17 +6,27 @@ Provides semantic search with LLM-powered responses.
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from app.api.v1.models import SearchRequest, SearchResponse
+from app.adapters.openai_client import OpenAIAdapter, get_openai_adapter
+from app.api.v1.models import (
+    CompetitionResponse,
+    EventDetailResponse,
+    MatchDetailResponse,
+    SearchRequest,
+    SearchResponse,
+    SearchResultResponse,
+    TeamResponse,
+)
+from app.core.capabilities import validate_search_capabilities
+from app.core.dependencies import get_event_repository, get_match_repository
+from app.domain.entities import (
+    EmbeddingModel,
+    SearchAlgorithm,
+)
 from app.domain.entities import (
     SearchRequest as DomainSearchRequest,
-    SearchAlgorithm,
-    EmbeddingModel,
 )
-from app.repositories.base import MatchRepository, EventRepository
-from app.adapters.openai_client import OpenAIAdapter, get_openai_adapter
-from app.services.search_service import SearchService, get_search_service
-from app.core.dependencies import get_match_repository, get_event_repository
-from app.core.capabilities import validate_search_capabilities
+from app.repositories.base import EventRepository, MatchRepository
+from app.services.search_service import SearchService
 
 router = APIRouter()
 
@@ -89,13 +99,6 @@ async def search_and_chat(
         result = service.search_and_chat(domain_request)
 
         # Convert domain response to API response
-        from app.api.v1.models import (
-            SearchResultResponse,
-            EventDetailResponse,
-            MatchDetailResponse,
-            CompetitionResponse,
-        )
-
         search_results = [
             SearchResultResponse(
                 event=EventDetailResponse(
@@ -126,8 +129,22 @@ async def search_and_chat(
                     name=match.competition.name,
                 ),
                 season_name=match.season.name,
-                home_team=match.home_team,
-                away_team=match.away_team,
+                home_team=TeamResponse(
+                    team_id=match.home_team.team_id,
+                    name=match.home_team.name,
+                    gender=match.home_team.gender,
+                    country=match.home_team.country,
+                    manager=match.home_team.manager,
+                    manager_country=match.home_team.manager_country,
+                ),
+                away_team=TeamResponse(
+                    team_id=match.away_team.team_id,
+                    name=match.away_team.name,
+                    gender=match.away_team.gender,
+                    country=match.away_team.country,
+                    manager=match.away_team.manager,
+                    manager_country=match.away_team.manager_country,
+                ),
                 home_score=match.home_score,
                 away_score=match.away_score,
                 result=match.result,
@@ -156,4 +173,3 @@ async def search_and_chat(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Search failed: {str(e)}",
         )
-

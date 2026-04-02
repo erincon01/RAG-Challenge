@@ -1,9 +1,6 @@
 """Capabilities matrix per data source."""
 
-from typing import Dict, List
-
-
-SOURCE_CAPABILITIES: Dict[str, Dict[str, List[str]]] = {
+SOURCE_CAPABILITIES: dict[str, dict[str, list[str]]] = {
     "postgres": {
         "embedding_models": [
             "text-embedding-ada-002",
@@ -41,7 +38,7 @@ def normalize_source(source: str) -> str:
     return src
 
 
-def get_source_capabilities(source: str) -> Dict[str, List[str]]:
+def get_source_capabilities(source: str) -> dict[str, list[str]]:
     """Get capability descriptor for a source."""
     normalized = normalize_source(source)
     if normalized not in SOURCE_CAPABILITIES:

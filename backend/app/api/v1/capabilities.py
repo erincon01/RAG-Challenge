@@ -1,7 +1,6 @@
 """Capabilities and source status endpoints."""
 
 from datetime import datetime
-from typing import Dict, List
 
 from fastapi import APIRouter, Query, status
 from pydantic import BaseModel
@@ -21,14 +20,14 @@ class SourceCapabilitiesResponse(BaseModel):
     """Capabilities for a source."""
 
     source: str
-    embedding_models: List[str]
-    search_algorithms: List[str]
+    embedding_models: list[str]
+    search_algorithms: list[str]
 
 
 class CapabilitiesResponse(BaseModel):
     """Capabilities matrix for all configured sources."""
 
-    capabilities: Dict[str, SourceCapabilitiesResponse]
+    capabilities: dict[str, SourceCapabilitiesResponse]
 
 
 class SourceStatusItem(BaseModel):
@@ -42,7 +41,7 @@ class SourceStatusResponse(BaseModel):
     """Current source connectivity status."""
 
     timestamp: datetime
-    sources: List[SourceStatusItem]
+    sources: list[SourceStatusItem]
 
 
 @router.get(
@@ -54,7 +53,7 @@ class SourceStatusResponse(BaseModel):
 )
 async def get_capabilities() -> CapabilitiesResponse:
     """Return capability matrix for all sources."""
-    data: Dict[str, SourceCapabilitiesResponse] = {}
+    data: dict[str, SourceCapabilitiesResponse] = {}
     for source, caps in SOURCE_CAPABILITIES.items():
         data[source] = SourceCapabilitiesResponse(
             source=source,
@@ -75,10 +74,10 @@ async def get_sources_status(
     source: str | None = Query(
         default=None,
         description="Optional source filter: postgres or sqlserver",
-    )
+    ),
 ) -> SourceStatusResponse:
     """Check repository-level connectivity per source."""
-    requested_sources: List[str]
+    requested_sources: list[str]
     if source:
         requested_sources = [normalize_source(source)]
         # Validate source exists
@@ -86,7 +85,7 @@ async def get_sources_status(
     else:
         requested_sources = ["postgres", "sqlserver"]
 
-    items: List[SourceStatusItem] = []
+    items: list[SourceStatusItem] = []
     for src in requested_sources:
         if src == "postgres":
             connected = PostgresEventRepository().test_connection()

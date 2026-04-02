@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import requests
 
@@ -22,14 +21,14 @@ class StatsBombService:
         self.base_raw = f"https://raw.githubusercontent.com/{self.owner}/{self.repo}/master/data"
         self.timeout = 60
 
-    def list_competitions(self) -> List[Dict[str, Any]]:
+    def list_competitions(self) -> list[dict[str, Any]]:
         """List competitions from remote StatsBomb repository."""
         url = f"{self.base_raw}/competitions.json"
         response = requests.get(url, timeout=self.timeout)
         response.raise_for_status()
         return response.json()
 
-    def list_matches(self, competition_id: int, season_id: int) -> List[Dict[str, Any]]:
+    def list_matches(self, competition_id: int, season_id: int) -> list[dict[str, Any]]:
         """List matches for a competition/season pair from remote catalog."""
         url = f"{self.base_raw}/matches/{competition_id}/{season_id}.json"
         response = requests.get(url, timeout=self.timeout)
@@ -40,10 +39,10 @@ class StatsBombService:
 
     def resolve_match_ids(
         self,
-        match_ids: Optional[List[int]],
-        competition_id: Optional[int],
-        season_id: Optional[int],
-    ) -> List[int]:
+        match_ids: list[int] | None,
+        competition_id: int | None,
+        season_id: int | None,
+    ) -> list[int]:
         """Resolve match ids from explicit list or from competition+season."""
         if match_ids:
             return sorted({int(m) for m in match_ids})

@@ -4,25 +4,23 @@ Match endpoints.
 Provides API endpoints for querying matches and competitions.
 """
 
-from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
+from fastapi import APIRouter, Depends, HTTPException, Path, Query, status
 
 from app.api.v1.models import (
-    MatchSummaryResponse,
-    MatchDetailResponse,
     CompetitionResponse,
+    MatchDetailResponse,
+    MatchSummaryResponse,
+    TeamResponse,
 )
-from app.domain.entities import Match, Competition
-from app.domain.exceptions import EntityNotFoundError
-from app.repositories.base import MatchRepository
 from app.core.dependencies import get_match_repository
+from app.repositories.base import MatchRepository
 
 router = APIRouter()
 
 
 @router.get(
     "/competitions",
-    response_model=List[CompetitionResponse],
+    response_model=list[CompetitionResponse],
     summary="List all competitions",
     description="Get a list of all available competitions",
 )
@@ -32,7 +30,7 @@ async def list_competitions(
         description="Database source: postgres or sqlserver",
     ),
     repo: MatchRepository = Depends(get_match_repository),
-) -> List[CompetitionResponse]:
+) -> list[CompetitionResponse]:
     """
     List all available competitions.
 
@@ -63,7 +61,7 @@ async def list_competitions(
 
 @router.get(
     "/matches",
-    response_model=List[MatchSummaryResponse],
+    response_model=list[MatchSummaryResponse],
     summary="List matches",
     description="Get a list of matches with optional filters",
 )
@@ -72,15 +70,11 @@ async def list_matches(
         default="postgres",
         description="Database source: postgres or sqlserver",
     ),
-    competition_name: Optional[str] = Query(
-        default=None, description="Filter by competition name"
-    ),
-    season_name: Optional[str] = Query(
-        default=None, description="Filter by season name"
-    ),
+    competition_name: str | None = Query(default=None, description="Filter by competition name"),
+    season_name: str | None = Query(default=None, description="Filter by season name"),
     limit: int = Query(default=100, ge=1, le=1000, description="Maximum results"),
     repo: MatchRepository = Depends(get_match_repository),
-) -> List[MatchSummaryResponse]:
+) -> list[MatchSummaryResponse]:
     """
     List matches with optional filters.
 
@@ -169,8 +163,22 @@ async def get_match(
                 name=match.competition.name,
             ),
             season_name=match.season.name,
-            home_team=match.home_team,
-            away_team=match.away_team,
+            home_team=TeamResponse(
+                team_id=match.home_team.team_id,
+                name=match.home_team.name,
+                gender=match.home_team.gender,
+                country=match.home_team.country,
+                manager=match.home_team.manager,
+                manager_country=match.home_team.manager_country,
+            ),
+            away_team=TeamResponse(
+                team_id=match.away_team.team_id,
+                name=match.away_team.name,
+                gender=match.away_team.gender,
+                country=match.away_team.country,
+                manager=match.away_team.manager,
+                manager_country=match.away_team.manager_country,
+            ),
             home_score=match.home_score,
             away_score=match.away_score,
             result=match.result,
