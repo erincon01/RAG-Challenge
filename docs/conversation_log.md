@@ -189,3 +189,25 @@ Cambios clave en la adaptación:
 - `pyproject.toml` — apunta a backend/app y backend/tests
 - `docs/conversation_log.md` — este archivo; creado en develop con historial completo
 - `feature/spec-kit-streamlit-app` (rama) — preserva todo el governance para la arquitectura Streamlit
+
+---
+
+### [2026-04-02] Session 10 — Medium article: brownfield-to-spec-kit journey
+
+**User asked:** Create a Medium-ready article in `docs/articles/` documenting the full brownfield-to-spec-kit adoption journey. The article should be didactic, targeting developers with legacy applications who want to adopt spec-kit quickly. Written in English.
+
+**Decision:** Gathered context from conversation_log (sessions 1–9), architecture.md, tech-stack.md, git log, and internet research on spec-kit (official README, brownfield demos). Wrote a comprehensive article covering:
+- The starting point (functioning app with zero governance)
+- The key insight: governance before tooling
+- Step 0: full governance layer (instructions, TDD, CI/CD, pre-commit, git workflow, docs)
+- Step 1: spec-kit installation and initialization
+- Step 2: constitution generation on the governed codebase
+- The architecture pivot lesson (Streamlit → FastAPI mid-process)
+- Practical tips and a condensed playbook
+
+Referenced the official spec-kit brownfield demo (mnriem/spec-kit-aspnet-brownfield-demo) as prior art.
+
+**Artifacts created/modified:**
+- `docs/articles/brownfield-to-speckit-adoption.md` — Medium article (full brownfield adoption guide)
+- `CHANGELOG.md` — added article entry under `[Unreleased]`
+- `docs/conversation_log.md` — added session 10 entry

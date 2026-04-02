@@ -23,6 +23,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `.specify/` — spec-kit v0.4.4 initialized (scripts + templates); constitution pending re-run for FastAPI architecture
 - `pyproject.toml` — ruff/mypy/pytest/coverage config targeting `backend/app` and `backend/tests`
 - `docs/conversation_log.md` — append-only AI session log; sessions 1–9 documented
+- `docs/articles/brownfield-to-speckit-adoption.md` — Medium article documenting the full brownfield-to-spec-kit adoption journey
 
 ### Changed
 - Core documentation aligned with the current repository state: `develop` remains the integration branch, React is the primary frontend, and the local backend test suite is ready for commit, push, and PR
