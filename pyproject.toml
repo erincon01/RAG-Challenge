@@ -1,0 +1,67 @@
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+src = ["backend/app", "backend/tests"]
+# Only lint backend production code — exclude utility/migration scripts and legacy
+exclude = [
+    "sqlserver/",
+    "postgres/",
+    "dotnetMalaga/",
+    "deploy/",
+    "backup/",
+    "data/",
+]
+
+[tool.ruff.lint]
+# E/W = pycodestyle, F = pyflakes, I = isort, UP = pyupgrade
+select = ["E", "W", "F", "I", "UP"]
+ignore = [
+    "E501",   # line too long — handled by formatter
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_return_any = false
+# Start permissive — tighten progressively as type hints are added
+strict = false
+exclude = ["backend/tests/"]
+
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+addopts = [
+    "--tb=short",
+    "-v",
+]
+markers = [
+    "unit: fast unit tests — no external deps",
+    "api: API endpoint tests with TestClient and mocked dependencies",
+    "integration: require live DB — skipped in CI unless RUN_INTEGRATION_TESTS=true",
+]
+
+# ---------------------------------------------------------------------------
+[tool.coverage.run]
+source = ["backend/app"]
+omit = []
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+]

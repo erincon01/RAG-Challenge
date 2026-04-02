@@ -1,0 +1,120 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Check formatting
+        run: ruff format --check backend/app
+
+      - name: Check linting
+        run: ruff check backend/app
+
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt mypy
+
+      - name: Run mypy
+        run: mypy backend/app --ignore-missing-imports
+
+  unit-tests:
+    name: Unit & API Tests
+    runs-on: ubuntu-latest
+    env:
+      # Safe dummy values — unit tests mock all external calls via DI overrides
+      DB_SERVER_AZURE_POSTGRES: localhost
+      DB_NAME_AZURE_POSTGRES: ragtest
+      DB_USER_AZURE_POSTGRES: testuser
+      DB_PASSWORD_AZURE_POSTGRES: testpass
+      DB_SERVER_AZURE: localhost
+      DB_NAME_AZURE: ragtest
+      DB_USER_AZURE: testuser
+      DB_PASSWORD_AZURE: testpass
+      OPENAI_KEY: test-key-000
+      OPENAI_ENDPOINT: https://test.openai.azure.com/
+      OPENAI_MODEL: gpt-4o
+      BASE_URL: https://github.com/statsbomb/open-data/raw/master/data
+      REPO_OWNER: statsbomb
+      REPO_NAME: open-data
+      LOCAL_FOLDER: ./data
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt pytest pytest-cov pytest-asyncio
+
+      - name: Run unit and API tests with coverage
+        working-directory: backend
+        run: |
+          pytest tests/ -v \
+            -m "not integration" \
+            --cov=app \
+            --cov-report=term-missing \
+            --cov-fail-under=80
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: backend/.coverage
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    # Only runs when explicitly triggered — not on every PR
+    if: ${{ vars.RUN_INTEGRATION_TESTS == 'true' }}
+    env:
+      DB_SERVER_AZURE_POSTGRES: ${{ secrets.DB_SERVER_AZURE_POSTGRES }}
+      DB_NAME_AZURE_POSTGRES: ${{ secrets.DB_NAME_AZURE_POSTGRES }}
+      DB_USER_AZURE_POSTGRES: ${{ secrets.DB_USER_AZURE_POSTGRES }}
+      DB_PASSWORD_AZURE_POSTGRES: ${{ secrets.DB_PASSWORD_AZURE_POSTGRES }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt pytest pytest-asyncio
+
+      - name: Run integration tests
+        working-directory: backend
+        run: pytest tests/integration/ -v -m integration
+

@@ -12,18 +12,24 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Backend pytest suite under `backend/tests/` with 259 passing local tests across API, domain, service, adapter, and StatsBomb workflows
 - `backend/pytest.ini` with `unit`, `api`, and `integration` markers for backend test execution
 - `docs/app-screenshots.md` to document the historical Streamlit screenshots still referenced by the repository
+- `.github/copilot-instructions.md` — workspace-wide Copilot governance adapted for FastAPI/React architecture
+- `.github/instructions/tdd.instructions.md` — TDD patterns for `backend/tests/`, FastAPI TestClient, DI overrides
+- `.github/instructions/python-modules.instructions.md` — repository pattern (BaseRepository ABC), FastAPI layer conventions, Pydantic Settings
+- `.github/instructions/git-workflow.instructions.md` — branch naming, conventional commits, PR checklist
+- `.github/instructions/sql-embeddings.instructions.md` — pgvector operators, parameterized queries, DDL conventions
+- `.github/workflows/ci.yml` — lint + typecheck + unit/api tests on `backend/`; coverage gate 80% on `backend/app`
+- `.github/workflows/cd.yml` — staging (develop) and production (main) deployment skeleton
+- `.github/pull_request_template.md` — enforces PR checklist in GitHub UI
+- `.specify/` — spec-kit v0.4.4 initialized (scripts + templates); constitution pending re-run for FastAPI architecture
+- `pyproject.toml` — ruff/mypy/pytest/coverage config targeting `backend/app` and `backend/tests`
+- `docs/conversation_log.md` — append-only AI session log; sessions 1–9 documented
 
 ### Changed
 - Core documentation aligned with the current repository state: `develop` remains the integration branch, React is the primary frontend, and the local backend test suite is ready for commit, push, and PR
-- Clarified the status of `feature/tests-suite`: it currently matches `develop` in commit history and only differs by local uncommitted test files
-- Refreshed documentation links after the February documentation reorganization and marked legacy Streamlit material as historical context instead of active product guidance
 
 ### Fixed
 - Removed stale documentation claims that the frontend README was missing, that backend APIs were still "coming soon", or that no automated test suite existed
 - Added pytest-generated local artifacts to `.gitignore` to keep the working tree clean while validating the new backend test suite
-
-**Integrated commits after 3.2.0:** `db22a1e`, `c3be08c`
-**Pending local branch work:** backend test suite on `feature/tests-suite` (validated locally, not yet committed)
 
 ---
 

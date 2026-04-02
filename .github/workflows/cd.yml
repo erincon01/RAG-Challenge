@@ -1,0 +1,59 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - develop   # → staging
+      - main      # → production
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt
+
+      # Replace the steps below with your actual Azure deployment commands.
+      # See deploy/azure_commands.ps1 for reference.
+      - name: Deploy to Azure Staging
+        run: |
+          echo "Deploying to STAGING from branch develop"
+          echo "Add your Azure deployment steps here (az webapp deploy, Docker push, etc.)"
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS_STAGING }}
+
+  deploy-production:
+    name: Deploy to Production
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt
+
+      # Replace the steps below with your actual Azure deployment commands.
+      # See deploy/azure_commands.ps1 for reference.
+      - name: Deploy to Azure Production
+        run: |
+          echo "Deploying to PRODUCTION from branch main"
+          echo "Add your Azure deployment steps here (az webapp deploy, Docker push, etc.)"
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS_PRODUCTION }}
+
