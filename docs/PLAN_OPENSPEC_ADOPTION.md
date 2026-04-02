@@ -395,7 +395,7 @@ git push origin feature/openspec-governance
 
 ### Paso 6 — Primer cambio real con OpenSpec (pendiente)
 
-*Se ejecutará con `/opsx:propose fix-dependency-injection` para validar el workflow completo.* 
+*Se ejecutará con `/opsx:propose fix-dependency-injection` para validar el workflow completo.*
 
 ### Paso 5 — Documentar specs del sistema actual (pendiente)
 
