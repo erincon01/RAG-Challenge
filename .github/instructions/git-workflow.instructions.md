@@ -96,10 +96,10 @@ Go to **Settings → Branches → Add rule** for each:
 ```
 feat: add metadata filtering to embedding search
 fix: handle psycopg2 connection timeout on retry
-test: add unit tests for decode_source normalization
+test: add unit tests for search_service normalize_source
 chore: update ruff to 0.4.x
-docs: document multi-source pattern in python-modules guide
-refactor: extract get_connection into shared helper
+docs: document repository pattern in python-modules guide
+refactor: extract get_connection into BaseRepository helper
 perf: add HNSW index to reduce similarity search latency
 ```
 
@@ -124,10 +124,11 @@ Format: `<type>: <imperative present tense description>`
 
 **PR checklist before requesting review:**
 
-- [ ] Tests pass: `pytest tests/ -v`
-- [ ] Coverage ≥ 80%: `pytest tests/ --cov=python_modules --cov-report=term-missing`
-- [ ] Linter passes: `ruff check python_modules/ app.py`
-- [ ] Formatter applied: `ruff format python_modules/ app.py`
+- [ ] Tests pass: `cd backend && pytest tests/ -v`
+- [ ] Coverage ≥ 80%: `cd backend && pytest tests/ --cov=app --cov-report=term-missing`
+- [ ] Linter passes: `ruff check backend/app`
+- [ ] Formatter applied: `ruff format backend/app`
+- [ ] Type check passes: `mypy backend/app --ignore-missing-imports`
 - [ ] No `.env` file included
 - [ ] No hardcoded credentials or API keys
 - [ ] No `*.pyc`, `*.db`, or generated embeddings committed
