@@ -1,20 +1,21 @@
 # Project Status Report - RAG Challenge
 
-**Last Updated:** 2026-02-20
+**Last Updated:** 2026-04-02
 **Branch:** `develop`
-**Current Version:** v3.2 - Devcontainer v2 + Portable pgvector Pipeline
+**Current Version:** v3.2.x - Stable full stack + backend test suite pending integration
 
 ---
 
 ## 📊 Executive Summary
 
-### Overall Progress: 95% Complete
+### Overall Progress: 97% Complete
 
 - ✅ **Backend Rearchitecture:** 100% (Phases 0-2)
 - ✅ **Frontend Migration:** 100% (Phases 0-6)
 - ✅ **pgvector Migration (Phase 2A):** 100% (Azure extensions removed, portable pipeline)
 - ✅ **Infrastructure:** 100% (Devcontainer v2 complete — postCreate + postStart + health checks)
-- ⏳ **DevOps:** 0% (CI/CD not started)
+- ✅ **Backend Test Suite:** Local implementation complete (`259` tests passing)
+- ⏳ **DevOps:** 10% (local pytest suite ready, CI/CD not started)
 
 ### Key Achievements
 
@@ -33,8 +34,10 @@
    - ✅ Local development with Docker Compose
    - ✅ Type-safe API client
    - ✅ Portable embeddings pipeline (no Azure DB extensions required)
+  - ✅ Backend pytest suite prepared locally and passing (`259` tests)
+  - ⚠️ Test suite still needs commit/push/PR from `feature/tests-suite`
    - ⚠️ No CI/CD pipeline yet
-   - ⚠️ No automated test suite yet
+  - ⚠️ No frontend test suite yet
 
 ---
 
@@ -87,6 +90,25 @@ All pages fully functional:
 ## ⏳ What's Pending
 
 ### Critical Path
+
+#### 0. Backend Test Suite (`feature/tests-suite`) - **READY TO PROMOTE AFTER COMMIT**
+
+**Status:** Local branch work validated
+**Validated:** 2026-04-02
+
+**Done locally:**
+
+- [x] `backend/pytest.ini` added
+- [x] API tests for health, capabilities, matches, events, chat, and StatsBomb catalog
+- [x] Unit tests for domain entities, job service, OpenAI adapter, search service, and StatsBomb service
+- [x] Full local run passes: `259 passed` on Python 3.12
+
+**Still pending:**
+
+- [ ] Commit the test files on `feature/tests-suite`
+- [ ] Push `feature/tests-suite` to `origin`
+- [ ] Open PR from `feature/tests-suite` into `develop`
+- [ ] Decide whether to squash into a single `test: add backend pytest suite` commit
 
 #### 1. pgvector Migration (Phase 2A) - **COMPLETED**
 
@@ -202,7 +224,7 @@ All pages fully functional:
 # 1. Clone and configure
 git clone <repo>
 cd RAG-Challenge
-git checkout feature/rearquitectura-completa
+git checkout develop
 
 # 2. Set environment variables
 cp .env.example .env.docker
@@ -227,9 +249,9 @@ docker compose up --build
 
 ### Known Limitations
 
-- PostgreSQL still uses Azure extensions (works locally but not portable)
-- No test suite yet
-- No CI/CD pipeline
+- No CI/CD pipeline yet
+- No frontend test suite yet
+- Backend pytest suite is validated locally but still pending commit/push/merge from `feature/tests-suite`
 - Manual operations (no task runner)
 
 ---
@@ -241,14 +263,14 @@ docker compose up --build
 - [README.md](../README.md) - Updated 2026-02-20
 - [PLAN_REARQUITECTURA_COMPLETO.md](../PLAN_REARQUITECTURA_COMPLETO.md) - Updated 2026-02-20
 - [PLAN_MIGRACION_FRONTEND_WEB.md](../PLAN_MIGRACION_FRONTEND_WEB.md) - Updated 2026-02-20
+- [frontend/webapp/README.md](../frontend/webapp/README.md) - Exists and documents the React app
 - [docs/adr/README.md](adr/README.md) - Updated 2026-02-20
 - All backend layer READMEs (API, Services, Repositories, Domain, Adapters)
 
 ### ⏳ Needs Update
 
-- [frontend/webapp/README.md](../frontend/webapp/README.md) - Needs creation
-- [docs/app-screenshots.md](app-screenshots.md) - Still shows Streamlit UI
-- [docs/app-use-case.md](app-use-case.md) - References old Streamlit workflow
+- [docs/app-screenshots.md](app-screenshots.md) - Historical screenshots only; current React UI screenshots still pending
+- [docs/app-use-case.md](app-use-case.md) - Large sections still document the legacy Streamlit/Azure-first workflow
 
 ### 📋 Missing Documentation
 
@@ -263,8 +285,9 @@ docker compose up --build
 
 ### Immediate (This Week)
 
-1. **Add Basic Tests** - At least smoke tests for critical paths (backend pytest + integration)
-2. **Integration tests for embeddings** - Validate portable pipeline end-to-end
+1. **Commit and push `feature/tests-suite`** - Promote the validated backend pytest suite into a reviewable branch
+2. **Open PR to `develop`** - Merge backend tests before starting CI/CD work
+3. **Integration tests for embeddings** - Validate portable pipeline end-to-end
 
 ### Short Term (Next 2-4 Weeks)
 
@@ -308,7 +331,8 @@ docker compose up --build
 - ✅ Dependency injection
 - ✅ Centralized configuration
 - ✅ OpenAPI documentation
-- ⚠️ Test coverage: 0% (needs implementation)
+- ✅ Local backend test suite: `259` tests passing
+- ⚠️ Coverage report: not yet measured or enforced in CI
 - ⚠️ Static analysis: Not configured
 
 ---

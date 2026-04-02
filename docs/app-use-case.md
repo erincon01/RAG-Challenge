@@ -1,4 +1,6 @@
 
+> Note: this document is partially historical. The current product uses a FastAPI backend plus the React frontend in `frontend/webapp/`; Streamlit and Azure-first setup details here should be read as legacy background unless they are explicitly referenced elsewhere.
+
 ## Data loading
 
 ### Data preparation and loadding to Azure database (SQL Server or Postgres)

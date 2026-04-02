@@ -6,10 +6,24 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased] - 2026-02-20
+## [Unreleased] - 2026-04-02
+
+### Added
+- Backend pytest suite under `backend/tests/` with 259 passing local tests across API, domain, service, adapter, and StatsBomb workflows
+- `backend/pytest.ini` with `unit`, `api`, and `integration` markers for backend test execution
+- `docs/app-screenshots.md` to document the historical Streamlit screenshots still referenced by the repository
+
+### Changed
+- Core documentation aligned with the current repository state: `develop` remains the integration branch, React is the primary frontend, and the local backend test suite is ready for commit, push, and PR
+- Clarified the status of `feature/tests-suite`: it currently matches `develop` in commit history and only differs by local uncommitted test files
+- Refreshed documentation links after the February documentation reorganization and marked legacy Streamlit material as historical context instead of active product guidance
 
 ### Fixed
-- `.gitattributes` — global `* text=auto eol=lf` rule to prevent CRLF/LF drift when switching between Windows and Linux/devcontainer environments
+- Removed stale documentation claims that the frontend README was missing, that backend APIs were still "coming soon", or that no automated test suite existed
+- Added pytest-generated local artifacts to `.gitignore` to keep the working tree clean while validating the new backend test suite
+
+**Integrated commits after 3.2.0:** `db22a1e`, `c3be08c`
+**Pending local branch work:** backend test suite on `feature/tests-suite` (validated locally, not yet committed)
 
 ---
 
