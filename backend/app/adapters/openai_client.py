@@ -117,14 +117,16 @@ class OpenAIAdapter:
             model = settings.openai.model
 
         return self._call_with_retry(
-            lambda: self.client.chat.completions.create(
-                model=model,
-                messages=messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
-            )
-            .choices[0]
-            .message.content,
+            lambda: (
+                self.client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                )
+                .choices[0]
+                .message.content
+            ),
             operation="create_chat_completion",
         )
 
