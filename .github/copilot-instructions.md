@@ -22,7 +22,7 @@ Tech stack: **Python 3.11+**, **FastAPI**, **React TypeScript + Tailwind**, **Po
 - `sqlserver/` — Azure SQL DDL and T-SQL scripts
 - `backend/tests/` — pytest test suite (`unit/`, `api/`, `integration/`)
 
-See [docs/spec-kit-migration-plan.md](docs/spec-kit-migration-plan.md) for the full SDD workflow with spec-kit.
+See [docs/spec-kit-adoption-plan.md](../docs/spec-kit-adoption-plan.md) for the SDD adoption plan and [specs/README.md](../specs/README.md) for the feature workflow.
 
 ## TDD — Test-Driven Development (required)
 

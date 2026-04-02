@@ -44,6 +44,25 @@ Closes #<!-- issue number -->
 
 ---
 
+## Constitution Check
+
+<!-- MANDATORY: Verify each applicable principle from .specify/memory/constitution.md -->
+
+- [ ] **I. Layered arch**: api → services → repositories → domain flow respected
+- [ ] **II. Repository**: all DB access through abstract repository methods
+- [ ] **III. DI**: collaborators injected via `Depends()`, no direct instantiation in handlers
+- [ ] **IV. Config**: new env vars in `config/settings.py` → `.env.example` → `conftest.py`
+- [ ] **V. RAG pipeline**: if Q&A feature, all 6 steps execute in order
+- [ ] **VI. Test-first**: failing test written before implementation
+- [ ] **VII. SQL safety**: all queries parameterized, no f-string SQL
+- [ ] **VIII. Secrets**: no hardcoded credentials, `.env` gitignored
+- [ ] **IX. Frontend**: API response shapes updated in `models.py` AND TypeScript types
+- [ ] **X. Docker**: new infra services added to `docker-compose.yml`
+
+**N/A justification**: <!-- List any principles marked N/A and why -->
+
+---
+
 ## CHANGELOG skip justification
 
 <!-- If you did not update CHANGELOG.md, explain why here. Leave blank if you updated it. -->

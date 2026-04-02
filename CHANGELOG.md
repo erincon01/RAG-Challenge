@@ -24,13 +24,22 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `pyproject.toml` — ruff/mypy/pytest/coverage config targeting `backend/app` and `backend/tests`
 - `docs/conversation_log.md` — append-only AI session log; sessions 1–9 documented
 - `docs/articles/brownfield-to-speckit-adoption.md` — Medium article documenting the full brownfield-to-spec-kit adoption journey
+- `CLAUDE.md` — project context file for Claude Code (also compatible with GitHub Copilot)
+- `specs/README.md` — SDD feature directory with workflow documentation and naming conventions
+- `docs/spec-kit-adoption-plan.md` — phased adoption plan with 16 deficiency diagnostics and 4 resolution phases
+- `.specify/scripts/bash/` — bash equivalents of all spec-kit PowerShell scripts (common, check-prerequisites, create-new-feature, setup-plan, update-agent-context) for Linux/CI compatibility
+- `.github/pull_request_template.md` — added mandatory Constitution Check section with all 10 principles as checkboxes
+- `.specify/memory/constitution.md` — added YAML frontmatter with version, dates, and amendment procedure metadata
 
 ### Changed
 - Core documentation aligned with the current repository state: `develop` remains the integration branch, React is the primary frontend, and the local backend test suite is ready for commit, push, and PR
+- `PROJECT_STATUS.md` — corrected CI/CD status (CI functional, CD placeholder), marked test suite as merged (PR #8), updated metrics and next steps
+- `.github/copilot-instructions.md` — fixed broken link to `docs/spec-kit-migration-plan.md` (now points to `docs/spec-kit-adoption-plan.md` and `specs/README.md`)
 
 ### Fixed
 - Removed stale documentation claims that the frontend README was missing, that backend APIs were still "coming soon", or that no automated test suite existed
 - Added pytest-generated local artifacts to `.gitignore` to keep the working tree clean while validating the new backend test suite
+- Fixed broken reference in `.github/copilot-instructions.md` pointing to non-existent `docs/spec-kit-migration-plan.md`
 
 ---
 

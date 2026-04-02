@@ -14,8 +14,10 @@
 - ✅ **Frontend Migration:** 100% (Phases 0-6)
 - ✅ **pgvector Migration (Phase 2A):** 100% (Azure extensions removed, portable pipeline)
 - ✅ **Infrastructure:** 100% (Devcontainer v2 complete — postCreate + postStart + health checks)
-- ✅ **Backend Test Suite:** Local implementation complete (`259` tests passing)
-- ⏳ **DevOps:** 10% (local pytest suite ready, CI/CD not started)
+- ✅ **Backend Test Suite:** Merged to develop (PR #8) — `259` tests passing
+- ✅ **CI Pipeline:** Functional — lint, typecheck, tests with 80% coverage gate
+- ⏳ **CD Pipeline:** Placeholder (staging/production deploy steps not implemented)
+- ⏳ **Spec-Kit Adoption:** In progress — constitution, agents, templates ready; first SDD feature pending
 
 ### Key Achievements
 
@@ -34,9 +36,9 @@
    - ✅ Local development with Docker Compose
    - ✅ Type-safe API client
    - ✅ Portable embeddings pipeline (no Azure DB extensions required)
-  - ✅ Backend pytest suite prepared locally and passing (`259` tests)
-  - ⚠️ Test suite still needs commit/push/PR from `feature/tests-suite`
-   - ⚠️ No CI/CD pipeline yet
+  - ✅ Backend pytest suite merged (PR #8, `259` tests)
+  - ✅ CI pipeline running (lint + typecheck + tests + coverage 80%)
+  - ⚠️ CD pipeline is placeholder (no real deploy steps)
   - ⚠️ No frontend test suite yet
 
 ---
@@ -91,24 +93,16 @@ All pages fully functional:
 
 ### Critical Path
 
-#### 0. Backend Test Suite (`feature/tests-suite`) - **READY TO PROMOTE AFTER COMMIT**
+#### 0. Backend Test Suite - **MERGED**
 
-**Status:** Local branch work validated
-**Validated:** 2026-04-02
-
-**Done locally:**
+**Status:** Merged to develop via PR #8
+**Completed:** 2026-04-02
 
 - [x] `backend/pytest.ini` added
 - [x] API tests for health, capabilities, matches, events, chat, and StatsBomb catalog
 - [x] Unit tests for domain entities, job service, OpenAI adapter, search service, and StatsBomb service
-- [x] Full local run passes: `259 passed` on Python 3.12
-
-**Still pending:**
-
-- [ ] Commit the test files on `feature/tests-suite`
-- [ ] Push `feature/tests-suite` to `origin`
-- [ ] Open PR from `feature/tests-suite` into `develop`
-- [ ] Decide whether to squash into a single `test: add backend pytest suite` commit
+- [x] Full run passes: `259 passed` on Python 3.12
+- [x] Merged to `develop` via PR #8 (commit `15cbb74`)
 
 #### 1. pgvector Migration (Phase 2A) - **COMPLETED**
 
@@ -156,17 +150,21 @@ All pages fully functional:
 - [ ] Standardize SQL Server migrations
 - [ ] Full idempotency
 
-#### 4. GitHub Actions CI/CD (Phase 5) - **NOT STARTED**
+#### 4. GitHub Actions CI/CD (Phase 5) - **CI DONE / CD PLACEHOLDER**
 
-**Status:** Not started
-**Priority:** MEDIUM - Quality gates
-**Estimated effort:** 1-2 weeks
+**Status:** CI functional, CD placeholder
+**Priority:** MEDIUM - Complete CD pipeline
+**Estimated effort:** 1 week
 
-**Tasks:**
-- [ ] ci.yml workflow (lint, test, integration)
-- [ ] docker.yml workflow (build, scan, push)
+**Done:**
+- [x] `ci.yml` workflow (lint, typecheck, unit/api tests, coverage 80%)
+- [x] `cd.yml` workflow scaffolded (staging + production jobs)
+
+**Pending:**
+- [ ] Implement real deploy steps in `cd.yml` (Azure / Docker push)
+- [ ] docker.yml workflow (build, scan, push to GHCR)
 - [ ] release.yml workflow (semver, changelog)
-- [ ] Branch protection rules
+- [ ] Branch protection rules (configured in GitHub Settings)
 
 #### 5. Final UX Polish (Phase 6) - **PARTIAL**
 
@@ -199,7 +197,7 @@ All pages fully functional:
 | Phase 2A | pgvector Migration | ✅ Complete | 100% |
 | Phase 3 | Devcontainer 2.0 | ✅ Complete | 100% |
 | Phase 4 | Task Automation | ⏳ Not Started | 0% |
-| Phase 5 | GitHub Actions CI/CD | ⏳ Not Started | 0% |
+| Phase 5 | GitHub Actions CI/CD | ⏳ CI done, CD placeholder | 60% |
 | Phase 6 | UX Polish | ⏳ Partial | 40% |
 
 ### Frontend Web Migration Plan
@@ -249,9 +247,8 @@ docker compose up --build
 
 ### Known Limitations
 
-- No CI/CD pipeline yet
+- CD pipeline is placeholder (no real deploy)
 - No frontend test suite yet
-- Backend pytest suite is validated locally but still pending commit/push/merge from `feature/tests-suite`
 - Manual operations (no task runner)
 
 ---
@@ -285,15 +282,15 @@ docker compose up --build
 
 ### Immediate (This Week)
 
-1. **Commit and push `feature/tests-suite`** - Promote the validated backend pytest suite into a reviewable branch
-2. **Open PR to `develop`** - Merge backend tests before starting CI/CD work
-3. **Integration tests for embeddings** - Validate portable pipeline end-to-end
+1. **Complete spec-kit adoption** — resolve remaining gaps (see `docs/spec-kit-adoption-plan.md`)
+2. **First SDD feature** — run full `specify → clarify → plan → tasks → implement` cycle
+3. **Integration tests for embeddings** — validate portable pipeline end-to-end
 
 ### Short Term (Next 2-4 Weeks)
 
-1. **Task Automation (Phase 4)** - CLI runner (`Taskfile.yml` or `justfile`) for bootstrap, migrate, seed, test, lint
-2. **GitHub Actions CI/CD (Phase 5)** - Automated quality gates: lint, tests, docker build
-3. **Structured Logging** - request_id, match_id, latency, token usage
+1. **Task Automation (Phase 4)** — CLI runner (`Taskfile.yml` or `justfile`) for bootstrap, migrate, seed, test, lint
+2. **CD pipeline** — implement real deploy steps in `cd.yml`
+3. **Structured Logging** — request_id, match_id, latency, token usage (first SDD feature candidate)
 
 ### Medium Term (Next 1-2 Months)
 
@@ -332,8 +329,8 @@ docker compose up --build
 - ✅ Centralized configuration
 - ✅ OpenAPI documentation
 - ✅ Local backend test suite: `259` tests passing
-- ⚠️ Coverage report: not yet measured or enforced in CI
-- ⚠️ Static analysis: Not configured
+- ✅ Coverage gate: 80% enforced in CI (`ci.yml`)
+- ✅ Static analysis: ruff (lint + format) + mypy in CI and pre-commit
 
 ---
 
@@ -358,5 +355,5 @@ The project is in active development. Key areas needing contribution:
 
 ---
 
-**Last reviewed:** 2026-02-20
-**Next review:** When CI/CD pipeline (Phase 5) starts
+**Last reviewed:** 2026-04-02
+**Next review:** After first SDD feature is completed via spec-kit workflow

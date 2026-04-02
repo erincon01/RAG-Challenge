@@ -211,3 +211,61 @@ Referenced the official spec-kit brownfield demo (mnriem/spec-kit-aspnet-brownfi
 - `docs/articles/brownfield-to-speckit-adoption.md` — Medium article (full brownfield adoption guide)
 - `CHANGELOG.md` — added article entry under `[Unreleased]`
 - `docs/conversation_log.md` — added session 10 entry
+
+---
+
+### [2026-04-02] Session 11 — Spec-kit readiness audit and phased adoption plan
+
+**User asked:** Analyze the full project state to determine readiness for spec-kit adoption. Research the official spec-kit GitHub repo, contrast expectations vs reality, detect all deficiencies, and produce a phased, prioritized plan in `docs/`.
+
+**Decision:** Conducted a deep audit of the entire project structure, read constitution v2.0.0, PROJECT_STATUS.md, CHANGELOG.md, CI workflows, templates, agents, prompts, scripts, and copilot-instructions. Simultaneously researched the official spec-kit repository (github/spec-kit) for canonical structure, brownfield best practices, and workflow expectations. Identified 16 deficiencies across 3 severity levels:
+
+- **5 critical** (block SDD workflow): missing `specs/` directory, missing `CLAUDE.md`, broken reference in copilot-instructions.md, test suite never pushed to remote, zero frontend tests
+- **7 important** (degrade quality): no bash scripts (only PowerShell, incompatible with Linux CI/devcontainer), no Constitution Check gate in CI, empty CD placeholder, tech debt not tracked as GitHub Issues, permissive MyPy, stale PROJECT_STATUS.md, legacy docs unmigrated
+- **4 minor**: no task runner, no presets, no YAML frontmatter on constitution, manual frontend types
+
+Created a 4-phase adoption plan: Phase 0 (prerequisites, 1-2 days), Phase 1 (SDD infrastructure, 2-3 days), Phase 2 (first real feature via full SDD workflow, 1-2 days), Phase 3 (frontend safety net, 1-2 weeks), Phase 4 (cleanup, 1 week). Recommended "structured logging" as the first SDD feature for end-to-end validation.
+
+**Artifacts created/modified:**
+- `docs/spec-kit-adoption-plan.md` — comprehensive phased adoption plan with diagnostics, dependency map, success criteria, and risk mitigations
+- `docs/conversation_log.md` — added session 11 entry
+
+---
+
+### [2026-04-02] Session 12 — Execute spec-kit adoption plan (Phases 0-1)
+
+**User asked:** Resolve all deficiencies identified in session 11. Create CLAUDE.md compatible with both Claude Code and GitHub Copilot. Verify the actual state of CI/CD (was told CI is functional). Review git norms and CI/CD YAML files.
+
+**Decision:** Verified actual project state before acting:
+- **CI is functional** (lint + typecheck + tests + 80% coverage gate in `ci.yml`)
+- **CD is placeholder** (echo statements in `cd.yml`)
+- **Test suite already merged** to develop via PR #8 (commit `15cbb74`) — D-04 was not a real deficiency
+- Corrected the adoption plan to reflect these facts
+
+Resolved deficiencies:
+- D-01: Created `specs/` directory with `README.md` documenting the SDD workflow, naming conventions, and creation methods
+- D-02: Created `CLAUDE.md` at project root — compatible with both Claude Code (auto-loaded) and GitHub Copilot (markdown format). Contains stack summary, key commands, development rules, SDD workflow reference, and pointers to detailed docs
+- D-03: Fixed broken link in `.github/copilot-instructions.md` (was `docs/spec-kit-migration-plan.md`, now `../docs/spec-kit-adoption-plan.md` + `../specs/README.md` with correct relative paths)
+- D-04: Marked as already resolved (PR #8)
+- D-06: Created 5 bash script equivalents in `.specify/scripts/bash/` (common.sh, check-prerequisites.sh, create-new-feature.sh, setup-plan.sh, update-agent-context.sh) — full feature parity with PowerShell for Linux/CI
+- D-07: Added mandatory Constitution Check section to `.github/pull_request_template.md` with all 10 principles as checkboxes + N/A justification field
+- D-15: Added YAML frontmatter to `.specify/memory/constitution.md` (version, dates, amendment procedure)
+- D-11: Updated `PROJECT_STATUS.md` to reflect real CI state, merged test suite, corrected metrics
+
+Trade-off on CLAUDE.md: kept it concise with pointers rather than duplicating constitution or copilot-instructions content. Both Claude Code and Copilot can follow markdown links to detailed docs.
+
+**Artifacts created/modified:**
+- `CLAUDE.md` — new project context file (Claude Code + Copilot compatible)
+- `specs/README.md` — new SDD feature directory documentation
+- `.specify/scripts/bash/common.sh` — new bash common functions
+- `.specify/scripts/bash/check-prerequisites.sh` — new prerequisite checker
+- `.specify/scripts/bash/create-new-feature.sh` — new feature scaffolder
+- `.specify/scripts/bash/setup-plan.sh` — new plan setup script
+- `.specify/scripts/bash/update-agent-context.sh` — new agent context updater
+- `.github/pull_request_template.md` — added Constitution Check section
+- `.github/copilot-instructions.md` — fixed broken link
+- `.specify/memory/constitution.md` — added YAML frontmatter
+- `PROJECT_STATUS.md` — corrected CI/CD status, test suite status, metrics
+- `docs/spec-kit-adoption-plan.md` — corrected D-04 and D-07 as resolved
+- `CHANGELOG.md` — added all new artifacts and changes
+- `docs/conversation_log.md` — added session 12 entry

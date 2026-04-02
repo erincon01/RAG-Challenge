@@ -1,3 +1,10 @@
+---
+constitution_version: "2.0.0"
+ratification_date: "2025-01-01"
+last_amended_date: "2026-04-02"
+amendment_procedure: "See Governance section below"
+---
+
 <!--
 SYNC IMPACT REPORT
 ==================
