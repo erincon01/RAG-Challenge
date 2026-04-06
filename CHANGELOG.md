@@ -8,6 +8,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+- Replace direct `PostgresEventRepository()` / `SQLServerEventRepository()` instantiation in `health.py` and `capabilities.py` with FastAPI `Depends()` injection
+- Add `get_postgres_event_repository` and `get_sqlserver_event_repository` DI providers in `dependencies.py`
+
 ### Security
 - Replace `allow_origins=["*"]` with configurable `CORS_ORIGINS` env var in CORS middleware
 - Add `cors_origins` setting to `config/settings.py` with safe localhost defaults

@@ -11,8 +11,8 @@ from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel
 
 from app.core.config import Settings, get_settings
-from app.repositories.postgres import PostgresEventRepository
-from app.repositories.sqlserver import SQLServerEventRepository
+from app.core.dependencies import get_postgres_event_repository, get_sqlserver_event_repository
+from app.repositories.base import EventRepository
 
 router = APIRouter()
 
@@ -74,6 +74,8 @@ async def health_check(settings: Settings = Depends(get_settings)) -> HealthResp
     description="Check if the service is ready to accept requests",
 )
 async def readiness_check(
+    postgres_repo: EventRepository = Depends(get_postgres_event_repository),
+    sqlserver_repo: EventRepository = Depends(get_sqlserver_event_repository),
     settings: Settings = Depends(get_settings),
 ) -> ReadinessResponse:
     """
@@ -83,13 +85,15 @@ async def readiness_check(
     Returns 200 OK only if the service is ready to handle requests.
 
     Args:
+        postgres_repo: PostgreSQL event repository (injected)
+        sqlserver_repo: SQL Server event repository (injected)
         settings: Application settings (injected)
 
     Returns:
         ReadinessResponse: Service readiness information
     """
-    postgres_ok = PostgresEventRepository().test_connection()
-    sqlserver_ok = SQLServerEventRepository().test_connection()
+    postgres_ok = postgres_repo.test_connection()
+    sqlserver_ok = sqlserver_repo.test_connection()
 
     checks = {
         "api": True,

@@ -43,6 +43,16 @@ MatchRepo = Annotated[MatchRepository, Depends(get_match_repository)]
 EventRepo = Annotated[EventRepository, Depends(get_event_repository)]
 
 
+def get_postgres_event_repository() -> EventRepository:
+    """Dependency provider for PostgreSQL EventRepository (health/connectivity checks)."""
+    return get_event_repository(source="postgres")
+
+
+def get_sqlserver_event_repository() -> EventRepository:
+    """Dependency provider for SQL Server EventRepository (health/connectivity checks)."""
+    return get_event_repository(source="sqlserver")
+
+
 def get_statsbomb_service() -> StatsBombService:
     """Dependency provider for StatsBombService."""
     return StatsBombService()
