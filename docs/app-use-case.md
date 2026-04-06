@@ -1,4 +1,117 @@
 
+> **Note:** This document describes the current FastAPI + React architecture.
+> See [architecture.md](architecture.md) for the full system design and
+> [tech-stack.md](tech-stack.md) for versions and tooling.
+> Legacy Streamlit / Azure-first setup details below the horizontal rule are kept as historical background.
+
+---
+
+## Use Cases
+
+### UC-1: Ask a question about a match
+
+**Actor:** Analyst / fan  
+**Trigger:** User selects a match and types a natural-language question in the React UI.
+
+**Happy path:**
+1. Frontend sends `POST /api/v1/chat/search` with `{ match_id, query, language, embedding_model, search_algorithm, top_n }`.
+2. `SearchService.search_and_chat()` runs the 6-step RAG pipeline:
+   - Translate query to English (if needed)
+   - Generate query embedding via Azure OpenAI
+   - Vector-search `events_details__quarter_minute` (pgvector) or `events_details__15secs_agg` (Azure SQL)
+   - Build token-budgeted context from top-N results
+   - Call GPT-4o for grounded answer
+3. Response: `{ answer, sources, tokens_used, search_results }`.
+
+**Variations:**
+- `source=sqlserver` queries Azure SQL Server instead of PostgreSQL.
+- `language=es` triggers a translation step before embedding.
+
+---
+
+### UC-2: Browse available matches
+
+**Actor:** Any user  
+**Trigger:** User opens the match selector in the React UI.
+
+**Happy path:**
+1. Frontend sends `GET /api/v1/matches?source=postgres&competition_name=UEFA Euro&limit=50`.
+2. `MatchRepository.get_all()` queries the `matches` table with optional filters.
+3. Response: list of `{ match_id, home_team, away_team, date, competition, season }`.
+
+---
+
+### UC-3: Inspect raw events for a time window
+
+**Actor:** Analyst  
+**Trigger:** User wants to see raw events for a specific minute range.
+
+**Happy path:**
+1. Frontend sends `GET /api/v1/events?match_id=3788741&period=1&minute_from=30&minute_to=45`.
+2. `EventRepository.get_by_match()` returns `EventDetail` objects for that time window.
+3. Response includes `json_data` (Statsbomb raw JSON) and pre-computed `summary`.
+
+---
+
+### UC-4: Ingest a new match
+
+**Actor:** Data engineer / admin  
+**Trigger:** New Statsbomb match data is available.
+
+**Happy path:**
+1. Admin sends `POST /api/v1/ingestion/match/{match_id}`.
+2. `IngestionService` downloads raw JSON from Statsbomb open-data GitHub.
+3. Data is parsed and inserted into `matches`, `events_details__quarter_minute`.
+4. Embeddings are generated for each event summary via Azure OpenAI.
+5. Job status tracked via `JobService` and polled with `GET /api/v1/ingestion/jobs/{job_id}`.
+
+---
+
+### UC-5: Compare search algorithms
+
+**Actor:** Researcher  
+**Trigger:** Exploring which similarity metric gives better recall.
+
+**Happy path:**
+1. Send `POST /api/v1/chat/search` with `search_algorithm=cosine` → record results.
+2. Repeat with `search_algorithm=inner_product`, `l2_euclidean`, `l1_manhattan`.
+3. Compare `search_results[*].similarity_score` across responses.
+
+Available algorithms (`SearchAlgorithm` enum): `cosine`, `inner_product`, `l2_euclidean`, `l1_manhattan`.
+
+---
+
+### UC-6: Health check
+
+**Actor:** DevOps / monitoring  
+**Trigger:** Uptime probe or deployment verification.
+
+**Happy path:**
+1. `GET /api/v1/health` → `{ status: "ok", db_postgres: true, db_sqlserver: true }`.
+2. CI/CD pipeline uses this to verify successful deploy.
+
+---
+
+## API Reference (summary)
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/api/v1/health` | Liveness + DB checks |
+| `GET` | `/api/v1/competitions` | List competitions |
+| `GET` | `/api/v1/matches` | List matches (filterable) |
+| `GET` | `/api/v1/matches/{match_id}` | Match detail |
+| `GET` | `/api/v1/events` | Event details for a match |
+| `POST` | `/api/v1/chat/search` | Full RAG pipeline |
+| `POST` | `/api/v1/embeddings/generate` | Generate embeddings for a text |
+| `POST` | `/api/v1/ingestion/match/{match_id}` | Ingest a match |
+| `GET` | `/api/v1/ingestion/jobs/{job_id}` | Ingestion job status |
+| `GET` | `/api/v1/capabilities` | Supported sources, models, algorithms |
+| `GET` | `/docs` | Auto-generated OpenAPI docs (Swagger UI) |
+
+---
+
+## Historical background (Streamlit / Azure-first setup)
+
 ## Data loading
 
 ### Data preparation and loadding to Azure database (SQL Server or Postgres)
@@ -16,26 +129,23 @@ To load the data into Azure SQL Server, follow the details in `sqlserver` foldel
 
 ##### Process of Creating the `minutewise` and `quarter_minute` Tables
 
-The process starts with the creation of the `minutewise` table, where match data is divided into 90-minute segments aprox per `match_id`. This table is used for capturing event data and player actions during each minute of the match. The SQL script `tables_setup_azure_open_ai-create-minutewise.sql` is responsible for setting up this table in the Azure PostgreSQL database. One of the key features is the `summary_embedding` column, which stores a 384-dimensional vector generated using the `multilingual-e5-small:v1` model. The table below includes all the models used (both local postgress, and Azure Open AI). This process leverages the PostgreSQL extension `pgvector`, which allows the storage and querying of vector data.
+The process starts with the creation of the `minutewise` table, where match data is divided into 90-minute segments aprox per `match_id`. This table is used for capturing event data and player actions during each minute of the match. The SQL script `tables_setup_azure_open_ai-create-minutewise.sql` is responsible for setting up this table in the Azure PostgreSQL database. One of the key features is the `summary_embedding_t3_small` column, which stores a 1536-dimensional vector generated using the `text-embedding-3-small` model. The table below includes all the models used (both local postgress, and Azure Open AI). This process leverages the PostgreSQL extension `pgvector`, which allows the storage and querying of vector data.
 
 Below is a table summarizing the vector size, column names, calculated columns, extension, and model used for table `events_details__minutewise`:
 
 | Column Name                     | Model Used                         | Vector Size |
 |----------------------------------|------------------------------------|-------------|
-| `summary_embedding`              | `multilingual-e5-small:v1`         | 384         |
-| `summary_script_embedding`       | `multilingual-e5-small:v1`         | 384         |
 | `summary_embedding_ada_002`      | `text-embedding-ada-002`           | 1536        |
 | `summary_embedding_t3_small`     | `text-embedding-3-small`           | 1536        |
 | `summary_embedding_t3_large`     | `text-embedding-3-large`           | 3072        |
 
 
-Next, the `quarter_minute` table is created using the script `tables_setup_azure_open_ai-create-quarter_sec.sql`. This table divides each minute into four equal parts, resulting in a total of 360 rows for a 90-minute match (4 segments per minute). The granularity of this table is crucial for more detailed event analysis, capturing finer nuances in player movement and match events that happen within a shorter timespan. Similar to the `minutewise` table, it includes a `summary_embedding` column that stores 384-dimensional embeddings generated with the `multilingual-e5-small:v1` model. The ability to store these embeddings using the `pgvector` extension allows for efficient processing of vector data.
+Next, the `quarter_minute` table is created using the script `tables_setup_azure_open_ai-create-quarter_sec.sql`. This table divides each minute into four equal parts, resulting in a total of 360 rows for a 90-minute match (4 segments per minute). The granularity of this table is crucial for more detailed event analysis, capturing finer nuances in player movement and match events that happen within a shorter timespan. Similar to the `minutewise` table, it includes a `summary_embedding_t3_small` column that stores 1536-dimensional embeddings generated with the `text-embedding-3-small` model. The ability to store these embeddings using the `pgvector` extension allows for efficient processing of vector data.
 
 The following columns were added to the `events_details__quarter_minute` table to store embeddings generated by different AI models, utilizing the `vector` type with various dimensions:
 
 | Column Name                     | Model Used                         | Vector Size |
 |----------------------------------|------------------------------------|-------------|
-| `summary_embedding`              | `multilingual-e5-small:v1`         | 384         |
 | `summary_embedding_ada_002`      | `text-embedding-ada-002`           | 1536        |
 | `summary_embedding_t3_small`     | `text-embedding-3-small`           | 1536        |
 | `summary_embedding_t3_large`     | `text-embedding-3-large`           | 3072        |
@@ -73,7 +183,7 @@ Below is a table summarizing the vector size, column names, calculated columns, 
 ### Questions to ask in the football domain
 
 We have built a dataset of question to test the model.
-These questions are locate in [questions](questions.json).
+These questions are located in [data/questions.json](../data/questions.json).
 
 | Top-N Value | Search Type | Count of Occurrences |
 |-------------|-------------|----------------------|
@@ -96,7 +206,7 @@ These are 5 examples of the 18 patterns we have created:
 
 ### Querying the database using embeddings in Azure postgres
 
-Probably this was the funiest and most challenging part of the project. The journey started with the `minutewise` table, which divides each match into 90-minute segments, giving a broad overview of the match. Using this table, we began testing various search methods to evaluate the similarity of embeddings generated by models like `multilingual-e5-small:v1`, `text-embedding-ada-002`, `text-embedding-3-small`, and `text-embedding-3-large`. Each embedding captures unique features of match events, allowing us to explore how different search types can affect performance. Our primary focus was on Cosine Similarity and Inner Product (IP) searches, as they are widely used for vector-based operations.
+Probably this was the funiest and most challenging part of the project. The journey started with the `minutewise` table, which divides each match into 90-minute segments, giving a broad overview of the match. Using this table, we began testing various search methods to evaluate the similarity of embeddings generated by models like `text-embedding-ada-002`, `text-embedding-3-small`, and `text-embedding-3-large`. Each embedding captures unique features of match events, allowing us to explore how different search types can affect performance. Our primary focus was on Cosine Similarity and Inner Product (IP) searches, as they are widely used for vector-based operations.
 
 In the first round of testing with the `minutewise` table, we used Cosine Similarity to compare embeddings. Cosine Similarity focuses on the angle between vectors rather than their magnitude, making it particularly effective when the overall scale of data varies but relationships remain the same. As we tested Cosine Similarity on match data, it provided solid results, especially in identifying key moments in the game that were structurally similar, such as pressing sequences or build-ups leading to goal-scoring chances.
 
@@ -181,7 +291,7 @@ In addition to configuring the query settings, the `call_gpt` function integrate
    - Another slider for setting the **output tokens**, which defines how many tokens the model can return in a response. Users can set this between **500** and **2,500**, with a default value of one-third of the maximum. This option helps limit the length of the AI’s responses.
 
 3. **Model Selection**
-   - The function offers a **radio button** for choosing the model to be used. The available models depending on the cloud database includes `"text-embedding-3-small"`, `"multilingual-e5-small:v1"`, and `"text-embedding-ada-002"`. This allows users to select the most suitable model for their task, based on performance and specificity.
+   - The function offers a **radio button** for choosing the model to be used. The available models depending on the cloud database includes `"text-embedding-3-small"` and `"text-embedding-ada-002"`. This allows users to select the most suitable model for their task, based on performance and specificity.
 
 4. **Search Type**
    - A **radio button** lets users choose the **search method** for retrieving embeddings or results. Options include `"Cosine"`, `"Negative Inner Product"`, `"L1"`, and `"L2"`. Each method has different implications on how similarities between items are calculated.

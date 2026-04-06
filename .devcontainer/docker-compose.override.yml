@@ -1,0 +1,6 @@
+# Override for VS Code Dev Containers
+# Backend uses sleep infinity so VS Code manages the process via post-start
+services:
+  backend:
+    command: sleep infinity
+    working_dir: /workspace

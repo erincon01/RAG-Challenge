@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Dark theme (default) ── */
+:root {
+  --c-canvas: 15 23 34;
+  --c-panel: 24 36 55;
+  --c-accent: 45 212 191;
+  --c-accent-warm: 251 146 60;
+  --c-ink: 226 232 240;
+  --c-mute: 148 163 184;
+  color-scheme: dark;
+}
+
+/* ── Light theme ── */
+:root.light {
+  --c-canvas: 246 248 250;
+  --c-panel: 255 255 255;
+  --c-accent: 13 148 136;
+  --c-accent-warm: 234 88 12;
+  --c-ink: 30 41 59;
+  --c-mute: 100 116 139;
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 10%, rgb(var(--c-accent) / 0.12), transparent 35%),
+    radial-gradient(circle at 90% 20%, rgb(var(--c-accent-warm) / 0.1), transparent 40%),
+    rgb(var(--c-canvas));
+  color: rgb(var(--c-ink));
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ── Light-mode: remap white-opacity utilities to dark equivalents ── */
+:root.light [class*="border-white/"] {
+  border-color: rgb(0 0 0 / 0.1);
+}
+:root.light [class*="bg-white/"] {
+  background-color: rgb(0 0 0 / 0.04);
+}
+:root.light *[class*="hover\:bg-white/"]:hover {
+  background-color: rgb(0 0 0 / 0.06) !important;
+}
+:root.light *[class*="hover\:border-white/"]:hover {
+  border-color: rgb(0 0 0 / 0.18) !important;
+}

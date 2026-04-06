@@ -1,12 +1,46 @@
+# Environment
 .env
+.env.docker
+.env.local
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.mypy_cache/
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+pytest.out
+
+# Node
+node_modules/
+
+# IDE
+.DS_Store
+*.swp
+*~
+
+# Data (StatsBomb downloads)
 /data/events/
 /data/lineups/
 /data/matches/
 /data/three-sixty/
 /data/openai/matches_summary/*.yaml
-*.pyc
-~
+/backend/data/events/
+/backend/data/lineups/
+/backend/data/matches/
+/app/data/scripts_summary/Answers/
+
+# Database
 rag_challenge.db
 rag_challenge.db-journal
+
+# Secrets (never commit)
 04_create_openai_stored_procedures_api_key_included.sql
-dotnetMalaga/Spain Insane Reactions to Oyarzabal 2-1 Goal vs England (EURO Final).mp4
