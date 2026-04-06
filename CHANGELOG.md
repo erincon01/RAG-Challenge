@@ -8,6 +8,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [4.0.0] - 2026-04-06 — OpenSpec governance + security + DI refactor
+
 ### Changed
 - Rename ~50 test functions across 15 test files to follow `test_<method>_<scenario>_<expected>` naming convention
 
