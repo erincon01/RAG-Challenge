@@ -29,3 +29,10 @@ rules:
     - Group by layer (API, Service, Repository, Test)
     - Each task should be completable in less than 1 hour
     - Include a test task for each implementation task
+    - Never mark a task [x] until tests pass — run pytest before checking off
+    - Test tasks must verify imports resolve from the test runner cwd (backend/)
+  apply:
+    - Run pytest on each test file immediately after writing it
+    - Run the full test suite before considering the change complete
+    - If a test fails, fix it before moving to the next task
+    - Verify module-level side effects (middleware, singletons) cannot be patched after import

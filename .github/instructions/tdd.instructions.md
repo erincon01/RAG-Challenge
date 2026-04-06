@@ -115,6 +115,22 @@ Las factories están definidas en `backend/tests/conftest.py`:
 - Siempre usar los mismos parámetros bind que la aplicación (`%s` para PostgreSQL, `?` para SQL Server).
 - Los tests de integración con BD real deben limpiar sus datos en teardown.
 
+## OpenSpec + TDD integration
+
+When implementing an OpenSpec change (`/opsx:apply`):
+
+1. **Write each test file first** (Red phase), then run it to confirm it fails for the right reason.
+2. **Implement the minimum code** to make the test pass (Green phase).
+3. **Run `pytest` on the file before marking the task `[x]`** — a checkbox means "done and verified".
+4. **After all tasks are done**, run the full suite: `pytest tests/ -v`.
+
+### Common pitfalls
+
+- **Import paths:** Tests run from `backend/` — use `app.core.config` (not `config.settings`).
+- **pydantic-settings `List[str]`:** Env vars are parsed as JSON before validators run. Use `str` field + `@property` to split.
+- **Middleware testing:** CORS and other middleware is configured at module import time. Patching `get_settings()` after import has no effect. Build a dedicated mini-app in the test instead.
+- **Singletons:** `settings = Settings()` at module level means patches to the class don't affect the existing instance. Either patch the instance attribute or create a new instance in the test.
+
 ## CI Integration
 
 El pipeline de CI (`.github/workflows/ci.yml`) ejecuta:

@@ -147,6 +147,11 @@ What would you like to do?
 - Update task checkbox immediately after completing each task
 - Pause on errors, blockers, or unclear requirements - don't guess
 - Use contextFiles from CLI output, don't assume specific file names
+- **Never mark a task `[x]` without running its tests first** — a checkbox means "done and verified", not "code written"
+- **Run `pytest` on each test file immediately after creating it** — catch import errors and assertion failures early
+- **Verify imports from the test runner's cwd** (`backend/`), not from the repo root — e.g., use `app.core.config` not `config.settings`
+- **Module-level side effects (middleware, singletons) cannot be patched after import** — if testing middleware, build a dedicated test app
+- **Run the full suite** (`pytest tests/`) before considering the change complete — a single file passing is not enough
 
 **Fluid Workflow Integration**
 

@@ -78,6 +78,18 @@ When a developer asks to implement a feature:
 3. If spec exists: proceed with `/opsx:apply`.
 4. After implementation: suggest `/opsx:archive`.
 
+### Verification rules (mandatory)
+
+- **Never mark a task `[x]` until the code compiles and tests pass.**
+  Run `pytest` on every test file you create or modify before checking off.
+- **Verify imports from the test runner's working directory** (`backend/`),
+  not from the repo root. Use `app.core.config` (not `config.settings`).
+- **Run the full test suite** (`pytest tests/ -v`) before considering a change complete.
+- **If pydantic-settings is involved:** `List[str]` fields fail with env vars because
+  pydantic-settings attempts JSON parse before validators. Use `str` + `@property` instead.
+- **Middleware and module-level config cannot be patched after import.**
+  If testing middleware behavior, build a dedicated test app instead of patching.
+
 Available commands (core profile):
 - `/opsx:propose` — create change with proposal, design, specs, tasks
 - `/opsx:apply` — implement tasks from a change
