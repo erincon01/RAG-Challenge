@@ -11,6 +11,32 @@ Cada sesión significativa con un agente AI se documenta aquí para auditoría y
 
 ---
 
+## Fase OpenSpec changes (Sessions 18+, branch: develop)
+
+---
+
+### [2026-04-06] Session 18 — CORS hardening (fix/016-cors-hardening)
+
+**Participants:** Eladio Rincon + Claude Code (Claude Opus 4.6)
+**Branch:** fix/016-cors-hardening
+
+#### Decisions taken
+- Replace `allow_origins=["*"]` with configurable `CORS_ORIGINS` env var
+- Store as `cors_origins_str` (string field) with a `cors_origins` property that splits on commas — avoids pydantic-settings JSON parse issue with `List[str]`
+- API test for CORS middleware uses a dedicated mini FastAPI app instead of patching the real app (middleware is configured at import time)
+- Cleaned up unused imports (`os`, `Optional`) in `config/settings.py`
+
+#### Files modified
+- `config/settings.py` — added `cors_origins_str` field + `cors_origins` property
+- `backend/app/main.py` — replaced `allow_origins=["*"]` with `settings.cors_origins`
+- `.env.example`, `.env.docker.example` — added `CORS_ORIGINS`
+- `backend/tests/unit/test_cors_config.py` — 3 unit tests for Settings parsing
+- `backend/tests/api/test_cors_middleware.py` — 2 API tests for middleware allow/reject
+- `openspec/changes/cors-hardening/` — full OpenSpec change (proposal, design, specs, tasks)
+- `CHANGELOG.md` — added Security entry
+
+---
+
 ## Fase spec-kit (Sessions 1-12, branch: develop)
 
 ---

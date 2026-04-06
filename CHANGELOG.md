@@ -8,6 +8,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Security
+- Replace `allow_origins=["*"]` with configurable `CORS_ORIGINS` env var in CORS middleware
+- Add `cors_origins` setting to `config/settings.py` with safe localhost defaults
+
 ### Added
 - `AGENTS.md` — single source of truth for all project conventions and agent rules
 - `CLAUDE.md` — Claude Code entry point with project overview, commands, and governance chain

@@ -5,8 +5,7 @@ This module provides type-safe, validated configuration management for the RAG C
 All environment variables are read once at startup and validated, following fail-fast principle.
 """
 
-import os
-from typing import Literal, Optional
+from typing import List, Literal
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -76,6 +75,17 @@ class Settings(BaseSettings):
     database: DatabaseConfig = Field(default_factory=DatabaseConfig)
     openai: OpenAIConfig = Field(default_factory=OpenAIConfig)
     repository: RepositoryConfig = Field(default_factory=RepositoryConfig)
+
+    # CORS
+    cors_origins_str: str = Field(
+        default="http://localhost:5173,http://localhost:8000",
+        alias="CORS_ORIGINS",
+    )
+
+    @property
+    def cors_origins(self) -> List[str]:
+        """Return CORS origins as a list, splitting on commas."""
+        return [origin.strip() for origin in self.cors_origins_str.split(",")]
 
     # Application settings
     debug: bool = Field(default=False)
