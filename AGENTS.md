@@ -8,7 +8,7 @@ development using OpenSpec and enforce project conventions rigorously.
 
 ## Tools
 
-You have access to: file read/write, terminal execution, search, and web fetch.  
+You have access to: file read/write, terminal execution, search, and web fetch.
 You do NOT have access to: deployment, database admin, or secret management.
 
 ## Core principles
@@ -35,22 +35,28 @@ You do NOT have access to: deployment, database admin, or secret management.
 
 - All dependencies MUST be injected via `FastAPI Depends()`.
 - Providers live in `app/core/dependencies.py`.
+- Type aliases: `StatsBombSvc`, `IngestionSvc`, `ExplorerSvc` (Annotated + Depends).
 - NEVER instantiate services or repos at module level (`_service = XxxService()`).
+- In route handlers, `service` parameter MUST come before parameters with defaults.
 
 ## Git workflow (mandatory)
 
-- Branch naming: `feature/NNN-desc`, `fix/NNN-desc`, `chore/desc`
-- Commits: Conventional Commits in English (`type(scope): description`)
+- **`develop`** is the integration branch. All feature PRs target `develop`.
+- **`main`** is production. Only admins merge from `develop` via PR.
+- Branch naming: `feature/NNN-desc`, `fix/NNN-desc`, `chore/desc` (from `develop`).
+- Commits: Conventional Commits in English (`type(scope): description`).
 - CHANGELOG: Update `## [Unreleased]` in every PR that modifies code.
 - Conversation log: Update `docs/conversation_log.md` at the end of every session.
+- See `.github/instructions/git-workflow.instructions.md` for full rules.
 
 ## Testing (mandatory)
 
-- Minimum 80% coverage.
+- Minimum 80% coverage (enforced by CI).
 - Test naming: `test_<method>_<scenario>_<expected>`.
 - Use `MagicMock(spec=TargetClass)` — never bare `MagicMock()`.
 - Use factories from `conftest.py` — never inline dicts.
 - Always call `app.dependency_overrides.clear()` in teardown.
+- See `.github/instructions/tdd.instructions.md` for full rules.
 
 ## SQL safety (mandatory)
 
@@ -67,10 +73,16 @@ You do NOT have access to: deployment, database admin, or secret management.
 
 When a developer asks to implement a feature:
 
-1. Check if a spec exists: `openspec list` or check `openspec/changes/`.
+1. Check if a spec exists: check `openspec/changes/` or `openspec/specs/`.
 2. If no spec: suggest `/opsx:propose <feature-name>`.
 3. If spec exists: proceed with `/opsx:apply`.
-4. After implementation: suggest `/opsx:verify` then `/opsx:archive`.
+4. After implementation: suggest `/opsx:archive`.
+
+Available commands (core profile):
+- `/opsx:propose` — create change with proposal, design, specs, tasks
+- `/opsx:apply` — implement tasks from a change
+- `/opsx:archive` — archive completed change
+- `/opsx:explore` — thinking partner mode (read-only, no code changes)
 
 ## Restrictions
 
@@ -83,7 +95,7 @@ When a developer asks to implement a feature:
 
 ## References
 
-- [Project plan](docs/PLAN_OPENSPEC_ADOPTION.md)
+- [OpenSpec adoption plan](docs/PLAN_OPENSPEC_ADOPTION.md)
 - [Git workflow](.github/instructions/git-workflow.instructions.md)
 - [TDD rules](.github/instructions/tdd.instructions.md)
 - [OpenSpec docs](https://github.com/Fission-AI/OpenSpec)
