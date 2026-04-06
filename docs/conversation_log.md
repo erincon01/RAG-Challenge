@@ -37,6 +37,43 @@ Cada sesión significativa con un agente AI se documenta aquí para auditoría y
 
 ---
 
+### [2026-04-06] Session 19 — Parallel implementation of 3 changes via worktrees
+
+**Participants:** Eladio Rincon + Claude Code (Claude Opus 4.6)
+**Branches:** fix/019-data-explorer-service, fix/020-dependency-injection, feat/021-token-budget-guard
+
+#### Decisions taken
+- First parallel worktree execution: 3 independent OpenSpec changes applied simultaneously
+- Proposed all 3 changes on develop (sequential), then launched 3 agents with `isolation: "worktree"`
+- Merged PRs sequentially (#18 → #17 → #19), resolving CHANGELOG conflicts via rebase
+- Added 13 unit tests for repository methods to fix coverage gap (75% → 82%)
+- Archived all 4 completed changes (cors-hardening + 3 parallel) with spec sync
+
+#### Changes implemented
+1. **fix-data-explorer-service** (PR #17) — Refactored DataExplorerService to use injected MatchRepository instead of raw psycopg2/pyodbc
+2. **fix-dependency-injection** (PR #18) — Replaced direct repo instantiation in health.py/capabilities.py with Depends()
+3. **feat-token-budget-guard** (PR #19) — Added token budget enforcement to RAG pipeline using tiktoken
+
+#### Lessons learned
+- Worktree changes can leak to main workspace — clean with `git checkout --` after agents finish
+- Commit proposals/archives on develop BEFORE launching worktrees
+- Formatting issues (ruff format) must be checked — agents may miss it
+- Coverage can drop when adding new repo methods without corresponding unit tests
+- CHANGELOG is the most common conflict source when merging parallel PRs
+
+#### Files modified
+- `backend/app/repositories/base.py`, `postgres.py`, `sqlserver.py` — new methods
+- `backend/app/services/data_explorer_service.py` — refactored to use repos
+- `backend/app/api/v1/health.py`, `capabilities.py` — DI via Depends()
+- `backend/app/services/search_service.py` — token budget guard
+- `backend/app/core/dependencies.py` — new DI providers
+- `backend/requirements.txt` — added tiktoken
+- 5 test files modified/created (462+ tests, 82% coverage)
+- `openspec/specs/` — synced infra, data, api, rag specs
+- 4 changes archived to `openspec/changes/archive/`
+
+---
+
 ## Fase spec-kit (Sessions 1-12, branch: develop)
 
 ---

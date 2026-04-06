@@ -27,6 +27,7 @@ direct database access, or adapter imports.
 **Behavior:**
 - Given the backend is running, When `GET /health` is called, Then it MUST return HTTP 200 with `status`, `timestamp`, `environment`, `version`, and `checks` fields.
 - Given the database is unreachable, When `GET /health/ready` is called, Then it MUST return `ready: false` with individual check results.
+- Health and capabilities handlers MUST receive repository instances via FastAPI `Depends()` injection. They MUST NOT instantiate concrete repository classes directly.
 
 ### Competitions and Matches
 

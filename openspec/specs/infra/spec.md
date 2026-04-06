@@ -90,6 +90,8 @@ Settings (BaseSettings)
 │   ├── repo_owner (default "statsbomb")
 │   ├── repo_name (default "open-data")
 │   └── local_folder (default "./data")
+├── cors_origins_str (str, alias CORS_ORIGINS, default "http://localhost:5173,http://localhost:8000")
+│   └── cors_origins (property) → List[str] split on commas with whitespace trim
 ├── environment ("local" | "azure" | "test", default "local")
 ├── debug (bool, default False)
 └── log_level (str, default "INFO")
@@ -182,8 +184,15 @@ backend/tests/
 
 ---
 
+## CORS Configuration
+
+The system SHALL read allowed CORS origins from the `CORS_ORIGINS` environment variable.
+The value MUST be a comma-separated list of origin URLs (e.g., `http://localhost:5173,http://localhost:8000`).
+When `CORS_ORIGINS` is not set, the system SHALL default to `http://localhost:5173,http://localhost:8000`.
+The system MUST NOT use `allow_origins=["*"]` in any environment.
+
+---
+
 ## Known Deviations
 
-- No DevContainer configuration (`.devcontainer/` directory does not exist).
-- CORS is set to `allow_origins=["*"]` — must restrict for production.
 - No `.env.example` file for frontend.

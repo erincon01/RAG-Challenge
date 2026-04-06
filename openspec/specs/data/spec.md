@@ -61,12 +61,15 @@ dataclasses with zero framework imports.
 ```
 BaseRepository (ABC)
 ├── get_connection() → Iterator[Connection]  (context manager)
-└── test_connection() → bool
+├── test_connection() → bool
+└── get_tables_info() → List[Dict[str, Any]]
 
 MatchRepository(BaseRepository)
 ├── get_by_id(match_id) → Optional[Match]
 ├── get_all(competition_name, season_name, limit) → List[Match]
-└── get_competitions() → List[Competition]
+├── get_competitions() → List[Competition]
+├── get_teams(match_id, limit) → List[Dict[str, Any]]
+└── get_players(match_id, limit) → List[Dict[str, Any]]
 
 EventRepository(BaseRepository)
 ├── get_events_by_match(match_id, limit) → List[EventDetail]
@@ -158,11 +161,10 @@ StatsBomb GitHub API → Download JSON → Load to DB → Aggregate → Embed
 | `StatsBombService` | Remote catalog discovery, JSON download | No (HTTP only) |
 | `IngestionService` | Full pipeline orchestration | No (direct DB access) |
 | `JobService` | Background job tracking (in-memory) | No (in-memory dict) |
-| `DataExplorerService` | Read-only metadata queries | No (direct DB access) |
+| `DataExplorerService` | Read-only metadata queries | YES (injected MatchRepository) |
 | `SearchService` | RAG pipeline (query → answer) | YES |
 
 ### Known Deviations
 
-- `IngestionService` and `DataExplorerService` bypass the Repository Pattern and connect
-  directly to databases using `psycopg2`/`pyodbc`. This is intentional for ingestion
-  (different use case) but should be reviewed for `DataExplorerService`.
+- `IngestionService` bypasses the Repository Pattern and connects directly to databases
+  using `psycopg2`/`pyodbc`. This is intentional (different use case — bulk ingestion).
