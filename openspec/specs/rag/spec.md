@@ -101,13 +101,12 @@ OpenAI adapter.
 
 | Parameter | Default | Scope | Enforced? |
 |-----------|---------|-------|-----------|
-| `max_input_tokens` | 10000 | Context window guidance | NO (not enforced in code) |
+| `max_input_tokens` | 10000 | Context window budget | YES (enforced via tiktoken counting) |
 | `max_output_tokens` | 5000 | LLM `max_tokens` parameter | YES (passed to OpenAI API) |
 | `temperature` | 0.1 | LLM sampling | YES (validated 0.0-2.0 in domain) |
 | `top_n` | 10 | Number of search results | YES (validated 1-100 in domain) |
 
-**Known gap:** `max_input_tokens` parameter exists in `SearchRequest` but is NOT enforced.
-The context passed to the LLM may exceed this value if many search results are returned.
+**Token budget guard:** Before calling the LLM, the system counts tokens (system message + context + question) using `tiktoken`. If the total exceeds `max_input_tokens`, the lowest-ranked search results are iteratively removed until the budget fits. Response metadata includes `input_tokens`, `max_input_tokens`, and `results_truncated`.
 
 ---
 
