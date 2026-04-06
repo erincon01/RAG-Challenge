@@ -2,52 +2,33 @@
 
 > AI-powered football match analysis using Retrieval-Augmented Generation (RAG) with Azure OpenAI and vector embeddings.
 
-## 🎯 Project Status
+## Project Status
 
-**Current Version:** v3.2 - Devcontainer v2 + portable pgvector pipeline
+**Current Version:** v4.0.0-dev — OpenSpec governance + DI refactor
 **Primary Branch:** `develop`
-**Architecture:** FastAPI Backend + React TypeScript Frontend + PostgreSQL/SQL Server
-**Last Updated:** 2026-04-02
+**Architecture:** FastAPI + React TypeScript + PostgreSQL (pgvector) + SQL Server
+**Governance:** [OpenSpec](https://github.com/Fission-AI/OpenSpec) (spec-driven development)
+**Last Updated:** 2026-04-06
 
-### ✅ Completed Phases (100% Original Plan + 100% Frontend Migration)
+### Current state
 
-#### Original Rearchitecture Plan
-- ✅ **Phase 0:** Technical Stabilization (Bug fixes, Centralized config, 4 ADRs)
-- ✅ **Phase 1:** Backend/Frontend Separation (Complete layered architecture)
-- ✅ **Phase 2:** Docker Local Infrastructure (Full stack containerization)
+- Backend: FastAPI layered architecture, DI via `Depends()`, 433+ tests, 80%+ coverage
+- Frontend: React 18 + TypeScript + Tailwind, 7 pages
+- CI: ruff + mypy + pytest (GitHub Actions, all green)
+- Governance: OpenSpec with 4 system specs and full propose/apply/archive workflow
 
-#### Frontend Web Migration Plan
-- ✅ **Phase 0:** Backend Stabilization & Capabilities API
-- ✅ **Phase 1:** Ingestion API & Job Management
-- ✅ **Phase 2:** React TypeScript Bootstrap
-- ✅ **Phase 3:** Core Operational Screens (Catalog, Operations)
-- ✅ **Phase 4:** Data Explorer & Legacy Parity
-- ✅ **Phase 5:** Embeddings Management & Advanced Chat
-- ✅ **Phase 6:** Hardening & Production Features
-
-### ⏳ Pending Phases
-
-- ✅ **Phase 2A:** pgvector Migration — **completed 2026-02-20**
-- ✅ **Phase 3:** Devcontainer 2.0 — **completed 2026-02-20** (postCreate + postStart + health checks)
-- ⏳ **Phase 4:** Task Automation (Not started)
-- ⏳ **Phase 5:** GitHub Actions CI/CD (Not started)
-- ⏳ **Phase 6:** Final UX Polish (Partially complete)
-
-### 🧪 Backend Tests
-
-- Local backend pytest suite prepared on `feature/tests-suite`
-- Current local result: `259 passed` on Python 3.12
-- Remaining promotion step: commit, push branch, and open PR into `develop`
-
-### Documentation Hub
+### Documentation
 
 | Document | Purpose |
 |---|---|
+| [AGENTS.md](./AGENTS.md) | All project rules (architecture, DI, testing, git, security) |
 | [CHANGELOG.md](./CHANGELOG.md) | Version history and release notes |
-| [PROJECT_STATUS.md](./PROJECT_STATUS.md) | Current status, progress, and next steps |
-| [PLAN_REARQUITECTURA_COMPLETO.md](./PLAN_REARQUITECTURA_COMPLETO.md) | Full architecture roadmap |
-| [PLAN_MIGRACION_FRONTEND_WEB.md](./PLAN_MIGRACION_FRONTEND_WEB.md) | Frontend migration plan (completed) |
+| [PROJECT_STATUS.md](./PROJECT_STATUS.md) | Current status and pending work |
+| [docs/PLAN_OPENSPEC_ADOPTION.md](./docs/PLAN_OPENSPEC_ADOPTION.md) | OpenSpec adoption plan |
+| [docs/conversation_log.md](./docs/conversation_log.md) | AI session audit trail |
+| [docs/architecture.md](./docs/architecture.md) | System architecture |
 | [docs/adr/](./docs/adr/) | Architecture Decision Records |
+| [docs/archive/](./docs/archive/) | Completed migration plans |
 
 ### Branch governance
 
