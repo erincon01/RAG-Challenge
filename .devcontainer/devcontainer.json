@@ -44,9 +44,11 @@
 			"extensions": [
 				"ms-python.python",
 				"ms-python.vscode-pylance",
-				"ms-python.black-formatter",
 				"charliermarsh.ruff",
 				"tamasfe.even-better-toml",
+				"redhat.vscode-yaml",
+				"yzhang.markdown-all-in-one",
+				"usernamehw.errorlens",
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
 				"donjayamanne.githistory",
@@ -54,7 +56,8 @@
 				"ms-azuretools.vscode-docker",
 				"Anthropic.claude-code",
 				"mtxr.sqltools",
-				"mtxr.sqltools-driver-pg"
+				"mtxr.sqltools-driver-pg",
+				"mtxr.sqltools-driver-mssql"
 			],
 			"settings": {
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
