@@ -6,12 +6,11 @@ They are database-agnostic and contain only business logic.
 """
 
 from dataclasses import dataclass, field
-from datetime import date, datetime
-from typing import Optional, List
-from enum import Enum
+from datetime import date
+from enum import StrEnum
 
 
-class SearchAlgorithm(str, Enum):
+class SearchAlgorithm(StrEnum):
     """Supported similarity search algorithms."""
 
     COSINE = "cosine"
@@ -20,7 +19,7 @@ class SearchAlgorithm(str, Enum):
     L2_EUCLIDEAN = "l2_euclidean"
 
 
-class EmbeddingModel(str, Enum):
+class EmbeddingModel(StrEnum):
     """Supported embedding models."""
 
     ADA_002 = "text-embedding-ada-002"
@@ -53,8 +52,8 @@ class Team:
     name: str
     gender: str
     country: str
-    manager: Optional[str] = None
-    manager_country: Optional[str] = None
+    manager: str | None = None
+    manager_country: str | None = None
 
 
 @dataclass
@@ -88,10 +87,10 @@ class Match:
     home_score: int
     away_score: int
     result: str
-    match_week: Optional[int] = None
-    stadium: Optional[Stadium] = None
-    referee: Optional[Referee] = None
-    json_data: Optional[str] = None
+    match_week: int | None = None
+    stadium: Stadium | None = None
+    referee: Referee | None = None
+    json_data: str | None = None
 
     @property
     def display_name(self) -> str:
@@ -105,11 +104,11 @@ class Player:
 
     player_id: int
     player_name: str
-    jersey_number: Optional[int] = None
-    country_id: Optional[int] = None
-    country_name: Optional[str] = None
-    position_id: Optional[int] = None
-    position_name: Optional[str] = None
+    jersey_number: int | None = None
+    country_id: int | None = None
+    country_name: str | None = None
+    position_id: int | None = None
+    position_name: str | None = None
 
 
 @dataclass
@@ -123,11 +122,11 @@ class EventDetail:
     quarter_minute: int
     count: int
     json_data: str
-    summary: Optional[str] = None
-    summary_embedding_ada_002: Optional[List[float]] = None
-    summary_embedding_t3_small: Optional[List[float]] = None
-    summary_embedding_t3_large: Optional[List[float]] = None
-    summary_embedding_e5: Optional[List[float]] = None
+    summary: str | None = None
+    summary_embedding_ada_002: list[float] | None = None
+    summary_embedding_t3_small: list[float] | None = None
+    summary_embedding_t3_large: list[float] | None = None
+    summary_embedding_e5: list[float] | None = None
 
     @property
     def time_description(self) -> str:
@@ -160,7 +159,7 @@ class SearchRequest:
     max_input_tokens: int = 10000
     max_output_tokens: int = 5000
     include_match_info: bool = True
-    system_message: Optional[str] = None
+    system_message: str | None = None
 
     def __post_init__(self):
         """Validate parameters."""
@@ -179,6 +178,6 @@ class ChatResponse:
     question: str
     normalized_question: str
     answer: str
-    search_results: List[SearchResult]
-    match_info: Optional[Match] = None
+    search_results: list[SearchResult]
+    match_info: Match | None = None
     metadata: dict = field(default_factory=dict)

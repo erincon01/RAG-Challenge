@@ -7,9 +7,8 @@ Supports both Azure OpenAI and direct OpenAI API via OPENAI_PROVIDER setting.
 
 import logging
 import time
-from typing import List, Optional
 
-from openai import AzureOpenAI, OpenAI, RateLimitError, APIError
+from openai import APIError, AzureOpenAI, OpenAI, RateLimitError
 
 from app.core.config import get_settings
 from app.domain.exceptions import EmbeddingGenerationError
@@ -39,9 +38,7 @@ class OpenAIAdapter:
                 api_version="2024-06-01",
             )
 
-    def create_embedding(
-        self, text: str, model: str = "text-embedding-3-small"
-    ) -> List[float]:
+    def create_embedding(self, text: str, model: str = "text-embedding-3-small") -> list[float]:
         """
         Generate an embedding vector for the given text with retry logic.
 
@@ -60,9 +57,7 @@ class OpenAIAdapter:
             operation="create_embedding",
         )
 
-    def create_embeddings_batch(
-        self, texts: List[str], model: str = "text-embedding-3-small"
-    ) -> List[List[float]]:
+    def create_embeddings_batch(self, texts: list[str], model: str = "text-embedding-3-small") -> list[list[float]]:
         """
         Generate embedding vectors for multiple texts in batches.
 
@@ -79,17 +74,14 @@ class OpenAIAdapter:
         Raises:
             EmbeddingGenerationError: If embedding generation fails after retries
         """
-        all_embeddings: List[List[float]] = []
+        all_embeddings: list[list[float]] = []
 
         for i in range(0, len(texts), BATCH_SIZE):
             batch = texts[i : i + BATCH_SIZE]
 
             embeddings = self._call_with_retry(
-                lambda b=batch: [
-                    item.embedding
-                    for item in self.client.embeddings.create(input=b, model=model).data
-                ],
-                operation=f"create_embeddings_batch[{i}:{i+len(batch)}]",
+                lambda b=batch: [item.embedding for item in self.client.embeddings.create(input=b, model=model).data],
+                operation=f"create_embeddings_batch[{i}:{i + len(batch)}]",
             )
             all_embeddings.extend(embeddings)
 
@@ -101,8 +93,8 @@ class OpenAIAdapter:
 
     def create_chat_completion(
         self,
-        messages: List[dict],
-        model: Optional[str] = None,
+        messages: list[dict],
+        model: str | None = None,
         temperature: float = 0.1,
         max_tokens: int = 5000,
     ) -> str:
@@ -125,12 +117,16 @@ class OpenAIAdapter:
             model = settings.openai.model
 
         return self._call_with_retry(
-            lambda: self.client.chat.completions.create(
-                model=model,
-                messages=messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
-            ).choices[0].message.content,
+            lambda: (
+                self.client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                )
+                .choices[0]
+                .message.content
+            ),
             operation="create_chat_completion",
         )
 
@@ -158,9 +154,7 @@ class OpenAIAdapter:
         ]
 
         try:
-            return self.create_chat_completion(
-                messages=messages, temperature=0.1, max_tokens=500
-            )
+            return self.create_chat_completion(messages=messages, temperature=0.1, max_tokens=500)
         except Exception as e:
             logger.error(f"Failed to translate text: {e}")
             return text
@@ -187,7 +181,9 @@ class OpenAIAdapter:
                 if attempt == MAX_RETRIES:
                     logger.error(f"{operation}: rate limit exhausted after {MAX_RETRIES} retries")
                     raise EmbeddingGenerationError(f"Rate limit exceeded: {e}")
-                logger.warning(f"{operation}: rate limited, retrying in {backoff:.1f}s (attempt {attempt}/{MAX_RETRIES})")
+                logger.warning(
+                    f"{operation}: rate limited, retrying in {backoff:.1f}s (attempt {attempt}/{MAX_RETRIES})"
+                )
                 time.sleep(backoff)
                 backoff = min(backoff * 2, MAX_BACKOFF)
             except APIError as e:

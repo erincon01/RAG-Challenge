@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+import builtins
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from threading import Lock
-from typing import Any, Dict, List, Optional
+from typing import Any
 from uuid import uuid4
 
 
@@ -16,22 +17,22 @@ class JobRecord:
     id: str
     type: str
     status: str
-    source: Optional[str]
-    payload: Dict[str, Any]
+    source: str | None
+    payload: dict[str, Any]
     created_at: str
     updated_at: str
     progress: int
     total: int
     message: str
-    error: Optional[str]
-    result: Dict[str, Any]
-    logs: List[str]
+    error: str | None
+    result: dict[str, Any]
+    logs: list[str]
 
 
 class JobService:
     """Thread-safe in-memory registry for async/background jobs."""
 
-    _jobs: Dict[str, JobRecord] = {}
+    _jobs: dict[str, JobRecord] = {}
     _lock = Lock()
     _max_logs = 1000
 
@@ -50,8 +51,8 @@ class JobService:
     def create_job(
         cls,
         job_type: str,
-        payload: Dict[str, Any],
-        source: Optional[str] = None,
+        payload: dict[str, Any],
+        source: str | None = None,
     ) -> JobRecord:
         """Create a new job and return its record."""
         now = cls._timestamp()
@@ -80,11 +81,11 @@ class JobService:
         cls,
         job_id: str,
         *,
-        status: Optional[str] = None,
-        progress: Optional[int] = None,
-        total: Optional[int] = None,
-        message: Optional[str] = None,
-        result: Optional[Dict[str, Any]] = None,
+        status: str | None = None,
+        progress: int | None = None,
+        total: int | None = None,
+        message: str | None = None,
+        result: dict[str, Any] | None = None,
     ) -> None:
         """Update mutable fields of a job."""
         with cls._lock:
@@ -129,7 +130,7 @@ class JobService:
             job.updated_at = cls._timestamp()
 
     @classmethod
-    def complete(cls, job_id: str, result: Optional[Dict[str, Any]] = None) -> None:
+    def complete(cls, job_id: str, result: dict[str, Any] | None = None) -> None:
         """Mark job as completed."""
         with cls._lock:
             job = cls._jobs.get(job_id)
@@ -144,14 +145,14 @@ class JobService:
             job.updated_at = cls._timestamp()
 
     @classmethod
-    def get(cls, job_id: str) -> Optional[Dict[str, Any]]:
+    def get(cls, job_id: str) -> dict[str, Any] | None:
         """Get one job by id."""
         with cls._lock:
             job = cls._jobs.get(job_id)
             return asdict(job) if job else None
 
     @classmethod
-    def list(cls, limit: int = 100) -> List[Dict[str, Any]]:
+    def list(cls, limit: int = 100) -> builtins.list[dict[str, Any]]:
         """List jobs sorted by creation date desc."""
         with cls._lock:
             jobs = list(cls._jobs.values())

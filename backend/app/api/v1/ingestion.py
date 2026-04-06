@@ -1,6 +1,6 @@
 """Background ingestion orchestration endpoints."""
 
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Query, status
 from pydantic import BaseModel, Field, field_validator
@@ -12,14 +12,14 @@ from app.services.job_service import JobService
 router = APIRouter()
 
 
-def _normalize_datasets(values: List[str]) -> List[str]:
+def _normalize_datasets(values: list[str]) -> list[str]:
     allowed = {"matches", "lineups", "events"}
     normalized = [v.lower().strip() for v in values]
     invalid = [v for v in normalized if v not in allowed]
     if invalid:
         raise ValueError(f"Unsupported dataset(s): {', '.join(invalid)}")
     # Preserve order while de-duplicating
-    unique: List[str] = []
+    unique: list[str] = []
     for item in normalized:
         if item not in unique:
             unique.append(item)
@@ -33,7 +33,7 @@ class JobCreateResponse(BaseModel):
 
 
 class JobListResponse(BaseModel):
-    items: List[Dict[str, Any]]
+    items: list[dict[str, Any]]
 
 
 class ClearJobsResponse(BaseModel):
@@ -41,42 +41,42 @@ class ClearJobsResponse(BaseModel):
 
 
 class DownloadRequest(BaseModel):
-    datasets: List[str] = Field(default_factory=lambda: ["matches", "lineups", "events"])
-    match_ids: List[int] = Field(default_factory=list)
-    competition_id: Optional[int] = None
-    season_id: Optional[int] = None
+    datasets: list[str] = Field(default_factory=lambda: ["matches", "lineups", "events"])
+    match_ids: list[int] = Field(default_factory=list)
+    competition_id: int | None = None
+    season_id: int | None = None
     overwrite: bool = False
 
     @field_validator("datasets")
     @classmethod
-    def validate_datasets(cls, values: List[str]) -> List[str]:
+    def validate_datasets(cls, values: list[str]) -> list[str]:
         return _normalize_datasets(values)
 
 
 class DownloadCleanupRequest(BaseModel):
-    datasets: List[str] = Field(default_factory=lambda: ["matches", "lineups", "events"])
-    match_ids: List[int] = Field(default_factory=list)
-    competition_id: Optional[int] = None
-    season_id: Optional[int] = None
+    datasets: list[str] = Field(default_factory=lambda: ["matches", "lineups", "events"])
+    match_ids: list[int] = Field(default_factory=list)
+    competition_id: int | None = None
+    season_id: int | None = None
     delete_all: bool = False
 
     @field_validator("datasets")
     @classmethod
-    def validate_datasets(cls, values: List[str]) -> List[str]:
+    def validate_datasets(cls, values: list[str]) -> list[str]:
         return _normalize_datasets(values)
 
 
 class DownloadCleanupResponse(BaseModel):
     deleted_count: int
-    deleted_files: List[str]
-    deleted_dirs: List[str]
-    filters: Dict[str, Any]
+    deleted_files: list[str]
+    deleted_dirs: list[str]
+    filters: dict[str, Any]
 
 
 class LoadRequest(BaseModel):
     source: str = "postgres"
-    datasets: List[str] = Field(default_factory=lambda: ["matches", "events"])
-    match_ids: List[int] = Field(default_factory=list)
+    datasets: list[str] = Field(default_factory=lambda: ["matches", "events"])
+    match_ids: list[int] = Field(default_factory=list)
 
     @field_validator("source")
     @classmethod
@@ -86,7 +86,7 @@ class LoadRequest(BaseModel):
 
 class AggregateRequest(BaseModel):
     source: str = "postgres"
-    match_ids: List[int] = Field(default_factory=list)
+    match_ids: list[int] = Field(default_factory=list)
 
     @field_validator("source")
     @classmethod
@@ -96,8 +96,8 @@ class AggregateRequest(BaseModel):
 
 class EmbeddingsRebuildRequest(BaseModel):
     source: str = "postgres"
-    match_ids: List[int] = Field(default_factory=list)
-    embedding_models: Optional[List[str]] = None
+    match_ids: list[int] = Field(default_factory=list)
+    embedding_models: list[str] | None = None
 
     @field_validator("source")
     @classmethod
@@ -109,8 +109,8 @@ def _create_background_job(
     background_tasks: BackgroundTasks,
     *,
     job_type: str,
-    payload: Dict[str, Any],
-    source: Optional[str],
+    payload: dict[str, Any],
+    source: str | None,
     runner,
 ) -> JobCreateResponse:
     job = JobService.create_job(job_type=job_type, payload=payload, source=source)
@@ -259,11 +259,11 @@ async def clear_jobs() -> ClearJobsResponse:
 
 @router.get(
     "/ingestion/jobs/{job_id}",
-    response_model=Dict[str, Any],
+    response_model=dict[str, Any],
     status_code=status.HTTP_200_OK,
     summary="Get ingestion job",
 )
-async def get_job(job_id: str) -> Dict[str, Any]:
+async def get_job(job_id: str) -> dict[str, Any]:
     job = JobService.get(job_id)
     if not job:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")

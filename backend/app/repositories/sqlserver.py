@@ -5,27 +5,27 @@ These implementations use pyodbc for database access and support
 SQL Server's VECTOR type for similarity search.
 """
 
-import pyodbc
-from contextlib import contextmanager
-from typing import List, Optional
 import logging
+from contextlib import contextmanager
+
+import pyodbc
 
 from app.core.config import get_settings
 from app.domain.entities import (
-    Match,
-    EventDetail,
-    SearchRequest,
-    SearchResult,
     Competition,
-    Season,
-    Team,
-    Stadium,
+    EmbeddingModel,
+    EventDetail,
+    Match,
     Referee,
     SearchAlgorithm,
-    EmbeddingModel,
+    SearchRequest,
+    SearchResult,
+    Season,
+    Stadium,
+    Team,
 )
 from app.domain.exceptions import DatabaseConnectionError
-from app.repositories.base import MatchRepository, EventRepository
+from app.repositories.base import EventRepository, MatchRepository
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -78,7 +78,7 @@ class SQLServerMatchRepository(MatchRepository):
             logger.error(f"Connection test failed: {e}")
             return False
 
-    def get_by_id(self, match_id: int) -> Optional[Match]:
+    def get_by_id(self, match_id: int) -> Match | None:
         """Get a match by ID."""
         query = """
             SELECT
@@ -113,10 +113,10 @@ class SQLServerMatchRepository(MatchRepository):
 
     def get_all(
         self,
-        competition_name: Optional[str] = None,
-        season_name: Optional[str] = None,
+        competition_name: str | None = None,
+        season_name: str | None = None,
         limit: int = 100,
-    ) -> List[Match]:
+    ) -> list[Match]:
         """Get all matches with optional filters."""
         query = """
             SELECT TOP (?)
@@ -135,7 +135,7 @@ class SQLServerMatchRepository(MatchRepository):
             WHERE 1=1
         """
 
-        params = [limit]
+        params: list = [limit]
 
         if competition_name:
             query += " AND competition_name = ?"
@@ -157,7 +157,7 @@ class SQLServerMatchRepository(MatchRepository):
             logger.error(f"Error fetching matches: {e}")
             raise
 
-    def get_competitions(self) -> List[Competition]:
+    def get_competitions(self) -> list[Competition]:
         """Get all unique competitions."""
         query = """
             SELECT DISTINCT
@@ -293,10 +293,9 @@ class SQLServerEventRepository(EventRepository):
             logger.error(f"Connection test failed: {e}")
             return False
 
-    def get_events_by_match(
-        self, match_id: int, limit: Optional[int] = None
-    ) -> List[EventDetail]:
+    def get_events_by_match(self, match_id: int, limit: int | None = None) -> list[EventDetail]:
         """Get all events for a match."""
+        params: tuple
         if limit:
             query = """
                 SELECT TOP (?)
@@ -328,7 +327,7 @@ class SQLServerEventRepository(EventRepository):
             logger.error(f"Error fetching events for match {match_id}: {e}")
             raise
 
-    def get_event_by_id(self, event_id: int) -> Optional[EventDetail]:
+    def get_event_by_id(self, event_id: int) -> EventDetail | None:
         """Get a single event by ID."""
         query = """
             SELECT
@@ -352,9 +351,7 @@ class SQLServerEventRepository(EventRepository):
             logger.error(f"Error fetching event {event_id}: {e}")
             raise
 
-    def search_by_embedding(
-        self, search_request: SearchRequest, query_embedding: List[float]
-    ) -> List[SearchResult]:
+    def search_by_embedding(self, search_request: SearchRequest, query_embedding: list[float]) -> list[SearchResult]:
         """
         Search events using vector similarity.
 
@@ -375,13 +372,9 @@ class SQLServerEventRepository(EventRepository):
         distance_type = distance_type_map.get(search_request.search_algorithm)
 
         if not embedding_column:
-            raise ValueError(
-                f"Unsupported embedding model for SQL Server: {search_request.embedding_model}"
-            )
+            raise ValueError(f"Unsupported embedding model for SQL Server: {search_request.embedding_model}")
         if not distance_type:
-            raise ValueError(
-                f"Unsupported search algorithm for SQL Server: {search_request.search_algorithm}"
-            )
+            raise ValueError(f"Unsupported search algorithm for SQL Server: {search_request.search_algorithm}")
 
         embedding_str = "[" + ",".join(map(str, query_embedding)) + "]"
 
@@ -430,7 +423,7 @@ class SQLServerEventRepository(EventRepository):
             minute=row.minute,
             quarter_minute=row.quarter_minute,
             count=row.count,
-            json_data=row.json_data if hasattr(row, "json_data") else None,
+            json_data=row.json_data if hasattr(row, "json_data") and row.json_data is not None else "",
             summary=row.summary if hasattr(row, "summary") else None,
         )
 

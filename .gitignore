@@ -11,6 +11,10 @@
 /app/data/scripts_summary/Answers/
 
 *.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+pytest.out
 ~
 rag_challenge.db
 rag_challenge.db-journal

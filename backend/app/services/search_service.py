@@ -6,18 +6,15 @@ embeddings and generating chat responses.
 """
 
 import logging
-from typing import List, Optional
 
+from app.adapters.openai_client import OpenAIAdapter
 from app.domain.entities import (
-    SearchRequest,
-    SearchResult,
     ChatResponse,
     Match,
-    SearchAlgorithm,
-    EmbeddingModel,
+    SearchRequest,
+    SearchResult,
 )
-from app.repositories.base import MatchRepository, EventRepository
-from app.adapters.openai_client import OpenAIAdapter
+from app.repositories.base import EventRepository, MatchRepository
 
 logger = logging.getLogger(__name__)
 
@@ -62,9 +59,7 @@ class SearchService:
         """
         try:
             # Step 1: Translate query if needed
-            normalized_question = self._normalize_query(
-                request.query, request.language
-            )
+            normalized_question = self._normalize_query(request.query, request.language)
 
             # Step 2: Generate embedding for the query
             query_embedding = self.openai_adapter.create_embedding(
@@ -136,9 +131,9 @@ class SearchService:
     def _generate_answer(
         self,
         question: str,
-        search_results: List[SearchResult],
-        match_info: Optional[Match],
-        system_message: Optional[str],
+        search_results: list[SearchResult],
+        match_info: Match | None,
+        system_message: str | None,
         temperature: float,
         max_tokens: int,
     ) -> str:
@@ -168,9 +163,7 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
 
         if match_info:
             context_parts.append(f"GAME_RESULT: {match_info.display_name}")
-            context_parts.append(
-                f"Competition: {match_info.competition.name}, Season: {match_info.season.name}"
-            )
+            context_parts.append(f"Competition: {match_info.competition.name}, Season: {match_info.season.name}")
             context_parts.append(f"Date: {match_info.match_date}")
 
         # Build context from search results
@@ -178,9 +171,7 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
             context_parts.append("\nEVENTS:")
             for result in search_results:
                 event = result.event
-                context_parts.append(
-                    f"- {event.time_description}: {event.summary or 'No summary available'}"
-                )
+                context_parts.append(f"- {event.time_description}: {event.summary or 'No summary available'}")
 
         context = "\n".join(context_parts)
 

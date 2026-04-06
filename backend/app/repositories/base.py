@@ -7,15 +7,14 @@ changing business logic.
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Optional, Dict, Any
 from contextlib import contextmanager
 
 from app.domain.entities import (
-    Match,
+    Competition,
     EventDetail,
+    Match,
     SearchRequest,
     SearchResult,
-    Competition,
 )
 
 
@@ -48,7 +47,7 @@ class MatchRepository(BaseRepository):
     """Repository for Match entities."""
 
     @abstractmethod
-    def get_by_id(self, match_id: int) -> Optional[Match]:
+    def get_by_id(self, match_id: int) -> Match | None:
         """
         Get a match by ID.
 
@@ -63,10 +62,10 @@ class MatchRepository(BaseRepository):
     @abstractmethod
     def get_all(
         self,
-        competition_name: Optional[str] = None,
-        season_name: Optional[str] = None,
+        competition_name: str | None = None,
+        season_name: str | None = None,
         limit: int = 100,
-    ) -> List[Match]:
+    ) -> list[Match]:
         """
         Get all matches with optional filters.
 
@@ -81,7 +80,7 @@ class MatchRepository(BaseRepository):
         pass
 
     @abstractmethod
-    def get_competitions(self) -> List[Competition]:
+    def get_competitions(self) -> list[Competition]:
         """
         Get all unique competitions.
 
@@ -95,9 +94,7 @@ class EventRepository(BaseRepository):
     """Repository for Event entities."""
 
     @abstractmethod
-    def get_events_by_match(
-        self, match_id: int, limit: Optional[int] = None
-    ) -> List[EventDetail]:
+    def get_events_by_match(self, match_id: int, limit: int | None = None) -> list[EventDetail]:
         """
         Get all events for a match.
 
@@ -111,9 +108,7 @@ class EventRepository(BaseRepository):
         pass
 
     @abstractmethod
-    def search_by_embedding(
-        self, search_request: SearchRequest, query_embedding: List[float]
-    ) -> List[SearchResult]:
+    def search_by_embedding(self, search_request: SearchRequest, query_embedding: list[float]) -> list[SearchResult]:
         """
         Search events using vector similarity.
 
@@ -127,7 +122,7 @@ class EventRepository(BaseRepository):
         pass
 
     @abstractmethod
-    def get_event_by_id(self, event_id: int) -> Optional[EventDetail]:
+    def get_event_by_id(self, event_id: int) -> EventDetail | None:
         """
         Get a single event by ID.
 

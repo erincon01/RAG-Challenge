@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import json
 import shutil
+from collections.abc import Iterable
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any
 
 import psycopg2
 import pyodbc
@@ -46,7 +47,7 @@ class IngestionService:
             current = current.parent
 
     @staticmethod
-    def _parse_match_ids(match_ids: List[int] | None) -> List[int]:
+    def _parse_match_ids(match_ids: list[int] | None) -> list[int]:
         if not match_ids:
             return []
         return sorted({int(v) for v in match_ids})
@@ -54,12 +55,12 @@ class IngestionService:
     def clear_downloaded_files(
         self,
         *,
-        datasets: List[str],
-        match_ids: Optional[List[int]] = None,
-        competition_id: Optional[int] = None,
-        season_id: Optional[int] = None,
+        datasets: list[str],
+        match_ids: list[int] | None = None,
+        competition_id: int | None = None,
+        season_id: int | None = None,
         delete_all: bool = False,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         selected = [d.lower() for d in (datasets or ["matches", "lineups", "events"])]
         allowed = {"matches", "lineups", "events"}
         normalized = [d for d in selected if d in allowed]
@@ -75,8 +76,8 @@ class IngestionService:
             )
             target_match_ids = sorted(set(target_match_ids).union(set(resolved)))
 
-        deleted_files: List[str] = []
-        deleted_dirs: List[str] = []
+        deleted_files: list[str] = []
+        deleted_dirs: list[str] = []
 
         if delete_all:
             for dataset in normalized:
@@ -164,14 +165,12 @@ class IngestionService:
                 )
             elif src == "sqlserver":
                 conn = pyodbc.connect(
-                    (
-                        "DRIVER={ODBC Driver 18 for SQL Server};"
-                        f"SERVER={self.settings.database.sqlserver_host};"
-                        f"DATABASE={self.settings.database.sqlserver_database};"
-                        f"UID={self.settings.database.sqlserver_user};"
-                        f"PWD={self.settings.database.sqlserver_password};"
-                        "TrustServerCertificate=yes;"
-                    )
+                    "DRIVER={ODBC Driver 18 for SQL Server};"
+                    f"SERVER={self.settings.database.sqlserver_host};"
+                    f"DATABASE={self.settings.database.sqlserver_database};"
+                    f"UID={self.settings.database.sqlserver_user};"
+                    f"PWD={self.settings.database.sqlserver_password};"
+                    "TrustServerCertificate=yes;"
                 )
             else:
                 raise ValueError(f"Unsupported source: {source}")
@@ -185,7 +184,7 @@ class IngestionService:
             if conn:
                 conn.close()
 
-    def run_download_job(self, job_id: str, payload: Dict[str, Any]) -> None:
+    def run_download_job(self, job_id: str, payload: dict[str, Any]) -> None:
         try:
             JobService.update(job_id, status="running", message="Resolving matches")
             datasets = [d.lower() for d in (payload.get("datasets") or ["matches", "lineups", "events"])]
@@ -200,12 +199,12 @@ class IngestionService:
                 season_id=season_id,
             )
 
-            total = (1 if "matches" in datasets and competition_id is not None and season_id is not None else 0)
+            total = 1 if "matches" in datasets and competition_id is not None and season_id is not None else 0
             total += len(resolved_match_ids) * len([d for d in datasets if d in {"lineups", "events"}])
             JobService.update(job_id, total=total, message="Downloading datasets")
 
             progress = 0
-            files: List[str] = []
+            files: list[str] = []
             if "matches" in datasets and competition_id is not None and season_id is not None:
                 file_path = self.statsbomb.download_matches_catalog(competition_id, season_id, overwrite)
                 files.append(str(file_path))
@@ -223,7 +222,7 @@ class IngestionService:
         except Exception as e:
             JobService.fail(job_id, str(e))
 
-    def run_load_job(self, job_id: str, payload: Dict[str, Any]) -> None:
+    def run_load_job(self, job_id: str, payload: dict[str, Any]) -> None:
         source = normalize_source(payload.get("source", "postgres"))
         datasets = [d.lower() for d in (payload.get("datasets") or ["matches", "events"])]
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
@@ -234,7 +233,7 @@ class IngestionService:
             if match_ids:
                 JobService.log(job_id, "$ filter --match-ids " + ",".join(map(str, match_ids)))
 
-            result: Dict[str, Any] = {}
+            result: dict[str, Any] = {}
             progress = 0
             with self._get_connection(source) as conn:
                 if "matches" in datasets:
@@ -256,7 +255,7 @@ class IngestionService:
         except Exception as e:
             JobService.fail(job_id, str(e))
 
-    def run_aggregate_job(self, job_id: str, payload: Dict[str, Any]) -> None:
+    def run_aggregate_job(self, job_id: str, payload: dict[str, Any]) -> None:
         source = normalize_source(payload.get("source", "postgres"))
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
         try:
@@ -273,7 +272,7 @@ class IngestionService:
         except Exception as e:
             JobService.fail(job_id, str(e))
 
-    def run_rebuild_embeddings_job(self, job_id: str, payload: Dict[str, Any]) -> None:
+    def run_rebuild_embeddings_job(self, job_id: str, payload: dict[str, Any]) -> None:
         source = normalize_source(payload.get("source", "postgres"))
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
         defaults = {
@@ -305,7 +304,7 @@ class IngestionService:
         except Exception as e:
             JobService.fail(job_id, str(e))
 
-    def get_embeddings_status(self, source: str) -> Dict[str, Any]:
+    def get_embeddings_status(self, source: str) -> dict[str, Any]:
         src = normalize_source(source)
         with self._get_connection(src) as conn:
             cur = conn.cursor()
@@ -366,10 +365,10 @@ class IngestionService:
                 },
             }
 
-    def _iter_matches_from_local(self) -> Iterable[Dict[str, Any]]:
+    def _iter_matches_from_local(self) -> Iterable[dict[str, Any]]:
         matches_root = self.local_folder / "matches"
         if not matches_root.exists():
-            return []
+            return
         for file_path in sorted(matches_root.glob("**/*.json")):
             try:
                 with file_path.open("r", encoding="utf-8") as f:
@@ -381,7 +380,7 @@ class IngestionService:
             except Exception:
                 continue
 
-    def _fetch_summary_rows(self, conn, source: str, match_ids: List[int]) -> List[Tuple[int, str]]:
+    def _fetch_summary_rows(self, conn, source: str, match_ids: list[int]) -> list[tuple[int, str]]:
         cur = conn.cursor()
         if source == "postgres":
             if match_ids:
@@ -395,7 +394,9 @@ class IngestionService:
                     (match_ids,),
                 )
             else:
-                cur.execute("SELECT id, summary FROM events_details__quarter_minute WHERE summary IS NOT NULL ORDER BY id")
+                cur.execute(
+                    "SELECT id, summary FROM events_details__quarter_minute WHERE summary IS NOT NULL ORDER BY id"
+                )
             return [(int(r[0]), r[1]) for r in cur.fetchall()]
 
         if match_ids:
@@ -408,13 +409,13 @@ class IngestionService:
             cur.execute("SELECT id, summary FROM events_details__15secs_agg WHERE summary IS NOT NULL ORDER BY id")
         return [(int(r[0]), r[1]) for r in cur.fetchall()]
 
-    def _load_matches(self, conn, source: str, match_ids: List[int]) -> Dict[str, int]:
+    def _load_matches(self, conn, source: str, match_ids: list[int]) -> dict[str, int]:
         inserted = 0
         seen: set[int] = set()
         cur = conn.cursor()
 
         for m in self._iter_matches_from_local():
-            match_id = int(m.get("match_id"))
+            match_id = int(m["match_id"])
             if match_ids and match_id not in match_ids:
                 continue
             if match_id in seen:
@@ -430,16 +431,35 @@ class IngestionService:
             result = f"{m.get('home_score')}-{m.get('away_score')}" if m.get("home_score") is not None else None
 
             vals = [
-                match_id, m.get("match_date"),
-                c.get("competition_id"), c.get("country_name"), c.get("competition_name"),
-                s.get("season_id"), s.get("season_name"),
-                ht.get("home_team_id") or ht.get("id"), ht.get("home_team_name") or ht.get("name"), ht.get("home_team_gender") or ht.get("gender"), (ht.get("country") or {}).get("name"),
-                None, None,
-                at.get("away_team_id") or at.get("id"), at.get("away_team_name") or at.get("name"), at.get("away_team_gender") or at.get("gender"), (at.get("country") or {}).get("name"),
-                None, None,
-                m.get("home_score"), m.get("away_score"), result, m.get("match_week"),
-                st.get("id"), st.get("name"), (st.get("country") or {}).get("name"),
-                rf.get("id"), rf.get("name"), (rf.get("country") or {}).get("name"),
+                match_id,
+                m.get("match_date"),
+                c.get("competition_id"),
+                c.get("country_name"),
+                c.get("competition_name"),
+                s.get("season_id"),
+                s.get("season_name"),
+                ht.get("home_team_id") or ht.get("id"),
+                ht.get("home_team_name") or ht.get("name"),
+                ht.get("home_team_gender") or ht.get("gender"),
+                (ht.get("country") or {}).get("name"),
+                None,
+                None,
+                at.get("away_team_id") or at.get("id"),
+                at.get("away_team_name") or at.get("name"),
+                at.get("away_team_gender") or at.get("gender"),
+                (at.get("country") or {}).get("name"),
+                None,
+                None,
+                m.get("home_score"),
+                m.get("away_score"),
+                result,
+                m.get("match_week"),
+                st.get("id"),
+                st.get("name"),
+                (st.get("country") or {}).get("name"),
+                rf.get("id"),
+                rf.get("name"),
+                (rf.get("country") or {}).get("name"),
                 json.dumps(m, ensure_ascii=False),
             ]
 
@@ -472,7 +492,7 @@ class IngestionService:
 
         return {"inserted": inserted}
 
-    def _load_events(self, conn, source: str, match_ids: List[int]) -> Dict[str, int]:
+    def _load_events(self, conn, source: str, match_ids: list[int]) -> dict[str, int]:
         events_inserted = 0
         details_inserted = 0
         cur = conn.cursor()
@@ -490,7 +510,10 @@ class IngestionService:
             if source == "postgres":
                 cur.execute("DELETE FROM events_details WHERE match_id = %s", (match_id,))
                 cur.execute("DELETE FROM events WHERE match_id = %s", (match_id,))
-                cur.execute("INSERT INTO events (match_id, json_) VALUES (%s, %s)", (match_id, json.dumps(events, ensure_ascii=False)))
+                cur.execute(
+                    "INSERT INTO events (match_id, json_) VALUES (%s, %s)",
+                    (match_id, json.dumps(events, ensure_ascii=False)),
+                )
                 details_sql = """
                     INSERT INTO events_details (
                         match_id, id_guid, "index", period, timestamp, minute, second,
@@ -501,7 +524,10 @@ class IngestionService:
             else:
                 cur.execute("DELETE FROM events_details WHERE match_id = ?", (match_id,))
                 cur.execute("DELETE FROM events WHERE match_id = ?", (match_id,))
-                cur.execute("INSERT INTO events (match_id, json_) VALUES (?, ?)", (match_id, json.dumps(events, ensure_ascii=False)))
+                cur.execute(
+                    "INSERT INTO events (match_id, json_) VALUES (?, ?)",
+                    (match_id, json.dumps(events, ensure_ascii=False)),
+                )
                 details_sql = """
                     INSERT INTO events_details (
                         match_id, id_guid, index_, period, timestamp, minute, second,
@@ -516,8 +542,20 @@ class IngestionService:
                 pt = e.get("possession_team") or {}
                 pp = e.get("play_pattern") or {}
                 vals = [
-                    match_id, e.get("id"), e.get("index"), e.get("period"), e.get("timestamp"), e.get("minute"), e.get("second"),
-                    et.get("id"), et.get("name"), e.get("possession"), pt.get("id"), pt.get("name"), pp.get("id"), pp.get("name"),
+                    match_id,
+                    e.get("id"),
+                    e.get("index"),
+                    e.get("period"),
+                    e.get("timestamp"),
+                    e.get("minute"),
+                    e.get("second"),
+                    et.get("id"),
+                    et.get("name"),
+                    e.get("possession"),
+                    pt.get("id"),
+                    pt.get("name"),
+                    pp.get("id"),
+                    pp.get("name"),
                     json.dumps(e, ensure_ascii=False),
                 ]
                 cur.execute(details_sql, vals)
@@ -525,7 +563,7 @@ class IngestionService:
 
         return {"events_inserted": events_inserted, "details_inserted": details_inserted}
 
-    def _build_aggregations(self, conn, source: str, match_ids: List[int]) -> int:
+    def _build_aggregations(self, conn, source: str, match_ids: list[int]) -> int:
         cur = conn.cursor()
         if source == "postgres":
             if match_ids:
@@ -591,7 +629,9 @@ class IngestionService:
         cur.execute("SELECT COUNT(*) FROM events_details__15secs_agg")
         return int(cur.fetchone()[0] or 0)
 
-    def _update_embeddings_for_row(self, conn, source: str, row_id: int, summary: str, models: List[str], adapter: OpenAIAdapter) -> None:
+    def _update_embeddings_for_row(
+        self, conn, source: str, row_id: int, summary: str, models: list[str], adapter: OpenAIAdapter
+    ) -> None:
         cur = conn.cursor()
         try:
             if source == "postgres":
@@ -606,7 +646,9 @@ class IngestionService:
                         continue
                     emb = adapter.create_embedding(text=summary, model=model)
                     emb_str = "[" + ",".join(map(str, emb)) + "]"
-                    cur.execute(f"UPDATE events_details__quarter_minute SET {col} = %s::vector WHERE id = %s", (emb_str, row_id))
+                    cur.execute(
+                        f"UPDATE events_details__quarter_minute SET {col} = %s::vector WHERE id = %s", (emb_str, row_id)
+                    )
                 cur.execute(
                     "UPDATE events_details__quarter_minute SET embedding_status = 'done', embedding_updated_at = NOW(), embedding_error = NULL WHERE id = %s",
                     (row_id,),
@@ -623,7 +665,10 @@ class IngestionService:
                     continue
                 emb = adapter.create_embedding(text=summary, model=model)
                 emb_str = "[" + ",".join(map(str, emb)) + "]"
-                cur.execute(f"UPDATE events_details__15secs_agg SET {col} = CAST(? AS VECTOR(1536)) WHERE id = ?", (emb_str, row_id))
+                cur.execute(
+                    f"UPDATE events_details__15secs_agg SET {col} = CAST(? AS VECTOR(1536)) WHERE id = ?",
+                    (emb_str, row_id),
+                )
             cur.execute(
                 "UPDATE events_details__15secs_agg SET embedding_status = 'done', embedding_updated_at = GETDATE(), embedding_error = NULL WHERE id = ?",
                 (row_id,),
@@ -644,5 +689,3 @@ class IngestionService:
             except Exception:
                 pass
             raise
-
-

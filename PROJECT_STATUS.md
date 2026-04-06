@@ -1,20 +1,23 @@
 # Project Status Report - RAG Challenge
 
-**Last Updated:** 2026-02-20
+**Last Updated:** 2026-04-02
 **Branch:** `develop`
-**Current Version:** v3.2 - Devcontainer v2 + Portable pgvector Pipeline
+**Current Version:** v3.2.x - Stable full stack + backend test suite pending integration
 
 ---
 
 ## 📊 Executive Summary
 
-### Overall Progress: 95% Complete
+### Overall Progress: 97% Complete
 
 - ✅ **Backend Rearchitecture:** 100% (Phases 0-2)
 - ✅ **Frontend Migration:** 100% (Phases 0-6)
 - ✅ **pgvector Migration (Phase 2A):** 100% (Azure extensions removed, portable pipeline)
 - ✅ **Infrastructure:** 100% (Devcontainer v2 complete — postCreate + postStart + health checks)
-- ⏳ **DevOps:** 0% (CI/CD not started)
+- ✅ **Backend Test Suite:** Merged to develop (PR #8) — `259` tests passing
+- ✅ **CI Pipeline:** Functional — lint, typecheck, tests with 80% coverage gate
+- ⏳ **CD Pipeline:** Placeholder (staging/production deploy steps not implemented)
+- ⏳ **Spec-Kit Adoption:** In progress — constitution, agents, templates ready; first SDD feature pending
 
 ### Key Achievements
 
@@ -33,8 +36,10 @@
    - ✅ Local development with Docker Compose
    - ✅ Type-safe API client
    - ✅ Portable embeddings pipeline (no Azure DB extensions required)
-   - ⚠️ No CI/CD pipeline yet
-   - ⚠️ No automated test suite yet
+  - ✅ Backend pytest suite merged (PR #8, `259` tests)
+  - ✅ CI pipeline running (lint + typecheck + tests + coverage 80%)
+  - ⚠️ CD pipeline is placeholder (no real deploy steps)
+  - ⚠️ No frontend test suite yet
 
 ---
 
@@ -88,6 +93,17 @@ All pages fully functional:
 
 ### Critical Path
 
+#### 0. Backend Test Suite - **MERGED**
+
+**Status:** Merged to develop via PR #8
+**Completed:** 2026-04-02
+
+- [x] `backend/pytest.ini` added
+- [x] API tests for health, capabilities, matches, events, chat, and StatsBomb catalog
+- [x] Unit tests for domain entities, job service, OpenAI adapter, search service, and StatsBomb service
+- [x] Full run passes: `259 passed` on Python 3.12
+- [x] Merged to `develop` via PR #8 (commit `15cbb74`)
+
 #### 1. pgvector Migration (Phase 2A) - **COMPLETED**
 
 **Status:** ✅ Implemented (ADR-003 accepted)
@@ -134,17 +150,21 @@ All pages fully functional:
 - [ ] Standardize SQL Server migrations
 - [ ] Full idempotency
 
-#### 4. GitHub Actions CI/CD (Phase 5) - **NOT STARTED**
+#### 4. GitHub Actions CI/CD (Phase 5) - **CI DONE / CD PLACEHOLDER**
 
-**Status:** Not started
-**Priority:** MEDIUM - Quality gates
-**Estimated effort:** 1-2 weeks
+**Status:** CI functional, CD placeholder
+**Priority:** MEDIUM - Complete CD pipeline
+**Estimated effort:** 1 week
 
-**Tasks:**
-- [ ] ci.yml workflow (lint, test, integration)
-- [ ] docker.yml workflow (build, scan, push)
+**Done:**
+- [x] `ci.yml` workflow (lint, typecheck, unit/api tests, coverage 80%)
+- [x] `cd.yml` workflow scaffolded (staging + production jobs)
+
+**Pending:**
+- [ ] Implement real deploy steps in `cd.yml` (Azure / Docker push)
+- [ ] docker.yml workflow (build, scan, push to GHCR)
 - [ ] release.yml workflow (semver, changelog)
-- [ ] Branch protection rules
+- [ ] Branch protection rules (configured in GitHub Settings)
 
 #### 5. Final UX Polish (Phase 6) - **PARTIAL**
 
@@ -177,7 +197,7 @@ All pages fully functional:
 | Phase 2A | pgvector Migration | ✅ Complete | 100% |
 | Phase 3 | Devcontainer 2.0 | ✅ Complete | 100% |
 | Phase 4 | Task Automation | ⏳ Not Started | 0% |
-| Phase 5 | GitHub Actions CI/CD | ⏳ Not Started | 0% |
+| Phase 5 | GitHub Actions CI/CD | ⏳ CI done, CD placeholder | 60% |
 | Phase 6 | UX Polish | ⏳ Partial | 40% |
 
 ### Frontend Web Migration Plan
@@ -202,7 +222,7 @@ All pages fully functional:
 # 1. Clone and configure
 git clone <repo>
 cd RAG-Challenge
-git checkout feature/rearquitectura-completa
+git checkout develop
 
 # 2. Set environment variables
 cp .env.example .env.docker
@@ -227,9 +247,8 @@ docker compose up --build
 
 ### Known Limitations
 
-- PostgreSQL still uses Azure extensions (works locally but not portable)
-- No test suite yet
-- No CI/CD pipeline
+- CD pipeline is placeholder (no real deploy)
+- No frontend test suite yet
 - Manual operations (no task runner)
 
 ---
@@ -241,14 +260,14 @@ docker compose up --build
 - [README.md](../README.md) - Updated 2026-02-20
 - [PLAN_REARQUITECTURA_COMPLETO.md](../PLAN_REARQUITECTURA_COMPLETO.md) - Updated 2026-02-20
 - [PLAN_MIGRACION_FRONTEND_WEB.md](../PLAN_MIGRACION_FRONTEND_WEB.md) - Updated 2026-02-20
+- [frontend/webapp/README.md](../frontend/webapp/README.md) - Exists and documents the React app
 - [docs/adr/README.md](adr/README.md) - Updated 2026-02-20
 - All backend layer READMEs (API, Services, Repositories, Domain, Adapters)
 
 ### ⏳ Needs Update
 
-- [frontend/webapp/README.md](../frontend/webapp/README.md) - Needs creation
-- [docs/app-screenshots.md](app-screenshots.md) - Still shows Streamlit UI
-- [docs/app-use-case.md](app-use-case.md) - References old Streamlit workflow
+- [docs/app-screenshots.md](app-screenshots.md) - Historical screenshots only; current React UI screenshots still pending
+- [docs/app-use-case.md](app-use-case.md) - Large sections still document the legacy Streamlit/Azure-first workflow
 
 ### 📋 Missing Documentation
 
@@ -263,14 +282,15 @@ docker compose up --build
 
 ### Immediate (This Week)
 
-1. **Add Basic Tests** - At least smoke tests for critical paths (backend pytest + integration)
-2. **Integration tests for embeddings** - Validate portable pipeline end-to-end
+1. **Complete spec-kit adoption** — resolve remaining gaps (see `docs/spec-kit-adoption-plan.md`)
+2. **First SDD feature** — run full `specify → clarify → plan → tasks → implement` cycle
+3. **Integration tests for embeddings** — validate portable pipeline end-to-end
 
 ### Short Term (Next 2-4 Weeks)
 
-1. **Task Automation (Phase 4)** - CLI runner (`Taskfile.yml` or `justfile`) for bootstrap, migrate, seed, test, lint
-2. **GitHub Actions CI/CD (Phase 5)** - Automated quality gates: lint, tests, docker build
-3. **Structured Logging** - request_id, match_id, latency, token usage
+1. **Task Automation (Phase 4)** — CLI runner (`Taskfile.yml` or `justfile`) for bootstrap, migrate, seed, test, lint
+2. **CD pipeline** — implement real deploy steps in `cd.yml`
+3. **Structured Logging** — request_id, match_id, latency, token usage (first SDD feature candidate)
 
 ### Medium Term (Next 1-2 Months)
 
@@ -308,8 +328,9 @@ docker compose up --build
 - ✅ Dependency injection
 - ✅ Centralized configuration
 - ✅ OpenAPI documentation
-- ⚠️ Test coverage: 0% (needs implementation)
-- ⚠️ Static analysis: Not configured
+- ✅ Local backend test suite: `259` tests passing
+- ✅ Coverage gate: 80% enforced in CI (`ci.yml`)
+- ✅ Static analysis: ruff (lint + format) + mypy in CI and pre-commit
 
 ---
 
@@ -334,5 +355,5 @@ The project is in active development. Key areas needing contribution:
 
 ---
 
-**Last reviewed:** 2026-02-20
-**Next review:** When CI/CD pipeline (Phase 5) starts
+**Last reviewed:** 2026-04-02
+**Next review:** After first SDD feature is completed via spec-kit workflow

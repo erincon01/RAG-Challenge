@@ -6,10 +6,40 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased] - 2026-02-20
+## [Unreleased] - 2026-04-02
+
+### Added
+- Backend pytest suite under `backend/tests/` with 259 passing local tests across API, domain, service, adapter, and StatsBomb workflows
+- `backend/pytest.ini` with `unit`, `api`, and `integration` markers for backend test execution
+- `docs/app-screenshots.md` to document the historical Streamlit screenshots still referenced by the repository
+- `.github/copilot-instructions.md` — workspace-wide Copilot governance adapted for FastAPI/React architecture
+- `.github/instructions/tdd.instructions.md` — TDD patterns for `backend/tests/`, FastAPI TestClient, DI overrides
+- `.github/instructions/python-modules.instructions.md` — repository pattern (BaseRepository ABC), FastAPI layer conventions, Pydantic Settings
+- `.github/instructions/git-workflow.instructions.md` — branch naming, conventional commits, PR checklist
+- `.github/instructions/sql-embeddings.instructions.md` — pgvector operators, parameterized queries, DDL conventions
+- `.github/workflows/ci.yml` — lint + typecheck + unit/api tests on `backend/`; coverage gate 80% on `backend/app`
+- `.github/workflows/cd.yml` — staging (develop) and production (main) deployment skeleton
+- `.github/pull_request_template.md` — enforces PR checklist in GitHub UI
+- `.specify/` — spec-kit v0.4.4 initialized (scripts + templates); constitution pending re-run for FastAPI architecture
+- `pyproject.toml` — ruff/mypy/pytest/coverage config targeting `backend/app` and `backend/tests`
+- `docs/conversation_log.md` — append-only AI session log; sessions 1–9 documented
+- `docs/articles/brownfield-to-speckit-adoption.md` — Medium article documenting the full brownfield-to-spec-kit adoption journey
+- `CLAUDE.md` — project context file for Claude Code (also compatible with GitHub Copilot)
+- `specs/README.md` — SDD feature directory with workflow documentation and naming conventions
+- `docs/spec-kit-adoption-plan.md` — phased adoption plan with 16 deficiency diagnostics and 4 resolution phases
+- `.specify/scripts/bash/` — bash equivalents of all spec-kit PowerShell scripts (common, check-prerequisites, create-new-feature, setup-plan, update-agent-context) for Linux/CI compatibility
+- `.github/pull_request_template.md` — added mandatory Constitution Check section with all 10 principles as checkboxes
+- `.specify/memory/constitution.md` — added YAML frontmatter with version, dates, and amendment procedure metadata
+
+### Changed
+- Core documentation aligned with the current repository state: `develop` remains the integration branch, React is the primary frontend, and the local backend test suite is ready for commit, push, and PR
+- `PROJECT_STATUS.md` — corrected CI/CD status (CI functional, CD placeholder), marked test suite as merged (PR #8), updated metrics and next steps
+- `.github/copilot-instructions.md` — fixed broken link to `docs/spec-kit-migration-plan.md` (now points to `docs/spec-kit-adoption-plan.md` and `specs/README.md`)
 
 ### Fixed
-- `.gitattributes` — global `* text=auto eol=lf` rule to prevent CRLF/LF drift when switching between Windows and Linux/devcontainer environments
+- Removed stale documentation claims that the frontend README was missing, that backend APIs were still "coming soon", or that no automated test suite existed
+- Added pytest-generated local artifacts to `.gitignore` to keep the working tree clean while validating the new backend test suite
+- Fixed broken reference in `.github/copilot-instructions.md` pointing to non-existent `docs/spec-kit-migration-plan.md`
 
 ### Changed
 - `fix(di): replace module-level service singletons with Depends()` — removed `_service = XxxService()` from 4 API route files (`statsbomb.py`, `ingestion.py`, `embeddings.py`, `explorer.py`); added `get_statsbomb_service`, `get_ingestion_service`, `get_data_explorer_service` providers + type aliases to `core/dependencies.py`; updated `IngestionService.__init__` to accept optional `statsbomb` param; migrated all affected tests from `patch("..._service")` to `dependency_overrides`

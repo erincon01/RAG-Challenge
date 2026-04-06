@@ -10,15 +10,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.v1 import (
-    health,
-    matches,
-    events,
-    chat,
     capabilities,
-    statsbomb,
-    ingestion,
+    chat,
     embeddings,
+    events,
     explorer,
+    health,
+    ingestion,
+    matches,
+    statsbomb,
 )
 from app.core.config import get_settings
 
@@ -103,4 +103,3 @@ if __name__ == "__main__":
         reload=True,
         log_level="info",
     )
-
