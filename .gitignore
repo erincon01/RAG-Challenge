@@ -21,6 +21,7 @@ pytest.out
 
 # Node
 node_modules/
+.vite/
 
 # IDE
 .DS_Store
