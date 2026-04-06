@@ -9,7 +9,7 @@ from datetime import date
 
 import pytest
 
-from app.services.search_service import SearchService
+from app.services.search_service import SearchService, count_tokens
 from app.domain.entities import (
     SearchRequest,
     SearchAlgorithm,
@@ -245,3 +245,119 @@ class TestErrorPropagation:
         mock_event_repo.search_by_embedding.side_effect = Exception("DB timeout")
         with pytest.raises(Exception, match="DB timeout"):
             service.search_and_chat(make_request())
+
+
+# ===========================================================================
+# Token counting utility
+# ===========================================================================
+
+class TestCountTokens:
+    def test_count_tokens_returns_positive_int(self):
+        """Verify tiktoken integration returns a positive integer."""
+        result = count_tokens("Hello, world!", model="gpt-4")
+        assert isinstance(result, int)
+        assert result > 0
+
+    def test_count_tokens_empty_string_returns_zero(self):
+        """Empty string should return 0 tokens."""
+        result = count_tokens("", model="gpt-4")
+        assert result == 0
+
+    def test_count_tokens_unknown_model_uses_fallback(self):
+        """Unknown model should fall back to cl100k_base without error."""
+        result = count_tokens("Hello, world!", model="unknown-model-xyz")
+        assert isinstance(result, int)
+        assert result > 0
+
+
+# ===========================================================================
+# Token budget guard — truncation and metadata
+# ===========================================================================
+
+class TestTokenBudgetGuard:
+    def test_generate_answer_within_budget_includes_all_results(
+        self, service, mock_event_repo, mock_openai_adapter
+    ):
+        """When context fits within budget, no results should be truncated."""
+        events = [make_event(event_id=i, summary=f"Event {i}") for i in range(5)]
+        results = [make_search_result(e, rank=i + 1) for i, e in enumerate(events)]
+        mock_event_repo.search_by_embedding.return_value = results
+        mock_openai_adapter.create_chat_completion.return_value = "Answer."
+
+        request = make_request(max_input_tokens=100000)
+        response = service.search_and_chat(request)
+
+        assert len(response.search_results) == 5
+        assert response.metadata.get("results_truncated") == 0
+
+    def test_generate_answer_over_budget_truncates_lowest_ranked(
+        self, service, mock_event_repo, mock_openai_adapter
+    ):
+        """When context exceeds budget, lowest-ranked results should be dropped."""
+        # Create events with long summaries to blow the budget
+        long_summary = "x " * 500  # ~500 tokens per event
+        events = [make_event(event_id=i, summary=long_summary) for i in range(10)]
+        results = [make_search_result(e, rank=i + 1) for i, e in enumerate(events)]
+        mock_event_repo.search_by_embedding.return_value = results
+        mock_openai_adapter.create_chat_completion.return_value = "Answer."
+
+        # Set a low budget so truncation must happen
+        request = make_request(max_input_tokens=500)
+        response = service.search_and_chat(request)
+
+        # Some results must have been truncated
+        assert response.metadata.get("results_truncated", 0) > 0
+        assert len(response.search_results) < 10
+
+    def test_generate_answer_question_exceeds_budget_returns_error(
+        self, service, mock_event_repo, mock_openai_adapter
+    ):
+        """When the question + system message alone exceed budget, return error without calling LLM."""
+        # Very long question
+        long_question = "word " * 2000
+        mock_event_repo.search_by_embedding.return_value = []
+
+        request = make_request(query=long_question, max_input_tokens=50)
+        response = service.search_and_chat(request)
+
+        # Should not call LLM
+        mock_openai_adapter.create_chat_completion.assert_not_called()
+        # Response should indicate error
+        assert "ERROR" in response.answer or "budget" in response.answer.lower()
+
+    def test_response_metadata_includes_token_usage(
+        self, service, mock_event_repo, mock_openai_adapter
+    ):
+        """Metadata should include input_tokens, max_input_tokens, results_truncated."""
+        events = [make_event(event_id=1, summary="Short event")]
+        results = [make_search_result(events[0], rank=1)]
+        mock_event_repo.search_by_embedding.return_value = results
+        mock_openai_adapter.create_chat_completion.return_value = "Answer."
+
+        request = make_request(max_input_tokens=100000)
+        response = service.search_and_chat(request)
+
+        assert "input_tokens" in response.metadata
+        assert "max_input_tokens" in response.metadata
+        assert "results_truncated" in response.metadata
+        assert isinstance(response.metadata["input_tokens"], int)
+        assert response.metadata["max_input_tokens"] == 100000
+        assert response.metadata["results_truncated"] == 0
+
+    def test_truncation_removes_highest_rank_first(
+        self, service, mock_event_repo, mock_openai_adapter
+    ):
+        """Truncation should remove the highest-rank (lowest relevance) results first."""
+        long_summary = "x " * 500
+        events = [make_event(event_id=i, summary=long_summary) for i in range(5)]
+        results = [make_search_result(e, rank=i + 1) for i, e in enumerate(events)]
+        mock_event_repo.search_by_embedding.return_value = results
+        mock_openai_adapter.create_chat_completion.return_value = "Answer."
+
+        request = make_request(max_input_tokens=500)
+        response = service.search_and_chat(request)
+
+        # Remaining results should have the lowest rank numbers (most relevant)
+        remaining_ranks = [r.rank for r in response.search_results]
+        for rank in remaining_ranks:
+            assert rank <= len(remaining_ranks)

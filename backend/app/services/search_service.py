@@ -7,6 +7,8 @@ embeddings and generating chat responses.
 
 import logging
 
+import tiktoken
+
 from app.adapters.openai_client import OpenAIAdapter
 from app.domain.entities import (
     ChatResponse,
@@ -17,6 +19,27 @@ from app.domain.entities import (
 from app.repositories.base import EventRepository, MatchRepository
 
 logger = logging.getLogger(__name__)
+
+# Default tiktoken encoding for GPT-4 family models
+_FALLBACK_ENCODING = "cl100k_base"
+
+
+def count_tokens(text: str, model: str = "gpt-4") -> int:
+    """
+    Count the number of tokens in a text string using tiktoken.
+
+    Args:
+        text: The text to count tokens for.
+        model: The model name to use for encoding selection.
+
+    Returns:
+        Number of tokens in the text.
+    """
+    try:
+        encoding = tiktoken.encoding_for_model(model)
+    except KeyError:
+        encoding = tiktoken.get_encoding(_FALLBACK_ENCODING)
+    return len(encoding.encode(text))
 
 
 class SearchService:
@@ -76,15 +99,20 @@ class SearchService:
             if request.include_match_info:
                 match_info = self.match_repo.get_by_id(request.match_id)
 
-            # Step 5: Build context and generate response
-            answer = self._generate_answer(
+            # Step 5: Build context and generate response (with token budget guard)
+            answer, token_meta = self._generate_answer(
                 question=normalized_question,
                 search_results=search_results,
                 match_info=match_info,
                 system_message=request.system_message,
                 temperature=request.temperature,
                 max_tokens=request.max_output_tokens,
+                max_input_tokens=request.max_input_tokens,
             )
+
+            # Update search_results to reflect any truncation
+            kept_count = len(search_results) - token_meta["results_truncated"]
+            search_results = search_results[:kept_count]
 
             # Build metadata
             metadata = {
@@ -93,6 +121,9 @@ class SearchService:
                 "search_algorithm": request.search_algorithm,
                 "embedding_model": request.embedding_model,
                 "results_count": len(search_results),
+                "input_tokens": token_meta["input_tokens"],
+                "max_input_tokens": token_meta["max_input_tokens"],
+                "results_truncated": token_meta["results_truncated"],
             }
 
             return ChatResponse(
@@ -136,9 +167,14 @@ class SearchService:
         system_message: str | None,
         temperature: float,
         max_tokens: int,
-    ) -> str:
+        max_input_tokens: int = 10000,
+    ) -> tuple[str, dict]:
         """
         Generate an answer using the LLM based on search results.
+
+        Enforces a token budget: if the total input tokens (system message +
+        context + question) exceed max_input_tokens, the lowest-ranked search
+        results are iteratively removed until the budget fits.
 
         Args:
             question: The question to answer
@@ -147,9 +183,10 @@ class SearchService:
             system_message: Custom system message (or None for default)
             temperature: LLM temperature
             max_tokens: Maximum tokens in response
+            max_input_tokens: Maximum input tokens budget
 
         Returns:
-            Generated answer
+            Tuple of (answer string, token metadata dict)
         """
         # Build default system message if not provided
         if not system_message:
@@ -158,26 +195,95 @@ Keep your answer ground in the facts of the EVENTS or GAME_RESULT.
 If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION return "NONE. I cannot find an answer. Please refine the question."
 """
 
-        # Build context from match info
-        context_parts = []
+        # Check if system message + question alone exceed the budget
+        base_tokens = count_tokens(system_message + "\n\nQUESTION: " + question)
+        if base_tokens > max_input_tokens:
+            logger.warning(
+                f"Question + system message ({base_tokens} tokens) exceeds "
+                f"budget ({max_input_tokens}). Cannot call LLM."
+            )
+            token_meta = {
+                "input_tokens": base_tokens,
+                "max_input_tokens": max_input_tokens,
+                "results_truncated": len(search_results),
+            }
+            return (
+                "ERROR: The question and system message exceed the token budget. "
+                "Please reduce the question length or increase max_input_tokens.",
+                token_meta,
+            )
 
+        # Build context from match info (fixed part)
+        match_context_parts: list[str] = []
         if match_info:
-            context_parts.append(f"GAME_RESULT: {match_info.display_name}")
-            context_parts.append(
+            match_context_parts.append(f"GAME_RESULT: {match_info.display_name}")
+            match_context_parts.append(
                 f"Competition: {match_info.competition.name}, Season: {match_info.season.name}"
             )
-            context_parts.append(f"Date: {match_info.match_date}")
+            match_context_parts.append(f"Date: {match_info.match_date}")
 
-        # Build context from search results
-        if search_results:
-            context_parts.append("\nEVENTS:")
-            for result in search_results:
+        match_context = "\n".join(match_context_parts)
+
+        # Sort results by rank ascending (rank 1 = most relevant)
+        sorted_results = sorted(search_results, key=lambda r: r.rank)
+
+        # Token budget guard: iteratively remove lowest-ranked results
+        results_truncated = 0
+        kept_results = list(sorted_results)
+
+        while True:
+            # Build context with current results
+            context_parts = []
+            if match_context:
+                context_parts.append(match_context)
+            if kept_results:
+                context_parts.append("\nEVENTS:")
+                for result in kept_results:
+                    event = result.event
+                    context_parts.append(
+                        f"- {event.time_description}: {event.summary or 'No summary available'}"
+                    )
+            context = "\n".join(context_parts)
+
+            # Count total input tokens
+            full_input = system_message + "\n" + context + "\n\nQUESTION: " + question
+            total_tokens = count_tokens(full_input)
+
+            if total_tokens <= max_input_tokens:
+                break
+
+            if not kept_results:
+                # No more results to remove but still over budget
+                break
+
+            # Remove the lowest-ranked result (last in sorted list)
+            kept_results.pop()
+            results_truncated += 1
+            logger.info(
+                f"Token budget guard: removed result (rank {sorted_results[len(sorted_results) - results_truncated].rank}), "
+                f"{results_truncated} total truncated"
+            )
+
+        # Re-count final tokens
+        final_context_parts = []
+        if match_context:
+            final_context_parts.append(match_context)
+        if kept_results:
+            final_context_parts.append("\nEVENTS:")
+            for result in kept_results:
                 event = result.event
-                context_parts.append(
+                final_context_parts.append(
                     f"- {event.time_description}: {event.summary or 'No summary available'}"
                 )
+        context = "\n".join(final_context_parts)
+        full_input = system_message + "\n" + context + "\n\nQUESTION: " + question
+        input_tokens = count_tokens(full_input)
 
-        context = "\n".join(context_parts)
+        token_meta = {
+            "input_tokens": input_tokens,
+            "max_input_tokens": max_input_tokens,
+            "results_truncated": results_truncated,
+        }
 
         # Build messages for chat completion
         messages = [
@@ -190,10 +296,10 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
             answer = self.openai_adapter.create_chat_completion(
                 messages=messages, temperature=temperature, max_tokens=max_tokens
             )
-            return answer
+            return answer, token_meta
         except Exception as e:
             logger.error(f"Failed to generate answer: {e}")
-            return "ERROR: Failed to generate answer. Please try again."
+            return "ERROR: Failed to generate answer. Please try again.", token_meta
 
 
 def get_search_service(
