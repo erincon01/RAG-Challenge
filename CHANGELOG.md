@@ -11,6 +11,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 - Replace direct `PostgresEventRepository()` / `SQLServerEventRepository()` instantiation in `health.py` and `capabilities.py` with FastAPI `Depends()` injection
 - Add `get_postgres_event_repository` and `get_sqlserver_event_repository` DI providers in `dependencies.py`
+- Refactor `DataExplorerService` to use injected `MatchRepository` instead of raw `psycopg2`/`pyodbc` connections, following the Repository Pattern
 
 ### Security
 - Replace `allow_origins=["*"]` with configurable `CORS_ORIGINS` env var in CORS middleware
