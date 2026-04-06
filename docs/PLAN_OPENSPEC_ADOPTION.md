@@ -393,22 +393,61 @@ git push origin feature/openspec-governance
 
 **Lección aprendida:** En un brownfield, las specs iniciales sirven como "fotografía" del sistema, no como verdad aspiracional. Las desviaciones se documentan explícitamente para que futuros `/opsx:propose` las puedan corregir.
 
-### Paso 6 — Primer cambio real con OpenSpec (pendiente)
+### Paso 6 — Primer cambio real con OpenSpec (2026-04-06)
 
-*Se ejecutará con `/opsx:propose fix-dependency-injection` para validar el workflow completo.*
+**Problema:** Validar el workflow completo de OpenSpec end-to-end con un cambio real.
 
-### Paso 5 — Documentar specs del sistema actual (pendiente)
+**Cambio elegido:** `cors-hardening` — reemplazar `allow_origins=["*"]` por `CORS_ORIGINS` configurable (deuda técnica identificada en sección 2.2).
 
-*Se completará con `/opsx:explore` y creación manual de specs iniciales.*
+**Acciones realizadas:**
+1. `/opsx:propose cors-hardening` → generó proposal, design, specs/infra, tasks
+2. `/opsx:apply` → implementación TDD (5 tests + código)
+3. PR #14 mergeado a `develop`
 
-### Paso 6 — Primer cambio real con OpenSpec (pendiente)
+**Lecciones aprendidas (incorporadas en PR #15):**
+- Las tareas se marcaron `[x]` sin ejecutar tests — 4 de 5 fallaban
+- Imports incorrectos (`config.settings` vs `app.core.config`) por diferencia de cwd
+- `List[str]` en pydantic-settings falla por JSON parse antes de validators
+- Middleware CORS no se puede patchear tras import — requiere test app dedicada
+- Se añadieron reglas de verificación a AGENTS.md, config.yaml, SKILL.md y tdd.instructions.md
 
-*Se completará con `/opsx:propose fix-dependency-injection`.*
+### Paso 7 — Definir workflow de desarrollo paralelo con worktrees (2026-04-06)
+
+**Problema:** El proyecto tiene múltiples items de deuda técnica independientes (DI, DataExplorer, token budget, etc.). Implementarlos secuencialmente es lento. Se necesita un patrón para paralelizar changes.
+
+**Decisión:** Adoptar git worktrees como mecanismo de aislamiento para aplicar múltiples OpenSpec changes en paralelo. Cada change se ejecuta en un worktree independiente con su propia rama.
+
+**Investigación realizada:** Se consultaron las siguientes fuentes para definir best practices:
+
+| Fuente | Aporte clave |
+|--------|-------------|
+| [Claude Code Worktree Complete Guide](https://claudelab.net/en/articles/claude-code/claude-code-worktree-guide) | `isolation: "worktree"` en subagentes, cleanup automático |
+| [Git Worktrees for Multi-Feature Development with AI Agents](https://www.nrmitchi.com/2025/10/using-git-worktrees-for-multi-feature-development-with-ai-agents/) | Patrón branch-per-worktree, límites prácticos |
+| [How Git Worktrees Changed My AI Agent Workflow (Nx Blog)](https://nx.dev/blog/git-worktrees-ai-agents) | Aislamiento de agentes, no ejecutar `git gc` con worktrees activos |
+| [One-Person Engineering Team: Claude Code Parallel Workflow](https://www.shareuhack.com/en/posts/claude-code-parallel-workflow-guide-2026) | Boris Cherny: 10-15 sesiones paralelas, recomendación práctica 3-5 |
+| [Claude Code Common Workflows (docs oficiales)](https://code.claude.com/docs/en/common-workflows) | Soporte nativo de worktrees en Claude Code CLI |
+| [Spec-Driven Development with AI (GitHub Blog)](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/) | OpenSpec changes como unidades paralelas independientes |
+| [OpenSpec — Repositorio oficial](https://github.com/Fission-AI/OpenSpec) | Modelo de cambios aislados en `changes/` + merge de specs |
+
+**Reglas definidas:**
+1. Proponer en `develop` (secuencial) → aplicar en worktrees (paralelo) → PR por change → merge secuencial
+2. Solo paralelizar changes que no toquen los mismos ficheros
+3. Máximo 2-3 worktrees simultáneos
+4. Cada worktree necesita su propio install de dependencias si hay paquetes nuevos
+5. No ejecutar `git gc` con worktrees activos
+
+**Artefactos actualizados:**
+- `AGENTS.md` § "Parallel development with worktrees"
+- `.github/instructions/git-workflow.instructions.md` § "Worktrees para desarrollo paralelo"
+- `openspec/config.yaml` → nueva sección `parallel:`
+- `.claude/skills/openspec-apply-change/SKILL.md` → bloque "Parallel Apply with Worktrees"
+- `CLAUDE.md` → referencia a worktrees en sección OpenSpec governance
 
 ---
 
 ## 9. Referencias
 
+### OpenSpec
 - [OpenSpec — Repositorio oficial](https://github.com/Fission-AI/OpenSpec)
 - [OpenSpec — Getting Started](https://github.com/Fission-AI/OpenSpec/blob/main/docs/getting-started.md)
 - [OpenSpec — Workflows](https://github.com/Fission-AI/OpenSpec/blob/main/docs/workflows.md)
@@ -416,3 +455,13 @@ git push origin feature/openspec-governance
 - [OpenSpec — Customization](https://github.com/Fission-AI/OpenSpec/blob/main/docs/customization.md)
 - [OpenSpec — Supported Tools](https://github.com/Fission-AI/OpenSpec/blob/main/docs/supported-tools.md)
 - [OpenSpec — Concepts](https://github.com/Fission-AI/OpenSpec/blob/main/docs/concepts.md)
+- [Spec-Driven Development with AI (GitHub Blog)](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/)
+
+### Git worktrees y desarrollo paralelo con agentes AI
+- [Claude Code Common Workflows (docs oficiales)](https://code.claude.com/docs/en/common-workflows)
+- [Claude Code Worktree Complete Guide (Claude Lab)](https://claudelab.net/en/articles/claude-code/claude-code-worktree-guide)
+- [Git Worktrees for Multi-Feature Development with AI Agents (Nick Mitchinson)](https://www.nrmitchi.com/2025/10/using-git-worktrees-for-multi-feature-development-with-ai-agents/)
+- [How Git Worktrees Changed My AI Agent Workflow (Nx Blog)](https://nx.dev/blog/git-worktrees-ai-agents)
+- [One-Person Engineering Team: Claude Code Parallel Workflow Guide](https://www.shareuhack.com/en/posts/claude-code-parallel-workflow-guide-2026)
+- [Mastering Git Worktrees with Claude Code (Medium)](https://medium.com/@dtunai/mastering-git-worktrees-with-claude-code-for-parallel-development-workflow-41dc91e645fe)
+- [Parallel Vibe Coding with Git Worktrees (Dan Does Code)](https://www.dandoescode.com/blog/parallel-vibe-coding-with-git-worktrees)

@@ -96,6 +96,35 @@ Available commands (core profile):
 - `/opsx:archive` — archive completed change
 - `/opsx:explore` — thinking partner mode (read-only, no code changes)
 
+### Parallel development with worktrees
+
+Multiple OpenSpec changes can be implemented in parallel using git worktrees.
+Each change runs in an isolated worktree with its own branch, preventing file conflicts.
+
+**When to use parallel worktrees:**
+- Two or more OpenSpec changes are independent (different files/layers).
+- The user explicitly asks for parallel execution.
+- Changes are already proposed (`openspec/changes/<name>/tasks.md` exists).
+
+**When NOT to use:**
+- Changes touch the same files (e.g., both modify `main.py` or `settings.py`).
+- One change depends on another's output.
+- Only one change is in progress.
+
+**Workflow:**
+1. **Propose first** — run `/opsx:propose` for each change on `develop` (sequential).
+2. **Apply in parallel** — launch one agent per change with `isolation: "worktree"`.
+   Each agent creates its own branch (`fix/NNN-*` or `feature/NNN-*`).
+3. **Verify each** — each agent runs `pytest tests/ -v` in its worktree before finishing.
+4. **PR per change** — each worktree produces one PR against `develop`.
+5. **Merge in order** — merge PRs sequentially; if conflicts arise, rebase the later PR.
+6. **Archive** — run `/opsx:archive` for each merged change.
+
+**Practical limits:**
+- 2–3 parallel worktrees recommended; more increases merge conflict risk.
+- Each worktree needs its own dependency install if adding packages.
+- Worktrees with no changes are automatically cleaned up.
+
 ## Restrictions
 
 - **DO NOT** delete files without explicit user confirmation.
