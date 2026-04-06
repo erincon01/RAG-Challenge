@@ -1,6 +1,6 @@
 ## Description
 
-<!-- Describe what this PR does and why. Link to the spec or plan if this is a spec-kit feature. -->
+<!-- Describe what this PR does and why. Link to the OpenSpec change or spec if applicable. -->
 
 Closes #<!-- issue number -->
 
@@ -37,27 +37,24 @@ Closes #<!-- issue number -->
 - [ ] `CHANGELOG.md` updated under `## [Unreleased]` *(skip only for pure docs/chore — justify below)*
 - [ ] `docs/conversation_log.md` updated if this PR originated from an AI-assisted session
 
-### spec-kit (if applicable)
-- [ ] `spec.md` reviewed and accurate
-- [ ] `plan.md` matches what was implemented
-- [ ] `tasks.md` tasks marked complete
+### OpenSpec (if applicable)
+- [ ] OpenSpec specs reviewed and accurate (`openspec/specs/`)
+- [ ] Design matches implementation (`openspec/changes/`)
+- [ ] Tasks marked complete (`tasks.md`)
 
 ---
 
-## Constitution Check
+## Architecture Check
 
-<!-- MANDATORY: Verify each applicable principle from .specify/memory/constitution.md -->
+<!-- MANDATORY: Verify each applicable principle from AGENTS.md -->
 
-- [ ] **I. Layered arch**: api → services → repositories → domain flow respected
-- [ ] **II. Repository**: all DB access through abstract repository methods
-- [ ] **III. DI**: collaborators injected via `Depends()`, no direct instantiation in handlers
-- [ ] **IV. Config**: new env vars in `config/settings.py` → `.env.example` → `conftest.py`
-- [ ] **V. RAG pipeline**: if Q&A feature, all 6 steps execute in order
-- [ ] **VI. Test-first**: failing test written before implementation
-- [ ] **VII. SQL safety**: all queries parameterized, no f-string SQL
-- [ ] **VIII. Secrets**: no hardcoded credentials, `.env` gitignored
-- [ ] **IX. Frontend**: API response shapes updated in `models.py` AND TypeScript types
-- [ ] **X. Docker**: new infra services added to `docker-compose.yml`
+- [ ] **Layered arch**: api → services → repositories → domain flow respected
+- [ ] **Repository**: all DB access through abstract repository methods
+- [ ] **DI**: collaborators injected via `Depends()`, no direct instantiation in handlers
+- [ ] **Config**: new env vars in `config/settings.py` → `.env.example` → `conftest.py`
+- [ ] **Test-first**: failing test written before implementation
+- [ ] **SQL safety**: all queries parameterized, no f-string SQL
+- [ ] **Secrets**: no hardcoded credentials, `.env` gitignored
 
 **N/A justification**: <!-- List any principles marked N/A and why -->
 

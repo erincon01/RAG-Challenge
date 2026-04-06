@@ -14,14 +14,30 @@ from tests.conftest import make_mock_match_repo, make_mock_event_repo, make_mock
 
 
 @pytest.fixture
-def client():
+def mock_ingestion_svc():
+    from app.services.ingestion_service import IngestionService
+    svc = MagicMock(spec=IngestionService)
+    svc.clear_downloaded_files.return_value = {
+        "deleted_count": 0,
+        "deleted_files": [],
+        "deleted_dirs": [],
+        "filters": {},
+    }
+    return svc
+
+
+@pytest.fixture
+def client(mock_ingestion_svc):
     from app.main import app
-    from app.core.dependencies import get_match_repository, get_event_repository
+    from app.core.dependencies import (
+        get_match_repository, get_event_repository, get_ingestion_service,
+    )
     from app.adapters.openai_client import get_openai_adapter
 
     app.dependency_overrides[get_match_repository] = lambda source="postgres": make_mock_match_repo()
     app.dependency_overrides[get_event_repository] = lambda source="postgres": make_mock_event_repo()
     app.dependency_overrides[get_openai_adapter] = lambda: make_mock_openai_adapter()
+    app.dependency_overrides[get_ingestion_service] = lambda: mock_ingestion_svc
 
     with TestClient(app, raise_server_exceptions=False) as c:
         yield c
@@ -35,21 +51,17 @@ def client():
 
 class TestStartDownloadJob:
     def test_returns_202_with_match_ids(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_download_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/download",
-                json={"match_ids": [3943043], "datasets": ["matches", "events"]},
-            )
+        response = client.post(
+            "/api/v1/ingestion/download",
+            json={"match_ids": [3943043], "datasets": ["matches", "events"]},
+        )
         assert response.status_code == 202
 
     def test_returns_202_with_competition_and_season(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_download_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/download",
-                json={"competition_id": 55, "season_id": 282, "datasets": ["events"]},
-            )
+        response = client.post(
+            "/api/v1/ingestion/download",
+            json={"competition_id": 55, "season_id": 282, "datasets": ["events"]},
+        )
         assert response.status_code == 202
 
     def test_returns_400_when_no_ids_or_competition(self, client):
@@ -60,12 +72,10 @@ class TestStartDownloadJob:
         assert response.status_code == 400
 
     def test_response_has_job_id(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_download_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/download",
-                json={"match_ids": [1], "datasets": ["matches"]},
-            )
+        response = client.post(
+            "/api/v1/ingestion/download",
+            json={"match_ids": [1], "datasets": ["matches"]},
+        )
         data = response.json()
         assert "job_id" in data
         assert "status" in data
@@ -84,42 +94,39 @@ class TestStartDownloadJob:
 # ---------------------------------------------------------------------------
 
 class TestCleanupDownloadedFiles:
-    def test_returns_200_delete_all(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.clear_downloaded_files.return_value = {
-                "deleted_count": 5,
-                "deleted_files": ["f1", "f2"],
-                "deleted_dirs": ["d1"],
-                "filters": {},
-            }
-            response = client.post(
-                "/api/v1/ingestion/download/cleanup",
-                json={"delete_all": True},
-            )
+    def test_returns_200_delete_all(self, client, mock_ingestion_svc):
+        mock_ingestion_svc.clear_downloaded_files.return_value = {
+            "deleted_count": 5,
+            "deleted_files": ["f1", "f2"],
+            "deleted_dirs": ["d1"],
+            "filters": {},
+        }
+        response = client.post(
+            "/api/v1/ingestion/download/cleanup",
+            json={"delete_all": True},
+        )
         assert response.status_code == 200
 
-    def test_returns_deleted_count(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.clear_downloaded_files.return_value = {
-                "deleted_count": 3,
-                "deleted_files": ["a", "b", "c"],
-                "deleted_dirs": [],
-                "filters": {"match_ids": [1]},
-            }
-            response = client.post(
-                "/api/v1/ingestion/download/cleanup",
-                json={"match_ids": [1]},
-            )
+    def test_returns_deleted_count(self, client, mock_ingestion_svc):
+        mock_ingestion_svc.clear_downloaded_files.return_value = {
+            "deleted_count": 3,
+            "deleted_files": ["a", "b", "c"],
+            "deleted_dirs": [],
+            "filters": {"match_ids": [1]},
+        }
+        response = client.post(
+            "/api/v1/ingestion/download/cleanup",
+            json={"match_ids": [1]},
+        )
         data = response.json()
         assert data["deleted_count"] == 3
 
-    def test_returns_500_on_service_error(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.clear_downloaded_files.side_effect = Exception("disk error")
-            response = client.post(
-                "/api/v1/ingestion/download/cleanup",
-                json={"delete_all": True},
-            )
+    def test_returns_500_on_service_error(self, client, mock_ingestion_svc):
+        mock_ingestion_svc.clear_downloaded_files.side_effect = Exception("disk error")
+        response = client.post(
+            "/api/v1/ingestion/download/cleanup",
+            json={"delete_all": True},
+        )
         assert response.status_code == 500
 
 
@@ -129,30 +136,24 @@ class TestCleanupDownloadedFiles:
 
 class TestStartLoadJob:
     def test_returns_202(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_load_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/load",
-                json={"source": "postgres", "datasets": ["matches", "events"]},
-            )
+        response = client.post(
+            "/api/v1/ingestion/load",
+            json={"source": "postgres", "datasets": ["matches", "events"]},
+        )
         assert response.status_code == 202
 
     def test_sqlserver_source_accepted(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_load_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/load",
-                json={"source": "sqlserver", "datasets": ["matches"]},
-            )
+        response = client.post(
+            "/api/v1/ingestion/load",
+            json={"source": "sqlserver", "datasets": ["matches"]},
+        )
         assert response.status_code == 202
 
     def test_response_type_is_load(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_load_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/load",
-                json={"source": "postgres"},
-            )
+        response = client.post(
+            "/api/v1/ingestion/load",
+            json={"source": "postgres"},
+        )
         data = response.json()
         assert data["type"] == "load"
 
@@ -163,21 +164,17 @@ class TestStartLoadJob:
 
 class TestStartAggregateJob:
     def test_returns_202(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_aggregate_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/aggregate",
-                json={"source": "postgres"},
-            )
+        response = client.post(
+            "/api/v1/ingestion/aggregate",
+            json={"source": "postgres"},
+        )
         assert response.status_code == 202
 
     def test_response_type_is_aggregate(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_aggregate_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/aggregate",
-                json={"source": "postgres"},
-            )
+        response = client.post(
+            "/api/v1/ingestion/aggregate",
+            json={"source": "postgres"},
+        )
         data = response.json()
         assert data["type"] == "aggregate"
 
@@ -188,21 +185,17 @@ class TestStartAggregateJob:
 
 class TestStartRebuildEmbeddingsJob:
     def test_returns_202(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_rebuild_embeddings_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/embeddings/rebuild",
-                json={"source": "postgres"},
-            )
+        response = client.post(
+            "/api/v1/ingestion/embeddings/rebuild",
+            json={"source": "postgres"},
+        )
         assert response.status_code == 202
 
     def test_response_type_is_embeddings_rebuild(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_rebuild_embeddings_job = MagicMock()
-            response = client.post(
-                "/api/v1/ingestion/embeddings/rebuild",
-                json={"source": "postgres"},
-            )
+        response = client.post(
+            "/api/v1/ingestion/embeddings/rebuild",
+            json={"source": "postgres"},
+        )
         data = response.json()
         assert data["type"] == "embeddings_rebuild"
 
@@ -249,13 +242,57 @@ class TestGetJob:
         assert response.status_code == 404
 
     def test_returns_job_after_creation(self, client):
-        with patch("app.api.v1.ingestion._service") as mock_svc:
-            mock_svc.run_load_job = MagicMock()
-            create_resp = client.post(
-                "/api/v1/ingestion/load",
-                json={"source": "postgres"},
-            )
+        create_resp = client.post(
+            "/api/v1/ingestion/load",
+            json={"source": "postgres"},
+        )
         job_id = create_resp.json()["job_id"]
         resp = client.get(f"/api/v1/ingestion/jobs/{job_id}")
         assert resp.status_code == 200
         assert resp.json()["id"] == job_id
+
+
+# ---------------------------------------------------------------------------
+# TDD RED: IngestionService injected via dependency_overrides (not _service patch)
+# These tests FAIL until ingestion.py uses Depends(get_ingestion_service)
+# ---------------------------------------------------------------------------
+
+class TestIngestionDependencyInjection:
+    @pytest.fixture
+    def client_with_override(self):
+        from app.main import app
+        from app.core.dependencies import (
+            get_match_repository, get_event_repository,
+            get_ingestion_service,
+        )
+        from app.adapters.openai_client import get_openai_adapter
+        from app.services.ingestion_service import IngestionService
+
+        mock_svc = MagicMock(spec=IngestionService)
+        mock_svc.run_download_job = MagicMock()
+
+        app.dependency_overrides[get_match_repository] = lambda source="postgres": make_mock_match_repo()
+        app.dependency_overrides[get_event_repository] = lambda source="postgres": make_mock_event_repo()
+        app.dependency_overrides[get_openai_adapter] = lambda: make_mock_openai_adapter()
+        app.dependency_overrides[get_ingestion_service] = lambda: mock_svc
+
+        with TestClient(app, raise_server_exceptions=False) as c:
+            yield c, mock_svc
+
+        app.dependency_overrides.clear()
+
+    def test_download_via_dependency_override_returns_202(self, client_with_override):
+        client, _ = client_with_override
+        response = client.post(
+            "/api/v1/ingestion/download",
+            json={"match_ids": [3943043], "datasets": ["matches"]},
+        )
+        assert response.status_code == 202
+
+    def test_download_via_dependency_override_calls_service(self, client_with_override):
+        client, mock_svc = client_with_override
+        client.post(
+            "/api/v1/ingestion/download",
+            json={"match_ids": [3943043], "datasets": ["matches"]},
+        )
+        mock_svc.run_download_job.assert_called_once()

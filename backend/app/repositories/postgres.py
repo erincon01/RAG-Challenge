@@ -284,7 +284,9 @@ class PostgresEventRepository(EventRepository):
             logger.error(f"Connection test failed: {e}")
             return False
 
-    def get_events_by_match(self, match_id: int, limit: int | None = None) -> list[EventDetail]:
+    def get_events_by_match(
+        self, match_id: int, limit: int | None = None
+    ) -> list[EventDetail]:
         """Get all events for a match."""
         query = """
             SELECT
@@ -334,7 +336,9 @@ class PostgresEventRepository(EventRepository):
             logger.error(f"Error fetching event {event_id}: {e}")
             raise
 
-    def search_by_embedding(self, search_request: SearchRequest, query_embedding: list[float]) -> list[SearchResult]:
+    def search_by_embedding(
+        self, search_request: SearchRequest, query_embedding: list[float]
+    ) -> list[SearchResult]:
         """
         Search events using vector similarity.
 
@@ -359,10 +363,14 @@ class PostgresEventRepository(EventRepository):
         operator = operator_map.get(search_request.search_algorithm)
 
         if not embedding_column:
-            raise ValueError(f"Unsupported embedding model: {search_request.embedding_model}")
+            raise ValueError(
+                f"Unsupported embedding model: {search_request.embedding_model}"
+            )
 
         if not operator:
-            raise ValueError(f"Unsupported search algorithm: {search_request.search_algorithm}")
+            raise ValueError(
+                f"Unsupported search algorithm: {search_request.search_algorithm}"
+            )
 
         # Convert embedding to PostgreSQL array format
         embedding_str = "[" + ",".join(map(str, query_embedding)) + "]"

@@ -293,7 +293,9 @@ class SQLServerEventRepository(EventRepository):
             logger.error(f"Connection test failed: {e}")
             return False
 
-    def get_events_by_match(self, match_id: int, limit: int | None = None) -> list[EventDetail]:
+    def get_events_by_match(
+        self, match_id: int, limit: int | None = None
+    ) -> list[EventDetail]:
         """Get all events for a match."""
         params: tuple
         if limit:
@@ -351,7 +353,9 @@ class SQLServerEventRepository(EventRepository):
             logger.error(f"Error fetching event {event_id}: {e}")
             raise
 
-    def search_by_embedding(self, search_request: SearchRequest, query_embedding: list[float]) -> list[SearchResult]:
+    def search_by_embedding(
+        self, search_request: SearchRequest, query_embedding: list[float]
+    ) -> list[SearchResult]:
         """
         Search events using vector similarity.
 
@@ -372,9 +376,13 @@ class SQLServerEventRepository(EventRepository):
         distance_type = distance_type_map.get(search_request.search_algorithm)
 
         if not embedding_column:
-            raise ValueError(f"Unsupported embedding model for SQL Server: {search_request.embedding_model}")
+            raise ValueError(
+                f"Unsupported embedding model for SQL Server: {search_request.embedding_model}"
+            )
         if not distance_type:
-            raise ValueError(f"Unsupported search algorithm for SQL Server: {search_request.search_algorithm}")
+            raise ValueError(
+                f"Unsupported search algorithm for SQL Server: {search_request.search_algorithm}"
+            )
 
         embedding_str = "[" + ",".join(map(str, query_embedding)) + "]"
 
@@ -423,7 +431,9 @@ class SQLServerEventRepository(EventRepository):
             minute=row.minute,
             quarter_minute=row.quarter_minute,
             count=row.count,
-            json_data=row.json_data if hasattr(row, "json_data") and row.json_data is not None else "",
+            json_data=row.json_data
+            if hasattr(row, "json_data") and row.json_data is not None
+            else "",
             summary=row.summary if hasattr(row, "summary") else None,
         )
 

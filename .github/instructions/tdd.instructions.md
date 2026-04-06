@@ -1,187 +1,125 @@
 ---
-description: "Use when writing, reviewing, or generating tests. Covers TDD workflow, pytest patterns, mocking Azure OpenAI and DB connections, and coverage requirements for RAG-Challenge backend."
-applyTo: "backend/tests/**/*.py"
+applyTo: 'backend/**'
 ---
 
-# TDD — Test-Driven Development
+# Test-Driven Development — RAG-Challenge
 
-## Core Rule
+## Filosofía
 
-**Write the test first, then the implementation.** No PR merges a new function or endpoint without a corresponding test.
+1. **Red → Green → Refactor**: Escribir el test primero (que falle), implementar el mínimo para que pase, luego refactorizar.
+2. En brownfield, aplicar TDD a todo código nuevo y a cualquier código que se modifique.
 
-## Three-Level Test Strategy
+## Cobertura
+
+- **Mínimo obligatorio:** 80% de cobertura de líneas.
+- CI falla si la cobertura baja del umbral.
+- Comando: `pytest --cov=app --cov-report=term-missing --cov-fail-under=80`
+
+## Naming de tests
+
+### Formato obligatorio
+
+```
+test_<método_o_función>_<escenario>_<resultado_esperado>
+```
+
+### Ejemplos correctos
+
+```python
+def test_search_and_chat_empty_query_returns_validation_error():
+def test_get_match_by_id_not_found_raises_404():
+def test_create_embedding_valid_text_returns_vector():
+def test_ingest_events_duplicate_match_skips_insertion():
+```
+
+### Ejemplos incorrectos (NO usar)
+
+```python
+def test_search():          # ❌ too vague
+def test_create():          # ❌ no scenario
+def test_defaults():        # ❌ no method, no expected
+def test_str_enum():        # ❌ no scenario, no expected
+```
+
+## Estructura de tests
 
 ```
 backend/tests/
-  conftest.py              # Shared fixtures — TestClient + DI overrides + entity factories
-  unit/                    # UNIT tests (fast, zero external deps)
-    test_domain.py
-    test_*_service.py
-    test_openai_adapter.py
-  api/                     # API tests (TestClient, mocked services via DI override)
-    test_chat.py
-    test_matches.py
-    test_events.py
-    ...
-  integration/             # INTEGRATION tests (real DB, skipped by default)
-    test_db_connections.py
+├── conftest.py          # Fixtures y factories compartidas
+├── api/                 # Tests de endpoints (integration-level)
+│   ├── test_chat.py
+│   ├── test_health.py
+│   └── ...
+├── unit/                # Tests unitarios de services, domain, adapters
+│   ├── test_search_service.py
+│   ├── test_domain.py
+│   └── ...
+└── integration/         # Tests con BD real (Docker)
+    └── ...
 ```
 
-| Level | Speed | Deps | Run in CI | Marker |
-|-------|-------|------|-----------|--------|
-| **Unit** | < 1s | None (all mocked) | ✅ Always | `@pytest.mark.unit` |
-| **API** | < 1s | TestClient + mocked services | ✅ Always | `@pytest.mark.api` |
-| **Integration** | seconds | Live DB | ❌ Optional | `@pytest.mark.integration` |
+## Mocks
 
-## Running Tests
-
-```bash
-# From backend/ directory
-cd backend
-
-# All tests (unit + api), verbose
-pytest tests/ -v
-
-# With coverage on backend/app
-pytest tests/ --cov=app --cov-report=term-missing
-
-# Unit only
-pytest tests/ -v -m unit
-
-# API only
-pytest tests/ -v -m api
-
-# Integration (needs .env with real DB)
-pytest tests/ -v -m integration
-
-# Fast: stop on first failure
-pytest tests/ -x
-```
-
-Coverage target: **80% minimum** on `backend/app/`.
-
-## TDD Cycle (Red → Green → Refactor)
-
-1. **Red** — write a failing test that describes the expected behavior
-2. **Green** — write the minimum code to make it pass
-3. **Refactor** — clean up without breaking the test
-
-## conftest.py — FastAPI TestClient with DI overrides
-
-The root `backend/tests/conftest.py` provides a `TestClient` with all dependencies overridden via `app.dependency_overrides`.
+### `MagicMock(spec=...)` obligatorio
 
 ```python
-from fastapi.testclient import TestClient
-from app.main import app
-from app.core.dependencies import get_match_repository, get_search_service
+# ✅ Correcto — detecta attribute drift
+mock_repo = MagicMock(spec=MatchRepository)
 
-@pytest.fixture
-def mock_match_repo():
-    repo = MagicMock(spec=MatchRepository)
-    repo.get_all.return_value = [make_match()]
-    return repo
-
-@pytest.fixture
-def client(mock_match_repo):
-    app.dependency_overrides[get_match_repository] = lambda: mock_match_repo
-    with TestClient(app) as c:
-        yield c
-    app.dependency_overrides.clear()
+# ❌ Incorrecto — acepta cualquier atributo
+mock_repo = MagicMock()
 ```
 
-## Mocking Rules
-
-Always mock external dependencies. Never hit real Azure OpenAI or DB in unit/api tests.
-
-### API tests — use dependency_overrides
+### Dependency overrides para API tests
 
 ```python
-def test_list_matches_returns_200(client, mock_match_repo):
-    mock_match_repo.get_all.return_value = [make_match(match_id=1)]
-    response = client.get("/api/v1/matches")
-    assert response.status_code == 200
-    assert len(response.json()) == 1
+# En el test
+app.dependency_overrides[get_match_repository] = lambda: mock_repo
+
+# En teardown (obligatorio)
+app.dependency_overrides.clear()
 ```
 
-### Unit tests — mock at call boundary
-
-```python
-def test_search_service_calls_repo(mock_match_repo):
-    service = SearchService(repo=mock_match_repo)
-    mock_match_repo.search_by_embedding.return_value = [make_search_result()]
-    results = service.search(query="goal by Morata", match_id=3943043)
-    mock_match_repo.search_by_embedding.assert_called_once()
-    assert len(results) == 1
-```
-
-### Mock Azure OpenAI adapter
-
-```python
-@pytest.fixture
-def mock_openai_adapter():
-    adapter = MagicMock(spec=OpenAIAdapter)
-    adapter.create_embedding.return_value = [0.1] * 1536
-    adapter.create_chat_completion.return_value = "Spain won 2-1"
-    return adapter
-```
-
-## TDD Workflow per Feature (step-by-step)
-
-```
-1. Understand the acceptance criteria for the feature
-2. Write a failing API test (test_<feature>.py in api/)
-3. Write a failing unit test for the service logic (test_<feature>_service.py in unit/)
-4. Implement the domain entity / exception if new types are needed
-5. Implement the service method
-6. Implement the route handler in api/v1/
-7. All tests green → check coverage (pytest --cov=app)
-8. Refactor if needed, tests must stay green
-9. Open PR — CI enforces coverage ≥ 80%
-```
-
-**Never skip step 2 and 3.** Implementation first = tech debt.
-
-## Test Naming Conventions
-
-```python
-# Pattern: test_<unit>_<scenario>_<expected_outcome>
-def test_list_matches_empty_db_returns_empty_list():
-def test_search_service_over_token_budget_truncates_context():
-def test_postgres_repo_connection_failure_raises_database_error():
-def test_chat_endpoint_missing_question_returns_422():
-def test_search_service_calls_openai_adapter_once_per_request():
-```
-
-## What to Test per Layer
-
-| Layer | Key test scenarios |
-|-------|-------------------|
-| `api/v1/` | HTTP status codes, request validation (422), response schema shape |
-| `services/` | Business logic, edge cases, exception propagation, token budget logic |
-| `repositories/` | Parameterized queries, entity mapping, error conversion (integration only) |
-| `adapters/` | SDK call shape, response parsing, retry/backoff on 429/500 |
-| `domain/` | Entity validation (`__post_init__`), exception messages, enum values |
-
-## Pytest Markers (defined in `backend/pytest.ini`)
-
-- `@pytest.mark.unit` — pure unit; no external deps
-- `@pytest.mark.api` — API endpoint tests with TestClient; mocked dependencies
-- `@pytest.mark.integration` — requires live DB; NOT run in CI by default
-
-## Mock Environment (if settings are loaded outside DI)
-
-Settings are injected via `Depends(get_settings)` in most routes — override via `dependency_overrides`.
-For code that loads settings at module level (e.g. adapters), use `monkeypatch`:
+O usar fixture:
 
 ```python
 @pytest.fixture(autouse=True)
-def mock_env(monkeypatch):
-    """Inject safe env vars — used when settings are loaded at import time."""
-    monkeypatch.setenv("POSTGRES_HOST", "localhost")
-    monkeypatch.setenv("POSTGRES_DB", "ragtest")
-    monkeypatch.setenv("POSTGRES_USER", "testuser")
-    monkeypatch.setenv("POSTGRES_PASSWORD", "testpass")
-    monkeypatch.setenv("OPENAI_ENDPOINT", "https://test.openai.azure.com/")
-    monkeypatch.setenv("OPENAI_KEY", "test-key-000")
-    monkeypatch.setenv("OPENAI_MODEL", "gpt-4o")
+def cleanup_overrides():
+    yield
+    app.dependency_overrides.clear()
 ```
+
+## Factories (conftest.py)
+
+### Obligatorio: usar factories para datos de test
+
+```python
+# ✅ Correcto — usar factory
+match = make_match(match_id=123, home_team="Real Madrid")
+
+# ❌ Incorrecto — inline dict
+match = {"match_id": 123, "home_team": "Real Madrid", ...}
+```
+
+Las factories están definidas en `backend/tests/conftest.py`:
+- `make_match()` — crea un `Match` con defaults sensatos
+- `make_event()` — crea un `Event` con defaults sensatos
+- `make_search_request()` — crea un `SearchRequest`
+- `make_search_result()` — crea un `SearchResult`
+- `make_mock_match_repo()` — crea mock de `MatchRepository`
+- `make_mock_event_repo()` — crea mock de `EventRepository`
+
+## Reglas de SQL en tests
+
+- **NUNCA** usar f-strings para construir SQL con datos de test.
+- Siempre usar los mismos parámetros bind que la aplicación (`%s` para PostgreSQL, `?` para SQL Server).
+- Los tests de integración con BD real deben limpiar sus datos en teardown.
+
+## CI Integration
+
+El pipeline de CI (`.github/workflows/ci.yml`) ejecuta:
+1. `ruff check .` — lint
+2. `mypy --strict` — type check
+3. `pytest --cov=app --cov-fail-under=80` — tests + cobertura
+
+Todos deben pasar antes de poder mergear un PR.

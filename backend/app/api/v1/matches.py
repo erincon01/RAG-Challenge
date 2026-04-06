@@ -70,7 +70,9 @@ async def list_matches(
         default="postgres",
         description="Database source: postgres or sqlserver",
     ),
-    competition_name: str | None = Query(default=None, description="Filter by competition name"),
+    competition_name: str | None = Query(
+        default=None, description="Filter by competition name"
+    ),
     season_name: str | None = Query(default=None, description="Filter by season name"),
     limit: int = Query(default=100, ge=1, le=1000, description="Maximum results"),
     repo: MatchRepository = Depends(get_match_repository),

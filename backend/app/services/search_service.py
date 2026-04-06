@@ -163,7 +163,9 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
 
         if match_info:
             context_parts.append(f"GAME_RESULT: {match_info.display_name}")
-            context_parts.append(f"Competition: {match_info.competition.name}, Season: {match_info.season.name}")
+            context_parts.append(
+                f"Competition: {match_info.competition.name}, Season: {match_info.season.name}"
+            )
             context_parts.append(f"Date: {match_info.match_date}")
 
         # Build context from search results
@@ -171,7 +173,9 @@ If the EVENTS or GAME_RESULT does not contain the facts to answer the QUESTION r
             context_parts.append("\nEVENTS:")
             for result in search_results:
                 event = result.event
-                context_parts.append(f"- {event.time_description}: {event.summary or 'No summary available'}")
+                context_parts.append(
+                    f"- {event.time_description}: {event.summary or 'No summary available'}"
+                )
 
         context = "\n".join(context_parts)
 

@@ -4,10 +4,9 @@ from fastapi import APIRouter, HTTPException, Query, status
 from pydantic import BaseModel
 
 from app.core.capabilities import normalize_source
-from app.services.data_explorer_service import DataExplorerService
+from app.core.dependencies import ExplorerSvc
 
 router = APIRouter()
-_service = DataExplorerService()
 
 
 class TeamExplorerResponse(BaseModel):
@@ -39,12 +38,15 @@ class TableInfoResponse(BaseModel):
     summary="List teams",
 )
 async def list_teams(
+    service: ExplorerSvc,
     source: str = Query(default="postgres", description="Database source"),
     match_id: int | None = Query(default=None, description="Optional match filter"),
     limit: int = Query(default=500, ge=1, le=5000),
 ) -> list[TeamExplorerResponse]:
     try:
-        rows = _service.get_teams(source=normalize_source(source), match_id=match_id, limit=limit)
+        rows = service.get_teams(
+            source=normalize_source(source), match_id=match_id, limit=limit
+        )
         return [TeamExplorerResponse(**row) for row in rows]
     except Exception as e:
         raise HTTPException(
@@ -60,12 +62,15 @@ async def list_teams(
     summary="List players",
 )
 async def list_players(
+    service: ExplorerSvc,
     source: str = Query(default="postgres", description="Database source"),
     match_id: int | None = Query(default=None, description="Optional match filter"),
     limit: int = Query(default=500, ge=1, le=5000),
 ) -> list[PlayerExplorerResponse]:
     try:
-        rows = _service.get_players(source=normalize_source(source), match_id=match_id, limit=limit)
+        rows = service.get_players(
+            source=normalize_source(source), match_id=match_id, limit=limit
+        )
         return [PlayerExplorerResponse(**row) for row in rows]
     except Exception as e:
         raise HTTPException(
@@ -81,10 +86,11 @@ async def list_players(
     summary="List table metadata",
 )
 async def list_tables_info(
+    service: ExplorerSvc,
     source: str = Query(default="postgres", description="Database source"),
 ) -> list[TableInfoResponse]:
     try:
-        rows = _service.get_tables_info(source=normalize_source(source))
+        rows = service.get_tables_info(source=normalize_source(source))
         return [TableInfoResponse(**row) for row in rows]
     except Exception as e:
         raise HTTPException(

@@ -174,3 +174,75 @@ class TestDataExplorerServiceGetPlayers:
 
         assert len(results) == 1
         assert results[0]["player_name"] == "Rodri"
+
+
+# ---------------------------------------------------------------------------
+# TDD RED: DI providers for IngestionService, StatsBombService, DataExplorerService
+# These tests FAIL until the providers are added to core/dependencies.py
+# ---------------------------------------------------------------------------
+
+class TestGetIngestionServiceProvider:
+    def test_get_ingestion_service_returns_ingestion_service(self):
+        from app.core.dependencies import get_ingestion_service
+        from app.services.ingestion_service import IngestionService
+
+        svc = get_ingestion_service()
+        assert isinstance(svc, IngestionService)
+
+    def test_get_ingestion_service_accepts_statsbomb_injection(self):
+        from app.core.dependencies import get_ingestion_service
+        from app.services.statsbomb_service import StatsBombService
+
+        mock_sb = MagicMock(spec=StatsBombService)
+        svc = get_ingestion_service(statsbomb=mock_sb)
+        assert svc.statsbomb is mock_sb
+
+    def test_ingestion_svc_alias_is_annotated(self):
+        from app.core.dependencies import IngestionSvc
+        import typing
+        assert hasattr(IngestionSvc, "__metadata__") or hasattr(typing.get_args(IngestionSvc), "__len__")
+
+
+class TestGetStatsBombServiceProvider:
+    def test_get_statsbomb_service_returns_statsbomb_service(self):
+        from app.core.dependencies import get_statsbomb_service
+        from app.services.statsbomb_service import StatsBombService
+
+        svc = get_statsbomb_service()
+        assert isinstance(svc, StatsBombService)
+
+    def test_statsbomb_svc_alias_is_annotated(self):
+        from app.core.dependencies import StatsBombSvc
+        import typing
+        assert hasattr(StatsBombSvc, "__metadata__") or hasattr(typing.get_args(StatsBombSvc), "__len__")
+
+
+class TestGetDataExplorerServiceProvider:
+    def test_get_data_explorer_service_returns_data_explorer_service(self):
+        from app.core.dependencies import get_data_explorer_service
+        from app.services.data_explorer_service import DataExplorerService
+
+        svc = get_data_explorer_service()
+        assert isinstance(svc, DataExplorerService)
+
+    def test_explorer_svc_alias_is_annotated(self):
+        from app.core.dependencies import ExplorerSvc
+        import typing
+        assert hasattr(ExplorerSvc, "__metadata__") or hasattr(typing.get_args(ExplorerSvc), "__len__")
+
+
+class TestIngestionServiceAcceptsStatsBombParam:
+    def test_init_with_statsbomb_uses_provided_instance(self):
+        from app.services.ingestion_service import IngestionService
+        from app.services.statsbomb_service import StatsBombService
+
+        mock_sb = MagicMock(spec=StatsBombService)
+        svc = IngestionService(statsbomb=mock_sb)
+        assert svc.statsbomb is mock_sb
+
+    def test_init_without_statsbomb_creates_default(self):
+        from app.services.ingestion_service import IngestionService
+        from app.services.statsbomb_service import StatsBombService
+
+        svc = IngestionService()
+        assert isinstance(svc.statsbomb, StatsBombService)

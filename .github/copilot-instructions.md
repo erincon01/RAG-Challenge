@@ -1,100 +1,81 @@
-# RAG-Challenge — Project Guidelines
+---
+applyTo: '**'
+---
 
-## Project Overview
+# RAG-Challenge — Instrucciones para GitHub Copilot
 
-Football/soccer event data RAG (Retrieval-Augmented Generation) system using StatsBomb open data.
-Queries are answered via semantic similarity search over embeddings stored in PostgreSQL (pgvector) or Azure SQL Server.
+## Proyecto
 
-Tech stack: **Python 3.11+**, **FastAPI**, **React TypeScript + Tailwind**, **PostgreSQL + pgvector**, **Azure SQL Server**, **Azure OpenAI**, **Docker Compose** (local dev).
+RAG-Challenge es un sistema de **Retrieval Augmented Generation** (RAG) para datos de fútbol de StatsBomb.
+Permite ingestar datos de competiciones/partidos, generar embeddings, y responder preguntas
+en lenguaje natural usando búsqueda vectorial + LLM.
 
-## Code Architecture
+## Stack tecnológico
 
-- `backend/` — FastAPI backend (Python 3.11+)
-  - `backend/app/api/v1/` — HTTP endpoints, one file per domain (chat, matches, events, embeddings, ingestion…)
-  - `backend/app/services/` — business logic; stateless; injected via FastAPI `Depends()`
-  - `backend/app/repositories/` — data access; `BaseRepository` ABC + PostgreSQL/SQL Server implementations
-  - `backend/app/domain/` — entities, exceptions, value objects (pure Python, no frameworks)
-  - `backend/app/adapters/` — external service adapters (Azure OpenAI client)
-  - `backend/app/core/` — config (`get_settings()`), dependency wiring, startup
-- `frontend/` — React TypeScript + Tailwind frontend
-- `config/` — shared Pydantic Settings (loaded by backend and scripts)
-- `postgres/` — PostgreSQL DDL, embedding setup, queries
-- `sqlserver/` — Azure SQL DDL and T-SQL scripts
-- `backend/tests/` — pytest test suite (`unit/`, `api/`, `integration/`)
+- **Backend:** FastAPI (Python 3.11+), uvicorn
+- **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS
+- **Bases de datos:** PostgreSQL (pgvector) y SQL Server (dual-repo pattern)
+- **IA:** OpenAI API (embeddings + chat completion)
+- **Infra:** Docker Compose, DevContainers, GitHub Actions CI/CD
+- **Tests:** pytest + pytest-cov (cobertura mínima 80%)
 
-See [docs/spec-kit-adoption-plan.md](../docs/spec-kit-adoption-plan.md) for the SDD adoption plan and [specs/README.md](../specs/README.md) for the feature workflow.
+## Arquitectura por capas
 
-## TDD — Test-Driven Development (required)
+```
+API (FastAPI routers)  →  Services  →  Repositories  →  Domain
+     ↓ Depends()           ↓                ↓              ↓
+  Request/Response    Business logic    DB access     Entities/Exceptions
+```
 
-**Write the test before the implementation.** No new function or module is merged without a corresponding test.
+### Reglas de arquitectura
 
-- Test runner: `pytest` (with `pytest-asyncio` for async endpoints)
-- Test location: `backend/tests/` — `unit/`, `api/`, `integration/`
-- Run tests: `cd backend && pytest tests/ -v`
-- Run with coverage: `cd backend && pytest tests/ --cov=app --cov-report=term-missing`
-- Minimum coverage target: **80%** on `backend/app/`
-- Mock via FastAPI dependency override (`app.dependency_overrides`) + `unittest.mock.patch` for adapters
+1. **Route handlers** (`app/api/v1/`) NO deben contener lógica de negocio, acceso directo a BD,
+   ni importar adapters. Solo orquestan: validar entrada → llamar servicio → devolver respuesta.
+2. **Services** (`app/services/`) contienen la lógica de negocio. Solo ellos pueden llamar a adapters.
+3. **Repositories** (`app/repositories/`) encapsulan todo acceso a BD. Extienden `BaseRepository` (ABC).
+4. **Domain** (`app/domain/`) contiene entidades (`entities.py`) y excepciones (`exceptions.py`).
+   No importa nada de FastAPI, DB drivers, ni HTTP.
+5. **Adapters** (`app/adapters/`) encapsulan clientes externos (OpenAI). Solo llamados desde services.
 
-See [.github/instructions/tdd.instructions.md](.github/instructions/tdd.instructions.md) for detailed TDD patterns.
+### Inyección de dependencias
 
-## Git Workflow
+- TODA dependencia externa se inyecta vía `FastAPI Depends()`.
+- Prohibido instanciar servicios o repos a nivel de módulo (`_service = XxxService()`).
+- Los providers viven en `app/core/dependencies.py`.
+- En tests, usar `app.dependency_overrides[provider] = lambda: mock` + `app.dependency_overrides.clear()` en teardown.
 
-- **Branch naming**: `feature/NNN-short-description`, `fix/NNN-description`, `chore/description`
-- **Commits**: Conventional Commits — `feat:`, `fix:`, `test:`, `chore:`, `docs:`, `refactor:`
-- **PRs**: All changes via Pull Request; no direct push to `main`
-- **PR requirements**: tests pass, no `.env`, no hardcoded credentials, no `*.pyc`
+### Configuración
 
-See [.github/instructions/git-workflow.instructions.md](.github/instructions/git-workflow.instructions.md) for full norms.
+- TODA configuración vía `config/settings.py` (Pydantic `BaseSettings`).
+- Variables de entorno documentadas en `.env.example`.
+- Prohibido `os.getenv()` fuera de `settings.py`.
 
-## CHANGELOG.md (mandatory)
+## Convenciones de código
 
-`CHANGELOG.md` lives at the project root and **must be updated in every PR**. It is the authoritative record of what changed and why.
+- **Python:** seguir ruff, mypy en modo estricto.
+- **Imports:** ordenados por ruff (`isort`).
+- **Docstrings:** solo en funciones/clases públicas, formato Google-style.
+- **SQL:** NUNCA f-strings ni `str.format()` con datos de usuario. Siempre parámetros bind (`%s` / `?`).
+- **Frontend TypeScript:** strict mode, no `any` salvo justificación.
 
-- Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — sections `Added`, `Changed`, `Fixed`, `Removed`
-- Each PR adds an entry under `## [Unreleased]`
-- On merge to `main`, `[Unreleased]` is promoted to a dated version entry
-- Never merge a PR that modifies code without a CHANGELOG entry
-- Docs-only or chore PRs may skip CHANGELOG but must justify it in the PR description
+## Workflow con OpenSpec
 
-## conversation_log.md (mandatory)
+Este proyecto usa [OpenSpec](https://github.com/Fission-AI/OpenSpec) para gobernanza spec-driven.
 
-`docs/conversation_log.md` is the human-readable log of this project's AI-assisted journey. It exists to document the evolution of the project as a brownfield adoption case study.
+- Antes de implementar una feature, ejecutar `/opsx:propose <nombre>`.
+- Implementar con `/opsx:apply`.
+- Verificar con `/opsx:verify`.
+- Archivar con `/opsx:archive`.
+- Las specs del sistema viven en `openspec/specs/`.
+- Los cambios activos viven en `openspec/changes/`.
 
-**Rules — non-negotiable:**
+## Instrucciones específicas
 
-- Every significant user request and the resulting AI decision must be logged
-- Each entry follows this structure:
-  ```
-  ### [YYYY-MM-DD] Session N — <short title>
-  **User asked:** <1–3 sentence summary of the request>
-  **Decision:** <what was decided and why>
-  **Artifacts created/modified:** <list of files>
-  ```
-- The log is append-only — never edit or delete past entries
-- Add new entries at the bottom of the file
-- Log AI decisions that involved trade-offs or alternatives considered
+Consulta estos archivos para reglas detalladas:
+- `.github/instructions/git-workflow.instructions.md` — Ramas, commits, CHANGELOG
+- `.github/instructions/tdd.instructions.md` — Tests, cobertura, naming
 
-## Security
+## Conversation log
 
-- **Never** hardcode credentials, API keys, or connection strings in source code
-- All secrets via Pydantic Settings (`config/` module) loaded from `.env` (excluded from git)
-- Route handlers MUST use `get_settings()` via `Depends()` — never call `os.getenv()` directly in endpoints
-- `.env.example` is the reference for required variables — keep it updated
-- Never commit `.env`, DB files (`*.db`), or generated embeddings
-
-## CI/CD
-
-- GitHub Actions workflows live in `.github/workflows/`
-- Every PR triggers: lint (`ruff`), type check (`mypy`), tests (`pytest`)
-- Deployment to Azure only from `main` branch after all checks pass
-
-## Python Standards
-
-- Formatter: `ruff format` (applied to `backend/app/`)
-- Linter: `ruff check`
-- Type hints required on all new public functions and methods
-- Repository pattern: all DB access through `BaseRepository` ABC implementations; inject via `Depends()`
-- Business logic in `services/`; never in `api/` route handlers or `repositories/`
-- Config: use `Depends(get_settings)` in endpoints — never import settings or call `os.getenv()` directly
-
-See [.github/instructions/python-modules.instructions.md](.github/instructions/python-modules.instructions.md) for module conventions.
+Toda sesión significativa con un agente AI DEBE registrarse en `docs/conversation_log.md`
+con fecha, objetivo, decisiones tomadas, y archivos modificados.

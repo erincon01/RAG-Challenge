@@ -6,11 +6,10 @@ from fastapi import APIRouter, BackgroundTasks, HTTPException, Query, status
 from pydantic import BaseModel, Field, field_validator
 
 from app.core.capabilities import normalize_source
-from app.services.ingestion_service import IngestionService
+from app.core.dependencies import IngestionSvc
 from app.services.job_service import JobService
 
 router = APIRouter()
-_service = IngestionService()
 
 
 def _normalize_datasets(values: list[str]) -> list[str]:
@@ -42,7 +41,9 @@ class ClearJobsResponse(BaseModel):
 
 
 class DownloadRequest(BaseModel):
-    datasets: list[str] = Field(default_factory=lambda: ["matches", "lineups", "events"])
+    datasets: list[str] = Field(
+        default_factory=lambda: ["matches", "lineups", "events"]
+    )
     match_ids: list[int] = Field(default_factory=list)
     competition_id: int | None = None
     season_id: int | None = None
@@ -55,7 +56,9 @@ class DownloadRequest(BaseModel):
 
 
 class DownloadCleanupRequest(BaseModel):
-    datasets: list[str] = Field(default_factory=lambda: ["matches", "lineups", "events"])
+    datasets: list[str] = Field(
+        default_factory=lambda: ["matches", "lineups", "events"]
+    )
     match_ids: list[int] = Field(default_factory=list)
     competition_id: int | None = None
     season_id: int | None = None
@@ -128,8 +131,11 @@ def _create_background_job(
 async def start_download_job(
     request: DownloadRequest,
     background_tasks: BackgroundTasks,
+    service: IngestionSvc,
 ) -> JobCreateResponse:
-    if not request.match_ids and (request.competition_id is None or request.season_id is None):
+    if not request.match_ids and (
+        request.competition_id is None or request.season_id is None
+    ):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Provide match_ids or both competition_id and season_id",
@@ -141,7 +147,7 @@ async def start_download_job(
         job_type="download",
         payload=payload,
         source=None,
-        runner=_service.run_download_job,
+        runner=service.run_download_job,
     )
 
 
@@ -153,9 +159,10 @@ async def start_download_job(
 )
 async def cleanup_downloaded_files(
     request: DownloadCleanupRequest,
+    service: IngestionSvc,
 ) -> DownloadCleanupResponse:
     try:
-        result = _service.clear_downloaded_files(
+        result = service.clear_downloaded_files(
             datasets=request.datasets,
             match_ids=request.match_ids,
             competition_id=request.competition_id,
@@ -179,6 +186,7 @@ async def cleanup_downloaded_files(
 async def start_load_job(
     request: LoadRequest,
     background_tasks: BackgroundTasks,
+    service: IngestionSvc,
 ) -> JobCreateResponse:
     payload = request.model_dump()
     return _create_background_job(
@@ -186,7 +194,7 @@ async def start_load_job(
         job_type="load",
         payload=payload,
         source=request.source,
-        runner=_service.run_load_job,
+        runner=service.run_load_job,
     )
 
 
@@ -199,6 +207,7 @@ async def start_load_job(
 async def start_aggregate_job(
     request: AggregateRequest,
     background_tasks: BackgroundTasks,
+    service: IngestionSvc,
 ) -> JobCreateResponse:
     payload = request.model_dump()
     return _create_background_job(
@@ -206,7 +215,7 @@ async def start_aggregate_job(
         job_type="aggregate",
         payload=payload,
         source=request.source,
-        runner=_service.run_aggregate_job,
+        runner=service.run_aggregate_job,
     )
 
 
@@ -219,6 +228,7 @@ async def start_aggregate_job(
 async def start_rebuild_embeddings_job(
     request: EmbeddingsRebuildRequest,
     background_tasks: BackgroundTasks,
+    service: IngestionSvc,
 ) -> JobCreateResponse:
     payload = request.model_dump()
     return _create_background_job(
@@ -226,7 +236,7 @@ async def start_rebuild_embeddings_job(
         job_type="embeddings_rebuild",
         payload=payload,
         source=request.source,
-        runner=_service.run_rebuild_embeddings_job,
+        runner=service.run_rebuild_embeddings_job,
     )
 
 
@@ -262,5 +272,7 @@ async def clear_jobs() -> ClearJobsResponse:
 async def get_job(job_id: str) -> dict[str, Any]:
     job = JobService.get(job_id)
     if not job:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Job not found"
+        )
     return job

@@ -18,7 +18,9 @@ class StatsBombService:
         self.owner = self.settings.repository.repo_owner
         self.repo = self.settings.repository.repo_name
         self.local_folder = Path(self.settings.repository.local_folder)
-        self.base_raw = f"https://raw.githubusercontent.com/{self.owner}/{self.repo}/master/data"
+        self.base_raw = (
+            f"https://raw.githubusercontent.com/{self.owner}/{self.repo}/master/data"
+        )
         self.timeout = 60
 
     def list_competitions(self) -> list[dict[str, Any]]:
@@ -51,7 +53,9 @@ class StatsBombService:
             return sorted({int(m["match_id"]) for m in matches if "match_id" in m})
         return []
 
-    def download_match_file(self, dataset: str, match_id: int, overwrite: bool = False) -> Path:
+    def download_match_file(
+        self, dataset: str, match_id: int, overwrite: bool = False
+    ) -> Path:
         """Download one match file for dataset (events or lineups)."""
         target = self.local_folder / dataset / f"{match_id}.json"
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -71,7 +75,9 @@ class StatsBombService:
         overwrite: bool = False,
     ) -> Path:
         """Download one matches catalog file for competition/season."""
-        target = self.local_folder / "matches" / str(competition_id) / f"{season_id}.json"
+        target = (
+            self.local_folder / "matches" / str(competition_id) / f"{season_id}.json"
+        )
         target.parent.mkdir(parents=True, exist_ok=True)
         if target.exists() and not overwrite:
             return target

@@ -1,0 +1,31 @@
+schema: spec-driven
+
+context: |
+  Tech stack: Python 3.11+, FastAPI, React 18, TypeScript, Vite, Tailwind CSS
+  Database: PostgreSQL (pgvector) + SQL Server (dual-repo pattern)
+  AI: OpenAI API for embeddings and chat completion
+  Architecture: Layered (API → Services → Repositories → Domain)
+  DI: FastAPI Depends() for all service injection
+  Testing: pytest + pytest-cov, 80% minimum coverage
+  Infrastructure: Docker Compose, DevContainers, GitHub Actions CI/CD
+  This is a brownfield project — existing code must be respected.
+  All changes should be backwards-compatible unless explicitly stated.
+  Log every AI-assisted session in docs/conversation_log.md.
+
+rules:
+  proposal:
+    - Include backward compatibility analysis
+    - List affected layers (API, Service, Repository, Domain)
+    - Identify test impact
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Reference existing ADRs when relevant
+  design:
+    - Include file change list with (new) or (modified) tags
+    - Reference the Repository Pattern and DI conventions
+    - Include rollback strategy
+  tasks:
+    - Group by layer (API, Service, Repository, Test)
+    - Each task should be completable in less than 1 hour
+    - Include a test task for each implementation task

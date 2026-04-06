@@ -94,7 +94,9 @@ class EventRepository(BaseRepository):
     """Repository for Event entities."""
 
     @abstractmethod
-    def get_events_by_match(self, match_id: int, limit: int | None = None) -> list[EventDetail]:
+    def get_events_by_match(
+        self, match_id: int, limit: int | None = None
+    ) -> list[EventDetail]:
         """
         Get all events for a match.
 
@@ -108,7 +110,9 @@ class EventRepository(BaseRepository):
         pass
 
     @abstractmethod
-    def search_by_embedding(self, search_request: SearchRequest, query_embedding: list[float]) -> list[SearchResult]:
+    def search_by_embedding(
+        self, search_request: SearchRequest, query_embedding: list[float]
+    ) -> list[SearchResult]:
         """
         Search events using vector similarity.
 

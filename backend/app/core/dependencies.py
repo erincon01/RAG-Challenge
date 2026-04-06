@@ -8,6 +8,9 @@ from app.core.capabilities import normalize_source
 from app.repositories.base import EventRepository, MatchRepository
 from app.repositories.postgres import PostgresRepositoryFactory
 from app.repositories.sqlserver import SQLServerRepositoryFactory
+from app.services.statsbomb_service import StatsBombService
+from app.services.ingestion_service import IngestionService
+from app.services.data_explorer_service import DataExplorerService
 
 
 def get_repository_factory(source: str = "postgres"):
@@ -38,3 +41,25 @@ def get_event_repository(
 
 MatchRepo = Annotated[MatchRepository, Depends(get_match_repository)]
 EventRepo = Annotated[EventRepository, Depends(get_event_repository)]
+
+
+def get_statsbomb_service() -> StatsBombService:
+    """Dependency provider for StatsBombService."""
+    return StatsBombService()
+
+
+def get_ingestion_service(
+    statsbomb: StatsBombService = Depends(get_statsbomb_service),
+) -> IngestionService:
+    """Dependency provider for IngestionService."""
+    return IngestionService(statsbomb=statsbomb)
+
+
+def get_data_explorer_service() -> DataExplorerService:
+    """Dependency provider for DataExplorerService."""
+    return DataExplorerService()
+
+
+StatsBombSvc = Annotated[StatsBombService, Depends(get_statsbomb_service)]
+IngestionSvc = Annotated[IngestionService, Depends(get_ingestion_service)]
+ExplorerSvc = Annotated[DataExplorerService, Depends(get_data_explorer_service)]

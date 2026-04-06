@@ -49,6 +49,25 @@
 | [PLAN_MIGRACION_FRONTEND_WEB.md](./PLAN_MIGRACION_FRONTEND_WEB.md) | Frontend migration plan (completed) |
 | [docs/adr/](./docs/adr/) | Architecture Decision Records |
 
+### Branch governance
+
+This project uses [OpenSpec](https://github.com/Fission-AI/OpenSpec) for spec-driven development.
+The governance workflow (`/opsx:propose` → `/opsx:apply` → `/opsx:archive`) lives in `openspec/`.
+
+| Branch | Status | Purpose |
+|--------|--------|---------|
+| `main` | Active | Production — only admins merge via PR from `develop` |
+| `develop` | Active | Integration — all feature PRs target this branch |
+| `feature/openspec-governance` | Active | OpenSpec adoption (to be merged into `develop`) |
+| `feature/spec-kit-governance` | Obsolete | Initial governance attempt using spec-kit. Superseded by OpenSpec — kept for historical reference |
+| `feature/spec-kit-streamlit-app` | Obsolete | Governance artifacts for the old Streamlit architecture. Superseded by FastAPI migration — kept for historical reference |
+| `feature/010-speckit-audit` | Obsolete | spec-kit compliance audit. Superseded by OpenSpec adoption — kept for historical reference |
+
+> **Why the pivot?** We initially adopted [spec-kit](https://github.com/github/spec-kit) (sessions 1-12
+> in `docs/conversation_log.md`), but found OpenSpec to be a better fit for our multi-tool workflow
+> (GitHub Copilot + Claude Code). The spec-kit branches are preserved so the team can trace the
+> decision history. See `docs/PLAN_OPENSPEC_ADOPTION.md` for the full rationale.
+
 ---
 
 ## 📐 Architecture

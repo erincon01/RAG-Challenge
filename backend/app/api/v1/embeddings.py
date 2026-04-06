@@ -5,10 +5,9 @@ from typing import Any
 from fastapi import APIRouter, HTTPException, Query, status
 
 from app.core.capabilities import normalize_source
-from app.services.ingestion_service import IngestionService
+from app.core.dependencies import IngestionSvc
 
 router = APIRouter()
-_service = IngestionService()
 
 
 @router.get(
@@ -18,10 +17,13 @@ _service = IngestionService()
     summary="Get embeddings coverage status",
 )
 async def get_embeddings_status(
-    source: str = Query(default="postgres", description="Database source: postgres or sqlserver"),
+    service: IngestionSvc,
+    source: str = Query(
+        default="postgres", description="Database source: postgres or sqlserver"
+    ),
 ) -> dict[str, Any]:
     try:
-        return _service.get_embeddings_status(normalize_source(source))
+        return service.get_embeddings_status(normalize_source(source))
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
