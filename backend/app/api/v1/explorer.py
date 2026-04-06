@@ -38,13 +38,15 @@ class TableInfoResponse(BaseModel):
     summary="List teams",
 )
 async def list_teams(
+    service: ExplorerSvc,
     source: str = Query(default="postgres", description="Database source"),
     match_id: int | None = Query(default=None, description="Optional match filter"),
     limit: int = Query(default=500, ge=1, le=5000),
-    service: ExplorerSvc = None,
 ) -> list[TeamExplorerResponse]:
     try:
-        rows = service.get_teams(source=normalize_source(source), match_id=match_id, limit=limit)
+        rows = service.get_teams(
+            source=normalize_source(source), match_id=match_id, limit=limit
+        )
         return [TeamExplorerResponse(**row) for row in rows]
     except Exception as e:
         raise HTTPException(
@@ -60,13 +62,15 @@ async def list_teams(
     summary="List players",
 )
 async def list_players(
+    service: ExplorerSvc,
     source: str = Query(default="postgres", description="Database source"),
     match_id: int | None = Query(default=None, description="Optional match filter"),
     limit: int = Query(default=500, ge=1, le=5000),
-    service: ExplorerSvc = None,
 ) -> list[PlayerExplorerResponse]:
     try:
-        rows = service.get_players(source=normalize_source(source), match_id=match_id, limit=limit)
+        rows = service.get_players(
+            source=normalize_source(source), match_id=match_id, limit=limit
+        )
         return [PlayerExplorerResponse(**row) for row in rows]
     except Exception as e:
         raise HTTPException(
@@ -82,8 +86,8 @@ async def list_players(
     summary="List table metadata",
 )
 async def list_tables_info(
+    service: ExplorerSvc,
     source: str = Query(default="postgres", description="Database source"),
-    service: ExplorerSvc = None,
 ) -> list[TableInfoResponse]:
     try:
         rows = service.get_tables_info(source=normalize_source(source))

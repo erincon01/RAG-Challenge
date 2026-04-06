@@ -25,7 +25,9 @@ async def list_events(
         default="postgres",
         description="Database source: postgres or sqlserver",
     ),
-    limit: int | None = Query(default=None, ge=1, le=1000, description="Maximum results"),
+    limit: int | None = Query(
+        default=None, ge=1, le=1000, description="Maximum results"
+    ),
     repo: EventRepository = Depends(get_event_repository),
 ) -> list[EventDetailResponse]:
     """

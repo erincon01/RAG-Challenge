@@ -17,8 +17,10 @@ router = APIRouter()
     summary="Get embeddings coverage status",
 )
 async def get_embeddings_status(
-    source: str = Query(default="postgres", description="Database source: postgres or sqlserver"),
-    service: IngestionSvc = None,
+    service: IngestionSvc,
+    source: str = Query(
+        default="postgres", description="Database source: postgres or sqlserver"
+    ),
 ) -> dict[str, Any]:
     try:
         return service.get_embeddings_status(normalize_source(source))

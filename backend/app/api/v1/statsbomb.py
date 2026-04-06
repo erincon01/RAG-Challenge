@@ -35,7 +35,9 @@ class StatsBombMatchResponse(BaseModel):
     status_code=status.HTTP_200_OK,
     summary="List StatsBomb competitions",
 )
-async def list_statsbomb_competitions(service: StatsBombSvc = None) -> list[StatsBombCompetitionResponse]:
+async def list_statsbomb_competitions(
+    service: StatsBombSvc,
+) -> list[StatsBombCompetitionResponse]:
     """Return competitions catalog from local cache or remote StatsBomb open-data."""
     try:
         raw = service.list_competitions()
@@ -68,13 +70,15 @@ async def list_statsbomb_competitions(service: StatsBombSvc = None) -> list[Stat
     summary="List StatsBomb matches for competition and season",
 )
 async def list_statsbomb_matches(
+    service: StatsBombSvc,
     competition_id: int = Query(..., description="StatsBomb competition_id"),
     season_id: int = Query(..., description="StatsBomb season_id"),
-    service: StatsBombSvc = None,
 ) -> list[StatsBombMatchResponse]:
     """Return match catalog for a competition-season pair."""
     try:
-        matches = service.list_matches(competition_id=competition_id, season_id=season_id)
+        matches = service.list_matches(
+            competition_id=competition_id, season_id=season_id
+        )
         return [
             StatsBombMatchResponse(
                 match_id=int(m["match_id"]),

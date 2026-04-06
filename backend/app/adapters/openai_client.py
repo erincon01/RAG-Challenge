@@ -38,7 +38,9 @@ class OpenAIAdapter:
                 api_version="2024-06-01",
             )
 
-    def create_embedding(self, text: str, model: str = "text-embedding-3-small") -> list[float]:
+    def create_embedding(
+        self, text: str, model: str = "text-embedding-3-small"
+    ) -> list[float]:
         """
         Generate an embedding vector for the given text with retry logic.
 
@@ -53,11 +55,15 @@ class OpenAIAdapter:
             EmbeddingGenerationError: If embedding generation fails after retries
         """
         return self._call_with_retry(
-            lambda: self.client.embeddings.create(input=text, model=model).data[0].embedding,
+            lambda: (
+                self.client.embeddings.create(input=text, model=model).data[0].embedding
+            ),
             operation="create_embedding",
         )
 
-    def create_embeddings_batch(self, texts: list[str], model: str = "text-embedding-3-small") -> list[list[float]]:
+    def create_embeddings_batch(
+        self, texts: list[str], model: str = "text-embedding-3-small"
+    ) -> list[list[float]]:
         """
         Generate embedding vectors for multiple texts in batches.
 
@@ -80,7 +86,10 @@ class OpenAIAdapter:
             batch = texts[i : i + BATCH_SIZE]
 
             embeddings = self._call_with_retry(
-                lambda b=batch: [item.embedding for item in self.client.embeddings.create(input=b, model=model).data],
+                lambda b=batch: [
+                    item.embedding
+                    for item in self.client.embeddings.create(input=b, model=model).data
+                ],
                 operation=f"create_embeddings_batch[{i}:{i + len(batch)}]",
             )
             all_embeddings.extend(embeddings)
@@ -154,7 +163,9 @@ class OpenAIAdapter:
         ]
 
         try:
-            return self.create_chat_completion(messages=messages, temperature=0.1, max_tokens=500)
+            return self.create_chat_completion(
+                messages=messages, temperature=0.1, max_tokens=500
+            )
         except Exception as e:
             logger.error(f"Failed to translate text: {e}")
             return text
@@ -179,7 +190,9 @@ class OpenAIAdapter:
                 return fn()
             except RateLimitError as e:
                 if attempt == MAX_RETRIES:
-                    logger.error(f"{operation}: rate limit exhausted after {MAX_RETRIES} retries")
+                    logger.error(
+                        f"{operation}: rate limit exhausted after {MAX_RETRIES} retries"
+                    )
                     raise EmbeddingGenerationError(f"Rate limit exceeded: {e}")
                 logger.warning(
                     f"{operation}: rate limited, retrying in {backoff:.1f}s (attempt {attempt}/{MAX_RETRIES})"
@@ -188,9 +201,13 @@ class OpenAIAdapter:
                 backoff = min(backoff * 2, MAX_BACKOFF)
             except APIError as e:
                 if attempt == MAX_RETRIES:
-                    logger.error(f"{operation}: API error after {MAX_RETRIES} retries: {e}")
+                    logger.error(
+                        f"{operation}: API error after {MAX_RETRIES} retries: {e}"
+                    )
                     raise EmbeddingGenerationError(f"API error: {e}")
-                logger.warning(f"{operation}: API error, retrying in {backoff:.1f}s (attempt {attempt}/{MAX_RETRIES})")
+                logger.warning(
+                    f"{operation}: API error, retrying in {backoff:.1f}s (attempt {attempt}/{MAX_RETRIES})"
+                )
                 time.sleep(backoff)
                 backoff = min(backoff * 2, MAX_BACKOFF)
             except Exception as e:

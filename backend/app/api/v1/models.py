@@ -126,8 +126,12 @@ class SearchRequest(BaseModel):
     temperature: float = Field(default=0.1, ge=0, le=2, description="LLM temperature")
     max_input_tokens: int = Field(default=10000, description="Max input tokens")
     max_output_tokens: int = Field(default=5000, description="Max output tokens")
-    include_match_info: bool = Field(default=True, description="Include match information in response")
-    system_message: str | None = Field(default=None, description="Custom system message for LLM")
+    include_match_info: bool = Field(
+        default=True, description="Include match information in response"
+    )
+    system_message: str | None = Field(
+        default=None, description="Custom system message for LLM"
+    )
 
     @field_validator("search_algorithm")
     @classmethod
@@ -142,7 +146,11 @@ class SearchRequest(BaseModel):
     @classmethod
     def validate_model(cls, v: str) -> str:
         """Validate embedding model."""
-        allowed = ["text-embedding-ada-002", "text-embedding-3-small", "text-embedding-3-large"]
+        allowed = [
+            "text-embedding-ada-002",
+            "text-embedding-3-small",
+            "text-embedding-3-large",
+        ]
         if v not in allowed:
             raise ValueError(f"Model must be one of: {', '.join(allowed)}")
         return v

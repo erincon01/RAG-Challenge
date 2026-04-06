@@ -7,7 +7,7 @@ import shutil
 from collections.abc import Iterable
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 import psycopg2
 import pyodbc
@@ -187,7 +187,10 @@ class IngestionService:
     def run_download_job(self, job_id: str, payload: dict[str, Any]) -> None:
         try:
             JobService.update(job_id, status="running", message="Resolving matches")
-            datasets = [d.lower() for d in (payload.get("datasets") or ["matches", "lineups", "events"])]
+            datasets = [
+                d.lower()
+                for d in (payload.get("datasets") or ["matches", "lineups", "events"])
+            ]
             match_ids = payload.get("match_ids") or []
             competition_id = payload.get("competition_id")
             season_id = payload.get("season_id")
@@ -199,39 +202,72 @@ class IngestionService:
                 season_id=season_id,
             )
 
-            total = 1 if "matches" in datasets and competition_id is not None and season_id is not None else 0
-            total += len(resolved_match_ids) * len([d for d in datasets if d in {"lineups", "events"}])
+            total = (
+                1
+                if "matches" in datasets
+                and competition_id is not None
+                and season_id is not None
+                else 0
+            )
+            total += len(resolved_match_ids) * len(
+                [d for d in datasets if d in {"lineups", "events"}]
+            )
             JobService.update(job_id, total=total, message="Downloading datasets")
 
             progress = 0
             files: list[str] = []
-            if "matches" in datasets and competition_id is not None and season_id is not None:
-                file_path = self.statsbomb.download_matches_catalog(competition_id, season_id, overwrite)
+            if (
+                "matches" in datasets
+                and competition_id is not None
+                and season_id is not None
+            ):
+                file_path = self.statsbomb.download_matches_catalog(
+                    competition_id, season_id, overwrite
+                )
                 files.append(str(file_path))
                 progress += 1
-                JobService.update(job_id, progress=progress, message=f"Downloaded {file_path.name}")
+                JobService.update(
+                    job_id, progress=progress, message=f"Downloaded {file_path.name}"
+                )
 
             for match_id in resolved_match_ids:
                 for dataset in [d for d in datasets if d in {"lineups", "events"}]:
-                    file_path = self.statsbomb.download_match_file(dataset, match_id, overwrite)
+                    file_path = self.statsbomb.download_match_file(
+                        dataset, match_id, overwrite
+                    )
                     files.append(str(file_path))
                     progress += 1
-                    JobService.update(job_id, progress=progress, message=f"Downloaded {dataset}/{match_id}.json")
+                    JobService.update(
+                        job_id,
+                        progress=progress,
+                        message=f"Downloaded {dataset}/{match_id}.json",
+                    )
 
-            JobService.complete(job_id, {"match_ids": resolved_match_ids, "downloaded_files": files})
+            JobService.complete(
+                job_id, {"match_ids": resolved_match_ids, "downloaded_files": files}
+            )
         except Exception as e:
             JobService.fail(job_id, str(e))
 
     def run_load_job(self, job_id: str, payload: dict[str, Any]) -> None:
         source = normalize_source(payload.get("source", "postgres"))
-        datasets = [d.lower() for d in (payload.get("datasets") or ["matches", "events"])]
+        datasets = [
+            d.lower() for d in (payload.get("datasets") or ["matches", "events"])
+        ]
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
         try:
-            JobService.update(job_id, status="running", total=len(datasets), message=f"Loading into {source}")
+            JobService.update(
+                job_id,
+                status="running",
+                total=len(datasets),
+                message=f"Loading into {source}",
+            )
             JobService.log(job_id, f"$ connect --source {source}")
             JobService.log(job_id, "$ load --datasets " + ",".join(datasets))
             if match_ids:
-                JobService.log(job_id, "$ filter --match-ids " + ",".join(map(str, match_ids)))
+                JobService.log(
+                    job_id, "$ filter --match-ids " + ",".join(map(str, match_ids))
+                )
 
             result: dict[str, Any] = {}
             progress = 0
@@ -240,17 +276,28 @@ class IngestionService:
                     JobService.log(job_id, "$ execute load_matches")
                     result["matches"] = self._load_matches(conn, source, match_ids)
                     progress += 1
-                    JobService.update(job_id, progress=progress, message="Loaded matches")
+                    JobService.update(
+                        job_id, progress=progress, message="Loaded matches"
+                    )
                 if "events" in datasets:
                     JobService.log(job_id, "$ execute load_events")
                     result["events"] = self._load_events(conn, source, match_ids)
                     progress += 1
-                    JobService.update(job_id, progress=progress, message="Loaded events")
+                    JobService.update(
+                        job_id, progress=progress, message="Loaded events"
+                    )
                 if "lineups" in datasets:
-                    JobService.log(job_id, "$ execute load_lineups (pending implementation)")
-                    result["lineups"] = {"skipped": True, "reason": "lineups load pending"}
+                    JobService.log(
+                        job_id, "$ execute load_lineups (pending implementation)"
+                    )
+                    result["lineups"] = {
+                        "skipped": True,
+                        "reason": "lineups load pending",
+                    }
                     progress += 1
-                    JobService.update(job_id, progress=progress, message="Skipped lineups (pending)")
+                    JobService.update(
+                        job_id, progress=progress, message="Skipped lineups (pending)"
+                    )
             JobService.complete(job_id, result)
         except Exception as e:
             JobService.fail(job_id, str(e))
@@ -259,10 +306,17 @@ class IngestionService:
         source = normalize_source(payload.get("source", "postgres"))
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
         try:
-            JobService.update(job_id, status="running", total=1, message=f"Building aggregations in {source}")
+            JobService.update(
+                job_id,
+                status="running",
+                total=1,
+                message=f"Building aggregations in {source}",
+            )
             JobService.log(job_id, f"$ connect --source {source}")
             if match_ids:
-                JobService.log(job_id, "$ aggregate --match-ids " + ",".join(map(str, match_ids)))
+                JobService.log(
+                    job_id, "$ aggregate --match-ids " + ",".join(map(str, match_ids))
+                )
             else:
                 JobService.log(job_id, "$ aggregate --all-matches")
             with self._get_connection(source) as conn:
@@ -276,31 +330,52 @@ class IngestionService:
         source = normalize_source(payload.get("source", "postgres"))
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
         defaults = {
-            "postgres": ["text-embedding-ada-002", "text-embedding-3-small", "text-embedding-3-large"],
+            "postgres": [
+                "text-embedding-ada-002",
+                "text-embedding-3-small",
+                "text-embedding-3-large",
+            ],
             "sqlserver": ["text-embedding-ada-002", "text-embedding-3-small"],
         }
         models = payload.get("embedding_models") or defaults[source]
         try:
-            JobService.update(job_id, status="running", message=f"Rebuilding embeddings in {source}")
+            JobService.update(
+                job_id, status="running", message=f"Rebuilding embeddings in {source}"
+            )
             JobService.log(job_id, f"$ connect --source {source}")
             JobService.log(job_id, "$ embeddings --models " + ",".join(models))
             if match_ids:
-                JobService.log(job_id, "$ embeddings --match-ids " + ",".join(map(str, match_ids)))
+                JobService.log(
+                    job_id, "$ embeddings --match-ids " + ",".join(map(str, match_ids))
+                )
 
             adapter = OpenAIAdapter()
             with self._get_connection(source) as conn:
                 rows = self._fetch_summary_rows(conn, source, match_ids)
-                JobService.update(job_id, total=len(rows), message=f"Preparing {len(rows)} rows for embeddings")
+                JobService.update(
+                    job_id,
+                    total=len(rows),
+                    message=f"Preparing {len(rows)} rows for embeddings",
+                )
                 updated = 0
                 for idx, (row_id, summary) in enumerate(rows, start=1):
                     if not summary:
                         continue
-                    self._update_embeddings_for_row(conn, source, row_id, summary, models, adapter)
+                    self._update_embeddings_for_row(
+                        conn, source, row_id, summary, models, adapter
+                    )
                     updated += 1
                     if idx % 25 == 0 or idx == len(rows):
-                        JobService.log(job_id, f"$ embeddings progress {idx}/{len(rows)}")
-                    JobService.update(job_id, progress=idx, message=f"Embedded row {idx}/{len(rows)}")
-            JobService.complete(job_id, {"updated_rows": updated, "source": source, "embedding_models": models})
+                        JobService.log(
+                            job_id, f"$ embeddings progress {idx}/{len(rows)}"
+                        )
+                    JobService.update(
+                        job_id, progress=idx, message=f"Embedded row {idx}/{len(rows)}"
+                    )
+            JobService.complete(
+                job_id,
+                {"updated_rows": updated, "source": source, "embedding_models": models},
+            )
         except Exception as e:
             JobService.fail(job_id, str(e))
 
@@ -380,7 +455,9 @@ class IngestionService:
             except Exception:
                 continue
 
-    def _fetch_summary_rows(self, conn, source: str, match_ids: list[int]) -> list[tuple[int, str]]:
+    def _fetch_summary_rows(
+        self, conn, source: str, match_ids: list[int]
+    ) -> list[tuple[int, str]]:
         cur = conn.cursor()
         if source == "postgres":
             if match_ids:
@@ -406,7 +483,9 @@ class IngestionService:
                 match_ids,
             )
         else:
-            cur.execute("SELECT id, summary FROM events_details__15secs_agg WHERE summary IS NOT NULL ORDER BY id")
+            cur.execute(
+                "SELECT id, summary FROM events_details__15secs_agg WHERE summary IS NOT NULL ORDER BY id"
+            )
         return [(int(r[0]), r[1]) for r in cur.fetchall()]
 
     def _load_matches(self, conn, source: str, match_ids: list[int]) -> dict[str, int]:
@@ -428,7 +507,11 @@ class IngestionService:
             at = m.get("away_team") or {}
             st = m.get("stadium") or {}
             rf = m.get("referee") or {}
-            result = f"{m.get('home_score')}-{m.get('away_score')}" if m.get("home_score") is not None else None
+            result = (
+                f"{m.get('home_score')}-{m.get('away_score')}"
+                if m.get("home_score") is not None
+                else None
+            )
 
             vals = [
                 match_id,
@@ -508,7 +591,9 @@ class IngestionService:
                 continue
 
             if source == "postgres":
-                cur.execute("DELETE FROM events_details WHERE match_id = %s", (match_id,))
+                cur.execute(
+                    "DELETE FROM events_details WHERE match_id = %s", (match_id,)
+                )
                 cur.execute("DELETE FROM events WHERE match_id = %s", (match_id,))
                 cur.execute(
                     "INSERT INTO events (match_id, json_) VALUES (%s, %s)",
@@ -522,7 +607,9 @@ class IngestionService:
                     ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                 """
             else:
-                cur.execute("DELETE FROM events_details WHERE match_id = ?", (match_id,))
+                cur.execute(
+                    "DELETE FROM events_details WHERE match_id = ?", (match_id,)
+                )
                 cur.execute("DELETE FROM events WHERE match_id = ?", (match_id,))
                 cur.execute(
                     "INSERT INTO events (match_id, json_) VALUES (?, ?)",
@@ -561,13 +648,19 @@ class IngestionService:
                 cur.execute(details_sql, vals)
                 details_inserted += 1
 
-        return {"events_inserted": events_inserted, "details_inserted": details_inserted}
+        return {
+            "events_inserted": events_inserted,
+            "details_inserted": details_inserted,
+        }
 
     def _build_aggregations(self, conn, source: str, match_ids: list[int]) -> int:
         cur = conn.cursor()
         if source == "postgres":
             if match_ids:
-                cur.execute("DELETE FROM events_details__quarter_minute WHERE match_id = ANY(%s)", (match_ids,))
+                cur.execute(
+                    "DELETE FROM events_details__quarter_minute WHERE match_id = ANY(%s)",
+                    (match_ids,),
+                )
                 cur.execute(
                     """
                     INSERT INTO events_details__quarter_minute (
@@ -599,7 +692,10 @@ class IngestionService:
 
         if match_ids:
             placeholders = ",".join("?" for _ in match_ids)
-            cur.execute(f"DELETE FROM events_details__15secs_agg WHERE match_id IN ({placeholders})", match_ids)
+            cur.execute(
+                f"DELETE FROM events_details__15secs_agg WHERE match_id IN ({placeholders})",
+                match_ids,
+            )
             cur.execute(
                 f"""
                 INSERT INTO events_details__15secs_agg (
@@ -630,7 +726,13 @@ class IngestionService:
         return int(cur.fetchone()[0] or 0)
 
     def _update_embeddings_for_row(
-        self, conn, source: str, row_id: int, summary: str, models: list[str], adapter: OpenAIAdapter
+        self,
+        conn,
+        source: str,
+        row_id: int,
+        summary: str,
+        models: list[str],
+        adapter: OpenAIAdapter,
     ) -> None:
         cur = conn.cursor()
         try:
@@ -647,7 +749,8 @@ class IngestionService:
                     emb = adapter.create_embedding(text=summary, model=model)
                     emb_str = "[" + ",".join(map(str, emb)) + "]"
                     cur.execute(
-                        f"UPDATE events_details__quarter_minute SET {col} = %s::vector WHERE id = %s", (emb_str, row_id)
+                        f"UPDATE events_details__quarter_minute SET {col} = %s::vector WHERE id = %s",
+                        (emb_str, row_id),
                     )
                 cur.execute(
                     "UPDATE events_details__quarter_minute SET embedding_status = 'done', embedding_updated_at = NOW(), embedding_error = NULL WHERE id = %s",

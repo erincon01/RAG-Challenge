@@ -46,7 +46,9 @@ class DataExplorerService:
             if conn:
                 conn.close()
 
-    def get_teams(self, source: str, match_id: int | None = None, limit: int = 500) -> list[dict[str, Any]]:
+    def get_teams(
+        self, source: str, match_id: int | None = None, limit: int = 500
+    ) -> list[dict[str, Any]]:
         src = normalize_source(source)
         with self._get_connection(src) as conn:
             cur = conn.cursor()
@@ -137,7 +139,9 @@ class DataExplorerService:
             )
         return cur.fetchone() is not None
 
-    def get_players(self, source: str, match_id: int | None = None, limit: int = 500) -> list[dict[str, Any]]:
+    def get_players(
+        self, source: str, match_id: int | None = None, limit: int = 500
+    ) -> list[dict[str, Any]]:
         src = normalize_source(source)
         with self._get_connection(src) as conn:
             if not self._table_exists(conn, src, "players"):
