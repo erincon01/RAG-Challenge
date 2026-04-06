@@ -5,24 +5,42 @@ GET /api/v1/capabilities
 GET /api/v1/sources/status
 """
 
-from unittest.mock import patch
+import ast
+import inspect
+from unittest.mock import MagicMock
+
 import pytest
 from fastapi.testclient import TestClient
 
+from app.repositories.base import EventRepository
 from tests.conftest import make_mock_match_repo, make_mock_event_repo, make_mock_openai_adapter
 
 
 @pytest.fixture
 def client():
     from app.main import app
-    from app.core.dependencies import get_match_repository, get_event_repository
+    from app.core.dependencies import (
+        get_match_repository,
+        get_event_repository,
+        get_postgres_event_repository,
+        get_sqlserver_event_repository,
+    )
     from app.adapters.openai_client import get_openai_adapter
+
+    mock_pg_repo = MagicMock(spec=EventRepository)
+    mock_pg_repo.test_connection.return_value = True
+    mock_sql_repo = MagicMock(spec=EventRepository)
+    mock_sql_repo.test_connection.return_value = True
 
     app.dependency_overrides[get_match_repository] = lambda source="postgres": make_mock_match_repo()
     app.dependency_overrides[get_event_repository] = lambda source="postgres": make_mock_event_repo()
+    app.dependency_overrides[get_postgres_event_repository] = lambda: mock_pg_repo
+    app.dependency_overrides[get_sqlserver_event_repository] = lambda: mock_sql_repo
     app.dependency_overrides[get_openai_adapter] = lambda: make_mock_openai_adapter()
 
     with TestClient(app, raise_server_exceptions=False) as c:
+        c._mock_pg_repo = mock_pg_repo  # type: ignore[attr-defined]
+        c._mock_sql_repo = mock_sql_repo  # type: ignore[attr-defined]
         yield c
 
     app.dependency_overrides.clear()
@@ -80,56 +98,54 @@ class TestCapabilitiesEndpoint:
 # ===========================================================================
 
 class TestSourcesStatusEndpoint:
+    def test_sources_status_uses_injected_repos(self, client):
+        """Verify sources/status endpoint uses DI-injected repos (not direct instantiation)."""
+        response = client.get("/api/v1/sources/status")
+        assert response.status_code == 200
+        # The injected mocks should have been called
+        client._mock_pg_repo.test_connection.assert_called_once()
+        client._mock_sql_repo.test_connection.assert_called_once()
+
     def test_returns_200(self, client):
-        with patch("app.api.v1.capabilities.PostgresEventRepository") as pg, \
-             patch("app.api.v1.capabilities.SQLServerEventRepository") as sql:
-            pg.return_value.test_connection.return_value = True
-            sql.return_value.test_connection.return_value = True
-            assert client.get("/api/v1/sources/status").status_code == 200
+        client._mock_pg_repo.test_connection.return_value = True
+        client._mock_sql_repo.test_connection.return_value = True
+        assert client.get("/api/v1/sources/status").status_code == 200
 
     def test_returns_both_sources_by_default(self, client):
-        with patch("app.api.v1.capabilities.PostgresEventRepository") as pg, \
-             patch("app.api.v1.capabilities.SQLServerEventRepository") as sql:
-            pg.return_value.test_connection.return_value = True
-            sql.return_value.test_connection.return_value = True
-            data = client.get("/api/v1/sources/status").json()
+        client._mock_pg_repo.test_connection.return_value = True
+        client._mock_sql_repo.test_connection.return_value = True
+        data = client.get("/api/v1/sources/status").json()
 
         sources = {s["source"] for s in data["sources"]}
         assert "postgres" in sources
         assert "sqlserver" in sources
 
     def test_connected_true_when_db_up(self, client):
-        with patch("app.api.v1.capabilities.PostgresEventRepository") as pg, \
-             patch("app.api.v1.capabilities.SQLServerEventRepository") as sql:
-            pg.return_value.test_connection.return_value = True
-            sql.return_value.test_connection.return_value = True
-            data = client.get("/api/v1/sources/status").json()
+        client._mock_pg_repo.test_connection.return_value = True
+        client._mock_sql_repo.test_connection.return_value = True
+        data = client.get("/api/v1/sources/status").json()
 
         pg_status = next(s for s in data["sources"] if s["source"] == "postgres")
         assert pg_status["connected"] is True
 
     def test_connected_false_when_db_down(self, client):
-        with patch("app.api.v1.capabilities.PostgresEventRepository") as pg, \
-             patch("app.api.v1.capabilities.SQLServerEventRepository") as sql:
-            pg.return_value.test_connection.return_value = False
-            sql.return_value.test_connection.return_value = False
-            data = client.get("/api/v1/sources/status").json()
+        client._mock_pg_repo.test_connection.return_value = False
+        client._mock_sql_repo.test_connection.return_value = False
+        data = client.get("/api/v1/sources/status").json()
 
         for item in data["sources"]:
             assert item["connected"] is False
 
     def test_filter_by_postgres(self, client):
-        with patch("app.api.v1.capabilities.PostgresEventRepository") as pg:
-            pg.return_value.test_connection.return_value = True
-            data = client.get("/api/v1/sources/status?source=postgres").json()
+        client._mock_pg_repo.test_connection.return_value = True
+        data = client.get("/api/v1/sources/status?source=postgres").json()
 
         assert len(data["sources"]) == 1
         assert data["sources"][0]["source"] == "postgres"
 
     def test_filter_by_sqlserver(self, client):
-        with patch("app.api.v1.capabilities.SQLServerEventRepository") as sql:
-            sql.return_value.test_connection.return_value = True
-            data = client.get("/api/v1/sources/status?source=sqlserver").json()
+        client._mock_sql_repo.test_connection.return_value = True
+        data = client.get("/api/v1/sources/status?source=sqlserver").json()
 
         assert len(data["sources"]) == 1
         assert data["sources"][0]["source"] == "sqlserver"
@@ -139,10 +155,23 @@ class TestSourcesStatusEndpoint:
         assert response.status_code in (400, 500)
 
     def test_response_has_timestamp(self, client):
-        with patch("app.api.v1.capabilities.PostgresEventRepository") as pg, \
-             patch("app.api.v1.capabilities.SQLServerEventRepository") as sql:
-            pg.return_value.test_connection.return_value = True
-            sql.return_value.test_connection.return_value = True
-            data = client.get("/api/v1/sources/status").json()
+        client._mock_pg_repo.test_connection.return_value = True
+        client._mock_sql_repo.test_connection.return_value = True
+        data = client.get("/api/v1/sources/status").json()
 
         assert "timestamp" in data
+
+
+class TestNoDirectRepoImportsInCapabilities:
+    def test_no_direct_repo_imports_in_capabilities_handler(self):
+        """Verify capabilities.py does not import concrete repository classes."""
+        import app.api.v1.capabilities as caps_module
+        source = inspect.getsource(caps_module)
+        tree = ast.parse(source)
+        concrete_repos = {"PostgresEventRepository", "SQLServerEventRepository"}
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom):
+                for alias in node.names:
+                    assert alias.name not in concrete_repos, (
+                        f"capabilities.py must not import {alias.name} directly"
+                    )

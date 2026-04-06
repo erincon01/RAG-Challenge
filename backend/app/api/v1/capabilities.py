@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from fastapi import APIRouter, Query, status
+from fastapi import APIRouter, Depends, Query, status
 from pydantic import BaseModel
 
 from app.core.capabilities import (
@@ -10,8 +10,11 @@ from app.core.capabilities import (
     get_source_capabilities,
     normalize_source,
 )
-from app.repositories.postgres import PostgresEventRepository
-from app.repositories.sqlserver import SQLServerEventRepository
+from app.core.dependencies import (
+    get_postgres_event_repository,
+    get_sqlserver_event_repository,
+)
+from app.repositories.base import EventRepository
 
 router = APIRouter()
 
@@ -71,12 +74,19 @@ async def get_capabilities() -> CapabilitiesResponse:
     description="Check connectivity for postgres and sqlserver repositories.",
 )
 async def get_sources_status(
+    postgres_repo: EventRepository = Depends(get_postgres_event_repository),
+    sqlserver_repo: EventRepository = Depends(get_sqlserver_event_repository),
     source: str | None = Query(
         default=None,
         description="Optional source filter: postgres or sqlserver",
     ),
 ) -> SourceStatusResponse:
     """Check repository-level connectivity per source."""
+    repos = {
+        "postgres": postgres_repo,
+        "sqlserver": sqlserver_repo,
+    }
+
     requested_sources: list[str]
     if source:
         requested_sources = [normalize_source(source)]
@@ -87,10 +97,7 @@ async def get_sources_status(
 
     items: list[SourceStatusItem] = []
     for src in requested_sources:
-        if src == "postgres":
-            connected = PostgresEventRepository().test_connection()
-        else:
-            connected = SQLServerEventRepository().test_connection()
+        connected = repos[src].test_connection()
         items.append(SourceStatusItem(source=src, connected=connected))
 
     return SourceStatusResponse(timestamp=datetime.utcnow(), sources=items)
