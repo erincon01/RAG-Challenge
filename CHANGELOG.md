@@ -8,6 +8,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+- Rename ~50 test functions across 15 test files to follow `test_<method>_<scenario>_<expected>` naming convention
+
 ### Added
 - `frontend/webapp/.env.example` with `VITE_API_BASE_URL` and `VITE_BACKEND_ORIGIN`
 - `.pre-commit-config.yaml` with ruff lint + format hooks for backend

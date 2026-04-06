@@ -63,7 +63,7 @@ def make_request(**kwargs) -> SearchRequest:
 # ===========================================================================
 
 class TestSearchAndChatHappyPath:
-    def test_returns_chat_response(self, service):
+    def test_search_and_chat_valid_request_returns_chat_response(self, service):
         request = make_request()
         result = service.search_and_chat(request)
         assert isinstance(result, ChatResponse)
@@ -115,7 +115,7 @@ class TestSearchAndChatHappyPath:
         mock_match_repo.get_by_id.assert_not_called()
         assert response.match_info is None
 
-    def test_answer_generated(self, service, mock_openai_adapter):
+    def test_search_and_chat_mocked_llm_returns_expected_answer(self, service, mock_openai_adapter):
         mock_openai_adapter.create_chat_completion.return_value = "Spain won 2-1."
         request = make_request()
         response = service.search_and_chat(request)

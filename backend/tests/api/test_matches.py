@@ -42,15 +42,15 @@ def client(mock_match_repo):
 # ===========================================================================
 
 class TestListCompetitions:
-    def test_returns_200(self, client):
+    def test_list_competitions_default_returns_200(self, client):
         response = client.get("/api/v1/competitions")
         assert response.status_code == 200
 
-    def test_returns_list(self, client):
+    def test_list_competitions_default_returns_list(self, client):
         data = client.get("/api/v1/competitions").json()
         assert isinstance(data, list)
 
-    def test_competition_fields(self, client, mock_match_repo):
+    def test_list_competitions_valid_data_contains_required_fields(self, client, mock_match_repo):
         mock_match_repo.get_competitions.return_value = [
             make_competition(1, "Europe", "UEFA Euro"),
             make_competition(11, "Spain", "La Liga"),
@@ -77,7 +77,7 @@ class TestListCompetitions:
 # ===========================================================================
 
 class TestListMatches:
-    def test_returns_200(self, client):
+    def test_list_matches_default_returns_200(self, client):
         response = client.get("/api/v1/matches")
         assert response.status_code == 200
 
@@ -124,17 +124,17 @@ class TestListMatches:
         response = client.get("/api/v1/matches?limit=0")
         assert response.status_code == 422
 
-    def test_empty_result(self, client, mock_match_repo):
+    def test_list_matches_no_matches_returns_empty_list(self, client, mock_match_repo):
         mock_match_repo.get_all.return_value = []
         data = client.get("/api/v1/matches").json()
         assert data == []
 
-    def test_db_error_returns_500(self, client, mock_match_repo):
+    def test_list_matches_db_error_returns_500(self, client, mock_match_repo):
         mock_match_repo.get_all.side_effect = Exception("Connection error")
         response = client.get("/api/v1/matches")
         assert response.status_code == 500
 
-    def test_source_param_accepted(self, client):
+    def test_list_matches_sqlserver_source_accepted(self, client):
         response = client.get("/api/v1/matches?source=sqlserver")
         assert response.status_code == 200
 

@@ -53,14 +53,14 @@ def _mock_response(data, status_code=200):
 # ===========================================================================
 
 class TestListCompetitions:
-    def test_returns_competition_list(self, service):
+    def test_list_competitions_valid_response_returns_list(self, service):
         with patch("requests.get", return_value=_mock_response(COMPETITIONS_DATA)):
             result = service.list_competitions()
 
         assert len(result) == 2
         assert result[0]["competition_id"] == 55
 
-    def test_calls_correct_url(self, service):
+    def test_list_competitions_request_calls_correct_url(self, service):
         with patch("requests.get", return_value=_mock_response([])) as mock_get:
             service.list_competitions()
 
@@ -68,7 +68,7 @@ class TestListCompetitions:
         assert "competitions.json" in url
         assert "raw.githubusercontent.com" in url
 
-    def test_raises_on_http_error(self, service):
+    def test_list_competitions_http_error_raises_exception(self, service):
         with patch("requests.get", return_value=_mock_response({}, 500)):
             with pytest.raises(requests.HTTPError):
                 service.list_competitions()
@@ -79,25 +79,25 @@ class TestListCompetitions:
 # ===========================================================================
 
 class TestListMatches:
-    def test_returns_match_list(self, service):
+    def test_list_matches_valid_response_returns_list(self, service):
         with patch("requests.get", return_value=_mock_response(MATCHES_DATA)):
             result = service.list_matches(55, 282)
 
         assert len(result) == 2
         assert result[0]["match_id"] == 3943043
 
-    def test_returns_empty_list_on_404(self, service):
+    def test_list_matches_not_found_returns_empty_list(self, service):
         with patch("requests.get", return_value=_mock_response({}, 404)):
             result = service.list_matches(55, 999)
 
         assert result == []
 
-    def test_raises_on_500(self, service):
+    def test_list_matches_server_error_raises_exception(self, service):
         with patch("requests.get", return_value=_mock_response({}, 500)):
             with pytest.raises(requests.HTTPError):
                 service.list_matches(55, 282)
 
-    def test_calls_correct_url(self, service):
+    def test_list_matches_request_calls_correct_url(self, service):
         with patch("requests.get", return_value=_mock_response([])) as mock_get:
             service.list_matches(55, 282)
 
@@ -179,7 +179,7 @@ class TestDownloadMatchFile:
 
         assert result.parent.exists()
 
-    def test_raises_on_http_error(self, service, tmp_path):
+    def test_download_match_file_http_error_raises_exception(self, service, tmp_path):
         service.local_folder = tmp_path
         with patch("requests.get", return_value=_mock_response({}, 404)):
             with pytest.raises(requests.HTTPError):
@@ -203,7 +203,7 @@ class TestDownloadMatchesCatalog:
         mock_get.assert_not_called()
         assert result == target
 
-    def test_downloads_catalog(self, service, tmp_path):
+    def test_download_matches_catalog_overwrite_saves_file(self, service, tmp_path):
         service.local_folder = tmp_path
         content = json.dumps(MATCHES_DATA)
         resp = _mock_response(MATCHES_DATA)

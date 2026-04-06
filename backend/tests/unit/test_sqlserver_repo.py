@@ -101,13 +101,13 @@ class TestSqlServerRowToMatch:
         assert match.home_score == 2
         assert match.away_score == 1
 
-    def test_competition_populated(self):
+    def test_row_to_match_competition_populated(self):
         match = self.repo._row_to_match(_match_row())
         assert isinstance(match.competition, Competition)
         assert match.competition.competition_id == 55
         assert match.competition.name == "UEFA Euro"
 
-    def test_season_populated(self):
+    def test_row_to_match_season_populated(self):
         match = self.repo._row_to_match(_match_row())
         assert isinstance(match.season, Season)
         assert match.season.name == "2024"
@@ -169,7 +169,7 @@ class TestSqlServerRowToEvent:
         event = self.repo._row_to_event(_event_row())
         assert event.json_data == '{"events": []}'
 
-    def test_event_summary(self):
+    def test_row_to_event_summary_populated(self):
         event = self.repo._row_to_event(_event_row())
         assert event.summary == "Spain controls possession"
 
@@ -283,7 +283,7 @@ class TestSqlServerMatchRepositoryQueries:
         assert len(results) == 1
 
     @patch("app.repositories.sqlserver.pyodbc.connect")
-    def test_get_competitions(self, mock_connect):
+    def test_get_competitions_valid_rows_returns_entities(self, mock_connect):
         comp_row = _make_row(
             competition_id=55,
             competition_country="Europe",

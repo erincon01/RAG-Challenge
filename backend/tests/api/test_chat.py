@@ -60,21 +60,21 @@ def client(mock_match_repo, mock_event_repo, mock_openai_adapter):
 # ===========================================================================
 
 class TestChatSearchHappyPath:
-    def test_returns_200(self, client):
+    def test_search_valid_payload_returns_200(self, client):
         response = client.post("/api/v1/chat/search", json=VALID_PAYLOAD)
         assert response.status_code == 200
 
-    def test_response_fields_present(self, client):
+    def test_search_valid_payload_contains_required_fields(self, client):
         data = client.post("/api/v1/chat/search", json=VALID_PAYLOAD).json()
         for field in ["question", "normalized_question", "answer",
                       "search_results", "metadata"]:
             assert field in data, f"Missing field: {field}"
 
-    def test_question_preserved(self, client):
+    def test_search_valid_payload_preserves_question(self, client):
         data = client.post("/api/v1/chat/search", json=VALID_PAYLOAD).json()
         assert data["question"] == VALID_PAYLOAD["query"]
 
-    def test_answer_from_mock(self, client, mock_openai_adapter):
+    def test_search_mocked_llm_returns_expected_answer(self, client, mock_openai_adapter):
         mock_openai_adapter.create_chat_completion.return_value = "Spain scored through Oyarzabal."
         data = client.post("/api/v1/chat/search", json=VALID_PAYLOAD).json()
         assert data["answer"] == "Spain scored through Oyarzabal."

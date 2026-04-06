@@ -43,17 +43,17 @@ from app.api.v1.models import SearchRequest as ApiSearchRequest
 # ===========================================================================
 
 class TestSearchAlgorithm:
-    def test_all_values_present(self):
+    def test_search_algorithm_enum_contains_all_expected_values(self):
         values = {a.value for a in SearchAlgorithm}
         assert values == {"cosine", "inner_product", "l1_manhattan", "l2_euclidean"}
 
-    def test_str_enum(self):
+    def test_search_algorithm_str_comparison_matches_value(self):
         assert SearchAlgorithm.COSINE == "cosine"
         assert SearchAlgorithm.INNER_PRODUCT == "inner_product"
 
 
 class TestEmbeddingModel:
-    def test_all_values_present(self):
+    def test_embedding_model_enum_contains_all_expected_values(self):
         values = {m.value for m in EmbeddingModel}
         assert values == {
             "text-embedding-ada-002",
@@ -61,7 +61,7 @@ class TestEmbeddingModel:
             "text-embedding-3-large",
         }
 
-    def test_str_enum(self):
+    def test_embedding_model_str_comparison_matches_value(self):
         assert EmbeddingModel.ADA_002 == "text-embedding-ada-002"
         assert EmbeddingModel.T3_SMALL == "text-embedding-3-small"
         assert EmbeddingModel.T3_LARGE == "text-embedding-3-large"
@@ -72,7 +72,7 @@ class TestEmbeddingModel:
 # ===========================================================================
 
 class TestCompetition:
-    def test_create(self):
+    def test_create_competition_valid_args_returns_entity(self):
         c = Competition(competition_id=55, country="Europe", name="UEFA Euro")
         assert c.competition_id == 55
         assert c.country == "Europe"
@@ -80,12 +80,12 @@ class TestCompetition:
 
 
 class TestTeam:
-    def test_create_minimal(self):
+    def test_create_team_minimal_args_defaults_none(self):
         t = Team(team_id=100, name="Spain", gender="male", country="Spain")
         assert t.manager is None
         assert t.manager_country is None
 
-    def test_create_with_manager(self):
+    def test_create_team_with_manager_populates_field(self):
         t = Team(team_id=100, name="Spain", gender="male", country="Spain",
                  manager="Luis de la Fuente", manager_country="Spain")
         assert t.manager == "Luis de la Fuente"
@@ -105,22 +105,22 @@ class TestMatch:
             result="home",
         )
 
-    def test_display_name(self):
+    def test_match_display_name_home_win_format(self):
         m = self._make_match(2, 1)
         assert m.display_name == "Spain (2) - England (1)"
 
-    def test_display_name_draw(self):
+    def test_match_display_name_draw_format(self):
         m = self._make_match(1, 1)
         assert m.display_name == "Spain (1) - England (1)"
 
-    def test_optional_fields_default_none(self):
+    def test_match_optional_fields_default_none(self):
         m = self._make_match()
         assert m.stadium is None
         assert m.referee is None
         assert m.match_week is None
         assert m.json_data is None
 
-    def test_with_stadium_and_referee(self):
+    def test_match_with_stadium_and_referee_populated(self):
         m = self._make_match()
         m.stadium = Stadium(1, "Olympiastadion", "Germany")
         m.referee = Referee(1, "Ref A", "France")
@@ -159,12 +159,12 @@ class TestEventDetail:
 
 
 class TestPlayer:
-    def test_create_minimal(self):
+    def test_create_player_minimal_args_defaults_none(self):
         p = Player(player_id=1, player_name="Pedri")
         assert p.jersey_number is None
         assert p.country_name is None
 
-    def test_create_full(self):
+    def test_create_player_full_args_populates_all_fields(self):
         p = Player(player_id=1, player_name="Pedri", jersey_number=8,
                    country_id=214, country_name="Spain",
                    position_id=13, position_name="Center Midfield")
@@ -177,7 +177,7 @@ class TestPlayer:
 # ===========================================================================
 
 class TestDomainSearchRequest:
-    def test_defaults(self):
+    def test_search_request_no_optionals_uses_defaults(self):
         r = SearchRequest(match_id=1, query="Who scored?")
         assert r.language == "english"
         assert r.search_algorithm == SearchAlgorithm.COSINE
@@ -212,7 +212,7 @@ class TestDomainSearchRequest:
 # ===========================================================================
 
 class TestApiSearchRequestDTO:
-    def test_valid_request(self):
+    def test_api_search_request_valid_args_uses_defaults(self):
         r = ApiSearchRequest(match_id=1, query="Who scored?")
         assert r.search_algorithm == "cosine"
         assert r.embedding_model == "text-embedding-3-small"
@@ -256,7 +256,7 @@ class TestDomainExceptions:
         exc = EntityNotFoundError("Event", 1)
         assert isinstance(exc, DomainException)
 
-    def test_validation_error(self):
+    def test_validation_error_message_preserved(self):
         exc = ValidationError("Invalid algorithm")
         assert isinstance(exc, DomainException)
         assert "Invalid algorithm" in str(exc)
@@ -289,22 +289,22 @@ class TestNormalizeSource:
         ("azure-sql", "sqlserver"),
         ("SQLSERVER", "sqlserver"),
     ])
-    def test_known_aliases(self, alias, expected):
+    def test_normalize_source_known_alias_returns_canonical(self, alias, expected):
         assert normalize_source(alias) == expected
 
-    def test_unknown_source_returned_as_is(self):
+    def test_normalize_source_unknown_alias_returns_as_is(self):
         assert normalize_source("mongodb") == "mongodb"
 
 
 class TestGetSourceCapabilities:
-    def test_postgres_capabilities(self):
+    def test_get_capabilities_postgres_returns_all_models_and_algos(self):
         caps = get_source_capabilities("postgres")
         assert "text-embedding-3-large" in caps["embedding_models"]
         assert "l1_manhattan" in caps["search_algorithms"]
         assert len(caps["embedding_models"]) == 3
         assert len(caps["search_algorithms"]) == 4
 
-    def test_sqlserver_capabilities(self):
+    def test_get_capabilities_sqlserver_excludes_unsupported(self):
         caps = get_source_capabilities("sqlserver")
         # t3_large not supported on SQL Server
         assert "text-embedding-3-large" not in caps["embedding_models"]
@@ -313,10 +313,10 @@ class TestGetSourceCapabilities:
         assert len(caps["embedding_models"]) == 2
         assert len(caps["search_algorithms"]) == 3
 
-    def test_via_alias(self):
+    def test_get_capabilities_via_alias_matches_canonical(self):
         assert get_source_capabilities("postgresql") == get_source_capabilities("postgres")
 
-    def test_unknown_source_raises(self):
+    def test_get_capabilities_unknown_source_raises_error(self):
         with pytest.raises(ValueError, match="Unsupported"):
             get_source_capabilities("redis")
 

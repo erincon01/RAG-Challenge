@@ -55,18 +55,18 @@ def client(mock_statsbomb_svc):
 # ===========================================================================
 
 class TestStatsBombCompetitions:
-    def test_returns_200(self, client, mock_statsbomb_svc):
+    def test_list_competitions_valid_request_returns_200(self, client, mock_statsbomb_svc):
         mock_statsbomb_svc.list_competitions.return_value = COMPETITIONS_RAW
         response = client.get("/api/v1/statsbomb/competitions")
         assert response.status_code == 200
 
-    def test_returns_list(self, client, mock_statsbomb_svc):
+    def test_list_competitions_valid_data_returns_list(self, client, mock_statsbomb_svc):
         mock_statsbomb_svc.list_competitions.return_value = COMPETITIONS_RAW
         data = client.get("/api/v1/statsbomb/competitions").json()
         assert isinstance(data, list)
         assert len(data) == 3
 
-    def test_response_fields(self, client, mock_statsbomb_svc):
+    def test_list_competitions_valid_response_contains_fields(self, client, mock_statsbomb_svc):
         mock_statsbomb_svc.list_competitions.return_value = COMPETITIONS_RAW[:1]
         data = client.get("/api/v1/statsbomb/competitions").json()
         item = data[0]
@@ -108,7 +108,7 @@ class TestStatsBombCompetitions:
 # ===========================================================================
 
 class TestStatsBombMatches:
-    def test_returns_200(self, client, mock_statsbomb_svc):
+    def test_list_matches_valid_params_returns_200(self, client, mock_statsbomb_svc):
         mock_statsbomb_svc.list_matches.return_value = MATCHES_RAW
         response = client.get("/api/v1/statsbomb/matches?competition_id=55&season_id=282")
         assert response.status_code == 200
