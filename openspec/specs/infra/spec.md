@@ -195,4 +195,4 @@ The system MUST NOT use `allow_origins=["*"]` in any environment.
 
 ## Known Deviations
 
-- No `.env.example` file for frontend.
+(none)
