@@ -31,15 +31,8 @@ rules:
     - Include a test task for each implementation task
     - Never mark a task [x] until tests pass — run pytest before checking off
     - Test tasks must verify imports resolve from the test runner cwd (backend/)
-  apply:
     - Run pytest on each test file immediately after writing it
     - Run the full test suite before considering the change complete
     - If a test fails, fix it before moving to the next task
     - Verify module-level side effects (middleware, singletons) cannot be patched after import
-  parallel:
-    - Only parallelize changes that touch different files and layers
-    - Propose all changes on develop before launching parallel agents
-    - Each parallel apply runs in its own worktree with isolation: worktree
-    - Each worktree produces one PR against develop
-    - Merge PRs sequentially; rebase later PRs if conflicts arise
-    - Limit to 2-3 parallel worktrees to minimize merge conflict risk
+    - Run ruff format and ruff check before committing

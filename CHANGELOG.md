@@ -9,6 +9,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- `frontend/webapp/.env.example` with `VITE_API_BASE_URL` and `VITE_BACKEND_ORIGIN`
+- `.pre-commit-config.yaml` with ruff lint + format hooks for backend
 - Token budget guard in RAG pipeline: counts tokens before LLM call using `tiktoken` and truncates lowest-ranked search results if context exceeds `max_input_tokens`
 - Token usage metadata in response: `input_tokens`, `max_input_tokens`, `results_truncated`
 - `tiktoken` dependency added to `backend/requirements.txt`
