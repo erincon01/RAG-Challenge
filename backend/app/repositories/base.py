@@ -8,6 +8,7 @@ changing business logic.
 
 from abc import ABC, abstractmethod
 from contextlib import contextmanager
+from typing import Any
 
 from app.domain.entities import (
     Competition,
@@ -39,6 +40,16 @@ class BaseRepository(ABC):
 
         Returns:
             bool: True if connection is successful
+        """
+        pass
+
+    @abstractmethod
+    def get_tables_info(self) -> list[dict[str, Any]]:
+        """
+        Get table metadata (name, row_count, embedding_columns).
+
+        Returns:
+            List of dicts with table metadata
         """
         pass
 
@@ -86,6 +97,38 @@ class MatchRepository(BaseRepository):
 
         Returns:
             List of competitions
+        """
+        pass
+
+    @abstractmethod
+    def get_teams(
+        self, match_id: int | None = None, limit: int = 500
+    ) -> list[dict[str, Any]]:
+        """
+        Get team metadata (team_id, name, gender, country).
+
+        Args:
+            match_id: Optional filter by match ID
+            limit: Maximum number of results
+
+        Returns:
+            List of team dicts
+        """
+        pass
+
+    @abstractmethod
+    def get_players(
+        self, match_id: int | None = None, limit: int = 500
+    ) -> list[dict[str, Any]]:
+        """
+        Get player roster data (player_id, player_name, jersey_number, etc).
+
+        Args:
+            match_id: Optional filter by match ID
+            limit: Maximum number of results
+
+        Returns:
+            List of player dicts
         """
         pass
 

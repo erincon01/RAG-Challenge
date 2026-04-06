@@ -1,10 +1,12 @@
 """Unit tests for core/dependencies.py and DataExplorerService."""
 
+import inspect
 from unittest.mock import MagicMock, patch
 
 import pytest
 
 from app.core.dependencies import get_repository_factory, get_match_repository, get_event_repository
+from app.repositories.base import MatchRepository, EventRepository
 from app.repositories.postgres import PostgresRepositoryFactory
 from app.repositories.sqlserver import SQLServerRepositoryFactory
 
@@ -33,152 +35,184 @@ class TestGetRepositoryFactory:
 
 class TestGetMatchRepository:
     def test_returns_match_repo_for_postgres(self):
-        from app.repositories.base import MatchRepository
         repo = get_match_repository("postgres")
         assert isinstance(repo, MatchRepository)
 
     def test_returns_match_repo_for_sqlserver(self):
-        from app.repositories.base import MatchRepository
         repo = get_match_repository("sqlserver")
         assert isinstance(repo, MatchRepository)
 
 
 class TestGetEventRepository:
     def test_returns_event_repo_for_postgres(self):
-        from app.repositories.base import EventRepository
         repo = get_event_repository("postgres")
         assert isinstance(repo, EventRepository)
 
     def test_returns_event_repo_for_sqlserver(self):
-        from app.repositories.base import EventRepository
         repo = get_event_repository("sqlserver")
         assert isinstance(repo, EventRepository)
 
 
 # ---------------------------------------------------------------------------
-# DataExplorerService tests with mocked connections
+# DataExplorerService — repository-based tests
 # ---------------------------------------------------------------------------
 
 class TestDataExplorerServiceGetTeams:
-    def _make_mock_conn(self, rows):
-        cursor = MagicMock()
-        cursor.fetchall.return_value = rows
-        conn = MagicMock()
-        conn.cursor.return_value = cursor
-        return conn, cursor
+    """Tests for get_teams delegating to MatchRepository."""
 
-    @patch("app.services.data_explorer_service.psycopg2.connect")
-    def test_get_teams_postgres_returns_list(self, mock_connect):
+    def test_get_teams_delegates_to_repository(self):
         from app.services.data_explorer_service import DataExplorerService
 
-        svc = DataExplorerService()
-        row = (100, "Spain", "male", "Spain")
-        conn, cursor = self._make_mock_conn([row])
+        mock_repo = MagicMock(spec=MatchRepository)
+        mock_repo.get_teams.return_value = [
+            {"team_id": 100, "name": "Spain", "gender": "male", "country": "Spain"},
+        ]
 
-        with patch.object(svc, "_get_connection") as mock_gc:
-            mock_gc.return_value.__enter__ = MagicMock(return_value=conn)
-            mock_gc.return_value.__exit__ = MagicMock(return_value=False)
-            results = svc.get_teams(source="postgres")
+        svc = DataExplorerService(match_repo=mock_repo)
+        results = svc.get_teams(source="postgres")
 
+        mock_repo.get_teams.assert_called_once_with(match_id=None, limit=500)
         assert len(results) == 1
         assert results[0]["team_id"] == 100
         assert results[0]["name"] == "Spain"
 
-    @patch("app.services.data_explorer_service.psycopg2.connect")
-    def test_get_teams_postgres_with_match_id(self, mock_connect):
+    def test_get_teams_passes_match_id_to_repository(self):
         from app.services.data_explorer_service import DataExplorerService
 
-        svc = DataExplorerService()
-        row = (100, "Spain", "male", "Spain")
-        conn, cursor = self._make_mock_conn([row])
+        mock_repo = MagicMock(spec=MatchRepository)
+        mock_repo.get_teams.return_value = [
+            {"team_id": 100, "name": "Spain", "gender": "male", "country": "Spain"},
+        ]
 
-        with patch.object(svc, "_get_connection") as mock_gc:
-            mock_gc.return_value.__enter__ = MagicMock(return_value=conn)
-            mock_gc.return_value.__exit__ = MagicMock(return_value=False)
-            results = svc.get_teams(source="postgres", match_id=3943043)
+        svc = DataExplorerService(match_repo=mock_repo)
+        results = svc.get_teams(source="postgres", match_id=3943043)
 
+        mock_repo.get_teams.assert_called_once_with(match_id=3943043, limit=500)
         assert len(results) == 1
 
-    @patch("app.services.data_explorer_service.pyodbc.connect")
-    def test_get_teams_sqlserver_returns_list(self, mock_connect):
+    def test_get_teams_passes_limit_to_repository(self):
         from app.services.data_explorer_service import DataExplorerService
 
-        svc = DataExplorerService()
-        row = (200, "England", "male", "England")
-        conn, cursor = self._make_mock_conn([row])
+        mock_repo = MagicMock(spec=MatchRepository)
+        mock_repo.get_teams.return_value = []
 
-        with patch.object(svc, "_get_connection") as mock_gc:
-            mock_gc.return_value.__enter__ = MagicMock(return_value=conn)
-            mock_gc.return_value.__exit__ = MagicMock(return_value=False)
-            results = svc.get_teams(source="sqlserver")
+        svc = DataExplorerService(match_repo=mock_repo)
+        svc.get_teams(source="postgres", limit=10)
 
-        assert len(results) == 1
-        assert results[0]["name"] == "England"
+        mock_repo.get_teams.assert_called_once_with(match_id=None, limit=10)
 
-    @patch("app.services.data_explorer_service.psycopg2.connect")
-    def test_get_teams_skips_rows_with_none_team_id(self, mock_connect):
+    def test_get_teams_returns_empty_list_from_repository(self):
         from app.services.data_explorer_service import DataExplorerService
 
-        svc = DataExplorerService()
-        rows = [(None, "Unknown", "male", "Unknown"), (100, "Spain", "male", "Spain")]
-        conn, cursor = self._make_mock_conn(rows)
+        mock_repo = MagicMock(spec=MatchRepository)
+        mock_repo.get_teams.return_value = []
 
-        with patch.object(svc, "_get_connection") as mock_gc:
-            mock_gc.return_value.__enter__ = MagicMock(return_value=conn)
-            mock_gc.return_value.__exit__ = MagicMock(return_value=False)
-            results = svc.get_teams(source="postgres")
-
-        assert len(results) == 1
-        assert results[0]["team_id"] == 100
-
-
-class TestDataExplorerServiceGetPlayers:
-    def _make_mock_conn(self, rows, table_exists=True):
-        cursor = MagicMock()
-        cursor.fetchall.return_value = rows
-        # table exists check: fetchone returns a row or None
-        cursor.fetchone.return_value = (1,) if table_exists else None
-        conn = MagicMock()
-        conn.cursor.return_value = cursor
-        return conn, cursor
-
-    @patch("app.services.data_explorer_service.psycopg2.connect")
-    def test_get_players_returns_empty_when_no_table(self, mock_connect):
-        from app.services.data_explorer_service import DataExplorerService
-
-        svc = DataExplorerService()
-        conn, cursor = self._make_mock_conn(rows=[], table_exists=False)
-
-        with patch.object(svc, "_get_connection") as mock_gc:
-            mock_gc.return_value.__enter__ = MagicMock(return_value=conn)
-            mock_gc.return_value.__exit__ = MagicMock(return_value=False)
-            results = svc.get_players(source="postgres")
+        svc = DataExplorerService(match_repo=mock_repo)
+        results = svc.get_teams(source="postgres")
 
         assert results == []
 
-    @patch("app.services.data_explorer_service.psycopg2.connect")
-    def test_get_players_postgres_returns_list(self, mock_connect):
+
+class TestDataExplorerServiceGetPlayers:
+    """Tests for get_players delegating to MatchRepository."""
+
+    def test_get_players_delegates_to_repository(self):
         from app.services.data_explorer_service import DataExplorerService
 
-        svc = DataExplorerService()
-        player_row = (1, "Rodri", 16, "Spain", "Defensive Midfield", "Spain")
-        conn, cursor = self._make_mock_conn(rows=[player_row], table_exists=True)
-        # first fetchone for table check, then fetchall for data
-        cursor.fetchone.return_value = (1,)
+        mock_repo = MagicMock(spec=MatchRepository)
+        mock_repo.get_players.return_value = [
+            {
+                "player_id": 1,
+                "player_name": "Rodri",
+                "jersey_number": 16,
+                "country_name": "Spain",
+                "position_name": "Defensive Midfield",
+                "team_name": "Spain",
+            },
+        ]
 
-        with patch.object(svc, "_table_exists") as mock_te, patch.object(svc, "_get_connection") as mock_gc:
-            mock_te.return_value = True
-            mock_gc.return_value.__enter__ = MagicMock(return_value=conn)
-            mock_gc.return_value.__exit__ = MagicMock(return_value=False)
-            results = svc.get_players(source="postgres")
+        svc = DataExplorerService(match_repo=mock_repo)
+        results = svc.get_players(source="postgres")
 
+        mock_repo.get_players.assert_called_once_with(match_id=None, limit=500)
         assert len(results) == 1
         assert results[0]["player_name"] == "Rodri"
 
+    def test_get_players_passes_match_id_to_repository(self):
+        from app.services.data_explorer_service import DataExplorerService
+
+        mock_repo = MagicMock(spec=MatchRepository)
+        mock_repo.get_players.return_value = []
+
+        svc = DataExplorerService(match_repo=mock_repo)
+        svc.get_players(source="postgres", match_id=3943043)
+
+        mock_repo.get_players.assert_called_once_with(match_id=3943043, limit=500)
+
+    def test_get_players_returns_empty_list_from_repository(self):
+        from app.services.data_explorer_service import DataExplorerService
+
+        mock_repo = MagicMock(spec=MatchRepository)
+        mock_repo.get_players.return_value = []
+
+        svc = DataExplorerService(match_repo=mock_repo)
+        results = svc.get_players(source="postgres")
+
+        assert results == []
+
+
+class TestDataExplorerServiceGetTablesInfo:
+    """Tests for get_tables_info delegating to MatchRepository."""
+
+    def test_get_tables_info_delegates_to_repository(self):
+        from app.services.data_explorer_service import DataExplorerService
+
+        mock_repo = MagicMock(spec=MatchRepository)
+        mock_repo.get_tables_info.return_value = [
+            {"table": "matches", "row_count": 42, "embedding_columns": []},
+        ]
+
+        svc = DataExplorerService(match_repo=mock_repo)
+        results = svc.get_tables_info(source="postgres")
+
+        mock_repo.get_tables_info.assert_called_once()
+        assert len(results) == 1
+        assert results[0]["table"] == "matches"
+        assert results[0]["row_count"] == 42
+
+    def test_get_tables_info_returns_multiple_tables(self):
+        from app.services.data_explorer_service import DataExplorerService
+
+        mock_repo = MagicMock(spec=MatchRepository)
+        mock_repo.get_tables_info.return_value = [
+            {"table": "matches", "row_count": 42, "embedding_columns": []},
+            {"table": "events_details__quarter_minute", "row_count": 1000, "embedding_columns": ["summary_embedding_ada_002"]},
+        ]
+
+        svc = DataExplorerService(match_repo=mock_repo)
+        results = svc.get_tables_info(source="postgres")
+
+        assert len(results) == 2
+
+
+class TestDataExplorerServiceNoPsycopg2Import:
+    """Verify the service has no raw driver imports."""
+
+    def test_service_has_no_psycopg2_import(self):
+        import app.services.data_explorer_service as module
+
+        source = inspect.getsource(module)
+        assert "psycopg2" not in source, "DataExplorerService must not import psycopg2"
+
+    def test_service_has_no_pyodbc_import(self):
+        import app.services.data_explorer_service as module
+
+        source = inspect.getsource(module)
+        assert "pyodbc" not in source, "DataExplorerService must not import pyodbc"
+
 
 # ---------------------------------------------------------------------------
-# TDD RED: DI providers for IngestionService, StatsBombService, DataExplorerService
-# These tests FAIL until the providers are added to core/dependencies.py
+# DI providers for IngestionService, StatsBombService, DataExplorerService
 # ---------------------------------------------------------------------------
 
 class TestGetIngestionServiceProvider:
@@ -223,6 +257,14 @@ class TestGetDataExplorerServiceProvider:
         from app.services.data_explorer_service import DataExplorerService
 
         svc = get_data_explorer_service()
+        assert isinstance(svc, DataExplorerService)
+
+    def test_get_data_explorer_service_accepts_match_repo_injection(self):
+        from app.core.dependencies import get_data_explorer_service
+        from app.services.data_explorer_service import DataExplorerService
+
+        mock_repo = MagicMock(spec=MatchRepository)
+        svc = get_data_explorer_service(match_repo=mock_repo)
         assert isinstance(svc, DataExplorerService)
 
     def test_explorer_svc_alias_is_annotated(self):

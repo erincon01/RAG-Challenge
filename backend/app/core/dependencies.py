@@ -65,9 +65,11 @@ def get_ingestion_service(
     return IngestionService(statsbomb=statsbomb)
 
 
-def get_data_explorer_service() -> DataExplorerService:
+def get_data_explorer_service(
+    match_repo: MatchRepository = Depends(get_match_repository),
+) -> DataExplorerService:
     """Dependency provider for DataExplorerService."""
-    return DataExplorerService()
+    return DataExplorerService(match_repo=match_repo)
 
 
 StatsBombSvc = Annotated[StatsBombService, Depends(get_statsbomb_service)]

@@ -7,6 +7,7 @@ SQL Server's VECTOR type for similarity search.
 
 import logging
 from contextlib import contextmanager
+from typing import Any
 
 import pyodbc
 
@@ -185,6 +186,156 @@ class SQLServerMatchRepository(MatchRepository):
             logger.error(f"Error fetching competitions: {e}")
             raise
 
+    def get_teams(
+        self, match_id: int | None = None, limit: int = 500
+    ) -> list[dict[str, Any]]:
+        """Get team metadata from matches."""
+        params: list[Any] = []
+        where_clause = ""
+        if match_id is not None:
+            where_clause = "WHERE match_id = ?"
+            params.append(match_id)
+
+        query = f"""
+            SELECT TOP (?) team_id, name, gender, country
+            FROM (
+                SELECT home_team_id AS team_id, home_team_name AS name, home_team_gender AS gender, home_team_country AS country
+                FROM matches
+                {where_clause}
+                UNION
+                SELECT away_team_id AS team_id, away_team_name AS name, away_team_gender AS gender, away_team_country AS country
+                FROM matches
+                {where_clause}
+            ) t
+            ORDER BY name
+        """
+        args: list[Any] = [limit]
+        args.extend(params)
+        if match_id is not None:
+            args.extend([match_id])
+
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(query, tuple(args))
+                rows = cursor.fetchall()
+                return [
+                    {
+                        "team_id": int(row[0]),
+                        "name": row[1],
+                        "gender": row[2],
+                        "country": row[3],
+                    }
+                    for row in rows
+                    if row[0] is not None
+                ]
+        except Exception as e:
+            logger.error(f"Error fetching teams: {e}")
+            raise
+
+    def get_players(
+        self, match_id: int | None = None, limit: int = 500
+    ) -> list[dict[str, Any]]:
+        """Get player roster data."""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    """
+                    SELECT 1
+                    FROM sys.tables
+                    WHERE name = ?
+                    """,
+                    ("players",),
+                )
+                if cursor.fetchone() is None:
+                    return []
+
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                if match_id is not None:
+                    cursor.execute(
+                        """
+                        SELECT TOP (?) player_id, player_name, jersey_number, country_name, position_name, team_name
+                        FROM players
+                        WHERE match_id = ?
+                        ORDER BY player_name
+                        """,
+                        (limit, match_id),
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        SELECT TOP (?) player_id, player_name, jersey_number, country_name, position_name, team_name
+                        FROM players
+                        ORDER BY player_name
+                        """,
+                        (limit,),
+                    )
+                rows = cursor.fetchall()
+                return [
+                    {
+                        "player_id": int(row[0]),
+                        "player_name": row[1],
+                        "jersey_number": row[2],
+                        "country_name": row[3],
+                        "position_name": row[4],
+                        "team_name": row[5],
+                    }
+                    for row in rows
+                    if row[0] is not None
+                ]
+        except Exception as e:
+            logger.error(f"Error fetching players: {e}")
+            raise
+
+    def get_tables_info(self) -> list[dict[str, Any]]:
+        """Get table metadata for SQL Server."""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    """
+                    SELECT name
+                    FROM sys.tables
+                    ORDER BY name
+                    """
+                )
+                table_names = [r[0] for r in cursor.fetchall()]
+
+                cursor.execute(
+                    """
+                    SELECT t.name, c.name
+                    FROM sys.columns c
+                    JOIN sys.tables t ON c.object_id = t.object_id
+                    LEFT JOIN sys.types ty ON c.user_type_id = ty.user_type_id
+                    WHERE ty.name = 'vector' OR c.name LIKE '%embedding%'
+                    ORDER BY t.name, c.name
+                    """
+                )
+
+                embedding_map: dict[str, list[str]] = {}
+                for table_name, column_name in cursor.fetchall():
+                    embedding_map.setdefault(table_name, []).append(column_name)
+
+                info: list[dict[str, Any]] = []
+                for table_name in table_names:
+                    cursor.execute(f"SELECT COUNT(*) FROM [{table_name}]")
+                    row_count = int(cursor.fetchone()[0] or 0)
+
+                    info.append(
+                        {
+                            "table": table_name,
+                            "row_count": row_count,
+                            "embedding_columns": embedding_map.get(table_name, []),
+                        }
+                    )
+
+                return info
+        except Exception as e:
+            logger.error(f"Error fetching tables info: {e}")
+            raise
+
     def _row_to_match(self, row) -> Match:
         """Convert database row to Match entity."""
         competition = Competition(
@@ -292,6 +443,53 @@ class SQLServerEventRepository(EventRepository):
         except Exception as e:
             logger.error(f"Connection test failed: {e}")
             return False
+
+    def get_tables_info(self) -> list[dict[str, Any]]:
+        """Get table metadata for SQL Server."""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    """
+                    SELECT name
+                    FROM sys.tables
+                    ORDER BY name
+                    """
+                )
+                table_names = [r[0] for r in cursor.fetchall()]
+
+                cursor.execute(
+                    """
+                    SELECT t.name, c.name
+                    FROM sys.columns c
+                    JOIN sys.tables t ON c.object_id = t.object_id
+                    LEFT JOIN sys.types ty ON c.user_type_id = ty.user_type_id
+                    WHERE ty.name = 'vector' OR c.name LIKE '%embedding%'
+                    ORDER BY t.name, c.name
+                    """
+                )
+
+                embedding_map: dict[str, list[str]] = {}
+                for table_name, column_name in cursor.fetchall():
+                    embedding_map.setdefault(table_name, []).append(column_name)
+
+                info: list[dict[str, Any]] = []
+                for table_name in table_names:
+                    cursor.execute(f"SELECT COUNT(*) FROM [{table_name}]")
+                    row_count = int(cursor.fetchone()[0] or 0)
+
+                    info.append(
+                        {
+                            "table": table_name,
+                            "row_count": row_count,
+                            "embedding_columns": embedding_map.get(table_name, []),
+                        }
+                    )
+
+                return info
+        except Exception as e:
+            logger.error(f"Error fetching tables info: {e}")
+            raise
 
     def get_events_by_match(
         self, match_id: int, limit: int | None = None

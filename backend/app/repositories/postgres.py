@@ -183,6 +183,161 @@ class PostgresMatchRepository(MatchRepository):
             logger.error(f"Error fetching competitions: {e}")
             raise
 
+    def get_teams(
+        self, match_id: int | None = None, limit: int = 500
+    ) -> list[dict[str, Any]]:
+        """Get team metadata from matches."""
+        params: list[Any] = []
+        where_clause = ""
+        if match_id is not None:
+            where_clause = "WHERE match_id = %s"
+            params.append(match_id)
+
+        query = f"""
+            SELECT team_id, name, gender, country
+            FROM (
+                SELECT home_team_id AS team_id, home_team_name AS name, home_team_gender AS gender, home_team_country AS country
+                FROM matches
+                {where_clause}
+                UNION
+                SELECT away_team_id AS team_id, away_team_name AS name, away_team_gender AS gender, away_team_country AS country
+                FROM matches
+                {where_clause}
+            ) t
+            ORDER BY name
+            LIMIT %s
+        """
+        if match_id is not None:
+            params.extend([match_id])
+        params.append(limit)
+
+        try:
+            with self.get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(query, tuple(params))
+                    rows = cur.fetchall()
+                    return [
+                        {
+                            "team_id": int(row[0]),
+                            "name": row[1],
+                            "gender": row[2],
+                            "country": row[3],
+                        }
+                        for row in rows
+                        if row[0] is not None
+                    ]
+        except Exception as e:
+            logger.error(f"Error fetching teams: {e}")
+            raise
+
+    def get_players(
+        self, match_id: int | None = None, limit: int = 500
+    ) -> list[dict[str, Any]]:
+        """Get player roster data."""
+        try:
+            with self.get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        SELECT 1
+                        FROM information_schema.tables
+                        WHERE table_schema = 'public' AND table_name = %s
+                        """,
+                        ("players",),
+                    )
+                    if cur.fetchone() is None:
+                        return []
+
+            with self.get_connection() as conn:
+                with conn.cursor() as cur:
+                    if match_id is not None:
+                        cur.execute(
+                            """
+                            SELECT player_id, player_name, jersey_number, country_name, position_name, team_name
+                            FROM players
+                            WHERE match_id = %s
+                            ORDER BY player_name
+                            LIMIT %s
+                            """,
+                            (match_id, limit),
+                        )
+                    else:
+                        cur.execute(
+                            """
+                            SELECT player_id, player_name, jersey_number, country_name, position_name, team_name
+                            FROM players
+                            ORDER BY player_name
+                            LIMIT %s
+                            """,
+                            (limit,),
+                        )
+                    rows = cur.fetchall()
+                    return [
+                        {
+                            "player_id": int(row[0]),
+                            "player_name": row[1],
+                            "jersey_number": row[2],
+                            "country_name": row[3],
+                            "position_name": row[4],
+                            "team_name": row[5],
+                        }
+                        for row in rows
+                        if row[0] is not None
+                    ]
+        except Exception as e:
+            logger.error(f"Error fetching players: {e}")
+            raise
+
+    def get_tables_info(self) -> list[dict[str, Any]]:
+        """Get table metadata for PostgreSQL."""
+        try:
+            with self.get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        SELECT table_name
+                        FROM information_schema.tables
+                        WHERE table_schema = 'public' AND table_type = 'BASE TABLE'
+                        ORDER BY table_name
+                        """
+                    )
+                    table_names = [r[0] for r in cur.fetchall()]
+
+                    cur.execute(
+                        """
+                        SELECT table_name, column_name
+                        FROM information_schema.columns
+                        WHERE table_schema = 'public'
+                          AND (
+                            udt_name = 'vector'
+                            OR column_name LIKE '%embedding%'
+                          )
+                        ORDER BY table_name, column_name
+                        """
+                    )
+
+                    embedding_map: dict[str, list[str]] = {}
+                    for table_name, column_name in cur.fetchall():
+                        embedding_map.setdefault(table_name, []).append(column_name)
+
+                    info: list[dict[str, Any]] = []
+                    for table_name in table_names:
+                        cur.execute(f'SELECT COUNT(*) FROM "{table_name}"')
+                        row_count = int(cur.fetchone()[0] or 0)
+
+                        info.append(
+                            {
+                                "table": table_name,
+                                "row_count": row_count,
+                                "embedding_columns": embedding_map.get(table_name, []),
+                            }
+                        )
+
+                    return info
+        except Exception as e:
+            logger.error(f"Error fetching tables info: {e}")
+            raise
+
     def _row_to_match(self, row: dict[str, Any]) -> Match:
         """Convert database row to Match entity."""
         competition = Competition(
@@ -283,6 +438,56 @@ class PostgresEventRepository(EventRepository):
         except Exception as e:
             logger.error(f"Connection test failed: {e}")
             return False
+
+    def get_tables_info(self) -> list[dict[str, Any]]:
+        """Get table metadata for PostgreSQL."""
+        try:
+            with self.get_connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        SELECT table_name
+                        FROM information_schema.tables
+                        WHERE table_schema = 'public' AND table_type = 'BASE TABLE'
+                        ORDER BY table_name
+                        """
+                    )
+                    table_names = [r[0] for r in cur.fetchall()]
+
+                    cur.execute(
+                        """
+                        SELECT table_name, column_name
+                        FROM information_schema.columns
+                        WHERE table_schema = 'public'
+                          AND (
+                            udt_name = 'vector'
+                            OR column_name LIKE '%embedding%'
+                          )
+                        ORDER BY table_name, column_name
+                        """
+                    )
+
+                    embedding_map: dict[str, list[str]] = {}
+                    for table_name, column_name in cur.fetchall():
+                        embedding_map.setdefault(table_name, []).append(column_name)
+
+                    info: list[dict[str, Any]] = []
+                    for table_name in table_names:
+                        cur.execute(f'SELECT COUNT(*) FROM "{table_name}"')
+                        row_count = int(cur.fetchone()[0] or 0)
+
+                        info.append(
+                            {
+                                "table": table_name,
+                                "row_count": row_count,
+                                "embedding_columns": embedding_map.get(table_name, []),
+                            }
+                        )
+
+                    return info
+        except Exception as e:
+            logger.error(f"Error fetching tables info: {e}")
+            raise
 
     def get_events_by_match(
         self, match_id: int, limit: int | None = None
