@@ -42,7 +42,8 @@ jobs:
         run: pip install -r backend/requirements.txt
 
       - name: Run mypy
-        run: mypy backend/app
+        working-directory: backend
+        run: mypy app
 
   unit-tests:
     name: Unit & API Tests
