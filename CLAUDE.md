@@ -28,6 +28,7 @@ SQL Server 2025 · OpenAI API · Docker Compose · GitHub Actions CI
 - Conventional Commits in English: `type(scope): description`.
 - CHANGELOG: update `## [Unreleased]` in every code PR.
 - Conversation log: update `docs/conversation_log.md` at end of every AI session.
+- **No AI attribution** in commits, PRs, or code (`Co-Authored-By`, `Generated with`, etc.).
 
 ## OpenSpec governance
 

@@ -133,6 +133,7 @@ Each change runs in an isolated worktree with its own branch, preventing file co
 - **DO NOT** commit secrets or `.env` files.
 - **DO NOT** skip tests or reduce coverage thresholds.
 - **DO NOT** bypass CI checks (`--no-verify`).
+- **DO NOT** add `Co-Authored-By`, `Generated with`, `🤖`, or any AI tool attribution in commits, PRs, or code comments.
 
 ## References
 
