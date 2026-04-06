@@ -142,11 +142,37 @@ Cada worktree es un directorio aislado con su propia rama, vinculado al mismo re
 
 ## Tags y releases
 
-- Al mergear `develop` → `main`, crear tag: `vX.Y.Z`.
-- Seguir [Semantic Versioning](https://semver.org/):
-  - **MAJOR:** cambios breaking en API pública.
-  - **MINOR:** nueva funcionalidad backwards-compatible.
-  - **PATCH:** correcciones de bugs.
+### Semantic Versioning
+
+Seguir [Semantic Versioning](https://semver.org/): `vMAJOR.MINOR.PATCH`
+
+| Tipo | Cuándo | Ejemplo |
+|------|--------|---------|
+| **MAJOR** | Cambios breaking en API pública (endpoints eliminados, contratos rotos) | v4.0.0 → v5.0.0 |
+| **MINOR** | Nueva funcionalidad backwards-compatible (features, mejoras) | v4.0.0 → v4.1.0 |
+| **PATCH** | Correcciones de bugs sin cambio de API | v4.1.0 → v4.1.1 |
+
+### Proceso de release
+
+1. Verificar que `develop` está limpio: CI green, todos los changes archivados.
+2. Crear PR `develop → main` con título `release: vX.Y.Z`.
+3. En el PR body, copiar la sección `[Unreleased]` del CHANGELOG como release notes.
+4. Mergear el PR (no squash — preservar historial).
+5. Crear tag en `main`: `git tag vX.Y.Z && git push origin vX.Y.Z`.
+6. Actualizar CHANGELOG: renombrar `[Unreleased]` a `[X.Y.Z] - YYYY-MM-DD` y crear nueva sección `[Unreleased]` vacía.
+
+### Cuándo hacer release
+
+- Después de completar un batch de OpenSpec changes (ej: sesión de deuda técnica).
+- Cuando hay un feature significativo listo para producción.
+- Mínimo: cuando `[Unreleased]` acumula más de 5-6 entries.
+- No hay cadencia fija — se hace cuando el conjunto de cambios tiene sentido como unidad.
+
+### Versionado en archivos
+
+- `backend/app/main.py` — campo `version` en FastAPI app.
+- `CHANGELOG.md` — sección `[Unreleased]` → `[X.Y.Z] - YYYY-MM-DD`.
+- `README.md` / `PROJECT_STATUS.md` — actualizar si mencionan versión.
 
 ## Conversation log
 

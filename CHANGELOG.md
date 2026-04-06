@@ -12,6 +12,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Rename ~50 test functions across 15 test files to follow `test_<method>_<scenario>_<expected>` naming convention
 
 ### Added
+- `docs/getting-started.md` — new contributor guide (setup, OpenSpec workflow, where to find things)
 - `frontend/webapp/.env.example` with `VITE_API_BASE_URL` and `VITE_BACKEND_ORIGIN`
 - `.pre-commit-config.yaml` with ruff lint + format hooks for backend
 - Token budget guard in RAG pipeline: counts tokens before LLM call using `tiktoken` and truncates lowest-ranked search results if context exceeds `max_input_tokens`
@@ -27,7 +28,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Replace `allow_origins=["*"]` with configurable `CORS_ORIGINS` env var in CORS middleware
 - Add `cors_origins` setting to `config/settings.py` with safe localhost defaults
 
-### Added
+### Governance
 - `AGENTS.md` — single source of truth for all project conventions and agent rules
 - `CLAUDE.md` — Claude Code entry point with project overview, commands, and governance chain
 - `openspec/` — OpenSpec v1.2.0 governance: config, 4 system specs (api, rag, data, infra), 1 archived change

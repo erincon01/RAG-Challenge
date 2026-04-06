@@ -6,6 +6,8 @@ Read and follow ALL rules in `AGENTS.md` before starting any work.
 That file is the single source of truth for project conventions,
 architecture rules, testing requirements, and workflow.
 
+New to the project? Start with `docs/getting-started.md` — setup, workflow, and where to find things.
+
 Read also these instruction files for specific rules:
 
 - `.github/instructions/git-workflow.instructions.md` — Branch naming, commits, CHANGELOG
