@@ -8,6 +8,11 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Token budget guard in RAG pipeline: counts tokens before LLM call using `tiktoken` and truncates lowest-ranked search results if context exceeds `max_input_tokens`
+- Token usage metadata in response: `input_tokens`, `max_input_tokens`, `results_truncated`
+- `tiktoken` dependency added to `backend/requirements.txt`
+
 ### Fixed
 - Replace direct `PostgresEventRepository()` / `SQLServerEventRepository()` instantiation in `health.py` and `capabilities.py` with FastAPI `Depends()` injection
 - Add `get_postgres_event_repository` and `get_sqlserver_event_repository` DI providers in `dependencies.py`
