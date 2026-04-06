@@ -10,7 +10,10 @@ from app.core.capabilities import (
     get_source_capabilities,
     normalize_source,
 )
-from app.core.dependencies import get_postgres_event_repository, get_sqlserver_event_repository
+from app.core.dependencies import (
+    get_postgres_event_repository,
+    get_sqlserver_event_repository,
+)
 from app.repositories.base import EventRepository
 
 router = APIRouter()

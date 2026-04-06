@@ -11,7 +11,10 @@ from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel
 
 from app.core.config import Settings, get_settings
-from app.core.dependencies import get_postgres_event_repository, get_sqlserver_event_repository
+from app.core.dependencies import (
+    get_postgres_event_repository,
+    get_sqlserver_event_repository,
+)
 from app.repositories.base import EventRepository
 
 router = APIRouter()
