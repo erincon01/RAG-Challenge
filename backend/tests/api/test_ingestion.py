@@ -135,7 +135,7 @@ class TestCleanupDownloadedFiles:
 # ---------------------------------------------------------------------------
 
 class TestStartLoadJob:
-    def test_returns_202(self, client):
+    def test_start_load_valid_request_returns_202(self, client):
         response = client.post(
             "/api/v1/ingestion/load",
             json={"source": "postgres", "datasets": ["matches", "events"]},
@@ -163,7 +163,7 @@ class TestStartLoadJob:
 # ---------------------------------------------------------------------------
 
 class TestStartAggregateJob:
-    def test_returns_202(self, client):
+    def test_start_aggregate_valid_request_returns_202(self, client):
         response = client.post(
             "/api/v1/ingestion/aggregate",
             json={"source": "postgres"},
@@ -184,7 +184,7 @@ class TestStartAggregateJob:
 # ---------------------------------------------------------------------------
 
 class TestStartRebuildEmbeddingsJob:
-    def test_returns_202(self, client):
+    def test_start_rebuild_valid_request_returns_202(self, client):
         response = client.post(
             "/api/v1/ingestion/embeddings/rebuild",
             json={"source": "postgres"},
@@ -205,11 +205,11 @@ class TestStartRebuildEmbeddingsJob:
 # ---------------------------------------------------------------------------
 
 class TestListJobs:
-    def test_returns_200(self, client):
+    def test_list_jobs_default_returns_200(self, client):
         response = client.get("/api/v1/ingestion/jobs")
         assert response.status_code == 200
 
-    def test_response_has_items(self, client):
+    def test_list_jobs_default_response_has_items(self, client):
         data = client.get("/api/v1/ingestion/jobs").json()
         assert "items" in data
 
@@ -223,11 +223,11 @@ class TestListJobs:
 # ---------------------------------------------------------------------------
 
 class TestClearJobs:
-    def test_returns_200(self, client):
+    def test_clear_jobs_default_returns_200(self, client):
         response = client.delete("/api/v1/ingestion/jobs")
         assert response.status_code == 200
 
-    def test_response_has_removed_jobs(self, client):
+    def test_clear_jobs_response_has_removed_jobs(self, client):
         data = client.delete("/api/v1/ingestion/jobs").json()
         assert "removed_jobs" in data
 

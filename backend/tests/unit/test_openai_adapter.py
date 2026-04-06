@@ -73,7 +73,7 @@ def adapter_and_mock():
 # ===========================================================================
 
 class TestCreateEmbedding:
-    def test_returns_vector(self, adapter_and_mock):
+    def test_create_embedding_valid_text_returns_vector(self, adapter_and_mock):
         adapter, mock_client = adapter_and_mock
         expected = [0.1, 0.2, 0.3]
         mock_client.embeddings.create.return_value = _make_embedding_response([expected])
@@ -107,7 +107,7 @@ class TestCreateEmbedding:
 # ===========================================================================
 
 class TestCreateEmbeddingsBatch:
-    def test_single_batch(self, adapter_and_mock):
+    def test_create_embeddings_batch_single_batch_returns_all(self, adapter_and_mock):
         adapter, mock_client = adapter_and_mock
         texts = ["a", "b", "c"]
         vectors = [[0.1] * 10, [0.2] * 10, [0.3] * 10]
@@ -118,7 +118,7 @@ class TestCreateEmbeddingsBatch:
         assert len(result) == 3
         assert result[0] == [0.1] * 10
 
-    def test_multiple_batches(self, adapter_and_mock):
+    def test_create_embeddings_batch_multiple_batches_returns_all(self, adapter_and_mock):
         adapter, mock_client = adapter_and_mock
         texts = [f"text-{i}" for i in range(BATCH_SIZE + 5)]
 
@@ -163,7 +163,7 @@ class TestCreateEmbeddingsBatch:
 # ===========================================================================
 
 class TestCreateChatCompletion:
-    def test_returns_content(self, adapter_and_mock):
+    def test_create_chat_completion_valid_messages_returns_content(self, adapter_and_mock):
         adapter, mock_client = adapter_and_mock
         mock_client.chat.completions.create.return_value = _make_chat_response("Spain won 2-1.")
 

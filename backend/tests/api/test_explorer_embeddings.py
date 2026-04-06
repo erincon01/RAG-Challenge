@@ -48,14 +48,14 @@ def client(mock_explorer_svc, mock_embeddings_svc):
 # ---------------------------------------------------------------------------
 
 class TestListTeams:
-    def test_returns_200(self, client, mock_explorer_svc):
+    def test_get_teams_valid_request_returns_200(self, client, mock_explorer_svc):
         mock_explorer_svc.get_teams.return_value = [
             {"team_id": 100, "name": "Spain", "gender": "male", "country": "Spain"},
         ]
         response = client.get("/api/v1/teams")
         assert response.status_code == 200
 
-    def test_returns_list(self, client, mock_explorer_svc):
+    def test_get_teams_multiple_teams_returns_list(self, client, mock_explorer_svc):
         mock_explorer_svc.get_teams.return_value = [
             {"team_id": 100, "name": "Spain", "gender": "male", "country": "Spain"},
             {"team_id": 200, "name": "England", "gender": "male", "country": "England"},
@@ -63,7 +63,7 @@ class TestListTeams:
         data = client.get("/api/v1/teams").json()
         assert len(data) == 2
 
-    def test_team_fields_present(self, client, mock_explorer_svc):
+    def test_get_teams_valid_response_contains_required_fields(self, client, mock_explorer_svc):
         mock_explorer_svc.get_teams.return_value = [
             {"team_id": 100, "name": "Spain", "gender": "male", "country": "Spain"},
         ]
@@ -92,7 +92,7 @@ class TestListTeams:
 # ---------------------------------------------------------------------------
 
 class TestListPlayers:
-    def test_returns_200(self, client, mock_explorer_svc):
+    def test_get_players_valid_request_returns_200(self, client, mock_explorer_svc):
         mock_explorer_svc.get_players.return_value = [
             {
                 "player_id": 1,
@@ -106,7 +106,7 @@ class TestListPlayers:
         response = client.get("/api/v1/players")
         assert response.status_code == 200
 
-    def test_player_fields_present(self, client, mock_explorer_svc):
+    def test_get_players_valid_response_contains_required_fields(self, client, mock_explorer_svc):
         mock_explorer_svc.get_players.return_value = [
             {
                 "player_id": 1,
@@ -122,7 +122,7 @@ class TestListPlayers:
         assert "player_id" in player
         assert "player_name" in player
 
-    def test_returns_empty_list(self, client, mock_explorer_svc):
+    def test_get_players_no_players_returns_empty_list(self, client, mock_explorer_svc):
         mock_explorer_svc.get_players.return_value = []
         data = client.get("/api/v1/players").json()
         assert data == []
@@ -138,7 +138,7 @@ class TestListPlayers:
 # ---------------------------------------------------------------------------
 
 class TestListTablesInfo:
-    def test_returns_200(self, client, mock_explorer_svc):
+    def test_get_tables_info_valid_request_returns_200(self, client, mock_explorer_svc):
         mock_explorer_svc.get_tables_info.return_value = [
             {"table": "matches", "row_count": 42, "embedding_columns": []},
         ]
@@ -165,7 +165,7 @@ class TestListTablesInfo:
 # ---------------------------------------------------------------------------
 
 class TestGetEmbeddingsStatus:
-    def test_returns_200(self, client, mock_embeddings_svc):
+    def test_get_embeddings_status_valid_request_returns_200(self, client, mock_embeddings_svc):
         mock_embeddings_svc.get_embeddings_status.return_value = {
             "total": 100,
             "covered": {"text-embedding-ada-002": 90},

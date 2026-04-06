@@ -51,7 +51,7 @@ def client():
 # ===========================================================================
 
 class TestCapabilitiesEndpoint:
-    def test_returns_200(self, client):
+    def test_capabilities_get_default_returns_200(self, client):
         assert client.get("/api/v1/capabilities").status_code == 200
 
     def test_response_has_capabilities_key(self, client):
@@ -106,7 +106,7 @@ class TestSourcesStatusEndpoint:
         client._mock_pg_repo.test_connection.assert_called_once()
         client._mock_sql_repo.test_connection.assert_called_once()
 
-    def test_returns_200(self, client):
+    def test_sources_status_both_up_returns_200(self, client):
         client._mock_pg_repo.test_connection.return_value = True
         client._mock_sql_repo.test_connection.return_value = True
         assert client.get("/api/v1/sources/status").status_code == 200

@@ -233,7 +233,7 @@ class TestJobServiceThreadSafety:
         assert len(set(results)) == 50  # all IDs unique
         assert len(JobService.list(limit=100)) == 50
 
-    def test_concurrent_updates(self):
+    def test_concurrent_updates_no_errors(self):
         job = JobService.create_job("download", {})
         errors = []
 

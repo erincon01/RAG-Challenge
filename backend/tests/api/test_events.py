@@ -40,11 +40,11 @@ def client(mock_event_repo):
 # ===========================================================================
 
 class TestListEvents:
-    def test_returns_200(self, client):
+    def test_list_events_valid_match_id_returns_200(self, client):
         response = client.get("/api/v1/events?match_id=3943043")
         assert response.status_code == 200
 
-    def test_match_id_required(self, client):
+    def test_list_events_missing_match_id_returns_422(self, client):
         response = client.get("/api/v1/events")
         assert response.status_code == 422
 
@@ -55,7 +55,7 @@ class TestListEvents:
         data = client.get("/api/v1/events?match_id=3943043").json()
         assert len(data) == 3
 
-    def test_event_fields_present(self, client):
+    def test_list_events_valid_request_contains_required_fields(self, client):
         data = client.get("/api/v1/events?match_id=3943043").json()
         assert len(data) > 0
         e = data[0]
@@ -98,7 +98,7 @@ class TestListEvents:
         data = client.get("/api/v1/events?match_id=1").json()
         assert data[0]["summary"] is None
 
-    def test_empty_result(self, client, mock_event_repo):
+    def test_list_events_no_events_returns_empty_list(self, client, mock_event_repo):
         mock_event_repo.get_events_by_match.return_value = []
         data = client.get("/api/v1/events?match_id=1").json()
         assert data == []

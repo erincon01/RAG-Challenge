@@ -46,26 +46,26 @@ def client():
 
 
 class TestLivenessEndpoint:
-    def test_returns_200(self, client):
+    def test_liveness_get_healthy_server_returns_200(self, client):
         response = client.get("/api/v1/health/live")
         assert response.status_code == 200
 
-    def test_returns_alive_status(self, client):
+    def test_liveness_get_healthy_server_returns_alive_status(self, client):
         response = client.get("/api/v1/health/live")
         assert response.json()["status"] == "alive"
 
 
 class TestHealthEndpoint:
-    def test_returns_200(self, client):
+    def test_health_get_default_returns_200(self, client):
         response = client.get("/api/v1/health")
         assert response.status_code == 200
 
-    def test_returns_healthy_status(self, client):
+    def test_health_get_default_returns_healthy_status(self, client):
         response = client.get("/api/v1/health")
         data = response.json()
         assert data["status"] == "healthy"
 
-    def test_contains_required_fields(self, client):
+    def test_health_get_default_contains_required_fields(self, client):
         response = client.get("/api/v1/health")
         data = response.json()
         assert "status" in data
@@ -74,7 +74,7 @@ class TestHealthEndpoint:
         assert "version" in data
         assert "checks" in data
 
-    def test_checks_api_and_config_ok(self, client):
+    def test_health_get_default_checks_api_and_config_ok(self, client):
         response = client.get("/api/v1/health")
         checks = response.json()["checks"]
         assert checks["api"] == "ok"
@@ -149,14 +149,14 @@ class TestNoDirectRepoImportsInHealth:
 
 
 class TestRootEndpoint:
-    def test_root_returns_200(self, client):
+    def test_root_get_default_returns_200(self, client):
         response = client.get("/")
         assert response.status_code == 200
 
-    def test_root_contains_name(self, client):
+    def test_root_get_default_contains_name(self, client):
         data = client.get("/").json()
         assert "RAG Challenge" in data.get("name", "")
 
-    def test_root_contains_docs_path(self, client):
+    def test_root_get_default_contains_docs_path(self, client):
         data = client.get("/").json()
         assert data.get("docs") == "/docs"
