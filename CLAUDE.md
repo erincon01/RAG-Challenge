@@ -38,6 +38,8 @@ This project uses [OpenSpec](https://github.com/Fission-AI/OpenSpec) for spec-dr
 - Implement with `/opsx:apply`, archive with `/opsx:archive`.
 - System specs live in `openspec/specs/` (api, rag, data, infra).
 - Active changes live in `openspec/changes/`, archived in `openspec/changes/archive/`.
+- **Parallel apply**: independent changes can be applied in parallel using `isolation: "worktree"`.
+  See `AGENTS.md` § "Parallel development with worktrees" for rules and limits.
 
 ## Claude-specific tools
 

@@ -153,6 +153,18 @@ What would you like to do?
 - **Module-level side effects (middleware, singletons) cannot be patched after import** — if testing middleware, build a dedicated test app
 - **Run the full suite** (`pytest tests/`) before considering the change complete — a single file passing is not enough
 
+**Parallel Apply with Worktrees**
+
+Multiple OpenSpec changes can be applied in parallel using worktree isolation:
+
+- **When to parallelize**: User explicitly requests it, and changes touch different files/layers
+- **How**: Launch one agent per change with `isolation: "worktree"`. Each agent gets its own branch and working directory
+- **Each agent**: creates branch (`fix/NNN-*` or `feature/NNN-*`) → applies tasks → runs full test suite → commits
+- **Output**: Each worktree produces one PR against `develop`
+- **Limits**: 2–3 parallel worktrees max. Dependencies must be installed per worktree if new packages are added
+- **Merge order**: PRs are merged sequentially into `develop`; later PRs rebase if conflicts arise
+- **Cleanup**: Worktrees with no changes are automatically removed; others are cleaned after PR merge
+
 **Fluid Workflow Integration**
 
 This skill supports the "actions on a change" model:

@@ -105,6 +105,40 @@ chore(ci): update ruff to 0.15.8
 4. Merge con "Squash and merge" si hay muchos commits intermedios.
 5. Borrar rama tras merge.
 
+## Worktrees para desarrollo paralelo
+
+### Cuándo usar worktrees
+
+Usar git worktrees cuando se implementan múltiples OpenSpec changes en paralelo.
+Cada worktree es un directorio aislado con su propia rama, vinculado al mismo repositorio.
+
+### Reglas
+
+1. **Proponer primero** — todos los `/opsx:propose` se ejecutan en `develop` antes de paralelizar.
+2. **Una rama por worktree** — cada worktree usa su propia rama (`feature/NNN-*`, `fix/NNN-*`).
+   Una rama checked out en un worktree no puede usarse en otro.
+3. **Independencia de cambios** — solo paralelizar changes que no toquen los mismos ficheros.
+4. **Dependencias por worktree** — si se añaden paquetes, ejecutar `pip install` en cada worktree.
+5. **Limpieza obligatoria** — worktrees sin cambios se eliminan automáticamente;
+   los que tienen cambios se limpian tras merge del PR con `git worktree remove <path>`.
+6. **Límite práctico** — máximo 2–3 worktrees paralelos para minimizar riesgo de conflictos.
+7. **Merge secuencial** — mergear PRs uno a uno en `develop`; rebase si hay conflictos.
+8. **No ejecutar `git gc`** mientras haya worktrees activos (comparten `.git`).
+
+### Ejemplo de flujo
+
+```bash
+# 1. Proponer cambios en develop
+/opsx:propose fix-data-explorer
+/opsx:propose fix-dependency-injection
+
+# 2. Lanzar agentes paralelos con isolation: worktree
+# Cada agente: crea rama → aplica tasks → pytest → commit
+
+# 3. Cada agente genera un PR contra develop
+# 4. Merge secuencial → archive cada change
+```
+
 ## Tags y releases
 
 - Al mergear `develop` → `main`, crear tag: `vX.Y.Z`.
