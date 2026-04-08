@@ -21,7 +21,56 @@ docker compose up --build
 
 - Frontend: http://localhost:5173
 - Backend docs: http://localhost:8000/docs
-- Tests: `cd backend && pytest tests/ -v` (470+ tests, no DB needed)
+- Tests: `cd backend && pytest tests/ -v` (530+ tests, no DB needed)
+
+### First run — seed dataset
+
+On first container open, `.devcontainer/post-create.sh` automatically
+downloads and loads the **seed dataset**: two iconic finals with
+pre-computed summaries and embeddings.
+
+| Match | Competition | match_id |
+|---|---|---|
+| **Spain 2-1 England** | UEFA Euro 2024 Final | 3943043 |
+| **Argentina 3-3 France** (pens. 4-2) | FIFA World Cup 2022 Final | 3869685 |
+
+The seed is **pre-computed**: summaries and 1536-dim embeddings are
+downloaded from a GitHub Release, so **no OpenAI key is required** to
+populate the dashboard on first run.
+
+If the seed load failed (no network, GitHub Release not yet published,
+etc.), the devcontainer still starts. You can retry with:
+
+```bash
+make seed                            # both databases
+make seed-postgres                   # postgres only
+make seed-sqlserver                  # sqlserver only
+cd backend && python -m scripts.seed_load --source both --force  # re-seed
+```
+
+After a successful seed load, the dashboard at http://localhost:5173/dashboard
+should show 2 matches in the explorer, and the chat page can answer
+questions about them (**the chat runtime still needs `OPENAI_KEY` set
+in `.env.docker`** — only the seed loading is offline).
+
+### Adding more matches (requires OpenAI key)
+
+To ingest a new match with the full pipeline (download → load → aggregate
+→ summaries → embeddings):
+
+```bash
+curl -X POST http://localhost:8000/api/v1/ingestion/full-pipeline \
+  -H "Content-Type: application/json" \
+  -d '{
+    "source": "postgres",
+    "match_ids": [3943077],
+    "competition_id": 55,
+    "season_id": 282
+  }'
+```
+
+This requires `OPENAI_KEY` to be set and will consume OpenAI tokens
+(approximately $0.15-0.30 per match with GPT-4o-mini + text-embedding-3-small).
 
 ## 2. Understand the project
 

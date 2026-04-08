@@ -109,6 +109,69 @@ Cada sesión significativa con un agente AI se documenta aquí para auditoría y
 
 ---
 
+### [2026-04-08] Session 21 — Seed initial dataset (feature/040-seed-initial-dataset)
+
+**Participants:** Eladio Rincon + Claude Code (Claude Opus 4.6)
+**Branch:** feature/040-seed-initial-dataset
+**Related issue:** erincon01/RAG-Challenge#40 (Area 8: Automatic setup and seed data)
+
+#### Problem discovered during exploration
+1. The dashboard at `/dashboard` shows "Sources: 2" but zero matches — the only seeded row was a synthetic `match_id=900001` placeholder with no events.
+2. **Critical gap in the pipeline**: `aggregate` stage wrote `summary = NULL`, but `embeddings/rebuild` filtered `WHERE summary IS NOT NULL`. No embeddings were ever created out of the box. `docs/data-model.md` described "LLM-generated summary" but the generation step did not exist in code.
+3. New devs couldn't try the RAG pipeline without running 4 manual HTTP calls and spending OpenAI tokens.
+
+#### Decisions taken
+- Close the pipeline gap with a new **5th stage**: `run_generate_summaries_job()` + `POST /ingestion/summaries/generate` endpoint. Kept as a separate stage (not folded into aggregate/embeddings) to keep the pipeline composable and cost-model explicit.
+- Prompt template lives in a file (`backend/app/services/prompts/event_summary.md`), loaded once and cached per service instance. Plain text with `str.format()` placeholders — no Jinja2 dependency.
+- Added `POST /ingestion/full-pipeline` as a thin orchestrator over the 5 stages. Uses the same `job_id` for sub-stages and re-sets status to "running" between stages.
+- **Seed dataset = 2 canonical finals**: Euro 2024 Final (3943043) + World Cup 2022 Final (3869685). Both already used as test fixtures in `conftest.py`.
+- **Pre-computed summaries + embeddings** published as a **GitHub Release** asset (`seed/v1`), NOT committed to the repo. Per-user requirement: no StatsBomb JSON in git.
+- **Only `text-embedding-3-small`** in the seed (cheapest, modern, ~1/3 of tarball size vs. seeding all 3 models).
+- `seed_load.py` is idempotent and tolerant to failures: if anything goes wrong, it logs a warning and exits non-zero, but post-create.sh continues so the devcontainer still starts.
+- `seed_build.py` requires explicit `--i-have-budget` flag and `OPENAI_KEY`. Maintainer runs it once per version bump, uploads to GitHub Release.
+- Removed the 900001 placeholder row entirely from post-create.sh (Postgres and SQL Server). Real seed replaces it.
+
+#### Scope of this change
+This is Phase 1 of issue #40. Includes:
+- Summary generation stage (endpoint + service + prompt template)
+- Full-pipeline orchestrator endpoint
+- `seed_load.py` dev-path loader (no API calls)
+- `seed_build.py` maintainer-path builder (needs API key)
+- Devcontainer wiring via post-create.sh
+- Root Makefile with convenience targets
+- Docs: getting-started.md "First run" section + data/seed/README.md
+- 60+ new unit tests and 13 new API tests
+
+#### NOT in scope (follow-ups)
+- **Actually publishing the seed tarball to GitHub Releases** — maintainer must run `seed_build.py --i-have-budget` once with their OpenAI key and then `gh release create seed/v1`. Until that happens, `seed_load.py` will try to download, fail gracefully, and log a warning. Tracked as a manual task in tasks.md Phase 3.10.
+- Integration test (`test_seed_load_live.py`) that requires a running Docker stack — marked `@pytest.mark.integration` and deferred.
+- Dashboard label fix ("Data Sources" is confusingly named) — belongs to a separate frontend UX issue.
+
+#### Files modified
+- `backend/app/services/ingestion_service.py` — added summary generation stage and full-pipeline orchestrator
+- `backend/app/api/v1/ingestion.py` — two new routes and Pydantic request models
+- `.devcontainer/post-create.sh` — removed 900001 placeholder, added seed_load call
+
+#### Files added
+- `backend/app/services/prompts/__init__.py`, `event_summary.md`
+- `backend/scripts/__init__.py`, `seed_build.py`, `seed_load.py`
+- `backend/tests/unit/test_summary_generation.py` (14 tests)
+- `backend/tests/unit/test_full_pipeline_orchestrator.py` (4 tests)
+- `backend/tests/unit/test_seed_build.py` (12 tests)
+- `backend/tests/unit/test_seed_load.py` (17 tests)
+- `backend/tests/api/test_ingestion.py` additions (13 tests)
+- `data/seed/README.md`
+- `Makefile` (new, root level)
+- `openspec/changes/seed-initial-dataset/proposal.md`, `design.md`, `tasks.md`
+
+#### Verification
+- Full pytest suite: **530 passing, 0 warnings** (was 470)
+- `ruff check` clean on `backend/app`, `ruff format --check` clean
+- `bash -n .devcontainer/post-create.sh` syntax valid
+- **Deferred:** actual Docker stack smoke test and first-run verification — requires maintainer to publish the GitHub Release tarball first.
+
+---
+
 ## Fase spec-kit (Sessions 1-12, branch: develop)
 
 ---
