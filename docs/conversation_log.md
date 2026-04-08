@@ -103,6 +103,10 @@ Cada sesión significativa con un agente AI se documenta aquí para auditoría y
 #### Follow-up (same session)
 - Fixed the 7 pre-existing PydanticDeprecatedSince20 warnings in `backend/app/api/v1/models.py` by migrating class-based `Config` to `model_config = ConfigDict(...)`. Separate commit, same branch.
 
+#### Outcome
+- **PR #43** merged to `develop` on 2026-04-08. User verified §5 and §6 on host (Docker Desktop / WSL2) — production image has no `git`/`node`, runs as `appuser`, devcontainer rebuilds successfully and all 470 tests pass inside it.
+- Archived to `openspec/changes/archive/2026-04-08-decouple-devcontainer-image/` in follow-up branch `chore/archive-decouple-devcontainer`.
+
 ---
 
 ## Fase spec-kit (Sessions 1-12, branch: develop)

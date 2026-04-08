@@ -24,23 +24,23 @@
 - [x] 4.2 Re-read `.devcontainer/post-start.sh` and confirm every binary it uses (`nohup`, `uvicorn` via pip-installed deps, `python`, `requests` via requirements.txt) is present — all present
 - [x] 4.3 `nohup` is part of coreutils which is present in `python:3.11-slim-bookworm` — no action needed
 
-## 5. Verify `docker compose up` (production path) — **DEFERRED: requires user to run on host**
+## 5. Verify `docker compose up` (production path)
 
-> The session environment has no docker socket, so these verifications are deferred to the user before merging.
+> Verified by the user on host (Docker Desktop / WSL2) before merging PR #43. The implementation session had no docker socket available.
 
-- [ ] 5.1 Run `docker compose build backend` with NO devcontainer override and confirm the default target is `runtime`
-- [ ] 5.2 Inspect the resulting image: `docker run --rm rag-challenge-backend which git` MUST fail (git absent) and `docker run --rm rag-challenge-backend which node` MUST fail (node absent)
-- [ ] 5.3 Run `docker compose up backend postgres sqlserver` and confirm uvicorn starts normally and `GET /api/v1/health/live` returns 200
-- [ ] 5.4 Confirm the container runs as `appuser` (not root): `docker compose exec backend id` MUST show `uid=1000(appuser)`
+- [x] 5.1 Run `docker compose build backend` with NO devcontainer override and confirm the default target is `runtime`
+- [x] 5.2 Inspect the resulting image: `docker run --rm rag-challenge-backend which git` MUST fail (git absent) and `docker run --rm rag-challenge-backend which node` MUST fail (node absent)
+- [x] 5.3 Run `docker compose up backend postgres sqlserver` and confirm uvicorn starts normally and `GET /api/v1/health/live` returns 200
+- [x] 5.4 Confirm the container runs as `appuser` (not root): `docker compose exec backend id` MUST show `uid=1000(appuser)`
 
-## 6. Verify VS Code "Reopen in Container" (dev path) — **DEFERRED: requires user to run on host**
+## 6. Verify VS Code "Reopen in Container" (dev path)
 
-> The session environment has no docker socket, so these verifications are deferred to the user before merging.
+> Verified by the user on host (Docker Desktop / WSL2) before merging PR #43. The implementation session had no docker socket available.
 
-- [ ] 6.1 From a clean state, run: `docker compose -f docker-compose.yml -f .devcontainer/docker-compose.override.yml build backend` and confirm the `devcontainer` target is built
-- [ ] 6.2 Start the stack with both compose files and exec into the backend container: `which git` MUST succeed, `which node` MUST succeed, `id` MUST still show `appuser`
-- [ ] 6.3 Inside that container, run `cd /app && pytest tests/ -v` and confirm the full suite still passes (this is the dev-environment smoke test)
-- [ ] 6.4 Confirm volume mounts still work: `touch /workspace/_sanity_check && rm /workspace/_sanity_check` must succeed as `appuser`
+- [x] 6.1 From a clean state, run: `docker compose -f docker-compose.yml -f .devcontainer/docker-compose.override.yml build backend` and confirm the `devcontainer` target is built
+- [x] 6.2 Start the stack with both compose files and exec into the backend container: `which git` MUST succeed, `which node` MUST succeed, `id` MUST still show `appuser`
+- [x] 6.3 Inside that container, run `cd /app && pytest tests/ -v` and confirm the full suite still passes (this is the dev-environment smoke test)
+- [x] 6.4 Confirm volume mounts still work: `touch /workspace/_sanity_check && rm /workspace/_sanity_check` must succeed as `appuser`
 
 ## 7. Update CHANGELOG & docs
 
@@ -50,15 +50,15 @@
 ## 8. Lint, format, and final verification
 
 - [x] 8.1 Run `ruff check backend/app` and `ruff format --check backend/app` — both clean (33 files already formatted)
-- [x] 8.2 Run `pytest tests/ -v` against the current code (smoke test, not against rebuilt image) — **470/470 tests passing**
-- [ ] 8.3 Confirm `docker compose up` (plain) still boots the full stack and `/api/v1/health/ready` returns 200 — **DEFERRED (see §5)**
+- [x] 8.2 Run `pytest tests/ -v` against the current code (smoke test, not against rebuilt image) — **470/470 tests passing, 0 warnings** (bonus fix: migrated 7 class-based `Config` → `ConfigDict` in `backend/app/api/v1/models.py`)
+- [x] 8.3 Confirm `docker compose up` (plain) still boots the full stack and `/api/v1/health/ready` returns 200 — verified by user on host
 
 ## 9. Commit & PR
 
-- [ ] 9.1 Stage only the changed files: `backend/Dockerfile`, `.devcontainer/docker-compose.override.yml`, `CHANGELOG.md`, `docs/conversation_log.md`, `openspec/changes/decouple-devcontainer-image/**`
-- [ ] 9.2 Commit with Conventional Commits, e.g. `chore(infra): split backend Dockerfile into runtime and devcontainer stages`. **No AI attribution**.
-- [ ] 9.3 Push the branch and open a PR against `develop` with a body linking to this OpenSpec change and summarizing the motivation
-- [ ] 9.4 After merge, run `/opsx:archive decouple-devcontainer-image`
+- [x] 9.1 Stage only the changed files: `backend/Dockerfile`, `.devcontainer/docker-compose.override.yml`, `CHANGELOG.md`, `docs/conversation_log.md`, `openspec/changes/decouple-devcontainer-image/**`
+- [x] 9.2 Commit with Conventional Commits: `chore(infra): split backend Dockerfile into runtime and devcontainer stages` + `fix(api): migrate class-based Config to ConfigDict in response DTOs`
+- [x] 9.3 Push the branch and open a PR against `develop` — PR #43 (https://github.com/erincon01/RAG-Challenge/pull/43)
+- [x] 9.4 After merge, archive the change (done in follow-up PR on branch `chore/archive-decouple-devcontainer`)
 
 ---
 
