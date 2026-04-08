@@ -9,10 +9,17 @@ from __future__ import annotations
 
 import subprocess
 import sys
+from pathlib import Path
 
 import pytest
 
 from scripts import seed_build
+
+# Resolve the backend/ directory dynamically so these subprocess-based
+# tests work in any checkout (local devcontainer at /workspace/backend,
+# GitHub Actions at /home/runner/work/RAG-Challenge/RAG-Challenge/backend,
+# etc.).
+BACKEND_DIR = Path(__file__).resolve().parents[2]
 
 
 # ---------------------------------------------------------------------------
@@ -65,7 +72,7 @@ class TestCliBudgetFlag:
             ],
             capture_output=True,
             text=True,
-            cwd="/workspace/backend",
+            cwd=str(BACKEND_DIR),
         )
         assert result.returncode != 0
         assert "--i-have-budget" in result.stderr
@@ -88,7 +95,7 @@ class TestCliBudgetFlag:
             ],
             capture_output=True,
             text=True,
-            cwd="/workspace/backend",
+            cwd=str(BACKEND_DIR),
             env=env,
         )
         # Should fail later (at postgres connect), not at the budget
@@ -116,7 +123,7 @@ class TestCliMatchIdsValidation:
             ],
             capture_output=True,
             text=True,
-            cwd="/workspace/backend",
+            cwd=str(BACKEND_DIR),
         )
         assert result.returncode != 0
         assert "unknown match_ids" in result.stderr
@@ -138,7 +145,7 @@ class TestCliMatchIdsValidation:
             ],
             capture_output=True,
             text=True,
-            cwd="/workspace/backend",
+            cwd=str(BACKEND_DIR),
             env=env,
         )
         # Argparse passed (no "unknown match_ids"); failure is elsewhere

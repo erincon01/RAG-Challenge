@@ -14,6 +14,10 @@ import pytest
 
 from scripts import seed_load
 
+# Resolve the backend/ directory dynamically (see test_seed_build.py for
+# rationale).
+BACKEND_DIR = Path(__file__).resolve().parents[2]
+
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -236,7 +240,7 @@ class TestSeedLoadMain:
             [sys.executable, "-m", "scripts.seed_load", "--help"],
             capture_output=True,
             text=True,
-            cwd="/workspace/backend",
+            cwd=str(BACKEND_DIR),
         )
         assert result.returncode == 0
         assert "source" in result.stdout
@@ -247,8 +251,6 @@ class TestSeedLoadMain:
         self, mock_download, mock_idem
     ):
         mock_idem.return_value = True
-        exit_code = seed_load.main.__wrapped__() if hasattr(seed_load.main, "__wrapped__") else None
-        # main uses sys.argv so we call it via a light wrapper
         with patch.object(sys, "argv", ["seed_load", "--source", "postgres"]):
             rc = seed_load.main()
         assert rc == 0
