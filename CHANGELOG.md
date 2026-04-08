@@ -15,6 +15,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Security
 - Remove `git`, `nodejs`, and dev-only apt tooling from the production backend image, reducing attack surface and image size.
 
+### Fixed
+- Migrate class-based `Config` to `model_config = ConfigDict(...)` in all 7 response DTOs in `backend/app/api/v1/models.py`, eliminating `PydanticDeprecatedSince20` warnings. `pytest tests/ -v` now runs with zero warnings (was 7).
+
 ---
 
 ## [4.0.0] - 2026-04-06 — OpenSpec governance + security + DI refactor
