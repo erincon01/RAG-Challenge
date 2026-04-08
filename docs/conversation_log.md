@@ -74,6 +74,37 @@ Cada sesión significativa con un agente AI se documenta aquí para auditoría y
 
 ---
 
+### [2026-04-08] Session 20 — Decouple devcontainer image from production backend image (chore/decouple-devcontainer-image)
+
+**Participants:** Eladio Rincon + Claude Code (Claude Opus 4.6)
+**Branch:** chore/decouple-devcontainer-image
+
+#### Problem discovered
+- `.devcontainer/devcontainer.json` used the same `backend` service from `docker-compose.yml`, so the production `backend/Dockerfile` carried dev-only tooling: `git`, full Node.js LTS (`"for Claude CLI and tooling"`), `gnupg2`, `apt-transport-https`, and a self-describing comment about devcontainer's non-root user.
+- Result: production image inflated with dev tools, clear coupling of dev and prod concerns, confusing for new contributors.
+
+#### Decisions taken
+- Use **multi-stage in a single `backend/Dockerfile`** (`runtime` + `devcontainer`) instead of a separate `.devcontainer/Dockerfile`. Docker cannot `FROM` a stage defined in a different Dockerfile without workarounds; a single multi-stage file sidesteps that cleanly and lets `docker compose` switch between images via `build.target`.
+- The `runtime` stage purges `gnupg2` and `apt-transport-https` after installing `msodbcsql18`, since they're only needed for adding the MS apt key.
+- Add `USER appuser` at the end of the `runtime` stage so production also runs as non-root (previously only the devcontainer enforced this — bonus security fix found during design).
+- Keep `curl` in `runtime` because `msodbcsql18` install needs it and it's tiny.
+- Leave `ghcr.io/devcontainers/features/{git,github-cli}` in `devcontainer.json` unchanged — removing them is out of scope and could change behavior subtly.
+
+#### Files modified
+- `backend/Dockerfile` — split into `runtime` (production) and `devcontainer` (dev-only) stages
+- `.devcontainer/docker-compose.override.yml` — added `build.target: devcontainer`
+- `CHANGELOG.md` — entry under `## [Unreleased]`
+- `openspec/changes/decouple-devcontainer-image/{proposal,design,tasks}.md` — OpenSpec change
+
+#### Verification
+- **Static validation (done in-session):** YAML parses, Dockerfile re-read end-to-end, pytest `backend/tests -v` passes (470/470 tests), `ruff check` and `ruff format --check` clean.
+- **Docker build verification (deferred):** the session environment has no docker socket, so §5 and §6 of `tasks.md` (building runtime and devcontainer targets, confirming `git`/`node` absence in runtime and presence in devcontainer, re-running pytest inside the rebuilt devcontainer) remain as manual verification steps for the user before merging.
+
+#### Follow-up (same session)
+- Fixed the 7 pre-existing PydanticDeprecatedSince20 warnings in `backend/app/api/v1/models.py` by migrating class-based `Config` to `model_config = ConfigDict(...)`. Separate commit, same branch.
+
+---
+
 ## Fase spec-kit (Sessions 1-12, branch: develop)
 
 ---

@@ -8,6 +8,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+- **infra**: Split `backend/Dockerfile` into two stages — `runtime` (production) and `devcontainer` (dev only). The production image no longer carries `git`, `nodejs`, `gnupg2`, `apt-transport-https`, `openssh-client`, `less`, or `procps`. Those tools are layered on in the `devcontainer` stage, which is selected via `build.target: devcontainer` in `.devcontainer/docker-compose.override.yml` and is never built by plain `docker compose up`.
+- **infra**: Production backend container now runs as non-root `appuser` (UID 1000) by default — previously only the devcontainer enforced this.
+
+### Security
+- Remove `git`, `nodejs`, and dev-only apt tooling from the production backend image, reducing attack surface and image size.
+
 ---
 
 ## [4.0.0] - 2026-04-06 — OpenSpec governance + security + DI refactor

@@ -1,6 +1,15 @@
-# Override for VS Code Dev Containers
-# Backend uses sleep infinity so VS Code manages the process via post-start
+# Override for VS Code Dev Containers.
+#
+# Selects the `devcontainer` build target from backend/Dockerfile so the
+# image gets dev-only tooling (git, nodejs, openssh-client, ...) layered on
+# top of the lean `runtime` stage. Plain `docker compose up` from a shell
+# does NOT load this file, so production builds the default (runtime) target.
+#
+# Backend uses `sleep infinity` because VS Code manages uvicorn via
+# post-start.sh, not via the container's CMD.
 services:
   backend:
+    build:
+      target: devcontainer
     command: sleep infinity
     working_dir: /workspace
