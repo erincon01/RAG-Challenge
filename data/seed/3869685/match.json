@@ -1,0 +1,90 @@
+{
+  "match_id": 3869685,
+  "match_date": "2022-12-18",
+  "kick_off": "17:00:00.000",
+  "competition": {
+    "competition_id": 43,
+    "country_name": "International",
+    "competition_name": "FIFA World Cup"
+  },
+  "season": {
+    "season_id": 106,
+    "season_name": "2022"
+  },
+  "home_team": {
+    "home_team_id": 779,
+    "home_team_name": "Argentina",
+    "home_team_gender": "male",
+    "home_team_group": null,
+    "country": {
+      "id": 11,
+      "name": "Argentina"
+    },
+    "managers": [
+      {
+        "id": 5677,
+        "name": "Lionel Sebastián Scaloni",
+        "nickname": null,
+        "dob": "1978-05-16",
+        "country": {
+          "id": 11,
+          "name": "Argentina"
+        }
+      }
+    ]
+  },
+  "away_team": {
+    "away_team_id": 771,
+    "away_team_name": "France",
+    "away_team_gender": "male",
+    "away_team_group": null,
+    "country": {
+      "id": 78,
+      "name": "France"
+    },
+    "managers": [
+      {
+        "id": 545,
+        "name": "Didier Deschamps",
+        "nickname": null,
+        "dob": "1968-10-15",
+        "country": {
+          "id": 78,
+          "name": "France"
+        }
+      }
+    ]
+  },
+  "home_score": 3,
+  "away_score": 3,
+  "match_status": "available",
+  "match_status_360": "available",
+  "last_updated": "2023-02-20T07:27:19.374380",
+  "last_updated_360": "2023-08-17T15:55:15.164685",
+  "metadata": {
+    "data_version": "1.1.0",
+    "shot_fidelity_version": "2",
+    "xy_fidelity_version": "2"
+  },
+  "match_week": 7,
+  "competition_stage": {
+    "id": 26,
+    "name": "Final"
+  },
+  "stadium": {
+    "id": 1001114,
+    "name": "Lusail Stadium",
+    "country": {
+      "id": 185,
+      "name": "Qatar"
+    }
+  },
+  "referee": {
+    "id": 367,
+    "name": "Szymon Marciniak",
+    "country": {
+      "id": 182,
+      "name": "Poland"
+    }
+  }
+}

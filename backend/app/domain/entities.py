@@ -22,9 +22,9 @@ class SearchAlgorithm(StrEnum):
 class EmbeddingModel(StrEnum):
     """Supported embedding models."""
 
-    ADA_002 = "text-embedding-ada-002"
-    T3_SMALL = "text-embedding-3-small"
-    T3_LARGE = "text-embedding-3-large"
+    ADA_002 = "text-embedding-ada-002"  # deprecated — legacy model, not generated
+    T3_SMALL = "text-embedding-3-small"  # active — sole production model (1536 dims)
+    T3_LARGE = "text-embedding-3-large"  # deprecated — no significant improvement for this domain
 
 
 @dataclass

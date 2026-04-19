@@ -184,5 +184,10 @@ BEGIN
 END;
 GO
 
+-- NOTE: SQL Server 2025 Express does not support CREATE VECTOR INDEX.
+-- Vector search uses VECTOR_DISTANCE() with sequential scan.
+-- HNSW indexes require SQL Server 2025 Enterprise/Developer edition.
+-- See docs/sql-server-setup.md for details.
+
 PRINT 'RAG Challenge database schema initialized successfully.';
 GO

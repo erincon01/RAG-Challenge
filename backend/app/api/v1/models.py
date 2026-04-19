@@ -9,7 +9,7 @@ transformation without affecting the domain layer.
 from datetime import date
 from typing import Any
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 # Competition models
@@ -20,8 +20,7 @@ class CompetitionResponse(BaseModel):
     country: str
     name: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Team models
@@ -35,8 +34,7 @@ class TeamResponse(BaseModel):
     manager: str | None = None
     manager_country: str | None = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Match models
@@ -54,8 +52,7 @@ class MatchSummaryResponse(BaseModel):
     result: str
     display_name: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class MatchDetailResponse(BaseModel):
@@ -75,8 +72,7 @@ class MatchDetailResponse(BaseModel):
     referee_name: str | None = None
     display_name: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Event models
@@ -92,8 +88,7 @@ class EventDetailResponse(BaseModel):
     summary: str | None = None
     time_description: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class SearchResultResponse(BaseModel):
@@ -103,8 +98,7 @@ class SearchResultResponse(BaseModel):
     similarity_score: float
     rank: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Search request/response models
@@ -166,8 +160,7 @@ class SearchResponse(BaseModel):
     match_info: MatchDetailResponse | None = None
     metadata: dict = Field(default_factory=dict)
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Pagination models

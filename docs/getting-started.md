@@ -21,7 +21,67 @@ docker compose up --build
 
 - Frontend: http://localhost:5173
 - Backend docs: http://localhost:8000/docs
-- Tests: `cd backend && pytest tests/ -v` (470+ tests, no DB needed)
+- Tests: `cd backend && pytest tests/ -v` (530+ tests, no DB needed)
+
+### First run — seed dataset
+
+On first container open, `.devcontainer/post-create.sh` automatically
+loads the **seed dataset**: two iconic finals with pre-computed summaries
+and embeddings that are **included in the repository** under `data/seed/`.
+
+| Match | Competition | match_id |
+|---|---|---|
+| **Spain 2-1 England** | UEFA Euro 2024 Final | 3943043 |
+| **Argentina 3-3 France** (pens. 4-2) | FIFA World Cup 2022 Final | 3869685 |
+
+The seed is **pre-computed**: summaries (generated with `gpt-4o-mini`)
+and 1536-dim embeddings (generated with `text-embedding-3-small`) are
+already in the repo, so **no OpenAI key is required** to populate the
+dashboard on first run. No network download is needed either.
+
+Raw match and event data comes from
+[StatsBomb Open Data](https://github.com/statsbomb/open-data)
+(CC BY-NC-SA 4.0).
+
+If the seed load failed, the devcontainer still starts. You can retry with:
+
+```bash
+make seed                            # both databases
+make seed-postgres                   # postgres only
+make seed-sqlserver                  # sqlserver only
+cd backend && python -m scripts.seed_load --source both --force  # re-seed
+```
+
+The seed loads into **both PostgreSQL and SQL Server**. You can switch
+between them at any time using the **Source** dropdown in the header.
+
+> **Note:** SQL Server starts slower (~30s vs ~5s for PostgreSQL). If the
+> seed load fails for SQL Server, wait a moment and retry with `make seed-sqlserver`.
+> See [docs/sql-server-setup.md](sql-server-setup.md) for troubleshooting.
+
+After a successful seed load, the dashboard at http://localhost:5173/dashboard
+should show 2 matches in the explorer, and the chat page can answer
+questions about them (**the chat runtime still needs `OPENAI_KEY` set
+in `.env.docker`** — only the seed loading is offline).
+
+### Adding more matches (requires OpenAI key)
+
+To ingest a new match with the full pipeline (download → load → aggregate
+→ summaries → embeddings):
+
+```bash
+curl -X POST http://localhost:8000/api/v1/ingestion/full-pipeline \
+  -H "Content-Type: application/json" \
+  -d '{
+    "source": "postgres",
+    "match_ids": [3943077],
+    "competition_id": 55,
+    "season_id": 282
+  }'
+```
+
+This requires `OPENAI_KEY` to be set and will consume OpenAI tokens
+(approximately $0.15-0.30 per match with GPT-4o-mini + text-embedding-3-small).
 
 ## 2. Understand the project
 
@@ -133,7 +193,19 @@ mypy backend/app
 docker compose up --build
 ```
 
-## 6. Where to find things
+## 6. Tutorials
+
+Learn how the RAG pipeline works with step-by-step guides using the seed data:
+
+| Tutorial | What you'll learn |
+|----------|------------------|
+| [01 — Your first semantic search](tutorials/01-first-semantic-search.md) | End-to-end RAG query: question → embedding → vector search → LLM answer |
+| [02 — Comparing search algorithms](tutorials/02-comparing-search-algorithms.md) | Cosine vs inner product vs L2 Euclidean with real results |
+| [03 — Understanding embeddings](tutorials/03-understanding-embeddings.md) | What vectors are, 1536 dimensions, the embedding pipeline |
+
+A golden set of evaluation questions is available at `data/golden_set.json`.
+
+## 7. Where to find things
 
 | What | Where |
 |------|-------|

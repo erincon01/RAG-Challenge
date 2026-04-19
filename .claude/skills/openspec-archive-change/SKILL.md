@@ -63,7 +63,7 @@ Archive a completed change in the experimental workflow.
    - If changes needed: "Sync now (recommended)", "Archive without syncing"
    - If already synced: "Archive now", "Sync anyway", "Cancel"
 
-   If user chooses sync, use Task tool (subagent_type: "general-purpose", prompt: "Use Skill tool to invoke openspec-sync-specs for change '<name>'. Delta spec analysis: <include the analyzed delta spec summary>"). Proceed to archive regardless of choice.
+   If user chooses sync, manually apply the delta spec changes to the corresponding main specs at `openspec/specs/<capability>/spec.md` based on the analysis summary. Proceed to archive regardless of choice.
 
 5. **Perform the archive**
 

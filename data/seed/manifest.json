@@ -1,0 +1,28 @@
+{
+  "version": "v1",
+  "embedding_model": "text-embedding-3-small",
+  "matches": [
+    {
+      "match_id": 3943043,
+      "label": "Euro 2024 Final (Spain 2-1 England)",
+      "competition_id": 55,
+      "season_id": 282
+    },
+    {
+      "match_id": 3869685,
+      "label": "World Cup 2022 Final (Argentina 3-3 France, pens 4-2)",
+      "competition_id": 43,
+      "season_id": 106
+    }
+  ],
+  "files": {
+    "3943043/match.json": "6d9e7d38d982bcccedaf54ef3bbc4309220df676822e2ec748540af0982e58be",
+    "3943043/events.json": "4643112bdf1dd302d4f28b6c138126bcf8c2be055103fa2a75bb3ceca1864ad2",
+    "3943043/summaries.jsonl": "d58f99d9d53871c1dc6f8458be6f75080e3e9e605eab603d4e7b95a1cd2babb2",
+    "3943043/embeddings_t3_small.jsonl": "46de1111c0977ad7fb47c8d5021933107d11fde109afe04627edecf6bad6dd05",
+    "3869685/match.json": "53cf2335bb84f4b98f34757d69c2cbfad3e3d11b959d9130b4b8989fb85bf1e2",
+    "3869685/events.json": "3aab803c9f83ba6b8333be6ae35ca668947859af3719e254eb75f94245805964",
+    "3869685/summaries.jsonl": "b62da63724052f342bc78823396c2a68f985e962eb92650c0fcc6db93528fc14",
+    "3869685/embeddings_t3_small.jsonl": "8320b5fb83bce14802c24329e9359016577d282ce623737fbc721ef2cd6c624b"
+  }
+}

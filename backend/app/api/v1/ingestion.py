@@ -109,6 +109,40 @@ class EmbeddingsRebuildRequest(BaseModel):
         return normalize_source(value)
 
 
+class SummariesGenerateRequest(BaseModel):
+    source: str = "postgres"
+    match_ids: list[int] = Field(default_factory=list)
+    language: str = "english"
+
+    @field_validator("source")
+    @classmethod
+    def validate_source(cls, value: str) -> str:
+        return normalize_source(value)
+
+
+class FullPipelineRequest(BaseModel):
+    source: str = "postgres"
+    match_ids: list[int] = Field(default_factory=list)
+    competition_id: int | None = None
+    season_id: int | None = None
+    datasets: list[str] = Field(
+        default_factory=lambda: ["matches", "lineups", "events"]
+    )
+    language: str = "english"
+    embedding_models: list[str] | None = None
+    overwrite: bool = False
+
+    @field_validator("source")
+    @classmethod
+    def validate_source(cls, value: str) -> str:
+        return normalize_source(value)
+
+    @field_validator("datasets")
+    @classmethod
+    def validate_datasets(cls, values: list[str]) -> list[str]:
+        return _normalize_datasets(values)
+
+
 def _create_background_job(
     background_tasks: BackgroundTasks,
     *,
@@ -237,6 +271,56 @@ async def start_rebuild_embeddings_job(
         payload=payload,
         source=request.source,
         runner=service.run_rebuild_embeddings_job,
+    )
+
+
+@router.post(
+    "/ingestion/summaries/generate",
+    response_model=JobCreateResponse,
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Create summary generation job",
+)
+async def start_generate_summaries_job(
+    request: SummariesGenerateRequest,
+    background_tasks: BackgroundTasks,
+    service: IngestionSvc,
+) -> JobCreateResponse:
+    payload = request.model_dump()
+    return _create_background_job(
+        background_tasks,
+        job_type="summaries_generate",
+        payload=payload,
+        source=request.source,
+        runner=service.run_generate_summaries_job,
+    )
+
+
+@router.post(
+    "/ingestion/full-pipeline",
+    response_model=JobCreateResponse,
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Run full ingestion pipeline (download→load→aggregate→summaries→embeddings)",
+)
+async def start_full_pipeline_job(
+    request: FullPipelineRequest,
+    background_tasks: BackgroundTasks,
+    service: IngestionSvc,
+) -> JobCreateResponse:
+    if not request.match_ids and (
+        request.competition_id is None or request.season_id is None
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Provide match_ids or both competition_id and season_id",
+        )
+
+    payload = request.model_dump()
+    return _create_background_job(
+        background_tasks,
+        job_type="full_pipeline",
+        payload=payload,
+        source=request.source,
+        runner=service.run_full_pipeline_job,
     )
 
 

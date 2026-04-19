@@ -19,7 +19,7 @@ against stored vectors using a distance function.
 
 **Default model for new features:** `text-embedding-3-small`.
 
-Embeddings are generated via the Azure OpenAI (or direct OpenAI) API through
+Embeddings are generated via the OpenAI / Azure OpenAI API through
 `OpenAIAdapter.create_embedding()`. Batch generation uses chunks of 50 texts
 with 100ms delay between batches.
 

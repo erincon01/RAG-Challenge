@@ -49,11 +49,13 @@ OpenAI adapter.
 
 **Supported embedding models:**
 
-| Model | Alias | Dimensions | Sources |
-|-------|-------|------------|---------|
-| text-embedding-ada-002 | ADA_002 | 1536 | postgres, sqlserver |
-| text-embedding-3-small | T3_SMALL | 1536 | postgres, sqlserver |
-| text-embedding-3-large | T3_LARGE | 3072 | postgres only |
+| Model | Alias | Dimensions | Sources | Status |
+|-------|-------|------------|---------|--------|
+| text-embedding-3-small | T3_SMALL | 1536 | postgres, sqlserver | **active** |
+| text-embedding-ada-002 | ADA_002 | 1536 | — | deprecated |
+| text-embedding-3-large | T3_LARGE | 3072 | — | deprecated |
+
+Only `text-embedding-3-small` is offered in the capabilities API and UI. Deprecated models remain in the `EmbeddingModel` enum for backward compatibility but are not generated or selectable.
 
 ### Step 3 — Vector Search
 

@@ -26,6 +26,21 @@ class IngestionService:
         self.settings = get_settings()
         self.statsbomb = statsbomb if statsbomb is not None else StatsBombService()
         self.local_folder = Path(self.settings.repository.local_folder)
+        self._prompt_template_cache: Optional[str] = None
+
+    def _load_prompt_template(self) -> str:
+        """Load and cache the event-summary prompt template from disk.
+
+        The template lives at ``app/services/prompts/event_summary.md`` and uses
+        ``str.format()`` placeholders. It is loaded once and memoized on the
+        service instance so repeated summary generation does not hit the
+        filesystem.
+        """
+        if self._prompt_template_cache is not None:
+            return self._prompt_template_cache
+        template_path = Path(__file__).resolve().parent / "prompts" / "event_summary.md"
+        self._prompt_template_cache = template_path.read_text(encoding="utf-8")
+        return self._prompt_template_cache
 
     @staticmethod
     def _safe_unlink(path: Path) -> bool:
@@ -330,12 +345,8 @@ class IngestionService:
         source = normalize_source(payload.get("source", "postgres"))
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
         defaults = {
-            "postgres": [
-                "text-embedding-ada-002",
-                "text-embedding-3-small",
-                "text-embedding-3-large",
-            ],
-            "sqlserver": ["text-embedding-ada-002", "text-embedding-3-small"],
+            "postgres": ["text-embedding-3-small"],
+            "sqlserver": ["text-embedding-3-small"],
         }
         models = payload.get("embedding_models") or defaults[source]
         try:
@@ -487,6 +498,298 @@ class IngestionService:
                 "SELECT id, summary FROM events_details__15secs_agg WHERE summary IS NOT NULL ORDER BY id"
             )
         return [(int(r[0]), r[1]) for r in cur.fetchall()]
+
+    def _fetch_aggregation_rows_for_summary(
+        self, conn, source: str, match_ids: list[int]
+    ) -> list[tuple[int, int, int, int, str]]:
+        """Fetch rows from the aggregation table whose ``summary`` is NULL.
+
+        Returns a list of tuples ``(id, period, minute, quarter_minute,
+        events_json)`` ready to be fed to the prompt template. Only rows with
+        ``summary IS NULL`` are returned so the job is resumable — re-running
+        it after a partial failure only processes the remaining rows.
+
+        Note: ``match_id`` is not returned here to keep the tuple shape small
+        and stable. Callers that need it should fetch it via
+        ``_fetch_match_id_by_row_id`` or include it in a custom query.
+        """
+        cur = conn.cursor()
+        if source == "postgres":
+            if match_ids:
+                cur.execute(
+                    """
+                    SELECT id, period, minute, quarter_minute, json_
+                    FROM events_details__quarter_minute
+                    WHERE summary IS NULL AND match_id = ANY(%s)
+                    ORDER BY id
+                    """,
+                    (match_ids,),
+                )
+            else:
+                cur.execute(
+                    """
+                    SELECT id, period, minute, quarter_minute, json_
+                    FROM events_details__quarter_minute
+                    WHERE summary IS NULL
+                    ORDER BY id
+                    """
+                )
+            return [
+                (int(r[0]), int(r[1] or 0), int(r[2] or 0), int(r[3] or 0), r[4] or "")
+                for r in cur.fetchall()
+            ]
+
+        # SQL Server
+        if match_ids:
+            placeholders = ",".join("?" for _ in match_ids)
+            cur.execute(
+                f"""
+                SELECT id, period, minute, _15secs, json_
+                FROM events_details__15secs_agg
+                WHERE summary IS NULL AND match_id IN ({placeholders})
+                ORDER BY id
+                """,
+                match_ids,
+            )
+        else:
+            cur.execute(
+                """
+                SELECT id, period, minute, _15secs, json_
+                FROM events_details__15secs_agg
+                WHERE summary IS NULL
+                ORDER BY id
+                """
+            )
+        return [
+            (int(r[0]), int(r[1] or 0), int(r[2] or 0), int(r[3] or 0), r[4] or "")
+            for r in cur.fetchall()
+        ]
+
+    def _update_summary_for_row(
+        self, conn, source: str, row_id: int, summary: str
+    ) -> None:
+        """Write a generated summary back to the aggregation table."""
+        cur = conn.cursor()
+        if source == "postgres":
+            cur.execute(
+                "UPDATE events_details__quarter_minute SET summary = %s WHERE id = %s",
+                (summary, row_id),
+            )
+            return
+        cur.execute(
+            "UPDATE events_details__15secs_agg SET summary = ? WHERE id = ?",
+            (summary, row_id),
+        )
+
+    def run_full_pipeline_job(self, job_id: str, payload: dict[str, Any]) -> None:
+        """Orchestrate the full ingestion pipeline as a single job.
+
+        Runs the 5 stages in order:
+        ``download → load → aggregate → summaries → embeddings``.
+
+        Each stage is invoked with the orchestrator's ``job_id`` so its
+        existing ``JobService.update()`` / ``complete()`` / ``fail()``
+        calls feed progress into the same job record. Between stages, the
+        orchestrator re-sets status to ``running`` (overriding the
+        ``success`` set by the previous stage's ``complete`` call) and
+        checks for ``error`` status to abort early.
+
+        If any stage raises, the orchestrator marks the job as failed and
+        does NOT run subsequent stages.
+        """
+        stages = [
+            ("download", self.run_download_job),
+            ("load", self.run_load_job),
+            ("aggregate", self.run_aggregate_job),
+            ("summaries", self.run_generate_summaries_job),
+            ("embeddings", self.run_rebuild_embeddings_job),
+        ]
+        try:
+            JobService.update(
+                job_id,
+                status="running",
+                total=len(stages),
+                message="Running full pipeline",
+            )
+            for idx, (stage_name, runner) in enumerate(stages, start=1):
+                JobService.log(job_id, f"$ pipeline stage {stage_name} starting")
+                try:
+                    runner(job_id, payload)
+                except Exception as e:
+                    JobService.fail(job_id, f"{stage_name} raised: {e}")
+                    return
+                current = JobService.get(job_id)
+                if current and current.get("status") == "error":
+                    return  # sub-stage already called fail
+                JobService.update(
+                    job_id,
+                    status="running",
+                    progress=idx,
+                    message=f"Stage {stage_name} completed",
+                )
+            JobService.complete(job_id, {"stages_completed": len(stages)})
+        except Exception as e:
+            JobService.fail(job_id, str(e))
+
+    def _fetch_match_info_for_prompt(
+        self, conn, source: str, match_ids: list[int]
+    ) -> dict[int, dict[str, Any]]:
+        """Fetch minimal match metadata needed to build the summary prompt.
+
+        Returns a dict keyed by ``match_id`` with ``competition_name``,
+        ``match_date``, ``home_team`` and ``away_team`` strings. Missing
+        match_ids simply do not appear in the result.
+        """
+        if not match_ids:
+            return {}
+        cur = conn.cursor()
+        if source == "postgres":
+            cur.execute(
+                """
+                SELECT match_id, competition_name, match_date, home_team_name, away_team_name
+                FROM matches
+                WHERE match_id = ANY(%s)
+                """,
+                (match_ids,),
+            )
+        else:
+            placeholders = ",".join("?" for _ in match_ids)
+            cur.execute(
+                f"""
+                SELECT match_id, competition_name, match_date, home_team_name, away_team_name
+                FROM matches
+                WHERE match_id IN ({placeholders})
+                """,
+                match_ids,
+            )
+        result: dict[int, dict[str, Any]] = {}
+        for row in cur.fetchall():
+            result[int(row[0])] = {
+                "competition_name": row[1] or "",
+                "match_date": str(row[2]) if row[2] is not None else "",
+                "home_team": row[3] or "",
+                "away_team": row[4] or "",
+            }
+        return result
+
+    def run_generate_summaries_job(self, job_id: str, payload: dict[str, Any]) -> None:
+        """Populate ``summary`` for aggregation rows by calling the chat model.
+
+        For each row in the aggregation table whose ``summary`` is NULL, build
+        a prompt from the event-summary template, call
+        ``OpenAIAdapter.create_chat_completion()``, strip the response, and
+        UPDATE the row. Empty event buckets are skipped. Individual row
+        failures are logged but do NOT abort the whole job — the job reports
+        partial success via its ``result`` payload.
+        """
+        source = normalize_source(payload.get("source", "postgres"))
+        match_ids = [int(v) for v in (payload.get("match_ids") or [])]
+        language = payload.get("language") or "english"
+        try:
+            JobService.update(
+                job_id,
+                status="running",
+                message=f"Generating summaries in {source}",
+            )
+            JobService.log(job_id, f"$ connect --source {source}")
+            if match_ids:
+                JobService.log(
+                    job_id,
+                    "$ summaries --match-ids " + ",".join(map(str, match_ids)),
+                )
+            else:
+                JobService.log(job_id, "$ summaries --all-matches")
+
+            template = self._load_prompt_template()
+            adapter = OpenAIAdapter()
+            updated = 0
+            skipped = 0
+            errored = 0
+            with self._get_connection(source) as conn:
+                match_info = self._fetch_match_info_for_prompt(conn, source, match_ids)
+                rows = self._fetch_aggregation_rows_for_summary(conn, source, match_ids)
+                JobService.update(
+                    job_id,
+                    total=len(rows),
+                    message=f"Preparing {len(rows)} rows for summary generation",
+                )
+                # When the job targets a single match (the seed case), every row
+                # belongs to that match and we can avoid a per-row match_id
+                # lookup. When no match_ids are provided (bulk mode), the
+                # prompt gets empty match_info placeholders — still valid, just
+                # less context-rich.
+                default_info: dict[str, Any] = {}
+                if len(match_ids) == 1:
+                    default_info = match_info.get(match_ids[0], {})
+                for idx, (
+                    row_id,
+                    period,
+                    minute,
+                    quarter_minute,
+                    events_json,
+                ) in enumerate(rows, start=1):
+                    if not events_json:
+                        skipped += 1
+                        JobService.update(
+                            job_id,
+                            progress=idx,
+                            message=f"Skipped row {idx}/{len(rows)} (empty events)",
+                        )
+                        continue
+                    info = default_info
+                    try:
+                        prompt = template.format(
+                            language=language,
+                            competition_name=info.get("competition_name", ""),
+                            match_date=info.get("match_date", ""),
+                            home_team=info.get("home_team", ""),
+                            away_team=info.get("away_team", ""),
+                            period=period,
+                            minute=minute,
+                            quarter_minute=quarter_minute,
+                            events_json=events_json,
+                        )
+                        response = adapter.create_chat_completion(
+                            messages=[
+                                {
+                                    "role": "system",
+                                    "content": (
+                                        "You are a football commentator producing "
+                                        "factual, concise narration from event data."
+                                    ),
+                                },
+                                {"role": "user", "content": prompt},
+                            ],
+                            temperature=0.2,
+                            max_tokens=200,
+                        )
+                        summary = (response or "").strip()
+                        if summary:
+                            self._update_summary_for_row(conn, source, row_id, summary)
+                            updated += 1
+                    except Exception as e:
+                        errored += 1
+                        JobService.log(job_id, f"ERROR row {row_id}: {str(e)[:200]}")
+                    if idx % 25 == 0 or idx == len(rows):
+                        JobService.log(
+                            job_id, f"$ summaries progress {idx}/{len(rows)}"
+                        )
+                    JobService.update(
+                        job_id,
+                        progress=idx,
+                        message=f"Row {idx}/{len(rows)}",
+                    )
+            JobService.complete(
+                job_id,
+                {
+                    "updated_rows": updated,
+                    "skipped_rows": skipped,
+                    "errored_rows": errored,
+                    "source": source,
+                },
+            )
+        except Exception as e:
+            JobService.fail(job_id, str(e))
 
     def _load_matches(self, conn, source: str, match_ids: list[int]) -> dict[str, int]:
         inserted = 0
@@ -768,6 +1071,10 @@ class IngestionService:
                     continue
                 emb = adapter.create_embedding(text=summary, model=model)
                 emb_str = "[" + ",".join(map(str, emb)) + "]"
+                # pyodbc promotes long strings to ntext; force VARCHAR for VECTOR CAST
+                import pyodbc as _pyodbc
+
+                cur.setinputsizes([(_pyodbc.SQL_VARCHAR, 0, 0)])
                 cur.execute(
                     f"UPDATE events_details__15secs_agg SET {col} = CAST(? AS VECTOR(1536)) WHERE id = ?",
                     (emb_str, row_id),

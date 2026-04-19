@@ -10,6 +10,7 @@ const navigation = [
   { to: '/explorer', label: 'Explorador' },
   { to: '/embeddings', label: 'Embeddings' },
   { to: '/chat', label: 'Chat RAG' },
+  { to: '/tutorials', label: 'Tutorials' },
 ]
 
 function navClass(isActive: boolean) {
