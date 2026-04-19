@@ -1,50 +1,22 @@
-import { useState } from 'react'
-
-type ViewMode = 'fan' | 'developer'
+import { useUISettings } from '../state/ui-settings'
 
 export function HomePage() {
-  const [view, setView] = useState<ViewMode>('fan')
+  const { mode } = useUISettings()
 
   return (
     <div className="space-y-4">
-      {/* Header with view toggle */}
+      {/* Header */}
       <header className="rounded-2xl border border-white/10 bg-panel/70 p-6">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-ink">Football Analytics Platform</h1>
-            <p className="mt-2 text-sm text-mute">
-              Análisis profesional de datos de fútbol con tecnología RAG y vectorización semántica
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => setView('fan')}
-              className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
-                view === 'fan'
-                  ? 'bg-accent/20 text-accent shadow-glow'
-                  : 'border border-white/10 bg-canvas/60 text-mute hover:text-ink'
-              }`}
-            >
-              ⚽ Vista Fan
-            </button>
-            <button
-              type="button"
-              onClick={() => setView('developer')}
-              className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
-                view === 'developer'
-                  ? 'bg-accent/20 text-accent shadow-glow'
-                  : 'border border-white/10 bg-canvas/60 text-mute hover:text-ink'
-              }`}
-            >
-              💻 Vista Developer
-            </button>
-          </div>
+        <div>
+          <h1 className="text-3xl font-bold text-ink">Football Analytics Platform</h1>
+          <p className="mt-2 text-sm text-mute">
+            Análisis profesional de datos de fútbol con tecnología RAG y vectorización semántica
+          </p>
         </div>
       </header>
 
-      {/* Fan View */}
-      {view === 'fan' && (
+      {/* User View */}
+      {mode === 'user' && (
         <div className="space-y-4">
           {/* Hero section */}
           <article className="rounded-2xl border border-white/10 bg-gradient-to-br from-accent/10 to-transparent p-8">
@@ -158,7 +130,7 @@ export function HomePage() {
       )}
 
       {/* Developer View */}
-      {view === 'developer' && (
+      {mode === 'developer' && (
         <div className="space-y-4">
           {/* Architecture overview */}
           <article className="rounded-2xl border border-white/10 bg-panel/70 p-6">
