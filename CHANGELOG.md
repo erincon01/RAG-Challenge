@@ -22,6 +22,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **tooling**: Root-level `Makefile` with `seed`, `seed-force`, `seed-postgres`, `seed-sqlserver`, `test`, `lint`, `format` targets (#45)
 - **tooling**: Claude Code skills for git-workflow, changelog, and e2e-playwright (#46)
 - **tests**: 60+ new unit tests across `test_summary_generation.py`, `test_full_pipeline_orchestrator.py`, `test_seed_build.py`, `test_seed_load.py`, plus 13 new API tests in `test_ingestion.py` (#45)
+- **e2e**: Playwright E2E test suite with 24 tests covering all 7 pages and both user profiles (user/developer) (#49)
+- **docs**: `docs/user-stories.md` — 24 user stories with acceptance criteria for all pages and profiles (#49)
+- **docs**: `docs/user-manual.md` — auto-generated visual user manual with screenshots from E2E tests (#49)
 
 ### Removed
 - **devcontainer**: The synthetic `match_id=900001` placeholder row in `.devcontainer/post-create.sh` is gone. The real seed dataset replaces it (#45)
@@ -36,6 +39,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 - Migrate class-based `Config` to `model_config = ConfigDict(...)` in all 7 response DTOs in `backend/app/api/v1/models.py`, eliminating `PydanticDeprecatedSince20` warnings. `pytest tests/ -v` now runs with zero warnings (was 7) (#43)
+- **infra**: Fix Vite proxy `VITE_BACKEND_ORIGIN` in `docker-compose.yml` from `localhost:8000` to `backend:8000` — frontend was unable to reach backend API inside Docker (#49)
 
 ---
 
