@@ -114,13 +114,13 @@ class TestChatSearchHappyPath:
 # ===========================================================================
 
 class TestCapabilityValidation:
-    def test_postgres_supports_t3_large(self, client):
+    def test_postgres_rejects_deprecated_t3_large(self, client):
         payload = {**VALID_PAYLOAD, "embedding_model": "text-embedding-3-large",
                    "search_algorithm": "cosine"}
         response = client.post("/api/v1/chat/search?source=postgres", json=payload)
-        assert response.status_code == 200
+        assert response.status_code == 400
 
-    def test_sqlserver_rejects_t3_large(self, client):
+    def test_sqlserver_rejects_deprecated_t3_large(self, client):
         payload = {**VALID_PAYLOAD, "embedding_model": "text-embedding-3-large"}
         response = client.post("/api/v1/chat/search?source=sqlserver", json=payload)
         assert response.status_code == 400

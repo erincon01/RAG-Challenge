@@ -345,12 +345,8 @@ class IngestionService:
         source = normalize_source(payload.get("source", "postgres"))
         match_ids = [int(v) for v in (payload.get("match_ids") or [])]
         defaults = {
-            "postgres": [
-                "text-embedding-ada-002",
-                "text-embedding-3-small",
-                "text-embedding-3-large",
-            ],
-            "sqlserver": ["text-embedding-ada-002", "text-embedding-3-small"],
+            "postgres": ["text-embedding-3-small"],
+            "sqlserver": ["text-embedding-3-small"],
         }
         models = payload.get("embedding_models") or defaults[source]
         try:
