@@ -10,6 +10,7 @@ const OperationsPage = lazy(() => import('./pages/OperationsPage').then(m => ({ 
 const ExplorerPage = lazy(() => import('./pages/ExplorerPage').then(m => ({ default: m.ExplorerPage })))
 const EmbeddingsPage = lazy(() => import('./pages/EmbeddingsPage').then(m => ({ default: m.EmbeddingsPage })))
 const ChatPage = lazy(() => import('./pages/ChatPage').then(m => ({ default: m.ChatPage })))
+const TutorialsPage = lazy(() => import('./pages/TutorialsPage').then(m => ({ default: m.TutorialsPage })))
 
 function PageLoader() {
   return (
@@ -34,6 +35,7 @@ export function App() {
         <Route path="explorer" element={<Suspense fallback={<PageLoader />}><ExplorerPage /></Suspense>} />
         <Route path="embeddings" element={<Suspense fallback={<PageLoader />}><EmbeddingsPage /></Suspense>} />
         <Route path="chat" element={<Suspense fallback={<PageLoader />}><ChatPage /></Suspense>} />
+        <Route path="tutorials" element={<Suspense fallback={<PageLoader />}><TutorialsPage /></Suspense>} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
