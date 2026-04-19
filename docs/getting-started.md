@@ -26,20 +26,24 @@ docker compose up --build
 ### First run — seed dataset
 
 On first container open, `.devcontainer/post-create.sh` automatically
-downloads and loads the **seed dataset**: two iconic finals with
-pre-computed summaries and embeddings.
+loads the **seed dataset**: two iconic finals with pre-computed summaries
+and embeddings that are **included in the repository** under `data/seed/`.
 
 | Match | Competition | match_id |
 |---|---|---|
 | **Spain 2-1 England** | UEFA Euro 2024 Final | 3943043 |
 | **Argentina 3-3 France** (pens. 4-2) | FIFA World Cup 2022 Final | 3869685 |
 
-The seed is **pre-computed**: summaries and 1536-dim embeddings are
-downloaded from a GitHub Release, so **no OpenAI key is required** to
-populate the dashboard on first run.
+The seed is **pre-computed**: summaries (generated with `gpt-4o-mini`)
+and 1536-dim embeddings (generated with `text-embedding-3-small`) are
+already in the repo, so **no OpenAI key is required** to populate the
+dashboard on first run. No network download is needed either.
 
-If the seed load failed (no network, GitHub Release not yet published,
-etc.), the devcontainer still starts. You can retry with:
+Raw match and event data comes from
+[StatsBomb Open Data](https://github.com/statsbomb/open-data)
+(CC BY-NC-SA 4.0).
+
+If the seed load failed, the devcontainer still starts. You can retry with:
 
 ```bash
 make seed                            # both databases

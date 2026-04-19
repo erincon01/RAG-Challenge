@@ -1,0 +1,90 @@
+{
+  "match_id": 3943043,
+  "match_date": "2024-07-14",
+  "kick_off": "22:00:00.000",
+  "competition": {
+    "competition_id": 55,
+    "country_name": "Europe",
+    "competition_name": "UEFA Euro"
+  },
+  "season": {
+    "season_id": 282,
+    "season_name": "2024"
+  },
+  "home_team": {
+    "home_team_id": 772,
+    "home_team_name": "Spain",
+    "home_team_gender": "male",
+    "home_team_group": null,
+    "country": {
+      "id": 214,
+      "name": "Spain"
+    },
+    "managers": [
+      {
+        "id": 5588,
+        "name": "Luis de la Fuente Castillo",
+        "nickname": "Luis de la Fuente",
+        "dob": "1961-06-21",
+        "country": {
+          "id": 214,
+          "name": "Spain"
+        }
+      }
+    ]
+  },
+  "away_team": {
+    "away_team_id": 768,
+    "away_team_name": "England",
+    "away_team_gender": "male",
+    "away_team_group": null,
+    "country": {
+      "id": 68,
+      "name": "England"
+    },
+    "managers": [
+      {
+        "id": 277,
+        "name": "Gareth Southgate",
+        "nickname": null,
+        "dob": "1970-09-03",
+        "country": {
+          "id": 68,
+          "name": "England"
+        }
+      }
+    ]
+  },
+  "home_score": 2,
+  "away_score": 1,
+  "match_status": "available",
+  "match_status_360": "available",
+  "last_updated": "2024-07-15T15:48:50.315500",
+  "last_updated_360": "2024-07-15T15:52:24.778809",
+  "metadata": {
+    "data_version": "1.1.0",
+    "shot_fidelity_version": "2",
+    "xy_fidelity_version": "2"
+  },
+  "match_week": 7,
+  "competition_stage": {
+    "id": 26,
+    "name": "Final"
+  },
+  "stadium": {
+    "id": 367,
+    "name": "Olympiastadion Berlin",
+    "country": {
+      "id": 85,
+      "name": "Germany"
+    }
+  },
+  "referee": {
+    "id": 79,
+    "name": "François Letexier",
+    "country": {
+      "id": 78,
+      "name": "France"
+    }
+  }
+}

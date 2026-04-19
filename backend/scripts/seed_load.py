@@ -2,15 +2,14 @@
 
 Runs during ``.devcontainer/post-create.sh`` the first time a developer
 opens the repo in VS Code / Docker. Does NOT call OpenAI — reads
-everything from a GitHub Release tarball cached under
-``~/.cache/rag-challenge-seed/``.
+pre-computed seed files from ``data/seed/`` in the repository.
 
 Idempotent: if both seed matches are already present with non-null
 embeddings, exits 0 in ~100 ms without touching files or DB.
 
-Graceful degrade: any failure (network, sha mismatch, DB down) logs a
-clear warning and exits non-zero; the calling post-create script is
-expected to continue anyway so the devcontainer still starts.
+Graceful degrade: any failure (missing files, sha mismatch, DB down)
+logs a clear warning and exits non-zero; the calling post-create script
+is expected to continue anyway so the devcontainer still starts.
 
 Usage:
     python -m scripts.seed_load                  # both sources
@@ -26,22 +25,12 @@ import json
 import os
 import shutil
 import sys
-import tarfile
 import tempfile
-import urllib.error
-import urllib.request
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Iterable
 
-SEED_VERSION = "v1"
 SEED_MATCH_IDS = (3943043, 3869685)
-SEED_URL = (
-    "https://github.com/erincon01/RAG-Challenge/releases/download/"
-    f"seed/{SEED_VERSION}/seed-{SEED_VERSION}.tar.gz"
-)
-CACHE_DIR = Path.home() / ".cache" / "rag-challenge-seed"
-TARBALL_NAME = f"seed-{SEED_VERSION}.tar.gz"
 
 
 # ---------------------------------------------------------------------------
@@ -107,43 +96,38 @@ def check_idempotency(source: str) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Download + verify
+# Locate + verify seed files
 # ---------------------------------------------------------------------------
 
 
-def download_and_extract(cache_dir: Path) -> Path:
-    """Download (if needed) and extract the seed tarball.
+def find_seed_root() -> Path:
+    """Locate the seed data directory in the repository.
 
-    Returns the path to the extracted ``seed/v1/`` directory.
-    Raises on download failure or sha mismatch.
+    Searches for ``data/seed/`` relative to the backend directory
+    (typical layout: ``backend/`` is the cwd, ``data/seed/`` is at repo root).
+
+    Returns the path to the seed root directory containing match subdirs.
+    Raises on missing directory or sha mismatch.
     """
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    tarball_path = cache_dir / TARBALL_NAME
+    # Try common locations: relative to cwd (backend/) or via /workspace (devcontainer)
+    candidates = [
+        Path.cwd().parent / "data" / "seed",       # running from backend/
+        Path.cwd() / "data" / "seed",               # running from repo root
+        Path("/workspace") / "data" / "seed",        # devcontainer
+    ]
+    seed_root = None
+    for candidate in candidates:
+        if (candidate / "manifest.json").exists():
+            seed_root = candidate
+            break
 
-    if not tarball_path.exists():
-        print(f"[seed-load] Downloading {SEED_URL}")
-        try:
-            with urllib.request.urlopen(SEED_URL, timeout=60) as resp:
-                with tarball_path.open("wb") as out:
-                    shutil.copyfileobj(resp, out)
-        except (urllib.error.URLError, urllib.error.HTTPError) as e:
-            raise RuntimeError(f"Download failed: {e}") from e
-
-    extract_dir = cache_dir / SEED_VERSION
-    if extract_dir.exists():
-        shutil.rmtree(extract_dir)
-    extract_dir.mkdir(parents=True)
-
-    with tarfile.open(tarball_path, "r:gz") as tar:
-        tar.extractall(extract_dir, filter="data")
-
-    seed_root = extract_dir / "seed" / SEED_VERSION
-    if not seed_root.exists():
-        raise RuntimeError(f"Unexpected tarball layout — {seed_root} not found")
+    if seed_root is None:
+        raise RuntimeError(
+            "Seed data not found. Expected data/seed/manifest.json in the repo. "
+            "Make sure you are running from the backend/ or repo root directory."
+        )
 
     manifest_path = seed_root / "manifest.json"
-    if not manifest_path.exists():
-        raise RuntimeError("manifest.json missing from seed tarball")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
 
     for relative_path, expected_sha in manifest.get("files", {}).items():
@@ -211,11 +195,11 @@ def _connect(source: str):
 
 
 def _stage_seed_for_ingestion(seed_root: Path, staging_dir: Path) -> list[int]:
-    """Copy tarball files into the layout expected by IngestionService.
+    """Copy seed files into the layout expected by IngestionService.
 
-    The seed tarball has:
-        seed/v1/<match_id>/match.json       (single match dict)
-        seed/v1/<match_id>/events.json      (list of events)
+    The seed directory has:
+        data/seed/<match_id>/match.json       (single match dict)
+        data/seed/<match_id>/events.json      (list of events)
 
     IngestionService._iter_matches_from_local reads
     ``{local_folder}/matches/**/*.json`` expecting a list of dicts.
@@ -456,11 +440,11 @@ def main() -> int:
         print("[seed-load] Nothing to do — all sources already seeded")
         return 0
 
-    # Download + verify seed tarball once
+    # Locate + verify seed files in the repo
     try:
-        seed_root = download_and_extract(CACHE_DIR)
+        seed_root = find_seed_root()
     except Exception as e:
-        print(f"[seed-load] ERROR downloading seed: {e}", file=sys.stderr)
+        print(f"[seed-load] ERROR locating seed data: {e}", file=sys.stderr)
         return 1
 
     errors = 0
