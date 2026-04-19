@@ -93,3 +93,4 @@ For non-trivial changes, use the OpenSpec workflow first:
 - Follow Semantic Versioning (MAJOR.MINOR.PATCH)
 - Tag on main after merge: `git tag vX.Y.Z && git push origin vX.Y.Z`
 - Promote `[Unreleased]` to `[X.Y.Z] - YYYY-MM-DD` in CHANGELOG
+- Update version in `backend/app/main.py`, `README.md`, `PROJECT_STATUS.md`

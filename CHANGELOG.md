@@ -9,30 +9,33 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
-- **ingestion**: New **summary generation** pipeline stage. `IngestionService.run_generate_summaries_job()` reads rows from `events_details__quarter_minute` / `events_details__15secs_agg` where `summary IS NULL`, builds a prompt per 15-second bucket from `backend/app/services/prompts/event_summary.md`, calls `OpenAIAdapter.create_chat_completion()` and writes the response back. This closes a critical gap: the aggregate stage wrote `summary = NULL` and the embeddings stage filtered `WHERE summary IS NOT NULL`, so embeddings were never created out of the box.
-- **api**: `POST /api/v1/ingestion/summaries/generate` — dedicated endpoint for the new stage.
-- **api**: `POST /api/v1/ingestion/full-pipeline` — orchestrator that runs all 5 stages (`download → load → aggregate → summaries → embeddings`) sequentially in a single background job. Aborts on any stage failure.
-- **scripts**: `backend/scripts/seed_load.py` — dev-path loader that downloads a pre-computed seed dataset from a GitHub Release, verifies sha256 per file, and populates both PostgreSQL and SQL Server **without requiring an OpenAI key**. Idempotent: skips if the seed matches are already present.
-- **scripts**: `backend/scripts/seed_build.py` — maintainer-only script to export the seed dataset to a tarball for publication as a GitHub Release asset. Requires `OPENAI_KEY` and ~$0.30 of OpenAI budget (~5,000 summaries + embeddings for both matches).
-- **seed dataset**: Two canonical finals pre-configured as the seed: Euro 2024 Final (Spain 2-1 England, `match_id=3943043`) and FIFA World Cup 2022 Final (Argentina 3-3 France, `match_id=3869685`). Raw StatsBomb JSON is downloaded on demand and not committed to the repo (CC BY-NC-SA 4.0).
-- **devcontainer**: `.devcontainer/post-create.sh` now calls `scripts.seed_load` on first open so the dashboard is populated automatically.
-- **docs**: `data/seed/README.md` documenting the seed dataset, regeneration process, and licensing.
-- **docs**: `docs/getting-started.md` has a new "First run — seed dataset" section.
-- **tooling**: Root-level `Makefile` with `seed`, `seed-force`, `seed-postgres`, `seed-sqlserver`, `test`, `lint`, `format` targets.
-- **tests**: 60+ new unit tests across `test_summary_generation.py`, `test_full_pipeline_orchestrator.py`, `test_seed_build.py`, `test_seed_load.py`, plus 13 new API tests in `test_ingestion.py`.
+- **ingestion**: New **summary generation** pipeline stage. `IngestionService.run_generate_summaries_job()` reads rows from `events_details__quarter_minute` / `events_details__15secs_agg` where `summary IS NULL`, builds a prompt per 15-second bucket from `backend/app/services/prompts/event_summary.md`, calls `OpenAIAdapter.create_chat_completion()` and writes the response back. This closes a critical gap: the aggregate stage wrote `summary = NULL` and the embeddings stage filtered `WHERE summary IS NOT NULL`, so embeddings were never created out of the box (#45)
+- **api**: `POST /api/v1/ingestion/summaries/generate` — dedicated endpoint for the new stage (#45)
+- **api**: `POST /api/v1/ingestion/full-pipeline` — orchestrator that runs all 5 stages (`download → load → aggregate → summaries → embeddings`) sequentially in a single background job. Aborts on any stage failure (#45)
+- **scripts**: `backend/scripts/seed_load.py` — dev-path loader that downloads a pre-computed seed dataset from a GitHub Release, verifies sha256 per file, and populates both PostgreSQL and SQL Server **without requiring an OpenAI key**. Idempotent: skips if the seed matches are already present (#45)
+- **scripts**: `backend/scripts/seed_build.py` — maintainer-only script to export the seed dataset to a tarball for publication as a GitHub Release asset. Requires `OPENAI_KEY` and ~$0.30 of OpenAI budget (~5,000 summaries + embeddings for both matches) (#45)
+- **seed dataset**: Two canonical finals pre-configured as the seed: Euro 2024 Final (Spain 2-1 England, `match_id=3943043`) and FIFA World Cup 2022 Final (Argentina 3-3 France, `match_id=3869685`). Raw StatsBomb JSON is downloaded on demand and not committed to the repo (CC BY-NC-SA 4.0) (#45)
+- **devcontainer**: `.devcontainer/post-create.sh` now calls `scripts.seed_load` on first open so the dashboard is populated automatically (#45)
+- **docs**: `data/seed/README.md` documenting the seed dataset, regeneration process, and licensing (#45)
+- **docs**: `docs/getting-started.md` has a new "First run — seed dataset" section (#45)
+- **docs**: `docs/PLAN_V5_IMPROVEMENTS.md` — roadmap with 10 areas of work for v5 (#28)
+- **tooling**: Root-level `Makefile` with `seed`, `seed-force`, `seed-postgres`, `seed-sqlserver`, `test`, `lint`, `format` targets (#45)
+- **tooling**: Claude Code skills for git-workflow, changelog, and e2e-playwright (#46)
+- **tests**: 60+ new unit tests across `test_summary_generation.py`, `test_full_pipeline_orchestrator.py`, `test_seed_build.py`, `test_seed_load.py`, plus 13 new API tests in `test_ingestion.py` (#45)
 
 ### Removed
-- **devcontainer**: The synthetic `match_id=900001` placeholder row in `.devcontainer/post-create.sh` is gone. The real seed dataset replaces it.
+- **devcontainer**: The synthetic `match_id=900001` placeholder row in `.devcontainer/post-create.sh` is gone. The real seed dataset replaces it (#45)
 
 ### Changed
-- **infra**: Split `backend/Dockerfile` into two stages — `runtime` (production) and `devcontainer` (dev only). The production image no longer carries `git`, `nodejs`, `gnupg2`, `apt-transport-https`, `openssh-client`, `less`, or `procps`. Those tools are layered on in the `devcontainer` stage, which is selected via `build.target: devcontainer` in `.devcontainer/docker-compose.override.yml` and is never built by plain `docker compose up`.
-- **infra**: Production backend container now runs as non-root `appuser` (UID 1000) by default — previously only the devcontainer enforced this.
+- **infra**: Split `backend/Dockerfile` into two stages — `runtime` (production) and `devcontainer` (dev only). The production image no longer carries `git`, `nodejs`, `gnupg2`, `apt-transport-https`, `openssh-client`, `less`, or `procps`. Those tools are layered on in the `devcontainer` stage, which is selected via `build.target: devcontainer` in `.devcontainer/docker-compose.override.yml` and is never built by plain `docker compose up` (#43)
+- **infra**: Production backend container now runs as non-root `appuser` (UID 1000) by default — previously only the devcontainer enforced this (#43)
+- **docs**: Clean up README, PROJECT_STATUS, and .gitignore for onboarding (#25)
 
 ### Security
-- Remove `git`, `nodejs`, and dev-only apt tooling from the production backend image, reducing attack surface and image size.
+- Remove `git`, `nodejs`, and dev-only apt tooling from the production backend image, reducing attack surface and image size (#43)
 
 ### Fixed
-- Migrate class-based `Config` to `model_config = ConfigDict(...)` in all 7 response DTOs in `backend/app/api/v1/models.py`, eliminating `PydanticDeprecatedSince20` warnings. `pytest tests/ -v` now runs with zero warnings (was 7).
+- Migrate class-based `Config` to `model_config = ConfigDict(...)` in all 7 response DTOs in `backend/app/api/v1/models.py`, eliminating `PydanticDeprecatedSince20` warnings. `pytest tests/ -v` now runs with zero warnings (was 7) (#43)
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: e2e-playwright
-description: Tests end-to-end con Playwright para el frontend React. Ejecutar tests E2E, crear tests nuevos, generar capturas.
+description: End-to-end tests with Playwright for the React frontend. Run E2E tests, create new tests, generate screenshots.
 argument-hint: <action> [arguments]
 ---
 

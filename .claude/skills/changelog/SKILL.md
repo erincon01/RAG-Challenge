@@ -9,9 +9,21 @@ Update CHANGELOG.md following Keep a Changelog format.
 
 ## When to use this skill
 
-- After implementing a feature or fix (before creating PR)
-- After merging multiple OpenSpec changes
-- Before creating a release tag
+- During `/opsx:apply` — after implementing each task, before the PR
+- After merging an OpenSpec change to develop
+- Before creating a release tag (`develop → main`)
+- Whenever a code PR is ready (mandatory per AGENTS.md)
+
+## Integration with OpenSpec workflow
+
+```
+/opsx:propose  →  /opsx:apply  →  update CHANGELOG  →  commit + PR  →  /opsx:archive
+                                   ^^^^^^^^^^^^^^^^
+                                   you are here
+```
+
+The CHANGELOG entry describes **what changed for users**, not the OpenSpec artifacts.
+Reference the PR number, not the OpenSpec change name.
 
 ## Format
 
@@ -62,10 +74,11 @@ Example:
 
 When the user wants to tag a release:
 
-1. Move `[Unreleased]` content to a new version section `[X.Y.Z] - YYYY-MM-DD`
-2. Create empty `[Unreleased]` section
-3. Update version in `backend/app/main.py`, `README.md`, `PROJECT_STATUS.md`
-4. Versioning:
+1. Verify all OpenSpec changes are archived (`openspec/changes/` should be empty or all archived)
+2. Move `[Unreleased]` content to a new version section `[X.Y.Z] - YYYY-MM-DD`
+3. Create empty `[Unreleased]` section
+4. Update version in `backend/app/main.py`, `README.md`, `PROJECT_STATUS.md`
+5. Versioning:
    - **MAJOR**: breaking API changes
    - **MINOR**: new features, backwards-compatible
    - **PATCH**: bug fixes
@@ -77,4 +90,5 @@ When the user wants to tag a release:
 - ALWAYS use ISO dates (YYYY-MM-DD)
 - NEVER remove existing entries
 - NEVER skip CHANGELOG update in code PRs (docs-only PRs may skip with justification)
+- NEVER include AI attribution in CHANGELOG entries
 - Group entries by type (Added, Changed, Fixed, etc.) — not by PR or date

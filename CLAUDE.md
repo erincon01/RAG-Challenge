@@ -46,8 +46,16 @@ This project uses [OpenSpec](https://github.com/Fission-AI/OpenSpec) for spec-dr
 
 ## Claude-specific tools
 
-- OpenSpec slash commands: `.claude/commands/opsx/{propose,apply,archive,explore}.md`
-- OpenSpec skills: `.claude/skills/openspec-{propose,apply-change,archive-change,explore}/SKILL.md`
+### OpenSpec (spec-driven development)
+- Slash commands: `/opsx:propose`, `/opsx:apply`, `/opsx:archive`, `/opsx:explore`
+- Skills: `.claude/skills/openspec-{propose,apply-change,archive-change,explore}/SKILL.md`
+
+### Project skills
+- `/git-workflow` — branch model, commits, PRs, releases
+- `/changelog` — update CHANGELOG.md (Keep a Changelog format)
+- `/e2e-playwright` — Playwright E2E tests for React frontend
+
+### Config
 - Settings: `.claude/settings.local.json`
 
 ## Key commands
