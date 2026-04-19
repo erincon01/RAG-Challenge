@@ -1071,6 +1071,9 @@ class IngestionService:
                     continue
                 emb = adapter.create_embedding(text=summary, model=model)
                 emb_str = "[" + ",".join(map(str, emb)) + "]"
+                # pyodbc promotes long strings to ntext; force VARCHAR for VECTOR CAST
+                import pyodbc as _pyodbc
+                cur.setinputsizes([(_pyodbc.SQL_VARCHAR, 0, 0)])
                 cur.execute(
                     f"UPDATE events_details__15secs_agg SET {col} = CAST(? AS VECTOR(1536)) WHERE id = ?",
                     (emb_str, row_id),

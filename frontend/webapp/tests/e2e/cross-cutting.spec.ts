@@ -16,8 +16,8 @@ test.describe('Cross-cutting', () => {
     await sourceSelect.selectOption('sqlserver')
     await page.waitForLoadState('networkidle')
 
-    // Page should reload with sqlserver data (may be empty if seed not loaded into sqlserver)
-    await page.waitForTimeout(2000)
+    // SQL Server should also have seed data loaded
+    await expect(page.getByText(/UEFA Euro|FIFA World Cup/i).first()).toBeVisible({ timeout: 10_000 })
     await page.screenshot({ path: `${SCREENSHOTS}/source-sqlserver.png`, fullPage: true })
   })
 

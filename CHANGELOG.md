@@ -31,6 +31,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - **rag**: Deprecate `text-embedding-ada-002` and `text-embedding-3-large` — only `text-embedding-3-small` is active. Deprecated models removed from capabilities API and UI, enum values retained for backward compatibility (#51)
+- **sqlserver**: Fix seed data loading into SQL Server — pyodbc ntext-to-vector cast issue resolved with `setinputsizes`. Both databases now have identical seed data after `make seed` (#52)
+- **sqlserver**: Fix RAG search on SQL Server — same ntext-to-vector cast fix in `SQLServerEventRepository.search_by_embedding` (#52)
+- **docs**: `docs/sql-server-setup.md` — dedicated SQL Server setup guide with schema differences, Docker config, vector search limitations, and troubleshooting (#52)
 - **infra**: Split `backend/Dockerfile` into two stages — `runtime` (production) and `devcontainer` (dev only). The production image no longer carries `git`, `nodejs`, `gnupg2`, `apt-transport-https`, `openssh-client`, `less`, or `procps`. Those tools are layered on in the `devcontainer` stage, which is selected via `build.target: devcontainer` in `.devcontainer/docker-compose.override.yml` and is never built by plain `docker compose up` (#43)
 - **infra**: Production backend container now runs as non-root `appuser` (UID 1000) by default — previously only the devcontainer enforced this (#43)
 - **docs**: Clean up README, PROJECT_STATUS, and .gitignore for onboarding (#25)

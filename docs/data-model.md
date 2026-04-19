@@ -116,14 +116,27 @@ Two backends maintain logically equivalent schemas.
 
 ### SQL Server (VECTOR type)
 
-Same logical schema. Key differences:
+Same logical schema with different naming conventions. The code handles both via the Repository Pattern.
 
 | Aspect | PostgreSQL | SQL Server |
 |--------|-----------|------------|
-| Vector type | `vector(N)` (pgvector extension) | `VECTOR(N)` (native, SQL Server 2022+) |
+| Vector type | `vector(N)` (pgvector extension) | `VECTOR(N)` (native, SQL Server 2025) |
 | Search function | Operators (`<=>`, `<#>`, `<->`) | `VECTOR_DISTANCE('cosine', col, @vec)` |
-| Embedding models | ada-002, t3-small, t3-large | ada-002, t3-small only |
+| Vector indexes | HNSW (pgvector) | Not available (Express edition) |
+| Active embedding model | text-embedding-3-small | text-embedding-3-small |
 | L1 Manhattan | Supported | Not supported |
+
+**Schema naming differences:**
+
+| Concept | PostgreSQL | SQL Server |
+|---------|-----------|------------|
+| Aggregation table | `events_details__quarter_minute` | `events_details__15secs_agg` |
+| Time bucket column | `quarter_minute` | `_15secs` |
+| Embedding column | `summary_embedding_t3_small` | `embedding_3_small` |
+| Primary key | Auto-increment `id` | Composite `(match_id, period, minute, _15secs)` |
+| Extra tables | — | `lineups`, `players` (unused) |
+
+See [docs/sql-server-setup.md](sql-server-setup.md) for the full SQL Server guide.
 
 ---
 

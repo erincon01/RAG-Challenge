@@ -356,6 +356,11 @@ def _apply_summaries_and_embeddings(
                         (vector_str, db_id),
                     )
                 else:
+                    # pyodbc promotes long strings (>4000 chars) to ntext,
+                    # which SQL Server cannot CAST to VECTOR. Force VARCHAR.
+                    import pyodbc as _pyodbc
+
+                    cur.setinputsizes([(_pyodbc.SQL_VARCHAR, 0, 0)])
                     cur.execute(
                         "UPDATE events_details__15secs_agg "
                         "SET embedding_3_small = CAST(? AS VECTOR(1536)), "
