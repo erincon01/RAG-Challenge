@@ -10,6 +10,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 - **docs**: CONTRIBUTING.md with contributor guide, issue templates, and project labels (#42)
+- **docs**: 3 step-by-step tutorials in `docs/tutorials/` — semantic search, algorithm comparison, embeddings explained (#39)
+- **data**: `data/golden_set.json` with 12 evaluation questions for both seed matches (#39)
 - **ingestion**: New **summary generation** pipeline stage. `IngestionService.run_generate_summaries_job()` reads rows from `events_details__quarter_minute` / `events_details__15secs_agg` where `summary IS NULL`, builds a prompt per 15-second bucket from `backend/app/services/prompts/event_summary.md`, calls `OpenAIAdapter.create_chat_completion()` and writes the response back. This closes a critical gap: the aggregate stage wrote `summary = NULL` and the embeddings stage filtered `WHERE summary IS NOT NULL`, so embeddings were never created out of the box (#45)
 - **api**: `POST /api/v1/ingestion/summaries/generate` — dedicated endpoint for the new stage (#45)
 - **api**: `POST /api/v1/ingestion/full-pipeline` — orchestrator that runs all 5 stages (`download → load → aggregate → summaries → embeddings`) sequentially in a single background job. Aborts on any stage failure (#45)
