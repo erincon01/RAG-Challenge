@@ -90,11 +90,18 @@ When a developer asks to implement a feature:
 - **Middleware and module-level config cannot be patched after import.**
   If testing middleware behavior, build a dedicated test app instead of patching.
 
-Available commands (core profile):
+Available commands:
+
+OpenSpec (spec-driven development):
 - `/opsx:propose` — create change with proposal, design, specs, tasks
 - `/opsx:apply` — implement tasks from a change
 - `/opsx:archive` — archive completed change
 - `/opsx:explore` — thinking partner mode (read-only, no code changes)
+
+Project skills:
+- `/git-workflow` — branch model, commits, PRs, releases
+- `/changelog` — update CHANGELOG.md (Keep a Changelog format, integrated with OpenSpec flow)
+- `/e2e-playwright` — Playwright E2E tests for React frontend
 
 ### Parallel development with worktrees
 
