@@ -600,7 +600,13 @@ class SQLServerEventRepository(EventRepository):
                 cursor = conn.cursor()
                 # pyodbc promotes long strings (>4000 chars) to ntext,
                 # which SQL Server cannot CAST to VECTOR. Force VARCHAR.
-                cursor.setinputsizes([(pyodbc.SQL_INTEGER, 0, 0), (pyodbc.SQL_VARCHAR, 0, 0), (pyodbc.SQL_INTEGER, 0, 0)])
+                cursor.setinputsizes(
+                    [
+                        (pyodbc.SQL_INTEGER, 0, 0),
+                        (pyodbc.SQL_VARCHAR, 0, 0),
+                        (pyodbc.SQL_INTEGER, 0, 0),
+                    ]
+                )
                 cursor.execute(
                     query,
                     (search_request.top_n, embedding_str, search_request.match_id),
