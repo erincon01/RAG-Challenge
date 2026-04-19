@@ -9,6 +9,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **docs**: CONTRIBUTING.md with contributor guide, issue templates, and project labels (#42)
 - **ingestion**: New **summary generation** pipeline stage. `IngestionService.run_generate_summaries_job()` reads rows from `events_details__quarter_minute` / `events_details__15secs_agg` where `summary IS NULL`, builds a prompt per 15-second bucket from `backend/app/services/prompts/event_summary.md`, calls `OpenAIAdapter.create_chat_completion()` and writes the response back. This closes a critical gap: the aggregate stage wrote `summary = NULL` and the embeddings stage filtered `WHERE summary IS NOT NULL`, so embeddings were never created out of the box (#45)
 - **api**: `POST /api/v1/ingestion/summaries/generate` — dedicated endpoint for the new stage (#45)
 - **api**: `POST /api/v1/ingestion/full-pipeline` — orchestrator that runs all 5 stages (`download → load → aggregate → summaries → embeddings`) sequentially in a single background job. Aborts on any stage failure (#45)
@@ -30,6 +31,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **devcontainer**: The synthetic `match_id=900001` placeholder row in `.devcontainer/post-create.sh` is gone. The real seed dataset replaces it (#45)
 
 ### Changed
+- **docs**: remove Azure-as-requirement language, archive legacy Streamlit/Azure setup to docs/archive/ (#37)
 - **rag**: Deprecate `text-embedding-ada-002` and `text-embedding-3-large` — only `text-embedding-3-small` is active. Deprecated models removed from capabilities API and UI, enum values retained for backward compatibility (#51)
 - **sqlserver**: Fix seed data loading into SQL Server — pyodbc ntext-to-vector cast issue resolved with `setinputsizes`. Both databases now have identical seed data after `make seed` (#52)
 - **sqlserver**: Fix RAG search on SQL Server — same ntext-to-vector cast fix in `SQLServerEventRepository.search_by_embedding` (#52)

@@ -8,9 +8,9 @@ about a match; the system retrieves the most semantically relevant match events,
 builds a token-budgeted context, and sends it to an LLM to produce a grounded answer.
 
 ```
-React Frontend  ──HTTP──►  FastAPI Backend  ──SQL──►  PostgreSQL / Azure SQL Server
+React Frontend  ──HTTP──►  FastAPI Backend  ──SQL──►  PostgreSQL / SQL Server
                                 │                        (event_details + embeddings)
-                                └──REST──►  Azure OpenAI
+                                └──REST──►  OpenAI / Azure OpenAI
                                            (embeddings + chat completions)
 ```
 
@@ -28,7 +28,7 @@ backend/app/
 ├── services/        ← Business logic: orchestration, RAG pipeline, no I/O
 ├── repositories/    ← Data access: SQL queries, driver calls, no business logic
 ├── domain/          ← Pure Python: entities, exceptions, value objects
-├── adapters/        ← External service clients (Azure OpenAI)
+├── adapters/        ← External service clients (OpenAI / Azure OpenAI)
 └── core/            ← Config (Pydantic Settings), dependency wiring (FastAPI Depends)
 ```
 
@@ -92,7 +92,7 @@ No framework dependencies. Contains:
 
 ### `adapters/` — External Service Clients
 
-`OpenAIAdapter` wraps Azure OpenAI (or direct OpenAI). Instantiated per-request
+`OpenAIAdapter` wraps OpenAI / Azure OpenAI. Instantiated per-request
 (see TODO in constitution: evaluate module-level singleton).
 Provides:
 - `create_embedding(text, model)` → `List[float]`
@@ -116,7 +116,7 @@ User question
 ① translate_to_english(question)          ← LLM call if language ≠ "english"
      │
      ▼
-② create_embedding(normalized_question)   ← Azure OpenAI embeddings API
+② create_embedding(normalized_question)   ← OpenAI / Azure OpenAI embeddings API
      │
      ▼
 ③ vector_search(embedding, top_n)         ← pgvector <=> / VECTOR_DISTANCE()
@@ -125,7 +125,7 @@ User question
 ④ build_context(results, max_tokens)      ← token-budget enforcement
      │
      ▼
-⑤ create_chat_completion(context, q)      ← Azure OpenAI chat completions
+⑤ create_chat_completion(context, q)      ← OpenAI / Azure OpenAI chat completions
      │
      ▼
 ChatResponse(answer, sources, tokens_used)
@@ -162,7 +162,7 @@ Vector search operators: `<=>` (cosine), `<#>` (inner product), `<->` (L2/Euclid
 
 HNSW indexes on each embedding column for sub-linear search at scale.
 
-### Azure SQL Server (`VECTOR` type)
+### SQL Server (`VECTOR` type)
 
 ```sql
 events_details__15secs_agg
