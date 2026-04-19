@@ -81,25 +81,6 @@ if is_host_reachable(PG_HOST, 5432):
                 schema_file = REPO_ROOT / "infra/docker/postgres/initdb/02-schema.sql"
                 if schema_file.exists():
                     cur.execute(schema_file.read_text(encoding="utf-8"))
-
-                # Seed row for smoke tests
-                cur.execute("""
-                    INSERT INTO matches (
-                        match_id, match_date,
-                        competition_id, competition_country, competition_name,
-                        season_id, season_name,
-                        home_team_id, home_team_name, home_team_gender, home_team_country,
-                        away_team_id, away_team_name, away_team_gender, away_team_country,
-                        home_score, away_score, result, match_week, json_
-                    )
-                    SELECT
-                        900001, DATE '2024-07-14',
-                        1, 'Europe', 'UEFA Euro', 1, '2024',
-                        100, 'Spain', 'male', 'Spain',
-                        200, 'England', 'male', 'England',
-                        2, 1, 'home', 1, '{"seed": true}'
-                    WHERE NOT EXISTS (SELECT 1 FROM matches WHERE match_id = 900001)
-                """)
         print("  PostgreSQL bootstrap done.")
 else:
     print("  PostgreSQL not reachable — skipping.")
@@ -126,32 +107,21 @@ if is_host_reachable(SQL_HOST, 1433):
             schema_sql = (REPO_ROOT / "infra/docker/sqlserver/initdb/01-schema.sql").read_text(encoding="utf-8")
             for batch in split_sqlserver_batches(schema_sql):
                 cur.execute(batch)
-
-            # Seed row for smoke tests
-            cur.execute("""
-                IF NOT EXISTS (SELECT 1 FROM matches WHERE match_id = 900001)
-                BEGIN
-                    INSERT INTO matches (
-                        match_id, match_date,
-                        competition_id, competition_country, competition_name,
-                        season_id, season_name,
-                        home_team_id, home_team_name, home_team_gender, home_team_country,
-                        away_team_id, away_team_name, away_team_gender, away_team_country,
-                        home_score, away_score, result, match_week, json_
-                    ) VALUES (
-                        900001, '2024-07-14',
-                        1, 'Europe', 'UEFA Euro', 1, '2024',
-                        100, 'Spain', 'male', 'Spain',
-                        200, 'England', 'male', 'England',
-                        2, 1, 'home', 1, '{"seed": true}'
-                    )
-                END
-            """)
         print("  SQL Server bootstrap done.")
 else:
     print("  SQL Server not reachable — skipping.")
 
 print("[post-create] Database bootstrap completed.")
 PY
+
+# ── 3. Seed dataset (idempotent, no API key required) ────────────────
+echo "[post-create] Loading seed dataset (Euro 2024 + WC 2022 finals)..."
+(
+    cd /app && python -m scripts.seed_load --source both
+) || {
+    echo "  [warn] Seed load failed — dashboard will be empty on first open."
+    echo "  [warn] You can retry with: make seed"
+    echo "  [warn] Or: cd /app && python -m scripts.seed_load --source both"
+}
 
 echo "[post-create] Done."

@@ -10,12 +10,17 @@ from unittest.mock import MagicMock, patch
 import pytest
 from fastapi.testclient import TestClient
 
-from tests.conftest import make_mock_match_repo, make_mock_event_repo, make_mock_openai_adapter
+from tests.conftest import (
+    make_mock_match_repo,
+    make_mock_event_repo,
+    make_mock_openai_adapter,
+)
 
 
 @pytest.fixture
 def mock_ingestion_svc():
     from app.services.ingestion_service import IngestionService
+
     svc = MagicMock(spec=IngestionService)
     svc.clear_downloaded_files.return_value = {
         "deleted_count": 0,
@@ -30,12 +35,18 @@ def mock_ingestion_svc():
 def client(mock_ingestion_svc):
     from app.main import app
     from app.core.dependencies import (
-        get_match_repository, get_event_repository, get_ingestion_service,
+        get_match_repository,
+        get_event_repository,
+        get_ingestion_service,
     )
     from app.adapters.openai_client import get_openai_adapter
 
-    app.dependency_overrides[get_match_repository] = lambda source="postgres": make_mock_match_repo()
-    app.dependency_overrides[get_event_repository] = lambda source="postgres": make_mock_event_repo()
+    app.dependency_overrides[get_match_repository] = lambda source="postgres": (
+        make_mock_match_repo()
+    )
+    app.dependency_overrides[get_event_repository] = lambda source="postgres": (
+        make_mock_event_repo()
+    )
     app.dependency_overrides[get_openai_adapter] = lambda: make_mock_openai_adapter()
     app.dependency_overrides[get_ingestion_service] = lambda: mock_ingestion_svc
 
@@ -48,6 +59,7 @@ def client(mock_ingestion_svc):
 # ---------------------------------------------------------------------------
 # POST /ingestion/download
 # ---------------------------------------------------------------------------
+
 
 class TestStartDownloadJob:
     def test_returns_202_with_match_ids(self, client):
@@ -93,6 +105,7 @@ class TestStartDownloadJob:
 # POST /ingestion/download/cleanup
 # ---------------------------------------------------------------------------
 
+
 class TestCleanupDownloadedFiles:
     def test_returns_200_delete_all(self, client, mock_ingestion_svc):
         mock_ingestion_svc.clear_downloaded_files.return_value = {
@@ -134,6 +147,7 @@ class TestCleanupDownloadedFiles:
 # POST /ingestion/load
 # ---------------------------------------------------------------------------
 
+
 class TestStartLoadJob:
     def test_start_load_valid_request_returns_202(self, client):
         response = client.post(
@@ -162,6 +176,7 @@ class TestStartLoadJob:
 # POST /ingestion/aggregate
 # ---------------------------------------------------------------------------
 
+
 class TestStartAggregateJob:
     def test_start_aggregate_valid_request_returns_202(self, client):
         response = client.post(
@@ -182,6 +197,7 @@ class TestStartAggregateJob:
 # ---------------------------------------------------------------------------
 # POST /ingestion/embeddings/rebuild
 # ---------------------------------------------------------------------------
+
 
 class TestStartRebuildEmbeddingsJob:
     def test_start_rebuild_valid_request_returns_202(self, client):
@@ -204,6 +220,7 @@ class TestStartRebuildEmbeddingsJob:
 # GET /ingestion/jobs
 # ---------------------------------------------------------------------------
 
+
 class TestListJobs:
     def test_list_jobs_default_returns_200(self, client):
         response = client.get("/api/v1/ingestion/jobs")
@@ -222,6 +239,7 @@ class TestListJobs:
 # DELETE /ingestion/jobs
 # ---------------------------------------------------------------------------
 
+
 class TestClearJobs:
     def test_clear_jobs_default_returns_200(self, client):
         response = client.delete("/api/v1/ingestion/jobs")
@@ -235,6 +253,7 @@ class TestClearJobs:
 # ---------------------------------------------------------------------------
 # GET /ingestion/jobs/{job_id}
 # ---------------------------------------------------------------------------
+
 
 class TestGetJob:
     def test_returns_404_for_unknown_job(self, client):
@@ -257,12 +276,14 @@ class TestGetJob:
 # These tests FAIL until ingestion.py uses Depends(get_ingestion_service)
 # ---------------------------------------------------------------------------
 
+
 class TestIngestionDependencyInjection:
     @pytest.fixture
     def client_with_override(self):
         from app.main import app
         from app.core.dependencies import (
-            get_match_repository, get_event_repository,
+            get_match_repository,
+            get_event_repository,
             get_ingestion_service,
         )
         from app.adapters.openai_client import get_openai_adapter
@@ -271,9 +292,15 @@ class TestIngestionDependencyInjection:
         mock_svc = MagicMock(spec=IngestionService)
         mock_svc.run_download_job = MagicMock()
 
-        app.dependency_overrides[get_match_repository] = lambda source="postgres": make_mock_match_repo()
-        app.dependency_overrides[get_event_repository] = lambda source="postgres": make_mock_event_repo()
-        app.dependency_overrides[get_openai_adapter] = lambda: make_mock_openai_adapter()
+        app.dependency_overrides[get_match_repository] = lambda source="postgres": (
+            make_mock_match_repo()
+        )
+        app.dependency_overrides[get_event_repository] = lambda source="postgres": (
+            make_mock_event_repo()
+        )
+        app.dependency_overrides[get_openai_adapter] = lambda: (
+            make_mock_openai_adapter()
+        )
         app.dependency_overrides[get_ingestion_service] = lambda: mock_svc
 
         with TestClient(app, raise_server_exceptions=False) as c:
@@ -296,3 +323,131 @@ class TestIngestionDependencyInjection:
             json={"match_ids": [3943043], "datasets": ["matches"]},
         )
         mock_svc.run_download_job.assert_called_once()
+
+
+# ---------------------------------------------------------------------------
+# POST /ingestion/summaries/generate
+# ---------------------------------------------------------------------------
+
+
+class TestStartGenerateSummariesJob:
+    def test_returns_202_with_valid_payload(self, client):
+        response = client.post(
+            "/api/v1/ingestion/summaries/generate",
+            json={"source": "postgres", "match_ids": [3943043]},
+        )
+        assert response.status_code == 202
+
+    def test_response_has_job_id_and_type(self, client):
+        response = client.post(
+            "/api/v1/ingestion/summaries/generate",
+            json={"source": "postgres", "match_ids": [3943043]},
+        )
+        data = response.json()
+        assert "job_id" in data
+        assert data["type"] == "summaries_generate"
+
+    def test_accepts_unknown_source_passthrough(self, client):
+        """``normalize_source`` passes unknown values through unchanged
+        (see app/core/capabilities.py). Source validation happens later in
+        the service layer when it tries to open a connection. This matches
+        the behavior of /ingestion/load, /aggregate, /embeddings/rebuild."""
+        response = client.post(
+            "/api/v1/ingestion/summaries/generate",
+            json={"source": "mongo", "match_ids": [3943043]},
+        )
+        assert response.status_code == 202
+
+    def test_accepts_sqlserver_source(self, client):
+        response = client.post(
+            "/api/v1/ingestion/summaries/generate",
+            json={"source": "sqlserver", "match_ids": [3943043]},
+        )
+        assert response.status_code == 202
+
+    def test_accepts_language_override(self, client):
+        response = client.post(
+            "/api/v1/ingestion/summaries/generate",
+            json={
+                "source": "postgres",
+                "match_ids": [3943043],
+                "language": "spanish",
+            },
+        )
+        assert response.status_code == 202
+
+    def test_empty_match_ids_allowed_as_bulk_mode(self, client):
+        """Empty match_ids means 'all matches with NULL summary'."""
+        response = client.post(
+            "/api/v1/ingestion/summaries/generate",
+            json={"source": "postgres", "match_ids": []},
+        )
+        assert response.status_code == 202
+
+    def test_calls_service_run_generate_summaries_job(self, mock_ingestion_svc, client):
+        mock_ingestion_svc.run_generate_summaries_job = MagicMock()
+        client.post(
+            "/api/v1/ingestion/summaries/generate",
+            json={"source": "postgres", "match_ids": [3943043]},
+        )
+        mock_ingestion_svc.run_generate_summaries_job.assert_called_once()
+
+
+# ---------------------------------------------------------------------------
+# POST /ingestion/full-pipeline
+# ---------------------------------------------------------------------------
+
+
+class TestStartFullPipelineJob:
+    def test_returns_202_with_match_ids(self, client):
+        response = client.post(
+            "/api/v1/ingestion/full-pipeline",
+            json={"source": "postgres", "match_ids": [3943043]},
+        )
+        assert response.status_code == 202
+
+    def test_returns_202_with_competition_and_season(self, client):
+        response = client.post(
+            "/api/v1/ingestion/full-pipeline",
+            json={
+                "source": "postgres",
+                "competition_id": 55,
+                "season_id": 282,
+            },
+        )
+        assert response.status_code == 202
+
+    def test_returns_400_when_no_ids_or_competition(self, client):
+        response = client.post(
+            "/api/v1/ingestion/full-pipeline",
+            json={"source": "postgres"},
+        )
+        assert response.status_code == 400
+
+    def test_response_has_job_id_and_type(self, client):
+        response = client.post(
+            "/api/v1/ingestion/full-pipeline",
+            json={"source": "postgres", "match_ids": [3943043]},
+        )
+        data = response.json()
+        assert "job_id" in data
+        assert data["type"] == "full_pipeline"
+
+    def test_calls_service_run_full_pipeline_job(self, mock_ingestion_svc, client):
+        mock_ingestion_svc.run_full_pipeline_job = MagicMock()
+        client.post(
+            "/api/v1/ingestion/full-pipeline",
+            json={"source": "postgres", "match_ids": [3943043]},
+        )
+        mock_ingestion_svc.run_full_pipeline_job.assert_called_once()
+
+    def test_accepts_embedding_models_override(self, client):
+        response = client.post(
+            "/api/v1/ingestion/full-pipeline",
+            json={
+                "source": "postgres",
+                "match_ids": [3943043],
+                "embedding_models": ["text-embedding-3-small"],
+            },
+        )
+        assert response.status_code == 202
