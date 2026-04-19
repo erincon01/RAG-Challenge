@@ -3,9 +3,7 @@
 SOURCE_CAPABILITIES: dict[str, dict[str, list[str]]] = {
     "postgres": {
         "embedding_models": [
-            "text-embedding-ada-002",
             "text-embedding-3-small",
-            "text-embedding-3-large",
         ],
         "search_algorithms": [
             "cosine",
@@ -16,7 +14,6 @@ SOURCE_CAPABILITIES: dict[str, dict[str, list[str]]] = {
     },
     "sqlserver": {
         "embedding_models": [
-            "text-embedding-ada-002",
             "text-embedding-3-small",
         ],
         "search_algorithms": [

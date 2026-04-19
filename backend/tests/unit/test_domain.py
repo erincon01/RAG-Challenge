@@ -297,20 +297,16 @@ class TestNormalizeSource:
 
 
 class TestGetSourceCapabilities:
-    def test_get_capabilities_postgres_returns_all_models_and_algos(self):
+    def test_get_capabilities_postgres_returns_active_model_and_algos(self):
         caps = get_source_capabilities("postgres")
-        assert "text-embedding-3-large" in caps["embedding_models"]
+        assert caps["embedding_models"] == ["text-embedding-3-small"]
         assert "l1_manhattan" in caps["search_algorithms"]
-        assert len(caps["embedding_models"]) == 3
         assert len(caps["search_algorithms"]) == 4
 
-    def test_get_capabilities_sqlserver_excludes_unsupported(self):
+    def test_get_capabilities_sqlserver_returns_active_model(self):
         caps = get_source_capabilities("sqlserver")
-        # t3_large not supported on SQL Server
-        assert "text-embedding-3-large" not in caps["embedding_models"]
-        # l1_manhattan not supported on SQL Server
+        assert caps["embedding_models"] == ["text-embedding-3-small"]
         assert "l1_manhattan" not in caps["search_algorithms"]
-        assert len(caps["embedding_models"]) == 2
         assert len(caps["search_algorithms"]) == 3
 
     def test_get_capabilities_via_alias_matches_canonical(self):
@@ -322,16 +318,19 @@ class TestGetSourceCapabilities:
 
 
 class TestValidateSearchCapabilities:
-    def test_postgres_valid_combination(self):
-        # Should not raise
-        validate_search_capabilities("postgres", "text-embedding-3-large", "l1_manhattan")
+    def test_postgres_valid_combination_t3_small(self):
+        validate_search_capabilities("postgres", "text-embedding-3-small", "l1_manhattan")
 
-    def test_sqlserver_valid_combination(self):
+    def test_sqlserver_valid_combination_t3_small(self):
         validate_search_capabilities("sqlserver", "text-embedding-3-small", "cosine")
 
-    def test_sqlserver_t3_large_not_supported(self):
+    def test_deprecated_ada_002_rejected_by_capabilities(self):
         with pytest.raises(ValueError, match="Embedding model"):
-            validate_search_capabilities("sqlserver", "text-embedding-3-large", "cosine")
+            validate_search_capabilities("postgres", "text-embedding-ada-002", "cosine")
+
+    def test_deprecated_t3_large_rejected_by_capabilities(self):
+        with pytest.raises(ValueError, match="Embedding model"):
+            validate_search_capabilities("postgres", "text-embedding-3-large", "cosine")
 
     def test_sqlserver_l1_not_supported(self):
         with pytest.raises(ValueError, match="Search algorithm"):
@@ -351,4 +350,4 @@ class TestValidateSearchCapabilities:
 
     def test_all_sqlserver_algorithms(self):
         for algo in SOURCE_CAPABILITIES["sqlserver"]["search_algorithms"]:
-            validate_search_capabilities("sqlserver", "text-embedding-ada-002", algo)
+            validate_search_capabilities("sqlserver", "text-embedding-3-small", algo)

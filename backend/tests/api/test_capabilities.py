@@ -66,16 +66,14 @@ class TestCapabilitiesEndpoint:
         caps = client.get("/api/v1/capabilities").json()["capabilities"]
         assert "sqlserver" in caps
 
-    def test_postgres_embedding_models(self, client):
+    def test_postgres_embedding_models_only_t3_small(self, client):
         caps = client.get("/api/v1/capabilities").json()["capabilities"]["postgres"]
         models = caps["embedding_models"]
-        assert "text-embedding-ada-002" in models
-        assert "text-embedding-3-small" in models
-        assert "text-embedding-3-large" in models
+        assert models == ["text-embedding-3-small"]
 
-    def test_sqlserver_missing_t3_large(self, client):
+    def test_sqlserver_embedding_models_only_t3_small(self, client):
         caps = client.get("/api/v1/capabilities").json()["capabilities"]["sqlserver"]
-        assert "text-embedding-3-large" not in caps["embedding_models"]
+        assert caps["embedding_models"] == ["text-embedding-3-small"]
 
     def test_postgres_all_four_algorithms(self, client):
         caps = client.get("/api/v1/capabilities").json()["capabilities"]["postgres"]

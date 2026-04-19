@@ -30,6 +30,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **devcontainer**: The synthetic `match_id=900001` placeholder row in `.devcontainer/post-create.sh` is gone. The real seed dataset replaces it (#45)
 
 ### Changed
+- **rag**: Deprecate `text-embedding-ada-002` and `text-embedding-3-large` — only `text-embedding-3-small` is active. Deprecated models removed from capabilities API and UI, enum values retained for backward compatibility (#51)
 - **infra**: Split `backend/Dockerfile` into two stages — `runtime` (production) and `devcontainer` (dev only). The production image no longer carries `git`, `nodejs`, `gnupg2`, `apt-transport-https`, `openssh-client`, `less`, or `procps`. Those tools are layered on in the `devcontainer` stage, which is selected via `build.target: devcontainer` in `.devcontainer/docker-compose.override.yml` and is never built by plain `docker compose up` (#43)
 - **infra**: Production backend container now runs as non-root `appuser` (UID 1000) by default — previously only the devcontainer enforced this (#43)
 - **docs**: Clean up README, PROJECT_STATUS, and .gitignore for onboarding (#25)
