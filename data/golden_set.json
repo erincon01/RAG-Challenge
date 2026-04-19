@@ -1,0 +1,124 @@
+[
+  {
+    "id": "GS-01",
+    "match_id": 3943043,
+    "match_label": "Euro 2024 Final — Spain 2-1 England",
+    "question": "Who scored the goals in the match?",
+    "expected_keywords": ["Williams", "Oyarzabal", "Palmer", "Spain", "England"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5
+  },
+  {
+    "id": "GS-02",
+    "match_id": 3943043,
+    "match_label": "Euro 2024 Final — Spain 2-1 England",
+    "question": "Show details of the goals scored",
+    "expected_keywords": ["goal", "scored", "Williams", "Oyarzabal"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5
+  },
+  {
+    "id": "GS-03",
+    "match_id": 3943043,
+    "match_label": "Euro 2024 Final — Spain 2-1 England",
+    "question": "What shots on goal did each team take in the second half?",
+    "expected_keywords": ["shot", "goal", "Spain", "England"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5
+  },
+  {
+    "id": "GS-04",
+    "match_id": 3943043,
+    "match_label": "Euro 2024 Final — Spain 2-1 England",
+    "question": "Which players recorded the highest number of passes?",
+    "expected_keywords": ["pass", "team"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5
+  },
+  {
+    "id": "GS-05",
+    "match_id": 3943043,
+    "match_label": "Euro 2024 Final — Spain 2-1 England",
+    "question": "What defensive actions did each team execute?",
+    "expected_keywords": ["tackle", "block", "defensive", "clearance"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5
+  },
+  {
+    "id": "GS-06",
+    "match_id": 3943043,
+    "match_label": "Euro 2024 Final — Spain 2-1 England",
+    "question": "What was the final scoreline of the match?",
+    "expected_keywords": ["2-1", "Spain", "England", "won"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 3
+  },
+  {
+    "id": "GS-07",
+    "match_id": 3869685,
+    "match_label": "WC 2022 Final — Argentina 3-3 France (pens 4-2)",
+    "question": "Who scored the goals in the match?",
+    "expected_keywords": ["Messi", "Mbappé", "Di María", "goal"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5
+  },
+  {
+    "id": "GS-08",
+    "match_id": 3869685,
+    "match_label": "WC 2022 Final — Argentina 3-3 France (pens 4-2)",
+    "question": "What happened in extra time?",
+    "expected_keywords": ["extra time", "goal", "Messi", "Mbappé"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5
+  },
+  {
+    "id": "GS-09",
+    "match_id": 3869685,
+    "match_label": "WC 2022 Final — Argentina 3-3 France (pens 4-2)",
+    "question": "Describe the penalty shootout",
+    "expected_keywords": ["penalty", "Montiel", "Argentina", "France"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5
+  },
+  {
+    "id": "GS-10",
+    "match_id": 3869685,
+    "match_label": "WC 2022 Final — Argentina 3-3 France (pens 4-2)",
+    "question": "How many shots on goal did each team take?",
+    "expected_keywords": ["shot", "goal"],
+    "search_algorithm": "cosine",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5
+  },
+  {
+    "id": "GS-11",
+    "match_id": 3943043,
+    "match_label": "Euro 2024 Final — Spain 2-1 England",
+    "question": "Who scored the goals in the match?",
+    "expected_keywords": ["Williams", "Oyarzabal", "Palmer"],
+    "search_algorithm": "inner_product",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5,
+    "notes": "Same question as GS-01 but with inner_product — compare result ordering"
+  },
+  {
+    "id": "GS-12",
+    "match_id": 3869685,
+    "match_label": "WC 2022 Final — Argentina 3-3 France (pens 4-2)",
+    "question": "Who scored the goals in the match?",
+    "expected_keywords": ["Messi", "Mbappé", "Di María"],
+    "search_algorithm": "inner_product",
+    "embedding_model": "text-embedding-3-small",
+    "top_n": 5,
+    "notes": "Same question as GS-07 but with inner_product — compare result ordering"
+  }
+]

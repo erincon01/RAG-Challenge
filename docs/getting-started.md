@@ -193,7 +193,19 @@ mypy backend/app
 docker compose up --build
 ```
 
-## 6. Where to find things
+## 6. Tutorials
+
+Learn how the RAG pipeline works with step-by-step guides using the seed data:
+
+| Tutorial | What you'll learn |
+|----------|------------------|
+| [01 — Your first semantic search](tutorials/01-first-semantic-search.md) | End-to-end RAG query: question → embedding → vector search → LLM answer |
+| [02 — Comparing search algorithms](tutorials/02-comparing-search-algorithms.md) | Cosine vs inner product vs L2 Euclidean with real results |
+| [03 — Understanding embeddings](tutorials/03-understanding-embeddings.md) | What vectors are, 1536 dimensions, the embedding pipeline |
+
+A golden set of evaluation questions is available at `data/golden_set.json`.
+
+## 7. Where to find things
 
 | What | Where |
 |------|-------|
