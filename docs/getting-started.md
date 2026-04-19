@@ -52,6 +52,13 @@ make seed-sqlserver                  # sqlserver only
 cd backend && python -m scripts.seed_load --source both --force  # re-seed
 ```
 
+The seed loads into **both PostgreSQL and SQL Server**. You can switch
+between them at any time using the **Source** dropdown in the header.
+
+> **Note:** SQL Server starts slower (~30s vs ~5s for PostgreSQL). If the
+> seed load fails for SQL Server, wait a moment and retry with `make seed-sqlserver`.
+> See [docs/sql-server-setup.md](sql-server-setup.md) for troubleshooting.
+
 After a successful seed load, the dashboard at http://localhost:5173/dashboard
 should show 2 matches in the explorer, and the chat page can answer
 questions about them (**the chat runtime still needs `OPENAI_KEY` set
