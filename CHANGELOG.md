@@ -8,6 +8,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [5.0.0] - 2026-04-19 — Seed data, E2E tests, SQL Server parity, tutorials
+
 ### Added
 - **docs**: CONTRIBUTING.md with contributor guide, issue templates, and project labels (#42)
 - **docs**: 3 step-by-step tutorials in `docs/tutorials/` — semantic search, algorithm comparison, embeddings explained (#39)
