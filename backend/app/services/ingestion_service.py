@@ -377,6 +377,8 @@ class IngestionService:
                     )
                     updated += 1
                     if idx % 25 == 0 or idx == len(rows):
+                        # Commit every 25 rows so progress is durable
+                        conn.commit()
                         JobService.log(
                             job_id, f"$ embeddings progress {idx}/{len(rows)}"
                         )
@@ -765,6 +767,8 @@ class IngestionService:
                         errored += 1
                         JobService.log(job_id, f"ERROR row {row_id}: {str(e)[:200]}")
                     if idx % 25 == 0 or idx == len(rows):
+                        # Commit every 25 rows so progress is durable
+                        conn.commit()
                         JobService.log(
                             job_id, f"$ summaries progress {idx}/{len(rows)}"
                         )
