@@ -118,12 +118,12 @@ class TestCapabilityValidation:
         payload = {**VALID_PAYLOAD, "embedding_model": "text-embedding-3-large",
                    "search_algorithm": "cosine"}
         response = client.post("/api/v1/chat/search?source=postgres", json=payload)
-        assert response.status_code == 400
+        assert response.status_code == 422
 
     def test_sqlserver_rejects_deprecated_t3_large(self, client):
         payload = {**VALID_PAYLOAD, "embedding_model": "text-embedding-3-large"}
         response = client.post("/api/v1/chat/search?source=sqlserver", json=payload)
-        assert response.status_code == 400
+        assert response.status_code == 422
 
     def test_postgres_supports_l1_manhattan(self, client):
         payload = {**VALID_PAYLOAD, "search_algorithm": "l1_manhattan"}

@@ -545,9 +545,7 @@ class PostgresEventRepository(EventRepository):
         """
         # Map embedding model to column name
         embedding_column_map = {
-            EmbeddingModel.ADA_002: "summary_embedding_ada_002",
             EmbeddingModel.T3_SMALL: "summary_embedding_t3_small",
-            EmbeddingModel.T3_LARGE: "summary_embedding_t3_large",
         }
 
         # Map search algorithm to pgvector operator

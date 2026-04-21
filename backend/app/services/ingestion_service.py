@@ -398,9 +398,7 @@ class IngestionService:
                 cur.execute(
                     """
                     SELECT COUNT(*),
-                           SUM(CASE WHEN summary_embedding_ada_002 IS NOT NULL THEN 1 ELSE 0 END),
                            SUM(CASE WHEN summary_embedding_t3_small IS NOT NULL THEN 1 ELSE 0 END),
-                           SUM(CASE WHEN summary_embedding_t3_large IS NOT NULL THEN 1 ELSE 0 END),
                            SUM(CASE WHEN embedding_status = 'done' THEN 1 ELSE 0 END),
                            SUM(CASE WHEN embedding_status = 'error' THEN 1 ELSE 0 END),
                            SUM(CASE WHEN embedding_status = 'pending' OR embedding_status IS NULL THEN 1 ELSE 0 END)
@@ -413,21 +411,18 @@ class IngestionService:
                     "table": "events_details__quarter_minute",
                     "total_rows": int(row[0] or 0),
                     "coverage": {
-                        "text-embedding-ada-002": int(row[1] or 0),
-                        "text-embedding-3-small": int(row[2] or 0),
-                        "text-embedding-3-large": int(row[3] or 0),
+                        "text-embedding-3-small": int(row[1] or 0),
                     },
                     "status": {
-                        "done": int(row[4] or 0),
-                        "error": int(row[5] or 0),
-                        "pending": int(row[6] or 0),
+                        "done": int(row[2] or 0),
+                        "error": int(row[3] or 0),
+                        "pending": int(row[4] or 0),
                     },
                 }
 
             cur.execute(
                 """
                 SELECT COUNT(*),
-                       SUM(CASE WHEN embedding_ada_002 IS NOT NULL THEN 1 ELSE 0 END),
                        SUM(CASE WHEN embedding_3_small IS NOT NULL THEN 1 ELSE 0 END),
                        SUM(CASE WHEN embedding_status = 'done' THEN 1 ELSE 0 END),
                        SUM(CASE WHEN embedding_status = 'error' THEN 1 ELSE 0 END),
@@ -441,13 +436,12 @@ class IngestionService:
                 "table": "events_details__15secs_agg",
                 "total_rows": int(row[0] or 0),
                 "coverage": {
-                    "text-embedding-ada-002": int(row[1] or 0),
-                    "text-embedding-3-small": int(row[2] or 0),
+                    "text-embedding-3-small": int(row[1] or 0),
                 },
                 "status": {
-                    "done": int(row[3] or 0),
-                    "error": int(row[4] or 0),
-                    "pending": int(row[5] or 0),
+                    "done": int(row[2] or 0),
+                    "error": int(row[3] or 0),
+                    "pending": int(row[4] or 0),
                 },
             }
 
@@ -1002,10 +996,10 @@ class IngestionService:
             cur.execute(
                 f"""
                 INSERT INTO events_details__15secs_agg (
-                    match_id, period, minute, _15secs, count, json_, summary, embedding_3_small, embedding_ada_002
+                    match_id, period, minute, _15secs, count, json_, summary, embedding_3_small
                 )
                 SELECT match_id, ISNULL(period,0), ISNULL(minute,0), (ISNULL(second,0)/15)+1,
-                       COUNT(*), STRING_AGG(CAST(ISNULL(json_, '') AS NVARCHAR(MAX)), ', '), NULL, NULL, NULL
+                       COUNT(*), STRING_AGG(CAST(ISNULL(json_, '') AS NVARCHAR(MAX)), ', '), NULL, NULL
                 FROM events_details
                 WHERE match_id IN ({placeholders})
                 GROUP BY match_id, ISNULL(period,0), ISNULL(minute,0), (ISNULL(second,0)/15)+1
@@ -1017,10 +1011,10 @@ class IngestionService:
             cur.execute(
                 """
                 INSERT INTO events_details__15secs_agg (
-                    match_id, period, minute, _15secs, count, json_, summary, embedding_3_small, embedding_ada_002
+                    match_id, period, minute, _15secs, count, json_, summary, embedding_3_small
                 )
                 SELECT match_id, ISNULL(period,0), ISNULL(minute,0), (ISNULL(second,0)/15)+1,
-                       COUNT(*), STRING_AGG(CAST(ISNULL(json_, '') AS NVARCHAR(MAX)), ', '), NULL, NULL, NULL
+                       COUNT(*), STRING_AGG(CAST(ISNULL(json_, '') AS NVARCHAR(MAX)), ', '), NULL, NULL
                 FROM events_details
                 GROUP BY match_id, ISNULL(period,0), ISNULL(minute,0), (ISNULL(second,0)/15)+1
                 """
@@ -1041,9 +1035,7 @@ class IngestionService:
         try:
             if source == "postgres":
                 model_cols = {
-                    "text-embedding-ada-002": "summary_embedding_ada_002",
                     "text-embedding-3-small": "summary_embedding_t3_small",
-                    "text-embedding-3-large": "summary_embedding_t3_large",
                 }
                 for model in models:
                     col = model_cols.get(model)
@@ -1062,7 +1054,6 @@ class IngestionService:
                 return
 
             model_cols = {
-                "text-embedding-ada-002": "embedding_ada_002",
                 "text-embedding-3-small": "embedding_3_small",
             }
             for model in models:

@@ -560,7 +560,6 @@ class SQLServerEventRepository(EventRepository):
         Note: SQL Server uses VECTOR_DISTANCE function for similarity search.
         """
         embedding_column_map = {
-            EmbeddingModel.ADA_002: "embedding_ada_002",
             EmbeddingModel.T3_SMALL: "embedding_3_small",
         }
 

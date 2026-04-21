@@ -21,6 +21,30 @@ test.describe('Cross-cutting', () => {
     await page.screenshot({ path: `${SCREENSHOTS}/source-sqlserver.png`, fullPage: true })
   })
 
+  test('US-23b: source switching updates Tables Info tab', async ({ page }) => {
+    await page.goto('/explorer')
+    await page.waitForLoadState('networkidle')
+
+    // Go to Tables tab on postgres
+    const tablesTab = page.getByRole('button', { name: 'Tables' })
+    await tablesTab.click()
+    await page.waitForLoadState('networkidle')
+    // Postgres has events_details__quarter_minute
+    await expect(page.getByText('events_details__quarter_minute')).toBeVisible({ timeout: 10_000 })
+
+    // Switch to sqlserver
+    const sourceSelect = page.locator('select').filter({ hasText: /PostgreSQL/i }).first()
+    await sourceSelect.selectOption('sqlserver')
+    await page.waitForLoadState('networkidle')
+
+    // Must click Tables tab again after source switch (tab may reset)
+    await tablesTab.click()
+    await page.waitForLoadState('networkidle')
+
+    // SQL Server has events_details__15secs_agg (different name)
+    await expect(page.getByText('events_details__15secs_agg')).toBeVisible({ timeout: 10_000 })
+  })
+
   test('US-24: seed data is available out of the box', async ({ page }) => {
     // Explorer has data
     await page.goto('/explorer')

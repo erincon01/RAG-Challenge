@@ -114,7 +114,7 @@ class SearchRequest(BaseModel):
     )
     embedding_model: str = Field(
         default="text-embedding-3-small",
-        description="Embedding model: text-embedding-ada-002, text-embedding-3-small, text-embedding-3-large",
+        description="Embedding model: text-embedding-3-small",
     )
     top_n: int = Field(default=10, ge=1, le=100, description="Number of results")
     temperature: float = Field(default=0.1, ge=0, le=2, description="LLM temperature")
@@ -141,9 +141,7 @@ class SearchRequest(BaseModel):
     def validate_model(cls, v: str) -> str:
         """Validate embedding model."""
         allowed = [
-            "text-embedding-ada-002",
             "text-embedding-3-small",
-            "text-embedding-3-large",
         ]
         if v not in allowed:
             raise ValueError(f"Model must be one of: {', '.join(allowed)}")

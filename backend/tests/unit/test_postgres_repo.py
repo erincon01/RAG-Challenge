@@ -435,7 +435,7 @@ class TestPostgresEventRepositoryQueries:
         req = SearchRequest(
             match_id=3943043,
             query="who scored?",
-            embedding_model=EmbeddingModel.ADA_002,
+            embedding_model=EmbeddingModel.T3_SMALL,
             search_algorithm=SearchAlgorithm.COSINE,
             top_n=3,
         )
@@ -488,8 +488,7 @@ class TestPostgresEventRepositoryQueries:
 
         assert results == []
 
-    @patch("app.repositories.postgres.psycopg2.connect")
-    def test_search_by_embedding_t3_large(self, mock_connect):
+    def test_search_by_embedding_deprecated_t3_large_raises(self):
         from app.domain.entities import EmbeddingModel, SearchAlgorithm, SearchRequest
 
         req = SearchRequest(
@@ -499,27 +498,9 @@ class TestPostgresEventRepositoryQueries:
             search_algorithm=SearchAlgorithm.INNER_PRODUCT,
             top_n=2,
         )
-        row1 = _event_row()
-        row1["similarity_score"] = 0.05
-        row2 = _event_row()
-        row2["id"] = 1002
-        row2["similarity_score"] = 0.08
-
         repo = PostgresEventRepository()
-        with patch.object(repo, "get_connection") as mock_gc:
-            conn = MagicMock()
-            cursor = MagicMock()
-            cursor.fetchall.return_value = [row1, row2]
-            conn.cursor.return_value.__enter__ = MagicMock(return_value=cursor)
-            conn.cursor.return_value.__exit__ = MagicMock(return_value=False)
-            mock_gc.return_value.__enter__ = MagicMock(return_value=conn)
-            mock_gc.return_value.__exit__ = MagicMock(return_value=False)
-
-            results = repo.search_by_embedding(req, query_embedding=[0.1] * 1536)
-
-        assert len(results) == 2
-        assert results[0].rank == 1
-        assert results[1].rank == 2
+        with pytest.raises(ValueError, match="Unsupported embedding model"):
+            repo.search_by_embedding(req, query_embedding=[0.1] * 1536)
 
     @patch("app.repositories.postgres.psycopg2.connect")
     def test_search_by_embedding_l1_manhattan(self, mock_connect):
@@ -528,7 +509,7 @@ class TestPostgresEventRepositoryQueries:
         req = SearchRequest(
             match_id=1,
             query="test",
-            embedding_model=EmbeddingModel.ADA_002,
+            embedding_model=EmbeddingModel.T3_SMALL,
             search_algorithm=SearchAlgorithm.L1_MANHATTAN,
             top_n=1,
         )
@@ -571,7 +552,7 @@ class TestPostgresEventRepositoryQueries:
         from app.domain.entities import EmbeddingModel, SearchRequest
 
         req_mock = MagicMock()
-        req_mock.embedding_model = EmbeddingModel.ADA_002
+        req_mock.embedding_model = EmbeddingModel.T3_SMALL
         req_mock.search_algorithm = "bad_algo"
         req_mock.match_id = 1
         req_mock.top_n = 5
@@ -629,7 +610,7 @@ class TestPostgresEventRepositoryExceptions:
         req = SearchRequest(
             match_id=1,
             query="test",
-            embedding_model=EmbeddingModel.ADA_002,
+            embedding_model=EmbeddingModel.T3_SMALL,
             search_algorithm=SearchAlgorithm.COSINE,
             top_n=5,
         )

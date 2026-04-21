@@ -123,9 +123,7 @@ class EventDetail:
     count: int
     json_data: str
     summary: str | None = None
-    summary_embedding_ada_002: list[float] | None = None
     summary_embedding_t3_small: list[float] | None = None
-    summary_embedding_t3_large: list[float] | None = None
     summary_embedding_e5: list[float] | None = None
 
     @property
