@@ -7,7 +7,7 @@ import { readCatalogSelection } from '../lib/storage/catalogSelection'
 import { useUISettings } from '../state/ui-settings'
 
 const AVAILABLE_DATASETS = ['matches', 'lineups', 'events'] as const
-const TERMINAL_JOB_TYPES = new Set(['load', 'aggregate', 'summaries_generate', 'embeddings_rebuild'])
+const TERMINAL_JOB_TYPES = new Set(['download', 'load', 'aggregate', 'summaries_generate', 'embeddings_rebuild'])
 
 function asErrorMessage(error: unknown): string {
   if (error instanceof ApiError) {
@@ -20,24 +20,6 @@ function asErrorMessage(error: unknown): string {
   return 'Unknown error'
 }
 
-function parseCommaSeparatedNumbers(value: string): number[] {
-  if (!value.trim()) {
-    return []
-  }
-  return value
-    .split(',')
-    .map((item) => Number(item.trim()))
-    .filter((item) => Number.isInteger(item) && item > 0)
-}
-
-function parseOptionalInt(value: string): number | undefined {
-  const parsed = Number(value)
-  if (!value.trim() || !Number.isInteger(parsed) || parsed <= 0) {
-    return undefined
-  }
-  return parsed
-}
-
 export function OperationsPage() {
   const { source } = useUISettings()
   const queryClient = useQueryClient()
@@ -46,21 +28,16 @@ export function OperationsPage() {
   const [selection, setSelection] = useState(initialSelection)
 
   const [downloadDatasets, setDownloadDatasets] = useState<string[]>(['matches', 'events'])
-  const [cleanupDatasets, setCleanupDatasets] = useState<string[]>(['matches', 'lineups', 'events'])
   const [loadDatasets, setLoadDatasets] = useState<string[]>(['matches', 'events'])
 
-  const [cleanupMatchIdsInput, setCleanupMatchIdsInput] = useState(initialSelection.matchIds.join(','))
-  const [cleanupCompetitionIdInput, setCleanupCompetitionIdInput] = useState(
-    initialSelection.competitionId ? String(initialSelection.competitionId) : '',
-  )
-  const [cleanupSeasonIdInput, setCleanupSeasonIdInput] = useState(
-    initialSelection.seasonId ? String(initialSelection.seasonId) : '',
-  )
+  // Cleanup state
+  const [cleanupDatasets, setCleanupDatasets] = useState<string[]>(['matches', 'lineups', 'events'])
   const [cleanupResult, setCleanupResult] = useState<DownloadCleanupResponse | null>(null)
 
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null)
   const [terminalJobId, setTerminalJobId] = useState<string | null>(null)
 
+  // Queries
   const jobsQuery = useQuery({
     queryKey: ['jobs-list'],
     queryFn: () => api.listJobs(100),
@@ -82,22 +59,14 @@ export function OperationsPage() {
   })
 
   const selectedJob = useMemo(() => {
-    if (selectedJobQuery.data) {
-      return selectedJobQuery.data
-    }
-    if (!selectedJobId || !jobsQuery.data) {
-      return null
-    }
+    if (selectedJobQuery.data) return selectedJobQuery.data
+    if (!selectedJobId || !jobsQuery.data) return null
     return jobsQuery.data.items.find((job) => job.id === selectedJobId) ?? null
   }, [jobsQuery.data, selectedJobId, selectedJobQuery.data])
 
   const terminalJob = useMemo(() => {
-    if (terminalJobQuery.data) {
-      return terminalJobQuery.data
-    }
-    if (!terminalJobId || !jobsQuery.data) {
-      return null
-    }
+    if (terminalJobQuery.data) return terminalJobQuery.data
+    if (!terminalJobId || !jobsQuery.data) return null
     return jobsQuery.data.items.find((job) => job.id === terminalJobId) ?? null
   }, [jobsQuery.data, terminalJobId, terminalJobQuery.data])
 
@@ -105,25 +74,22 @@ export function OperationsPage() {
     void queryClient.invalidateQueries({ queryKey: ['jobs-list'] })
   }
 
-  const toggleDataset = (
-    dataset: string,
-    current: string[],
-    setter: (value: string[]) => void,
-  ) => {
-    if (current.includes(dataset)) {
-      setter(current.filter((item) => item !== dataset))
-      return
-    }
-    setter([...current, dataset])
+  const onJobCreated = (response: { job_id: string }) => {
+    setSelectedJobId(response.job_id)
+    setTerminalJobId(response.job_id)
+    refreshJobs()
+  }
+
+  const toggleDataset = (dataset: string, current: string[], setter: (v: string[]) => void) => {
+    setter(current.includes(dataset) ? current.filter((d) => d !== dataset) : [...current, dataset])
   }
 
   const setActiveJob = (job: JobRecord) => {
     setSelectedJobId(job.id)
-    if (TERMINAL_JOB_TYPES.has(job.type)) {
-      setTerminalJobId(job.id)
-    }
+    if (TERMINAL_JOB_TYPES.has(job.type)) setTerminalJobId(job.id)
   }
 
+  // Mutations
   const downloadMutation = useMutation({
     mutationFn: () =>
       api.startDownload({
@@ -133,89 +99,37 @@ export function OperationsPage() {
         season_id: selection.seasonId ?? undefined,
         overwrite: false,
       }),
-    onSuccess: (response) => {
-      setSelectedJobId(response.job_id)
-      refreshJobs()
-    },
-  })
-
-  const cleanupFilteredMutation = useMutation({
-    mutationFn: () =>
-      api.cleanupDownloadFiles({
-        datasets: cleanupDatasets,
-        match_ids: parseCommaSeparatedNumbers(cleanupMatchIdsInput),
-        competition_id: parseOptionalInt(cleanupCompetitionIdInput),
-        season_id: parseOptionalInt(cleanupSeasonIdInput),
-        delete_all: false,
-      }),
-    onSuccess: (result) => {
-      setCleanupResult(result)
-    },
-  })
-
-  const cleanupAllMutation = useMutation({
-    mutationFn: () =>
-      api.cleanupDownloadFiles({
-        datasets: cleanupDatasets,
-        match_ids: [],
-        delete_all: true,
-      }),
-    onSuccess: (result) => {
-      setCleanupResult(result)
-    },
+    onSuccess: onJobCreated,
   })
 
   const loadMutation = useMutation({
     mutationFn: () =>
-      api.startLoad({
-        source,
-        datasets: loadDatasets,
-        match_ids: selection.matchIds,
-      }),
-    onSuccess: (response) => {
-      setSelectedJobId(response.job_id)
-      setTerminalJobId(response.job_id)
-      refreshJobs()
-    },
+      api.startLoad({ source, datasets: loadDatasets, match_ids: selection.matchIds }),
+    onSuccess: onJobCreated,
   })
 
   const aggregateMutation = useMutation({
     mutationFn: () =>
-      api.startAggregate({
-        source,
-        match_ids: selection.matchIds,
-      }),
-    onSuccess: (response) => {
-      setSelectedJobId(response.job_id)
-      setTerminalJobId(response.job_id)
-      refreshJobs()
-    },
+      api.startAggregate({ source, match_ids: selection.matchIds }),
+    onSuccess: onJobCreated,
   })
 
   const summariesMutation = useMutation({
     mutationFn: () =>
-      api.startGenerateSummaries({
-        source,
-        match_ids: selection.matchIds,
-      }),
-    onSuccess: (response) => {
-      setSelectedJobId(response.job_id)
-      setTerminalJobId(response.job_id)
-      refreshJobs()
-    },
+      api.startGenerateSummaries({ source, match_ids: selection.matchIds }),
+    onSuccess: onJobCreated,
   })
 
   const embeddingsMutation = useMutation({
     mutationFn: () =>
-      api.startRebuildEmbeddings({
-        source,
-        match_ids: selection.matchIds,
-      }),
-    onSuccess: (response) => {
-      setSelectedJobId(response.job_id)
-      setTerminalJobId(response.job_id)
-      refreshJobs()
-    },
+      api.startRebuildEmbeddings({ source, match_ids: selection.matchIds }),
+    onSuccess: onJobCreated,
+  })
+
+  const cleanupAllMutation = useMutation({
+    mutationFn: () =>
+      api.cleanupDownloadFiles({ datasets: cleanupDatasets, match_ids: [], delete_all: true }),
+    onSuccess: (result) => setCleanupResult(result),
   })
 
   const clearJobsMutation = useMutation({
@@ -231,205 +145,143 @@ export function OperationsPage() {
 
   return (
     <section className="grid gap-4 xl:grid-cols-[1.1fr_1fr]">
-      <article className="space-y-4 rounded-2xl border border-white/10 bg-panel/70 p-5">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold text-ink">Descarga y Carga</h2>
-          <button
-            type="button"
-            onClick={() => {
-              const refreshed = readCatalogSelection()
-              setSelection(refreshed)
-              setCleanupMatchIdsInput(refreshed.matchIds.join(','))
-              setCleanupCompetitionIdInput(refreshed.competitionId ? String(refreshed.competitionId) : '')
-              setCleanupSeasonIdInput(refreshed.seasonId ? String(refreshed.seasonId) : '')
-            }}
-            className="rounded-lg border border-white/20 bg-white/5 px-3 py-1 text-xs text-ink"
-          >
-            Recargar selección
-          </button>
-        </div>
-
-        <div className="rounded-xl border border-white/10 bg-canvas/60 p-4 text-sm">
-          <p className="text-mute">Source destino</p>
-          <p className="font-medium capitalize text-ink">{source}</p>
-          <p className="mt-3 text-mute">Competition ID / Season ID</p>
-          <p className="font-medium text-ink">
-            {selection.competitionId ?? '-'} / {selection.seasonId ?? '-'}
-          </p>
-          <p className="mt-3 text-mute">Match IDs seleccionados</p>
-          <p className="text-ink">{selection.matchIds.length > 0 ? selection.matchIds.join(', ') : 'ninguno'}</p>
-        </div>
-
-        <div className="space-y-3 rounded-xl border border-white/10 bg-canvas/60 p-4">
-          <p className="text-sm font-semibold text-ink">Datasets para descarga</p>
-          <div className="flex flex-wrap gap-3">
-            {AVAILABLE_DATASETS.map((dataset) => (
-              <label key={`download-${dataset}`} className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={downloadDatasets.includes(dataset)}
-                  onChange={() => toggleDataset(dataset, downloadDatasets, setDownloadDatasets)}
-                />
-                {dataset}
-              </label>
-            ))}
+      {/* Left column: Pipeline */}
+      <div className="space-y-4">
+        {/* Match selection header */}
+        <article className="rounded-2xl border border-white/10 bg-panel/70 p-5">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-semibold text-ink">Pipeline de Ingesta</h2>
+            <button
+              type="button"
+              onClick={() => {
+                const refreshed = readCatalogSelection()
+                setSelection(refreshed)
+              }}
+              className="rounded-lg border border-white/20 bg-white/5 px-3 py-1 text-xs text-ink"
+            >
+              Recargar selección
+            </button>
           </div>
-
-          <button
-            type="button"
-            onClick={() => downloadMutation.mutate()}
-            disabled={downloadMutation.isPending || downloadDatasets.length === 0}
-            className="rounded-xl border border-accent/50 bg-accent/15 px-4 py-2 text-sm font-semibold text-accent disabled:opacity-60"
-          >
-            Lanzar descarga
-          </button>
-
-          <div className="space-y-2 rounded-lg border border-white/10 bg-black/20 p-3">
-            <p className="text-xs uppercase tracking-[0.2em] text-mute">Borrado de archivos descargados</p>
-            <div className="flex flex-wrap gap-3">
-              {AVAILABLE_DATASETS.map((dataset) => (
-                <label key={`cleanup-${dataset}`} className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={cleanupDatasets.includes(dataset)}
-                    onChange={() => toggleDataset(dataset, cleanupDatasets, setCleanupDatasets)}
-                  />
-                  {dataset}
-                </label>
-              ))}
+          <div className="mt-3 grid gap-2 text-sm md:grid-cols-3">
+            <div className="rounded-lg border border-white/10 bg-canvas/60 px-3 py-2">
+              <p className="text-xs text-mute">Source</p>
+              <p className="font-medium capitalize text-ink">{source}</p>
             </div>
-            <div className="grid gap-2 md:grid-cols-3">
-              <input
-                value={cleanupMatchIdsInput}
-                onChange={(event) => setCleanupMatchIdsInput(event.target.value)}
-                placeholder="match_ids: 3895052,3895053"
-                className="rounded-lg border border-white/10 bg-canvas/80 px-3 py-2 text-sm text-ink"
-              />
-              <input
-                value={cleanupCompetitionIdInput}
-                onChange={(event) => setCleanupCompetitionIdInput(event.target.value)}
-                placeholder="competition_id"
-                className="rounded-lg border border-white/10 bg-canvas/80 px-3 py-2 text-sm text-ink"
-              />
-              <input
-                value={cleanupSeasonIdInput}
-                onChange={(event) => setCleanupSeasonIdInput(event.target.value)}
-                placeholder="season_id"
-                className="rounded-lg border border-white/10 bg-canvas/80 px-3 py-2 text-sm text-ink"
-              />
+            <div className="rounded-lg border border-white/10 bg-canvas/60 px-3 py-2">
+              <p className="text-xs text-mute">Competition / Season</p>
+              <p className="font-medium text-ink">{selection.competitionId ?? '-'} / {selection.seasonId ?? '-'}</p>
             </div>
+            <div className="rounded-lg border border-white/10 bg-canvas/60 px-3 py-2">
+              <p className="text-xs text-mute">Matches</p>
+              <p className="font-medium text-ink">{selection.matchIds.length > 0 ? `${selection.matchIds.length} selected` : 'none'}</p>
+            </div>
+          </div>
+        </article>
 
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => cleanupFilteredMutation.mutate()}
-                disabled={cleanupFilteredMutation.isPending || cleanupDatasets.length === 0}
-                className="rounded-xl border border-amber-400/40 bg-amber-500/10 px-3 py-2 text-xs font-semibold text-amber-300 disabled:opacity-60"
-              >
-                Borrar con filtros
-              </button>
+        {/* Step 1: Download */}
+        <PipelineStep
+          step={1}
+          title="Download"
+          description="Download match data from StatsBomb Open Data to local storage."
+          actionLabel="Download"
+          onAction={() => downloadMutation.mutate()}
+          isPending={downloadMutation.isPending}
+          error={downloadMutation.isError ? asErrorMessage(downloadMutation.error) : null}
+          disabled={downloadDatasets.length === 0}
+        >
+          <DatasetCheckboxes datasets={downloadDatasets} toggle={(d) => toggleDataset(d, downloadDatasets, setDownloadDatasets)} prefix="dl" />
+        </PipelineStep>
+
+        {/* Step 2: Load */}
+        <PipelineStep
+          step={2}
+          title="Load"
+          description={`Load downloaded JSON files into ${source} database.`}
+          actionLabel="Load"
+          onAction={() => loadMutation.mutate()}
+          isPending={loadMutation.isPending}
+          error={loadMutation.isError ? asErrorMessage(loadMutation.error) : null}
+          disabled={loadDatasets.length === 0}
+        >
+          <DatasetCheckboxes datasets={loadDatasets} toggle={(d) => toggleDataset(d, loadDatasets, setLoadDatasets)} prefix="ld" />
+        </PipelineStep>
+
+        {/* Step 3: Aggregate */}
+        <PipelineStep
+          step={3}
+          title="Aggregate"
+          description="Build 15-second bucket aggregations from raw events."
+          actionLabel="Aggregate"
+          onAction={() => aggregateMutation.mutate()}
+          isPending={aggregateMutation.isPending}
+          error={aggregateMutation.isError ? asErrorMessage(aggregateMutation.error) : null}
+        />
+
+        {/* Step 4: Summaries */}
+        <PipelineStep
+          step={4}
+          title="Summaries"
+          description="Generate narrative summaries for each 15-second bucket using the LLM. Requires OpenAI key."
+          actionLabel="Generate summaries"
+          onAction={() => summariesMutation.mutate()}
+          isPending={summariesMutation.isPending}
+          error={summariesMutation.isError ? asErrorMessage(summariesMutation.error) : null}
+        />
+
+        {/* Step 5: Embeddings */}
+        <PipelineStep
+          step={5}
+          title="Embeddings"
+          description="Create vector embeddings (text-embedding-3-small, 1536 dims) for each summary. Requires OpenAI key."
+          actionLabel="Generate embeddings"
+          onAction={() => embeddingsMutation.mutate()}
+          isPending={embeddingsMutation.isPending}
+          error={embeddingsMutation.isError ? asErrorMessage(embeddingsMutation.error) : null}
+        />
+
+        {/* Terminal */}
+        <div className="rounded-2xl border border-white/10 bg-panel/70 p-4">
+          <p className="mb-2 text-xs uppercase tracking-[0.2em] text-mute">Terminal</p>
+          <div className="max-h-56 overflow-auto rounded-lg bg-black/80 p-3 font-mono text-xs leading-5 text-emerald-300">
+            {terminalLines.length > 0 ? (
+              terminalLines.map((line, idx) => <p key={`${idx}-${line}`}>{line}</p>)
+            ) : (
+              <p className="text-slate-400">Run any pipeline step to see logs here.</p>
+            )}
+          </div>
+        </div>
+
+        {/* Cleanup (collapsible) */}
+        <details className="rounded-2xl border border-white/10 bg-panel/70 p-4">
+          <summary className="cursor-pointer text-sm font-semibold text-mute hover:text-ink">
+            Cleanup downloaded files
+          </summary>
+          <div className="mt-3 space-y-2">
+            <DatasetCheckboxes datasets={cleanupDatasets} toggle={(d) => toggleDataset(d, cleanupDatasets, setCleanupDatasets)} prefix="cl" />
+            <div className="flex gap-2">
               <button
                 type="button"
                 onClick={() => cleanupAllMutation.mutate()}
                 disabled={cleanupAllMutation.isPending || cleanupDatasets.length === 0}
                 className="rounded-xl border border-rose-400/40 bg-rose-500/10 px-3 py-2 text-xs font-semibold text-rose-300 disabled:opacity-60"
               >
-                Borrar todo
+                Delete all downloaded files
               </button>
             </div>
-
-            {cleanupFilteredMutation.isError ? (
-              <p className="text-sm text-rose-300">{asErrorMessage(cleanupFilteredMutation.error)}</p>
-            ) : null}
             {cleanupAllMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(cleanupAllMutation.error)}</p> : null}
-
             {cleanupResult ? (
-              <div className="rounded-lg border border-white/10 bg-canvas/70 p-3 text-xs text-mute">
-                <p className="text-ink">Eliminados: {cleanupResult.deleted_count}</p>
-                <p>Files: {cleanupResult.deleted_files.length}</p>
-                <p>Dirs: {cleanupResult.deleted_dirs.length}</p>
-              </div>
+              <p className="text-xs text-mute">Deleted: {cleanupResult.deleted_count} items</p>
             ) : null}
           </div>
+        </details>
+      </div>
 
-          {downloadMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(downloadMutation.error)}</p> : null}
-        </div>
-
-        <div className="space-y-3 rounded-xl border border-white/10 bg-canvas/60 p-4">
-          <p className="text-sm font-semibold text-ink">Datasets para carga</p>
-          <div className="flex flex-wrap gap-3">
-            {AVAILABLE_DATASETS.map((dataset) => (
-              <label key={`load-${dataset}`} className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={loadDatasets.includes(dataset)}
-                  onChange={() => toggleDataset(dataset, loadDatasets, setLoadDatasets)}
-                />
-                {dataset}
-              </label>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => loadMutation.mutate()}
-              disabled={loadMutation.isPending || loadDatasets.length === 0}
-              className="rounded-xl border border-accentWarm/50 bg-accentWarm/15 px-4 py-2 text-sm font-semibold text-accentWarm disabled:opacity-60"
-            >
-              Lanzar carga
-            </button>
-            <button
-              type="button"
-              onClick={() => aggregateMutation.mutate()}
-              disabled={aggregateMutation.isPending}
-              className="rounded-xl border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-ink disabled:opacity-60"
-            >
-              Construir agregaciones
-            </button>
-            <button
-              type="button"
-              onClick={() => summariesMutation.mutate()}
-              disabled={summariesMutation.isPending}
-              className="rounded-xl border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-ink disabled:opacity-60"
-            >
-              Generar summaries
-            </button>
-            <button
-              type="button"
-              onClick={() => embeddingsMutation.mutate()}
-              disabled={embeddingsMutation.isPending}
-              className="rounded-xl border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-ink disabled:opacity-60"
-            >
-              Rebuild embeddings
-            </button>
-          </div>
-          {loadMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(loadMutation.error)}</p> : null}
-          {aggregateMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(aggregateMutation.error)}</p> : null}
-          {summariesMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(summariesMutation.error)}</p> : null}
-          {embeddingsMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(embeddingsMutation.error)}</p> : null}
-
-          <div className="rounded-lg border border-white/10 bg-black/80 p-3">
-            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-mute">Terminal de ejecución</p>
-            <div className="max-h-56 overflow-auto font-mono text-xs leading-5 text-emerald-300">
-              {terminalLines.length > 0 ? (
-                terminalLines.map((line, idx) => <p key={`${idx}-${line}`}>{line}</p>)
-              ) : (
-                <p className="text-slate-400">Sin logs todavía. Ejecuta carga/agregación/embeddings para ver instrucciones.</p>
-              )}
-            </div>
-          </div>
-        </div>
-      </article>
-
+      {/* Right column: Jobs */}
       <article className="space-y-4 rounded-2xl border border-white/10 bg-panel/70 p-5">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-ink">Jobs</h3>
           <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={refreshJobs}
-              className="rounded-lg border border-white/20 bg-white/5 px-3 py-1 text-xs text-ink"
-            >
+            <button type="button" onClick={refreshJobs} className="rounded-lg border border-white/20 bg-white/5 px-3 py-1 text-xs text-ink">
               Refresh
             </button>
             <button
@@ -443,9 +295,8 @@ export function OperationsPage() {
           </div>
         </div>
 
-        {jobsQuery.isLoading ? <p className="text-mute">Cargando jobs...</p> : null}
-        {jobsQuery.isError ? <p className="text-rose-300">No se pudo consultar el estado de jobs.</p> : null}
-        {clearJobsMutation.isError ? <p className="text-rose-300">{asErrorMessage(clearJobsMutation.error)}</p> : null}
+        {jobsQuery.isLoading ? <p className="text-mute">Loading jobs...</p> : null}
+        {jobsQuery.isError ? <p className="text-rose-300">Failed to load jobs.</p> : null}
 
         <div className="max-h-[360px] overflow-auto rounded-xl border border-white/10">
           <table className="min-w-full divide-y divide-white/10 text-sm">
@@ -457,23 +308,17 @@ export function OperationsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
-              {(jobsQuery.data?.items ?? []).map((job) => {
-                const progress = job.total > 0 ? `${job.progress}/${job.total}` : String(job.progress)
-                return (
-                  <tr
-                    key={job.id}
-                    onClick={() => setActiveJob(job)}
-                    className={[
-                      'cursor-pointer transition hover:bg-white/5',
-                      selectedJobId === job.id ? 'bg-accent/10' : '',
-                    ].join(' ')}
-                  >
-                    <td className="px-3 py-2 text-ink">{job.type}</td>
-                    <td className="px-3 py-2 text-mute">{job.status}</td>
-                    <td className="px-3 py-2 text-mute">{progress}</td>
-                  </tr>
-                )
-              })}
+              {(jobsQuery.data?.items ?? []).map((job) => (
+                <tr
+                  key={job.id}
+                  onClick={() => setActiveJob(job)}
+                  className={`cursor-pointer transition hover:bg-white/5 ${selectedJobId === job.id ? 'bg-accent/10' : ''}`}
+                >
+                  <td className="px-3 py-2 text-ink">{job.type}</td>
+                  <td className="px-3 py-2 text-mute">{job.status}</td>
+                  <td className="px-3 py-2 text-mute">{job.total > 0 ? `${job.progress}/${job.total}` : String(job.progress)}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -482,6 +327,8 @@ export function OperationsPage() {
           <div className="rounded-xl border border-white/10 bg-canvas/60 p-4 text-sm">
             <p className="text-mute">Job ID</p>
             <p className="break-all text-ink">{selectedJob.id}</p>
+            <p className="mt-2 text-mute">Status</p>
+            <p className="text-ink">{selectedJob.status}</p>
             <p className="mt-2 text-mute">Message</p>
             <p className="text-ink">{selectedJob.message}</p>
             {selectedJob.error ? (
@@ -490,13 +337,94 @@ export function OperationsPage() {
                 <p className="text-rose-300">{selectedJob.error}</p>
               </>
             ) : null}
-            <p className="mt-2 text-mute">Result</p>
-            <pre className="mt-1 overflow-auto rounded bg-black/30 p-2 text-xs text-slate-100">
-              {JSON.stringify(selectedJob.result, null, 2)}
-            </pre>
+            {selectedJob.result ? (
+              <>
+                <p className="mt-2 text-mute">Result</p>
+                <pre className="mt-1 overflow-auto rounded bg-black/30 p-2 text-xs text-slate-100">
+                  {JSON.stringify(selectedJob.result, null, 2)}
+                </pre>
+              </>
+            ) : null}
           </div>
         ) : null}
       </article>
     </section>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Pipeline step card component
+// ---------------------------------------------------------------------------
+
+function PipelineStep({
+  step,
+  title,
+  description,
+  actionLabel,
+  onAction,
+  isPending,
+  error,
+  disabled,
+  children,
+}: {
+  step: number
+  title: string
+  description: string
+  actionLabel: string
+  onAction: () => void
+  isPending: boolean
+  error: string | null
+  disabled?: boolean
+  children?: React.ReactNode
+}) {
+  return (
+    <article className="rounded-2xl border border-white/10 bg-panel/70 p-4">
+      <div className="flex items-start gap-3">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/15 text-sm font-bold text-accent">
+          {step}
+        </span>
+        <div className="flex-1">
+          <h3 className="text-sm font-semibold text-ink">{title}</h3>
+          <p className="mt-1 text-xs text-mute">{description}</p>
+          {children ? <div className="mt-2">{children}</div> : null}
+          <div className="mt-3 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={onAction}
+              disabled={isPending || disabled}
+              className="rounded-xl border border-accent/50 bg-accent/15 px-4 py-2 text-sm font-semibold text-accent disabled:opacity-60"
+            >
+              {isPending ? 'Running...' : actionLabel}
+            </button>
+          </div>
+          {error ? <p className="mt-2 text-sm text-rose-300">{error}</p> : null}
+        </div>
+      </div>
+    </article>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Dataset checkboxes component
+// ---------------------------------------------------------------------------
+
+function DatasetCheckboxes({
+  datasets,
+  toggle,
+  prefix,
+}: {
+  datasets: string[]
+  toggle: (d: string) => void
+  prefix: string
+}) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {AVAILABLE_DATASETS.map((dataset) => (
+        <label key={`${prefix}-${dataset}`} className="flex items-center gap-2 rounded-lg border border-white/10 px-2 py-1 text-xs">
+          <input type="checkbox" checked={datasets.includes(dataset)} onChange={() => toggle(dataset)} />
+          {dataset}
+        </label>
+      ))}
+    </div>
   )
 }

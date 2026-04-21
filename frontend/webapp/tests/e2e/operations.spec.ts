@@ -8,28 +8,34 @@ test.describe('Operations Page', () => {
     await page.waitForLoadState('networkidle')
   })
 
-  test('US-08: shows pipeline step controls', async ({ page }) => {
-    await expect(page.getByText(/download|descarg/i).first()).toBeVisible({ timeout: 10_000 })
-    await expect(page.getByText(/load|carg/i).first()).toBeVisible()
+  test('US-08: shows all 5 pipeline steps with action buttons', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Download', exact: true })).toBeVisible({ timeout: 10_000 })
+    await expect(page.getByRole('heading', { name: 'Load', exact: true })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Aggregate', exact: true })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Summaries', exact: true })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Embeddings', exact: true })).toBeVisible()
 
     await page.screenshot({ path: `${SCREENSHOTS}/operations-controls.png`, fullPage: true })
   })
 
+  test('US-08b: each pipeline step has an action button', async ({ page }) => {
+    const buttons = page.getByRole('button')
+    await expect(buttons.filter({ hasText: /download|descarg/i }).first()).toBeVisible({ timeout: 10_000 })
+    await expect(buttons.filter({ hasText: /load|carg/i }).first()).toBeVisible()
+    await expect(buttons.filter({ hasText: /aggregat|agregac/i }).first()).toBeVisible()
+    await expect(buttons.filter({ hasText: /summar|resumen/i }).first()).toBeVisible()
+    await expect(buttons.filter({ hasText: /embedding/i }).first()).toBeVisible()
+  })
+
   test.skip('US-09: full pipeline action is available', async ({ page }) => {
-    // SKIP: full-pipeline endpoint exists in backend but UI button not yet implemented
     await expect(page.getByText(/pipeline|completo|full/i).first()).toBeVisible({ timeout: 10_000 })
   })
 
-  test('US-08b: shows generate summaries button', async ({ page }) => {
-    await expect(page.getByRole('button', { name: /summar|resumen/i })).toBeVisible({ timeout: 10_000 })
-  })
-
   test('US-10: job terminal area is visible', async ({ page }) => {
-    // Terminal or log area should exist
-    await expect(page.getByText(/job|terminal|log/i).first()).toBeVisible({ timeout: 10_000 })
+    await expect(page.getByText(/terminal/i).first()).toBeVisible({ timeout: 10_000 })
   })
 
   test('US-11: cleanup actions are available', async ({ page }) => {
-    await expect(page.getByText(/clear|limpiar|cleanup/i).first()).toBeVisible({ timeout: 10_000 })
+    await expect(page.getByText(/clean|limpiar|borr/i).first()).toBeVisible({ timeout: 10_000 })
   })
 })
