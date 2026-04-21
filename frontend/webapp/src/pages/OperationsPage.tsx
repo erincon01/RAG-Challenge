@@ -232,7 +232,7 @@ export function OperationsPage() {
             }}
             className="rounded-lg border border-white/20 bg-white/5 px-3 py-1 text-xs text-ink"
           >
-            Recargar selección
+            Recargar selecciÃ³n
           </button>
         </div>
 
@@ -387,12 +387,12 @@ export function OperationsPage() {
           {embeddingsMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(embeddingsMutation.error)}</p> : null}
 
           <div className="rounded-lg border border-white/10 bg-black/80 p-3">
-            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-mute">Terminal de ejecución</p>
+            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-mute">Terminal de ejecuciÃ³n</p>
             <div className="max-h-56 overflow-auto font-mono text-xs leading-5 text-emerald-300">
               {terminalLines.length > 0 ? (
                 terminalLines.map((line, idx) => <p key={`${idx}-${line}`}>{line}</p>)
               ) : (
-                <p className="text-slate-400">Sin logs todavía. Ejecuta carga/agregación/embeddings para ver instrucciones.</p>
+                <p className="text-slate-400">Sin logs todavÃ­a. Ejecuta carga/agregaciÃ³n/embeddings para ver instrucciones.</p>
               )}
             </div>
           </div>
