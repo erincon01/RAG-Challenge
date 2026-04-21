@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { api } from '../lib/api/client'
+import type { EventDetail } from '../lib/api/types'
 import { useUISettings } from '../state/ui-settings'
 
 type ExplorerTab = 'competitions' | 'matches' | 'teams' | 'players' | 'events' | 'tables'
@@ -212,7 +213,12 @@ export function ExplorerPage() {
         ) : null}
 
         {activeTab === 'events' ? (
-          <EventsTab events={eventsQuery.data ?? []} isLoading={eventsQuery.isLoading} isError={eventsQuery.isError} noMatch={selectedMatchId === null} />
+          <EventsTab
+            events={eventsQuery.data ?? []}
+            isLoading={eventsQuery.isLoading}
+            isError={eventsQuery.isError}
+            noMatch={selectedMatchId === null}
+          />
         ) : null}
 
         {activeTab === 'tables' ? (
@@ -247,5 +253,180 @@ export function ExplorerPage() {
         ) : null}
       </article>
     </section>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Events tab with filters, sorting, and search
+// ---------------------------------------------------------------------------
+
+type SortField = 'id' | 'period' | 'minute' | 'count'
+type SortDir = 'asc' | 'desc'
+
+function EventsTab({
+  events,
+  isLoading,
+  isError,
+  noMatch,
+}: {
+  events: EventDetail[]
+  isLoading: boolean
+  isError: boolean
+  noMatch: boolean
+}) {
+  const [periodFilter, setPeriodFilter] = useState<number | ''>('')
+  const [minuteFrom, setMinuteFrom] = useState<string>('')
+  const [minuteTo, setMinuteTo] = useState<string>('')
+  const [searchText, setSearchText] = useState('')
+  const [sortField, setSortField] = useState<SortField>('id')
+  const [sortDir, setSortDir] = useState<SortDir>('asc')
+
+  const periods = useMemo(() => {
+    const set = new Set(events.map((e) => e.period))
+    return Array.from(set).sort()
+  }, [events])
+
+  const filtered = useMemo(() => {
+    let result = events
+
+    if (periodFilter !== '') {
+      result = result.filter((e) => e.period === periodFilter)
+    }
+    if (minuteFrom !== '') {
+      const from = Number(minuteFrom)
+      result = result.filter((e) => e.minute >= from)
+    }
+    if (minuteTo !== '') {
+      const to = Number(minuteTo)
+      result = result.filter((e) => e.minute <= to)
+    }
+    if (searchText.trim()) {
+      const q = searchText.toLowerCase()
+      result = result.filter((e) => e.summary?.toLowerCase().includes(q))
+    }
+
+    result = [...result].sort((a, b) => {
+      const av = a[sortField] ?? 0
+      const bv = b[sortField] ?? 0
+      return sortDir === 'asc' ? (av < bv ? -1 : av > bv ? 1 : 0) : av > bv ? -1 : av < bv ? 1 : 0
+    })
+
+    return result
+  }, [events, periodFilter, minuteFrom, minuteTo, searchText, sortField, sortDir])
+
+  const toggleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))
+    } else {
+      setSortField(field)
+      setSortDir('asc')
+    }
+  }
+
+  const sortIcon = (field: SortField) => {
+    if (sortField !== field) return ''
+    return sortDir === 'asc' ? ' \u25B2' : ' \u25BC'
+  }
+
+  if (noMatch) return <p className="text-mute">Selecciona un partido para ver eventos.</p>
+  if (isLoading) return <p className="text-mute">Cargando eventos...</p>
+  if (isError) return <p className="text-rose-300">Error cargando eventos.</p>
+
+  return (
+    <div className="space-y-3">
+      {/* Filters */}
+      <div className="flex flex-wrap items-end gap-3">
+        <label className="text-sm text-mute">
+          Period
+          <select
+            className="ml-2 rounded-lg border border-white/10 bg-canvas/80 px-2 py-1 text-sm text-ink"
+            value={periodFilter}
+            onChange={(e) => setPeriodFilter(e.target.value === '' ? '' : Number(e.target.value))}
+          >
+            <option value="">All</option>
+            {periods.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="text-sm text-mute">
+          Minute from
+          <input
+            type="number"
+            min={0}
+            className="ml-2 w-16 rounded-lg border border-white/10 bg-canvas/80 px-2 py-1 text-sm text-ink"
+            value={minuteFrom}
+            onChange={(e) => setMinuteFrom(e.target.value)}
+          />
+        </label>
+
+        <label className="text-sm text-mute">
+          to
+          <input
+            type="number"
+            min={0}
+            className="ml-2 w-16 rounded-lg border border-white/10 bg-canvas/80 px-2 py-1 text-sm text-ink"
+            value={minuteTo}
+            onChange={(e) => setMinuteTo(e.target.value)}
+          />
+        </label>
+
+        <label className="text-sm text-mute">
+          Search
+          <input
+            type="text"
+            placeholder="Search in summaries..."
+            className="ml-2 w-48 rounded-lg border border-white/10 bg-canvas/80 px-2 py-1 text-sm text-ink"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </label>
+
+        <span className="text-xs text-mute">
+          {filtered.length} / {events.length} rows
+        </span>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-white/10 text-sm">
+          <thead>
+            <tr className="text-left text-mute">
+              <th className="cursor-pointer px-2 py-2 hover:text-ink" onClick={() => toggleSort('id')}>
+                ID{sortIcon('id')}
+              </th>
+              <th className="cursor-pointer px-2 py-2 hover:text-ink" onClick={() => toggleSort('period')}>
+                Period{sortIcon('period')}
+              </th>
+              <th className="cursor-pointer px-2 py-2 hover:text-ink" onClick={() => toggleSort('minute')}>
+                Minute{sortIcon('minute')}
+              </th>
+              <th className="px-2 py-2">Time</th>
+              <th className="cursor-pointer px-2 py-2 hover:text-ink" onClick={() => toggleSort('count')}>
+                Count{sortIcon('count')}
+              </th>
+              <th className="px-2 py-2">Summary</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5">
+            {filtered.map((event) => (
+              <tr key={event.id} className="hover:bg-white/5">
+                <td className="px-2 py-2 text-mute">{event.id}</td>
+                <td className="px-2 py-2 text-ink">{event.period}</td>
+                <td className="px-2 py-2 text-ink">{event.minute}</td>
+                <td className="whitespace-nowrap px-2 py-2 text-mute">{event.time_description}</td>
+                <td className="px-2 py-2 text-center text-ink">{event.count}</td>
+                <td className="max-w-xl px-2 py-2 text-ink">
+                  <p className="line-clamp-3">{event.summary ?? '-'}</p>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }
