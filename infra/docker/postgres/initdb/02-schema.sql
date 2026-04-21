@@ -98,10 +98,8 @@ CREATE TABLE IF NOT EXISTS events_details__quarter_minute (
     summary TEXT,
     summary_script TEXT,
 
-    -- Embedding columns (populated by application via OpenAI API, not DB-generated)
-    summary_embedding_ada_002       VECTOR(1536),  -- text-embedding-ada-002
-    summary_embedding_t3_small      VECTOR(1536),  -- text-embedding-3-small
-    summary_embedding_t3_large      VECTOR(3072),  -- text-embedding-3-large
+    -- Embedding column (only text-embedding-3-small is active; ada-002 and t3-large deprecated)
+    summary_embedding_t3_small      VECTOR(1536),  -- text-embedding-3-small (active)
 
     -- Embedding lifecycle tracking
     embedding_status                VARCHAR(20) DEFAULT 'pending',  -- pending | done | error
@@ -111,12 +109,7 @@ CREATE TABLE IF NOT EXISTS events_details__quarter_minute (
 
 CREATE INDEX IF NOT EXISTS idx_edqm_match_id ON events_details__quarter_minute(match_id);
 
--- HNSW indexes for vector similarity search
-CREATE INDEX IF NOT EXISTS idx_edqm_ada002_cosine
-    ON events_details__quarter_minute USING hnsw (summary_embedding_ada_002 vector_cosine_ops);
-CREATE INDEX IF NOT EXISTS idx_edqm_ada002_ip
-    ON events_details__quarter_minute USING hnsw (summary_embedding_ada_002 vector_ip_ops);
-
+-- HNSW indexes for vector similarity search (text-embedding-3-small only)
 CREATE INDEX IF NOT EXISTS idx_edqm_t3small_cosine
     ON events_details__quarter_minute USING hnsw (summary_embedding_t3_small vector_cosine_ops);
 CREATE INDEX IF NOT EXISTS idx_edqm_t3small_ip

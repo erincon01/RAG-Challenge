@@ -308,10 +308,7 @@ class PostgresMatchRepository(MatchRepository):
                         SELECT table_name, column_name
                         FROM information_schema.columns
                         WHERE table_schema = 'public'
-                          AND (
-                            udt_name = 'vector'
-                            OR column_name LIKE '%embedding%'
-                          )
+                          AND udt_name = 'vector'
                         ORDER BY table_name, column_name
                         """
                     )
@@ -459,10 +456,7 @@ class PostgresEventRepository(EventRepository):
                         SELECT table_name, column_name
                         FROM information_schema.columns
                         WHERE table_schema = 'public'
-                          AND (
-                            udt_name = 'vector'
-                            OR column_name LIKE '%embedding%'
-                          )
+                          AND udt_name = 'vector'
                         ORDER BY table_name, column_name
                         """
                     )

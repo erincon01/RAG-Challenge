@@ -309,7 +309,7 @@ class SQLServerMatchRepository(MatchRepository):
                     FROM sys.columns c
                     JOIN sys.tables t ON c.object_id = t.object_id
                     LEFT JOIN sys.types ty ON c.user_type_id = ty.user_type_id
-                    WHERE ty.name = 'vector' OR c.name LIKE '%embedding%'
+                    WHERE ty.name = 'vector'
                     ORDER BY t.name, c.name
                     """
                 )
@@ -464,7 +464,7 @@ class SQLServerEventRepository(EventRepository):
                     FROM sys.columns c
                     JOIN sys.tables t ON c.object_id = t.object_id
                     LEFT JOIN sys.types ty ON c.user_type_id = ty.user_type_id
-                    WHERE ty.name = 'vector' OR c.name LIKE '%embedding%'
+                    WHERE ty.name = 'vector'
                     ORDER BY t.name, c.name
                     """
                 )
