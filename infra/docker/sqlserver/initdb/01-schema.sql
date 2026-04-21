@@ -54,7 +54,7 @@ BEGIN
         referee_country VARCHAR(255),
 
         json_ TEXT NULL,
-        embeddings VECTOR(1536) NULL
+        -- embeddings column removed — only events_details__15secs_agg has active vector columns
     );
 
     CREATE NONCLUSTERED INDEX nci_competition_name_season_name
@@ -78,7 +78,7 @@ BEGIN
         away_team_id INTEGER NOT NULL,
         away_team_name VARCHAR(255) NOT NULL,
         json_ TEXT NULL,
-        embeddings VECTOR(1536) NULL
+        -- embeddings column removed — only events_details__15secs_agg has active vector columns
     );
 
     CREATE INDEX nci_lineups_match_id ON lineups(match_id);
@@ -123,7 +123,7 @@ BEGIN
         id INT IDENTITY PRIMARY KEY,
         match_id INTEGER,
         json_ NVARCHAR(MAX) NULL,
-        embeddings VECTOR(1536) NULL
+        -- embeddings column removed — only events_details__15secs_agg has active vector columns
     );
 
     CREATE INDEX nci_events_match_id ON events(match_id);
@@ -152,7 +152,7 @@ BEGIN
         play_pattern_id INT NULL,
         play_pattern VARCHAR(255) NULL,
         json_ NVARCHAR(MAX) NULL,
-        embeddings VECTOR(1536) NULL
+        -- embeddings column removed — only events_details__15secs_agg has active vector columns
     );
 
     CREATE INDEX nci_events_details_match_id ON events_details(match_id);
@@ -173,8 +173,7 @@ BEGIN
         count INT,
         json_ NVARCHAR(MAX),
         summary NVARCHAR(MAX),
-        embedding_3_small VECTOR(1536),
-        embedding_ada_002 VECTOR(1536),
+        embedding_3_small VECTOR(1536),  -- text-embedding-3-small (active)
         -- Embedding lifecycle tracking
         embedding_status VARCHAR(20) DEFAULT 'pending',  -- pending | done | error
         embedding_updated_at DATETIME2,
