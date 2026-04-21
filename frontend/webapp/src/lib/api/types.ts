@@ -201,6 +201,15 @@ export interface AggregateRequestPayload {
   match_ids: number[]
 }
 
+export interface MatchPipelineStatus {
+  match_id: number
+  display_name: string
+  events_count: number
+  agg_count: number
+  summary_count: number
+  embedding_count: number
+}
+
 export interface SummariesGenerateRequestPayload {
   source: Source
   match_ids: number[]

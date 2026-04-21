@@ -325,6 +325,19 @@ async def start_full_pipeline_job(
 
 
 @router.get(
+    "/ingestion/pipeline-status",
+    status_code=status.HTTP_200_OK,
+    summary="Get per-match pipeline status",
+)
+async def get_pipeline_status(
+    service: IngestionSvc,
+    source: str = Query(default="postgres"),
+) -> list[dict]:
+    src = normalize_source(source)
+    return service.get_pipeline_status(src)
+
+
+@router.get(
     "/ingestion/jobs",
     response_model=JobListResponse,
     status_code=status.HTTP_200_OK,

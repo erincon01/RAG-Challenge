@@ -17,6 +17,7 @@ import type {
   MatchSummary,
   PlayerSummary,
   ReadinessResponse,
+  MatchPipelineStatus,
   SearchRequestPayload,
   SearchResponse,
   Source,
@@ -116,6 +117,9 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(payload),
     }),
+
+  getPipelineStatus: (source: Source) =>
+    request<MatchPipelineStatus[]>(withQuery('/ingestion/pipeline-status', { source })),
 
   startGenerateSummaries: (payload: SummariesGenerateRequestPayload) =>
     request<JobCreateResponse>('/ingestion/summaries/generate', {

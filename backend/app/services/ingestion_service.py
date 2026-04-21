@@ -392,6 +392,49 @@ class IngestionService:
         except Exception as e:
             JobService.fail(job_id, str(e))
 
+    def get_pipeline_status(self, source: str) -> list[dict[str, Any]]:
+        """Return per-match pipeline state: events, aggregations, summaries, embeddings counts."""
+        src = normalize_source(source)
+        with self._get_connection(src) as conn:
+            cur = conn.cursor()
+            if src == "postgres":
+                cur.execute(
+                    """
+                    SELECT m.match_id,
+                           m.home_team_name || ' (' || m.home_score || ') - ' || m.away_team_name || ' (' || m.away_score || ')' AS display_name,
+                           (SELECT COUNT(*) FROM events_details ed WHERE ed.match_id = m.match_id) AS events_count,
+                           (SELECT COUNT(*) FROM events_details__quarter_minute a WHERE a.match_id = m.match_id) AS agg_count,
+                           (SELECT COUNT(*) FROM events_details__quarter_minute a WHERE a.match_id = m.match_id AND a.summary IS NOT NULL) AS summary_count,
+                           (SELECT COUNT(*) FROM events_details__quarter_minute a WHERE a.match_id = m.match_id AND a.summary_embedding_t3_small IS NOT NULL) AS embedding_count
+                    FROM matches m
+                    ORDER BY m.match_id
+                    """
+                )
+            else:
+                cur.execute(
+                    """
+                    SELECT m.match_id,
+                           m.home_team_name + ' (' + CAST(m.home_score AS VARCHAR) + ') - ' + m.away_team_name + ' (' + CAST(m.away_score AS VARCHAR) + ')' AS display_name,
+                           (SELECT COUNT(*) FROM events_details ed WHERE ed.match_id = m.match_id) AS events_count,
+                           (SELECT COUNT(*) FROM events_details__15secs_agg a WHERE a.match_id = m.match_id) AS agg_count,
+                           (SELECT COUNT(*) FROM events_details__15secs_agg a WHERE a.match_id = m.match_id AND a.summary IS NOT NULL) AS summary_count,
+                           (SELECT COUNT(*) FROM events_details__15secs_agg a WHERE a.match_id = m.match_id AND a.embedding_3_small IS NOT NULL) AS embedding_count
+                    FROM matches m
+                    ORDER BY m.match_id
+                    """
+                )
+            return [
+                {
+                    "match_id": int(row[0]),
+                    "display_name": row[1] or "",
+                    "events_count": int(row[2] or 0),
+                    "agg_count": int(row[3] or 0),
+                    "summary_count": int(row[4] or 0),
+                    "embedding_count": int(row[5] or 0),
+                }
+                for row in cur.fetchall()
+            ]
+
     def get_embeddings_status(self, source: str) -> dict[str, Any]:
         src = normalize_source(source)
         with self._get_connection(src) as conn:
