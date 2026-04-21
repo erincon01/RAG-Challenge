@@ -20,6 +20,7 @@ import type {
   SearchRequestPayload,
   SearchResponse,
   Source,
+  SummariesGenerateRequestPayload,
   SourceStatusResponse,
   StatsBombCompetition,
   StatsBombMatch,
@@ -112,6 +113,12 @@ export const api = {
 
   startAggregate: (payload: AggregateRequestPayload) =>
     request<JobCreateResponse>('/ingestion/aggregate', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  startGenerateSummaries: (payload: SummariesGenerateRequestPayload) =>
+    request<JobCreateResponse>('/ingestion/summaries/generate', {
       method: 'POST',
       body: JSON.stringify(payload),
     }),

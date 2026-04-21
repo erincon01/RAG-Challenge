@@ -20,6 +20,10 @@ test.describe('Operations Page', () => {
     await expect(page.getByText(/pipeline|completo|full/i).first()).toBeVisible({ timeout: 10_000 })
   })
 
+  test('US-08b: shows generate summaries button', async ({ page }) => {
+    await expect(page.getByRole('button', { name: /summar|resumen/i })).toBeVisible({ timeout: 10_000 })
+  })
+
   test('US-10: job terminal area is visible', async ({ page }) => {
     // Terminal or log area should exist
     await expect(page.getByText(/job|terminal|log/i).first()).toBeVisible({ timeout: 10_000 })
