@@ -390,7 +390,7 @@ class TestSqlServerEventRepositoryQueries:
         req = SearchRequest(
             match_id=3943043,
             query="who scored?",
-            embedding_model=EmbeddingModel.ADA_002,
+            embedding_model=EmbeddingModel.T3_SMALL,
             search_algorithm=SearchAlgorithm.COSINE,
             top_n=3,
         )
@@ -448,7 +448,7 @@ class TestSqlServerEventRepositoryQueries:
         req = SearchRequest(
             match_id=1,
             query="test",
-            embedding_model=EmbeddingModel.ADA_002,
+            embedding_model=EmbeddingModel.T3_SMALL,
             search_algorithm=SearchAlgorithm.INNER_PRODUCT,
             top_n=2,
         )
@@ -491,7 +491,7 @@ class TestSqlServerEventRepositoryQueries:
         from app.domain.entities import EmbeddingModel, SearchRequest
 
         req_mock = MagicMock()
-        req_mock.embedding_model = EmbeddingModel.ADA_002
+        req_mock.embedding_model = EmbeddingModel.T3_SMALL
         req_mock.search_algorithm = "bad_algo"
         req_mock.match_id = 1
         req_mock.top_n = 5
@@ -564,7 +564,7 @@ class TestSQLServerEventRepositoryExceptions:
         req = SearchRequest(
             match_id=1,
             query="test",
-            embedding_model=EmbeddingModel.ADA_002,
+            embedding_model=EmbeddingModel.T3_SMALL,
             search_algorithm=SearchAlgorithm.COSINE,
             top_n=5,
         )

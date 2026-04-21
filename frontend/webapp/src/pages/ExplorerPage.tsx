@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { api } from '../lib/api/client'
@@ -212,33 +212,7 @@ export function ExplorerPage() {
         ) : null}
 
         {activeTab === 'events' ? (
-          <>
-            {selectedMatchId === null ? <p className="text-mute">Selecciona un partido para ver eventos.</p> : null}
-            {eventsQuery.isLoading ? <p className="text-mute">Cargando eventos...</p> : null}
-            {eventsQuery.isError ? <p className="text-rose-300">Error cargando eventos.</p> : null}
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-white/10 text-sm">
-                <thead>
-                  <tr className="text-left text-mute">
-                    <th className="px-2 py-2">ID</th>
-                    <th className="px-2 py-2">Time</th>
-                    <th className="px-2 py-2">Count</th>
-                    <th className="px-2 py-2">Summary</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {(eventsQuery.data ?? []).map((event) => (
-                    <tr key={event.id}>
-                      <td className="px-2 py-2 text-mute">{event.id}</td>
-                      <td className="px-2 py-2 text-mute">{event.time_description}</td>
-                      <td className="px-2 py-2 text-ink">{event.count}</td>
-                      <td className="px-2 py-2 text-ink">{event.summary ?? '-'}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
+          <EventsTab events={eventsQuery.data ?? []} isLoading={eventsQuery.isLoading} isError={eventsQuery.isError} noMatch={selectedMatchId === null} />
         ) : null}
 
         {activeTab === 'tables' ? (

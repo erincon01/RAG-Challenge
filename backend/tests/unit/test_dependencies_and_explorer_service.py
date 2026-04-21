@@ -186,7 +186,7 @@ class TestDataExplorerServiceGetTablesInfo:
         mock_repo = MagicMock(spec=MatchRepository)
         mock_repo.get_tables_info.return_value = [
             {"table": "matches", "row_count": 42, "embedding_columns": []},
-            {"table": "events_details__quarter_minute", "row_count": 1000, "embedding_columns": ["summary_embedding_ada_002"]},
+            {"table": "events_details__quarter_minute", "row_count": 1000, "embedding_columns": ["summary_embedding_t3_small"]},
         ]
 
         svc = DataExplorerService(match_repo=mock_repo)

@@ -154,7 +154,6 @@ class TestEventDetail:
     def test_optional_embeddings_default_none(self):
         e = self._make_event()
         assert e.summary is None
-        assert e.summary_embedding_ada_002 is None
         assert e.summary_embedding_t3_small is None
 
 
@@ -231,7 +230,7 @@ class TestApiSearchRequestDTO:
             assert r.search_algorithm == algo
 
     def test_all_valid_models(self):
-        for model in ["text-embedding-ada-002", "text-embedding-3-small", "text-embedding-3-large"]:
+        for model in ["text-embedding-3-small"]:
             r = ApiSearchRequest(match_id=1, query="q", embedding_model=model)
             assert r.embedding_model == model
 
