@@ -201,6 +201,12 @@ export interface AggregateRequestPayload {
   match_ids: number[]
 }
 
+export interface SummariesGenerateRequestPayload {
+  source: Source
+  match_ids: number[]
+  language?: string
+}
+
 export interface EmbeddingsRebuildRequestPayload {
   source: Source
   match_ids: number[]

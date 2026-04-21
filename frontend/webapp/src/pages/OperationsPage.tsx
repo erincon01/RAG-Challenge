@@ -7,7 +7,7 @@ import { readCatalogSelection } from '../lib/storage/catalogSelection'
 import { useUISettings } from '../state/ui-settings'
 
 const AVAILABLE_DATASETS = ['matches', 'lineups', 'events'] as const
-const TERMINAL_JOB_TYPES = new Set(['load', 'aggregate', 'embeddings_rebuild'])
+const TERMINAL_JOB_TYPES = new Set(['load', 'aggregate', 'summaries_generate', 'embeddings_rebuild'])
 
 function asErrorMessage(error: unknown): string {
   if (error instanceof ApiError) {
@@ -182,6 +182,19 @@ export function OperationsPage() {
   const aggregateMutation = useMutation({
     mutationFn: () =>
       api.startAggregate({
+        source,
+        match_ids: selection.matchIds,
+      }),
+    onSuccess: (response) => {
+      setSelectedJobId(response.job_id)
+      setTerminalJobId(response.job_id)
+      refreshJobs()
+    },
+  })
+
+  const summariesMutation = useMutation({
+    mutationFn: () =>
+      api.startGenerateSummaries({
         source,
         match_ids: selection.matchIds,
       }),
@@ -375,6 +388,14 @@ export function OperationsPage() {
             </button>
             <button
               type="button"
+              onClick={() => summariesMutation.mutate()}
+              disabled={summariesMutation.isPending}
+              className="rounded-xl border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-ink disabled:opacity-60"
+            >
+              Generar summaries
+            </button>
+            <button
+              type="button"
               onClick={() => embeddingsMutation.mutate()}
               disabled={embeddingsMutation.isPending}
               className="rounded-xl border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-ink disabled:opacity-60"
@@ -384,6 +405,7 @@ export function OperationsPage() {
           </div>
           {loadMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(loadMutation.error)}</p> : null}
           {aggregateMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(aggregateMutation.error)}</p> : null}
+          {summariesMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(summariesMutation.error)}</p> : null}
           {embeddingsMutation.isError ? <p className="text-sm text-rose-300">{asErrorMessage(embeddingsMutation.error)}</p> : null}
 
           <div className="rounded-lg border border-white/10 bg-black/80 p-3">
