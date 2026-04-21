@@ -54,6 +54,11 @@ export function ExplorerPage() {
     enabled: activeTab === 'tables',
   })
 
+  // Reset match selection when source changes
+  useEffect(() => {
+    setSelectedMatchId(null)
+  }, [source])
+
   useEffect(() => {
     if (!matchesQuery.data || matchesQuery.data.length === 0) {
       setSelectedMatchId(null)
